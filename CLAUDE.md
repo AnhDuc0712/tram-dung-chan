@@ -18,7 +18,11 @@ Người dùng là người mới làm game: giải thích ngắn gọn bằng *
 - Sinh ảnh biểu cảm từ sprite gốc: `tools\.venv-art\Scripts\python.exe -I tools\art\make_expressions.py [base...]` → `<base>_<biểu cảm>.png`
   + `build\shots\expressions_sheet.png` (xem lại bằng mắt). Toạ độ mắt/miệng/lông mày/gọng kính đo sẵn trong `FACES`.
   Chạy lại cut_sprites thì phải chạy lại script này. Danh sách pose theo nhân vật: `docs/DIALOGUE_FORMAT.md`.
-- Đóng gói `tools\build.ps1` — CHỈ khi người dùng yêu cầu (cần export templates 1.3GB).
+- Đóng gói `tools\build.ps1 [-Web]` (template chỉ tải phần cần: `tools\install_export_templates.ps1` ~110 MB).
+- Deploy web: `tools\deploy_web.ps1 [-Prod]` (Vercel). Bình thường để CI làm: PR → preview, merge `main` → production.
+- **Git/CI:** không commit thẳng `main` — tạo nhánh `fix/...`, `tap-N/...` rồi `gh pr create`. Quy trình: `docs/CICD.md`.
+  Workflow: `.github/workflows/ci.yml` (Linux, `$env:GODOT`), `release.yml` (tag `vX.Y.Z` = `config/version`).
+- Điện thoại: thử chế độ cảm ứng bằng `-Extra "--touch"`, màn dọc `-Resolution 422x844` (tools\screenshot.ps1).
 
 ## Kiến trúc
 - Autoload: `GameState` (vars heart/brain/nlong, flags, step, save, meta kết thúc, settings) · `Ui` (theme, font, màu) ·

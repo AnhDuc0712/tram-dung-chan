@@ -89,3 +89,29 @@ cả thư mục này mỗi phiên làm việc bạn làm gì bạn cứ note và
 - Trong Bash tool, `\n` trong heredoc Python bị biến thành xuống dòng thật → chuỗi GDScript gãy (Godot vẫn chấp nhận, gdlint thì không). Dùng công cụ Edit cho chuỗi có `\`.
 - GUT coi mọi lỗi engine trong lúc test là trượt (kể cả lỗi in ra từ `JSON.parse_string`) — tốt, nhưng code phải xử lý lỗi êm.
 - Test giao diện đặt `Story.busy = true` để chặn chuyển cảnh (nếu không sẽ phá trình chạy GUT) và `Engine.time_scale = 12` cho nhanh.
+
+## Phiên 6 — 2026-11-05: **chơi trên điện thoại + Vercel + CI/CD**
+**Giao diện điện thoại**
+- Nút "Tua »" trong khung thoại (thay giữ Ctrl), gợi ý trong quán đổi "E ·" → "Chạm ·" và chạm vào gợi ý cũng tương tác,
+  vùng chạm nhân vật/đồ vật to hơn, chữ nhỏ 13–17 → 15–19, màn "Xoay ngang điện thoại" khi cầm dọc,
+  nút "Toàn màn hình" (màn hình chính trên web/điện thoại + Cài đặt); vào toàn màn hình thì Android tự khoá ngang.
+- Trang web: chặn kéo/zoom/bôi đen khi chạm, màu nền, thẻ meta cho điện thoại (`html/head_include` trong export_presets.cfg).
+- Thử thật bản web bằng Chrome giả lập Pixel 8 (puppeteer-core): vào game, chạm, tua, cầm dọc — chạy tốt.
+- Bản web: 68 MB (wasm 39 MB — Vercel nén còn ~9 MB khi gửi; pck 31 MB).
+
+**Đóng gói nhẹ**: `tools/get_templates.py` chỉ tải template cần (web 20 MB / windows ~90 MB) bằng HTTP Range thay vì gói 1.3 GB.
+
+**CI/CD** (chi tiết `docs/CICD.md`)
+- Kho công khai: https://github.com/AnhDuc0712/tram-dung-chan (nhánh `main`).
+- `.github/workflows/ci.yml`: PR/push → Linux chạy `tools/check.ps1` 6 bước → xuất bản web → Vercel (PR: preview + bot gắn link; main: production).
+- `.github/workflows/release.yml`: tag `vX.Y.Z` (trùng `config/version`) → GitHub Release kèm Windows .zip + Web .zip.
+- `tools/deploy_web.ps1` deploy từ máy; `tools/common.ps1` chạy được cả Windows lẫn Linux (`$env:GODOT`).
+- Phiên bản game: `config/version` trong project.godot (hiện 1.1.0), màn hình chính đọc từ đó.
+
+**Lỗi / vướng**
+- `scenes/world/player.gd` bị sửa ngoài phiên làm việc (15:31): thêm tăng tốc + NavigationAgent2D nhưng `move_and_slide()` bị
+  thụt vào nhầm nhánh → **Anh Đức không đi được**. Đã sửa giữ nguyên ý tưởng (tăng tốc khi đi bằng phím, hỗ trợ NavigationAgent2D),
+  bản trước khi sửa lưu ở `build/player.gd.ban_chinh_sua_15h31.bak`. Thêm test `test_player_move.gd` để lỗi này không lọt lại.
+- GitHub không nhận yêu cầu Range kiểu "N byte cuối" (thư viện remotezip hỏng) → tự viết đọc zip từ xa bằng khoảng byte cụ thể.
+- WSL Ubuntu trên máy bị hỏng ổ đĩa ảo, Docker không chạy → thử Linux trực tiếp trên GitHub Actions.
+- Trong Bash tool, `\` trong heredoc Python bị nuốt → dùng `chr(92)` hoặc công cụ Edit.

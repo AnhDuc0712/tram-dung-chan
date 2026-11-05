@@ -20,7 +20,11 @@ Ver 1 = **Tập 1: Cú va chạm ở quán cà phê** (4 phân cảnh theo `kị
 | Chụp màn hình tự động | `... tools\screenshot.ps1 -Scene vn -Talk ep1_s2 -Clicks 5 -Frames 250 -Name s2` |
 | Cắt lại nhân vật từ `thiết kế/char` | `tools\.venv-art\Scripts\python.exe -I tools\art\cut_sprites.py` |
 | Tạo lại ảnh biểu cảm nhân vật | `tools\.venv-art\Scripts\python.exe -I tools\art\make_expressions.py` |
-| Đóng gói (khi bạn muốn) | `... tools\install_export_templates.ps1` rồi `... tools\build.ps1` |
+| Đóng gói Windows/Web | `... tools\install_export_templates.ps1` (~110 MB) rồi `... tools\build.ps1 -Web` |
+| Đưa web lên Vercel từ máy | `... tools\deploy_web.ps1` (xem thử) · `-Prod` (chính thức) |
+
+**CI/CD:** mỗi PR trên GitHub được kiểm tra 6 bước và có link Vercel xem thử; merge vào `main` thì bản chính thức tự cập nhật.
+Quy trình sửa lỗi / ra tập mới / phát hành / quay lui: `docs/CICD.md`. Kho: https://github.com/AnhDuc0712/tram-dung-chan
 
 **Điều khiển:** chuột / chạm để đọc tiếp, chọn, đi tới chỗ muốn đến · WASD / mũi tên để đi · E / Space để tương tác · Ctrl giữ để tua · L nhật ký · Esc menu.
 
