@@ -52,19 +52,19 @@ git tag v1.2.0; git push origin v1.2.0
 - Rồi sửa lỗi qua PR như bình thường.
 
 ## Cài đặt lần đầu (đã làm / làm 1 lần)
-1. Đăng nhập Vercel trên máy: `! npx vercel login`
+1. Đăng nhập Vercel trên máy: `npx vercel@65.11.0 login` (đã làm). Bản chính thức: https://tram-dung-chan-beige.vercel.app
 2. Deploy lần đầu để tạo project: `powershell -ExecutionPolicy Bypass -File tools\deploy_web.ps1 -Prod`
    → file `deploy/.vercel/project.json` chứa `orgId`, `projectId`.
 3. Tạo token: vercel.com → Account Settings → Tokens → Create (đặt tên `github-actions`).
-4. Cài secrets cho GitHub (token tự gõ/dán, không lưu vào file):
-   ```
-   gh secret set VERCEL_TOKEN
-   gh secret set VERCEL_ORG_ID --body <orgId>
-   gh secret set VERCEL_PROJECT_ID --body <projectId>
-   ```
+4. Cài 3 secrets cho GitHub — **tự chạy** trong PowerShell (token nhập ẩn, không lưu file):
+   `powershell -ExecutionPolicy Bypass -File tools\setup_ci_secrets.ps1`
 5. (Nên làm) GitHub → Settings → Branches → bảo vệ `main`: bắt buộc PR + bắt buộc job "Kiểm tra + xuất bản web" đạt.
 
 ## Ghi chú kỹ thuật
+- Đã **ngắt** tự build Git của Vercel (`vercel git disconnect`): Vercel không chạy được Godot nên chỉ GitHub Actions deploy
+  (sau khi kiểm tra 6 bước). Đừng bấm "Connect Git Repository" trên Vercel.
+- Link xem thử (preview) mặc định bị Vercel khoá bằng đăng nhập (Deployment Protection). Muốn gửi link xem thử cho bạn bè:
+  Vercel → Project → Settings → Deployment Protection → tắt "Vercel Authentication". Link chính thức luôn công khai.
 - CI chỉ tải template **web** (~20 MB) bằng HTTP Range (`tools/get_templates.py`), không tải gói 1.3 GB; có cache.
 - Bản web dùng chế độ một luồng (`variant/thread_support=false`) → chạy được trên iPhone/Safari, không cần header đặc biệt.
 - `deploy/vercel.json`: header + `Cache-Control: must-revalidate` để người chơi luôn nhận bản mới sau mỗi lần deploy.
