@@ -1,0 +1,73 @@
+{
+	"title": "Tập 1 – Phân cảnh 1: Cú “Bug” đầu tiên mang tên em",
+	"start": "start",
+	"nodes": {
+		"start": {"card": "Tập 1\nCú va chạm ở quán cà phê", "card_hold": 1.8, "next": "card2"},
+		"card2": {"card": "15:00 — Quán cà phê Gờ 23", "bg": "cafe_day", "music": "cafe_day", "next": "intro1"},
+		"intro1": {"text": "Một buổi chiều nắng ấm. Tiếng guitar mộc vang khe khẽ trong quán cà phê Gờ 23.", "next": "intro2"},
+		"intro2": {"show": {"duc": "worried@left"}, "speaker": "duc", "think": true, "text": "Deadline đồ án còn 3 ngày. Bug còn 27 con. Ổn. Rất ổn.", "next": "intro3"},
+		"intro3": {"show": {"nlong": "sleep@center"}, "sfx": "purr", "text": "Một khối lông xám bạc béo tròn đang nằm ườn ngay trên bàn phím laptop.", "next": "intro4"},
+		"intro4": {"show": {"duc": "worried"}, "speaker": "duc", "text": "Nlong à… hoàng thượng của anh… đó là file đồ án đấy. Anh xin em, nhích cái bụng mỡ sang bên một tí thôi~", "next": "intro5"},
+		"intro5": {"show": {"nlong": "grumpy@center"}, "sfx": "meow", "speaker": "nlong", "text": "Meo.", "next": "intro6"},
+		"intro6": {"text": "Nlong không nhích. Trên màn hình, một dòng code mới vừa xuất hiện: ffffffffffffffffff.", "next": "m1"},
+		"m1": {"hide": ["nlong"], "show": {"m": "walk@right"}, "speaker": "m", "text": "Đức ơi, trông quán giúp chị nửa tiếng nhé! Chị chạy đi lấy hàng.", "next": "m2"},
+		"m2": {"show": {"duc": "smirk"}, "speaker": "duc", "text": "Chị yên tâm. Quán có em với Nlong, khách nào dám quỵt tiền.", "next": "m3"},
+		"m3": {"show": {"m": "tease"}, "speaker": "m", "text": "Ừ. Có điều khách nữ vào thì đừng có trưng cái mặt lạnh tanh đó ra nhé. Đi đây!", "next": "m4"},
+		"m4": {"hide": ["m"], "text": "Chị M đi khỏi chưa được một phút thì…", "next": "k1"},
+		"k1": {"sfx": "doorbell", "show": {"kyky": "panic@right"}, "speaker": "kyky", "text": "Rẽ phải… rẽ phải ngay đây mà… Sao lại là bức tường?!", "next": "k2"},
+		"k2": {"fx": "shake", "show": {"kyky": "shock"}, "text": "Mắt dán vào điện thoại, cô gái vấp phải tấm thảm. Cuốn sổ bìa cứng trên tay bay vèo lên không trung — thẳng hướng ly cà phê cạnh laptop!", "next": "qte"},
+		"qte": {
+			"show": {"duc": "shock"}, "speaker": "duc", "think": true,
+			"text": "Cuốn sổ đang bay tới! Nhanh lên!",
+			"timer": 4.5, "timeout": "qte_timeout",
+			"choices": [
+				{"text": "Phản xạ cực nhanh: chộp lấy cuốn sổ giữa không trung!", "effects": {"heart": 1, "set_flags": ["caught_notebook"]}, "next": "qte_a"},
+				{"text": "Bê ly cà phê né sang một bên", "effects": {"set_flags": ["saved_coffee"]}, "next": "qte_b"}
+			]
+		},
+		"qte_a": {"fx": "flash", "sfx": "pop", "show": {"duc": "smirk"}, "text": "Bộp! Anh Đức bắt gọn cuốn sổ bằng một tay, gọn như trong phim. Ngầu điểm 10.", "next": "qte_a2"},
+		"qte_a2": {"sfx": "drop", "text": "…Nhưng một chiếc bút hình con thỏ rơi ra, lăn tọt vào gầm bàn nào đó.", "next": "react"},
+		"qte_b": {"sfx": "cup", "show": {"duc": "awkward"}, "text": "Anh Đức nhấc ly cà phê lên, nghiêng người né. Cuốn sổ đáp “bịch” xuống mặt bàn, an toàn tuyệt đối.", "next": "qte_b2"},
+		"qte_b2": {"show": {"kyky": "angry"}, "speaker": "kyky", "text": "Anh… anh cứu cái ly trước cả cuốn sổ của em hả?!", "next": "qte_b3"},
+		"qte_b3": {"show": {"duc": "smirk"}, "speaker": "duc", "text": "Cuốn sổ thì không đổ ra bàn phím được. (Ánh mắt bất lực.)", "next": "react"},
+		"qte_timeout": {"fx": "shake", "sfx": "glitch", "show": {"duc": "shock"}, "text": "Anh Đức còn đang mải ngó dòng code thì — TÕM! Cuốn sổ cắm thẳng vào ly cà phê.", "effects": {"set_flags": ["notebook_wet"]}, "next": "qte_t2"},
+		"qte_t2": {"show": {"kyky": "cry"}, "speaker": "kyky", "text": "Áaaa! Sổ của em! Cà phê của anh!", "next": "qte_t3"},
+		"qte_t3": {"show": {"duc": "awkward"}, "speaker": "duc", "text": "…Bình tĩnh. Giấy ăn đây, thấm nhẹ thôi, đừng chà. Chữ vẫn đọc được.", "effects": {"heart": 1}, "next": "react"},
+		"react": {"show": {"kyky": "panic"}, "speaker": "kyky", "text": "Á! Xin lỗi anh! Máy tính của anh có sao không ạ? Tại Google Maps bảo rẽ phải ngay đây mà em không thấy…", "next": "react2"},
+		"react2": {"show": {"kyky": "confused"}, "text": "Anh Đức liếc xuống màn hình điện thoại cô bé đang cầm. Bản đồ… đang bị cầm ngược.", "next": "tone"},
+		"tone": {
+			"show": {"duc": "think"}, "speaker": "duc", "think": true,
+			"text": "Nói gì bây giờ nhỉ?",
+			"choices": [
+				{"text": "“Google Maps không sai. Chỉ có người cầm ngược bản đồ mới sai thôi, công chúa ạ.”", "effects": {"heart": 1, "set_flags": ["called_princess"]}, "next": "tone_a"},
+				{"text": "“Em có sao không? Vấp thảm có đau chân không?”", "effects": {"heart": 1, "set_flags": ["gentle_first"]}, "next": "tone_b"},
+				{"text": "(Im lặng, chỉ tay vào cái điện thoại đang cầm ngược)", "next": "tone_c"}
+			]
+		},
+		"tone_a": {"show": {"duc": "tease"}, "speaker": "duc", "text": "Google Maps không sai. Chỉ có người cầm ngược bản đồ rồi tự lao đầu vào tường mới sai thôi, công chúa ạ.", "next": "tone_a2"},
+		"tone_a2": {"show": {"kyky": "shock"}, "speaker": "kyky", "text": "Công… công chúa?!", "next": "tone_a3"},
+		"tone_a3": {"show": {"kyky": "pout"}, "speaker": "kyky", "text": "Anh nói chuyện kiểu gì mà… mà… nghe vừa tức vừa không cãi được vậy!", "next": "note"},
+		"tone_b": {"show": {"duc": "worried"}, "speaker": "duc", "text": "Em có sao không? Vấp thảm có đau chân không?", "next": "tone_b2"},
+		"tone_b2": {"show": {"kyky": "shy"}, "speaker": "kyky", "text": "Dạ… không sao ạ. Chỉ hơi… quê thôi.", "next": "tone_b3"},
+		"tone_b3": {"show": {"duc": "tease"}, "speaker": "duc", "text": "Lần sau nhớ cầm điện thoại đúng chiều nhé. Bản đồ của em đang chỉ đường lên Bắc Cực đấy.", "next": "note"},
+		"tone_c": {"text": "Anh Đức không nói gì, chỉ chậm rãi giơ ngón tay chỉ vào điện thoại của cô bé.", "next": "tone_c2"},
+		"tone_c2": {"show": {"kyky": "confused"}, "speaker": "kyky", "text": "Dạ? … … Ơ.", "next": "tone_c3"},
+		"tone_c3": {"fx": "shake", "show": {"kyky": "shock"}, "speaker": "kyky", "text": "NGƯỢC THẬT KÌA!", "next": "note"},
+		"note": {"show": {"duc": "normal"}, "sfx": "scribble", "text": "Lúc đưa trả cuốn sổ, một tờ giấy note nhỏ rơi ra. Trên đó chi chít công thức Tin học đại cương viết sai bét nhè…", "next": "note2"},
+		"note2": {"text": "…và ở góc giấy là hình vẽ một con rùa đang khóc, bên cạnh ghi: “Rùa con không muốn học Tin”.", "next": "note3"},
+		"note3": {
+			"show": {"duc": "laugh"}, "speaker": "duc", "think": true,
+			"text": "Phụt. Ai vẽ con rùa này mà… giống chủ nó thế.",
+			"choices": [
+				{"text": "Nhặt lên, trả lại cho cô bé", "effects": {"heart": 1, "set_flags": ["returned_turtle"]}, "next": "note_a"},
+				{"text": "Lén kẹp tờ note con rùa vào sách của mình", "effects": {"set_flags": ["kept_turtle"]}, "next": "note_b"}
+			]
+		},
+		"note_a": {"show": {"kyky": "panic"}, "speaker": "kyky", "text": "Á, đừng nhìn! Đó là… tác phẩm nghệ thuật tâm trạng của em!", "next": "bye"},
+		"note_b": {"show": {"duc": "blush"}, "speaker": "duc", "think": true, "text": "Coi như phí bồi thường ly cà phê suýt đổ. Hoặc… thôi, cứ giữ đã.", "next": "bye"},
+		"bye": {"show": {"kyky": "normal"}, "speaker": "kyky", "text": "Em xin lỗi lần nữa ạ! Hôm nay em có buổi học kèm Tin học ở đây, em đi tìm bàn đợi gia sư đây ạ…", "next": "bye2"},
+		"bye2": {"show": {"kyky": "happy"}, "speaker": "kyky", "text": "À, em là KyKy! Anh ơi, cho em một ly trà sữa trân châu nhé!", "next": "bye3"},
+		"bye3": {"show": {"duc": "smirk"}, "speaker": "duc", "think": true, "text": "KyKy… Tên nghe như tiếng chuông gió. Mà người thì như một cơn lốc.", "next": "bye4"},
+		"bye4": {"hide": "all", "text": "KyKy chọn chiếc bàn gần sân khấu nhỏ, ôm cuốn sổ, mắt dán vào điện thoại chờ gia sư.", "then": "roam:day"}
+	}
+}

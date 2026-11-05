@@ -1,0 +1,61 @@
+{
+	"title": "Tập 1 – Phân cảnh 2: Vị khách hàng “não cá vàng” & ly nước đặc biệt",
+	"start": "start",
+	"nodes": {
+		"start": {"branch": [{"if": {"flags": ["skip_drink"], "not_flags": ["drink_made"]}, "next": "nodrink"}], "default": "serve"},
+		"serve": {"bg": "cafe_day", "music": "cafe_day", "show": {"duc": "normal@left", "kyky": "sad@right"}, "sfx": "cup", "text": "Anh Đức đặt chiếc ly xuống trước mặt KyKy.", "next": "drink"},
+		"drink": {"branch": [
+			{"if": {"flags": ["drink_weird"]}, "next": "d_weird"},
+			{"if": {"flags": ["drink_coffee"]}, "next": "d_coffee"},
+			{"if": {"flags": ["drink_peach"]}, "next": "d_peach"}
+		], "default": "d_cacao"},
+		"d_cacao": {"show": {"duc": "smirk"}, "speaker": "duc", "text": "Tặng cô bé làm rơi sổ. Uống đồ ngọt vào cho não chạy lại đi, nhìn em sắp khóc ngập quán của tôi rồi.", "effects": {"heart": 1}, "next": "d_cacao2"},
+		"d_cacao2": {"show": {"kyky": "sparkle"}, "speaker": "kyky", "text": "Ca cao nóng! Sao anh biết em thích đồ ngọt?", "next": "d_cacao3"},
+		"d_cacao3": {"show": {"duc": "tease"}, "speaker": "duc", "text": "Nhìn mặt là biết.", "next": "art"},
+		"d_coffee": {"show": {"duc": "smirk"}, "speaker": "duc", "text": "Cà phê đen. Uống cho tỉnh mà học.", "next": "d_coffee2"},
+		"d_coffee2": {"fx": "shake", "show": {"kyky": "cry"}, "speaker": "kyky", "text": "…ĐẮNG! Đắng như số phận môn Tin học của em vậy!", "next": "d_coffee3"},
+		"d_coffee3": {"show": {"duc": "awkward"}, "speaker": "duc", "text": "…Lần sau anh cho thêm sữa.", "next": "art"},
+		"d_peach": {"speaker": "duc", "text": "Trà đào. Mát, nhẹ, giải nhiệt cái đầu đang bốc khói của em.", "next": "d_peach2"},
+		"d_peach2": {"show": {"kyky": "happy"}, "speaker": "kyky", "text": "Thơm quá! Còn có cả miếng đào to đùng nữa!", "next": "art"},
+		"d_weird": {"show": {"kyky": "confused"}, "text": "Màu nước… khó tả. Có gì đó vừa nổi lên rồi lại chìm xuống.", "next": "d_weird2"},
+		"d_weird2": {"show": {"kyky": "confused"}, "speaker": "kyky", "text": "Đây là… món gì vậy anh?", "next": "d_weird3"},
+		"d_weird3": {"show": {"duc": "awkward"}, "speaker": "duc", "text": "Món đặc biệt. Tên là… “Lỗi Logic”.", "next": "d_weird4"},
+		"d_weird4": {"show": {"kyky": "laugh"}, "speaker": "kyky", "text": "Phụt! Nghe như tên bài tập của em! …Mà uống cũng được nha, lạ lạ vui vui.", "effects": {"heart": 1}, "next": "art"},
+		"art": {"branch": [
+			{"if": {"flags": ["art_turtle"]}, "next": "a_turtle"},
+			{"if": {"flags": ["art_heart"]}, "next": "a_heart"},
+			{"if": {"flags": ["art_cat"]}, "next": "a_cat"},
+			{"if": {"flags": ["art_none"]}, "next": "plead"}
+		], "default": "a_smile"},
+		"a_smile": {"show": {"kyky": "surprised"}, "text": "Trên lớp bọt sữa là một khuôn mặt cười méo xệch nhưng rất có tâm.", "next": "a_smile2"},
+		"a_smile2": {"show": {"kyky": "laugh"}, "speaker": "kyky", "text": "Mặt cười! Dễ thương ghê!", "effects": {"heart": 1}, "next": "plead"},
+		"a_turtle": {"show": {"duc": "shy"}, "text": "Trên lớp bọt sữa… là một con rùa. Một con rùa đang cười.", "next": "a_turtle2"},
+		"a_turtle2": {"show": {"kyky": "surprised"}, "speaker": "kyky", "text": "Ơ… con rùa này… giống hệt con rùa em vẽ!", "next": "a_turtle3"},
+		"a_turtle3": {"show": {"kyky": "shy"}, "speaker": "kyky", "text": "Anh… nhìn thấy tờ giấy của em rồi hả?", "next": "a_turtle4"},
+		"a_turtle4": {"show": {"duc": "blush"}, "speaker": "duc", "text": "…Trùng hợp. Rùa nào chả giống rùa.", "effects": {"heart": 2, "set_flags": ["turtle_seen"]}, "next": "plead"},
+		"a_heart": {"show": {"duc": "worried"}, "text": "Trên lớp bọt sữa là một trái tim tròn trịa.", "next": "a_heart2"},
+		"a_heart2": {"show": {"kyky": "shy"}, "speaker": "kyky", "text": "Trái… trái tim ạ?", "next": "a_heart3"},
+		"a_heart3": {"show": {"duc": "blush"}, "speaker": "duc", "text": "Khuôn… khuôn mặc định của máy đấy. Không có ý gì đâu.", "next": "a_heart4"},
+		"a_heart4": {"name": "Chị M (từ quầy)", "text": "Máy nhà chị làm gì có khuôn mặc định nào~", "effects": {"heart": 1}, "next": "plead"},
+		"a_cat": {"text": "Trên lớp bọt sữa là gương mặt một chú mèo tai cụp — rõ ràng là Nlong.", "next": "a_cat2"},
+		"a_cat2": {"show": {"kyky": "sparkle"}, "speaker": "kyky", "text": "Là bé mèo béo kia! Giống quá trời luôn!", "effects": {"heart": 1, "add": {"nlong": 1}}, "next": "plead"},
+		"nodrink": {"bg": "cafe_day", "music": "cafe_day", "show": {"duc": "normal@left", "kyky": "sad@right"}, "speaker": "duc", "text": "Thứ Sáu thi đúng không? Đưa bài đây anh xem.", "next": "nodrink2"},
+		"nodrink2": {"name": "Chị M (từ quầy)", "text": "Ít nhất cũng phải mời con bé ly nước chứ, cái thằng này…", "next": "plead"},
+		"plead": {"show": {"kyky": "sad"}, "speaker": "kyky", "text": "Em sắp rớt môn Tin học tới nơi rồi… Anh biết ai rành máy tính không? Cứu em với, em trả công bằng trà sữa một tháng!", "next": "fee"},
+		"fee": {
+			"show": {"duc": "think"}, "speaker": "duc", "think": true, "text": "Học phí à…",
+			"choices": [
+				{"text": "“Một tháng trà sữa thì hơi rẻ so với học phí của tôi.”", "effects": {"heart": 1}, "next": "p_a"},
+				{"text": "“Không cần trả gì. Coi như anh làm từ thiện.”", "effects": {"heart": 1, "set_flags": ["free_tutor"]}, "next": "p_b"},
+				{"text": "“Học phí là… từ giờ em phải gọi anh là ‘sư phụ’.”", "effects": {"heart": 1, "set_flags": ["shifu"]}, "next": "p_c"}
+			]
+		},
+		"p_a": {"show": {"duc": "tease"}, "speaker": "duc", "text": "Một tháng trà sữa thì hơi rẻ so với học phí của tôi. Nhưng thôi, nể tình em cầm bản đồ ngược cũng tìm được tới đây… đưa bài đây tôi xem.", "next": "p_end"},
+		"p_b": {"show": {"duc": "soft"}, "speaker": "duc", "text": "Không cần trả gì đâu. Coi như anh làm từ thiện cho nền giáo dục nước nhà.", "next": "p_b2"},
+		"p_b2": {"show": {"kyky": "happy"}, "speaker": "kyky", "text": "Anh là người tốt! Người tốt nhất quán này luôn!", "next": "p_b3"},
+		"p_b3": {"name": "Chị M (từ quầy)", "text": "Ơ thế còn chị?", "next": "p_end"},
+		"p_c": {"show": {"duc": "tease"}, "speaker": "duc", "text": "Học phí là… từ giờ em phải gọi anh là “sư phụ”.", "next": "p_c2"},
+		"p_c2": {"show": {"kyky": "laugh"}, "speaker": "kyky", "text": "Dạ, sư phụ! Đệ tử KyKy xin bái kiến sư phụ!", "next": "p_end"},
+		"p_end": {"show": {"kyky": "happy"}, "speaker": "kyky", "text": "Vậy… mình học luôn được không ạ? Em hứa sẽ chăm chỉ! …Chắc vậy.", "then": "vn:ep1_s3"}
+	}
+}

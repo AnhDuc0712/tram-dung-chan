@@ -1,0 +1,39 @@
+{
+	"title": "Tập 1 – Phân cảnh 3: Buổi học kèm “tăng huyết áp” đáng yêu",
+	"start": "start",
+	"nodes": {
+		"start": {"card": "17:30 — Góc quán, nắng chiều", "bg": "cafe_sunset", "music": "study", "next": "s1"},
+		"s1": {"show": {"duc": "normal@left", "kyky": "normal@right"}, "text": "Hoàng hôn nhuộm cam cả góc quán. Hai cái đầu chụm lại bên chiếc laptop.", "next": "s2"},
+		"s2": {"speaker": "duc", "text": "Rồi. Câu 1: vòng lặp While là gì?", "next": "s3"},
+		"s3": {"show": {"kyky": "confused"}, "speaker": "kyky", "text": "Là… cái gì đó… lặp lại… nhiều lần ạ?", "next": "s4"},
+		"s4": {"show": {"duc": "smirk"}, "speaker": "duc", "text": "Đúng một nửa. Thế câu trắc nghiệm này em chọn đáp án nào?", "next": "s5"},
+		"s5": {"show": {"duc": "surprised"}, "text": "KyKy rút từ túi ra… một bông hoa cúc.", "next": "s6"},
+		"s6": {"show": {"kyky": "normal"}, "speaker": "kyky", "text": "A, B, C, D, A, B… C! Đáp án C ạ!", "next": "s7"},
+		"s7": {"show": {"duc": "deadpan"}, "speaker": "duc", "text": "Em vừa… đếm cánh hoa để làm bài Tin học?", "next": "s8"},
+		"s8": {"show": {"kyky": "happy"}, "speaker": "kyky", "text": "Hệ tâm linh đó anh! Chưa trượt bao giờ! …Trừ mấy lần trượt.", "next": "s9"},
+		"s9": {"show": {"kyky": "normal"}, "text": "KyKy gật đầu lia lịa dù rõ ràng không hiểu gì. Cặp kính tròn cứ tụt dần xuống sống mũi.", "next": "s10"},
+		"s10": {"show": {"duc": "normal"}, "speaker": "duc", "text": "Vậy anh hỏi câu dễ nhất nhé: vòng lặp này chạy mấy lần?", "next": "s11"},
+		"s11": {"show": {"kyky": "panic"}, "speaker": "kyky", "text": "Dạ… ừm… (hai tay xoắn xuýt vào nhau, mắt lén nhìn sang chỗ khác)", "next": "teach"},
+		"teach": {
+			"show": {"duc": "think"}, "speaker": "duc", "think": true, "text": "Cô bé đứng hình rồi. Làm sao đây?",
+			"choices": [
+				{"text": "Búng nhẹ vào gọng kính: “Cái đầu nhỏ của em đang nghĩ tới món ăn tối đúng không?”", "effects": {"heart": 2, "set_flags": ["flicked"]}, "next": "t_a"},
+				{"text": "Lấy bút vẽ hai nhân vật chibi chạy vòng vòng để giải thích", "effects": {"heart": 1, "brain": 2, "set_flags": ["drew_chibi"]}, "next": "t_b"},
+				{"text": "Mở cuốn giáo trình nhặt được, giảng lại thật chậm từ đầu", "if": {"flags": ["got_textbook"]}, "effects": {"brain": 3, "set_flags": ["used_textbook"]}, "next": "t_c"}
+			]
+		},
+		"t_a": {"sfx": "pop", "show": {"duc": "tease"}, "speaker": "duc", "text": "Này. Cái đầu nhỏ của em đang nghĩ tới món ăn tối đúng không?", "next": "t_a2"},
+		"t_a2": {"show": {"kyky": "laugh"}, "speaker": "kyky", "text": "Hì hì… lẩu ạ. Chị M bảo có chầu lẩu…", "next": "t_a3"},
+		"t_a3": {"show": {"duc": "deadpan"}, "speaker": "duc", "text": "Chầu lẩu đó là của anh.", "next": "t_a4"},
+		"t_a4": {"show": {"kyky": "hmph"}, "speaker": "kyky", "text": "Keo kiệt!", "next": "debug_intro"},
+		"t_b": {"sfx": "scribble", "text": "Anh Đức kéo cuốn sổ lại, vẽ hai nhân vật chibi chạy vòng quanh một cái cây. Một bạn giơ tấm biển “i = 1”, “i = 2”, “i = 3”…", "next": "t_b2"},
+		"t_b2": {"show": {"duc": "normal"}, "speaker": "duc", "text": "Mỗi lần chạy hết một vòng, i tăng thêm 1. Khi i lớn hơn 5 thì dừng — hết chạy, đi ăn lẩu.", "next": "t_b3"},
+		"t_b3": {"show": {"kyky": "sparkle"}, "speaker": "kyky", "text": "Á, hiểu rồi! Mà anh vẽ dễ thương quá! Hai bạn này là anh với em hả?", "next": "t_b4"},
+		"t_b4": {"show": {"duc": "blush"}, "speaker": "duc", "text": "…Là i với j.", "next": "debug_intro"},
+		"t_c": {"show": {"duc": "normal"}, "speaker": "duc", "text": "Mở trang 42 ra. Anh giảng lại từ đầu, chậm thôi.", "next": "t_c2"},
+		"t_c2": {"sfx": "scribble", "text": "Giọng Anh Đức đều đều, rõ ràng. KyKy ghi chép kín hai trang sổ, thỉnh thoảng còn gạch chân bằng chiếc bút thỏ.", "next": "t_c3"},
+		"t_c3": {"show": {"kyky": "happy"}, "speaker": "kyky", "text": "Lần đầu tiên em thấy Tin học… có logic!", "next": "debug_intro"},
+		"debug_intro": {"show": {"duc": "smirk"}, "speaker": "duc", "text": "Giờ thực hành. Đây là bài tập về nhà của em — anh thấy có vài con… bug. Tìm cùng anh nhé.", "next": "debug_intro2"},
+		"debug_intro2": {"show": {"kyky": "worried"}, "speaker": "kyky", "text": "Bug là con bọ hả anh? Em sợ bọ lắm…", "then": "mini:debug"}
+	}
+}

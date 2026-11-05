@@ -1,0 +1,9 @@
+{
+	"title": "Map – chiếc bút thỏ dưới gầm bàn",
+	"start": "a",
+	"nodes": {
+		"a": {"sfx": "pop", "text": "Dưới gầm bàn có một chiếc bút bi gắn đầu con thỏ. Là chiếc bút rơi ra từ cuốn sổ của KyKy!", "next": "b"},
+		"b": {"show": {"duc": "normal@left", "kyky": "happy@right"}, "speaker": "kyky", "text": "Bút thỏ của em! Em tưởng mất rồi chứ. Cảm ơn anh nhiềuuu!", "next": "c"},
+		"c": {"show": {"duc": "smirk"}, "speaker": "duc", "text": "Giữ cho kỹ. Lần sau nó lăn vào ly cà phê đấy.", "effects": {"heart": 1, "set_flags": ["found_pen"]}}
+	}
+}

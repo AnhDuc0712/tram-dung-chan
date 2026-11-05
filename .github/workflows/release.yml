@@ -1,0 +1,71 @@
+# Phát hành phiên bản: gắn tag dạng v1.2.0 (trùng config/version trong game/project.godot)
+#   git tag v1.2.0 && git push origin v1.2.0
+# -> kiểm tra 6 bước -> đóng gói Windows (.zip) + Web (.zip) -> tạo GitHub Release kèm 2 file.
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+env:
+  GODOT_VERSION: "4.7.2"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Tag phải trùng phiên bản trong project.godot
+        run: |
+          V=$(grep -Po '^config/version="\K[^"]+' game/project.godot)
+          if [ "v$V" != "$GITHUB_REF_NAME" ]; then
+            echo "::error::Tag $GITHUB_REF_NAME khác config/version=$V trong game/project.godot"; exit 1
+          fi
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install "gdtoolkit==4.*"
+
+      - name: Tải Godot + template web & windows
+        run: |
+          mkdir -p ~/godot && cd ~/godot
+          curl -sSL -o godot.zip "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_linux.x86_64.zip"
+          unzip -q godot.zip && rm godot.zip
+          mv "Godot_v${GODOT_VERSION}-stable_linux.x86_64" godot && chmod +x godot
+          T=~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+          python "$GITHUB_WORKSPACE/tools/get_templates.py" "$GODOT_VERSION" "$T" web windows
+          echo "GODOT=$HOME/godot/godot" >> "$GITHUB_ENV"
+
+      - name: Import
+        run: |
+          $GODOT --headless --path game --import || true
+          $GODOT --headless --path game --import
+
+      - name: Kiểm tra 6 bước
+        shell: pwsh
+        run: ./tools/check.ps1
+
+      - name: Đóng gói Windows + Web
+        run: |
+          mkdir -p build/windows build/tram-dung-chan
+          $GODOT --headless --path game --export-release "Windows Desktop" ../build/windows/TramDungChan.exe
+          $GODOT --headless --path game --export-release "Web" ../build/tram-dung-chan/index.html
+          cp deploy/vercel.json build/tram-dung-chan/
+          cd build
+          (cd windows && zip -qr "../TramDungChan-${GITHUB_REF_NAME}-windows.zip" .)
+          (cd tram-dung-chan && zip -qr "../TramDungChan-${GITHUB_REF_NAME}-web.zip" .)
+          ls -la *.zip
+
+      - name: Tạo GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" build/*.zip \
+            --title "Trạm Dừng Chân $GITHUB_REF_NAME" --generate-notes

@@ -1,0 +1,11 @@
+{
+	"title": "Map – cây guitar trên sân khấu",
+	"start": "router",
+	"nodes": {
+		"router": {"branch": [{"if": {"flags": ["played_guitar"]}, "next": "again"}], "default": "play"},
+		"play": {"event": "guitar", "show": {"duc": "normal@left"}, "text": "Cây guitar mộc dựng cạnh micro. Anh Đức ngồi xuống, dạo vài hợp âm quen thuộc. Cả quán bỗng yên lặng lắng nghe.", "next": "play2"},
+		"play2": {"show": {"kyky": "sparkle@right"}, "speaker": "kyky", "text": "Anh biết đàn nữa hả?! Rốt cuộc anh là barista, coder hay idol vậy?", "next": "play3"},
+		"play3": {"show": {"duc": "tease"}, "speaker": "duc", "text": "Là người pha nước cho khách hay cầm ngược bản đồ.", "effects": {"heart": 1, "set_flags": ["played_guitar"]}},
+		"again": {"event": "guitar", "text": "Anh Đức gảy thêm vài nốt. Ở đâu đó, Nlong vẫy đuôi theo nhịp."}
+	}
+}

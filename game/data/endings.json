@@ -1,0 +1,32 @@
+{
+	"hoang_thuong": {
+		"title": "Hoàng Thượng Đã Duyệt",
+		"rank": "Kết thúc bí mật",
+		"text": "Cái ô, nồi lẩu, con rùa trên ly ca cao… và cả cái gật đầu của một chú mèo béo. Ở quán Gờ 23, ai cũng biết: được Nlong chọn thì chạy đằng trời.",
+		"hint": "Chiều Nlong thật nhiều, cùng KyKy đút súp thưởng, và khiến cô bé rung động hết cỡ."
+	},
+	"duoi_mot_chiec_o": {
+		"title": "Dưới Một Chiếc Ô",
+		"rank": "Kết thúc ngọt ngào",
+		"text": "Chiếc ô nghiêng về phía cô ấy, vai áo anh ướt sũng. Có những điều không cần nói thành lời — chỉ cần một chiếc ô và một con đường đi ngược hướng nhà mình.",
+		"hint": "Nhớ mang ô và khiến KyKy rung động thật nhiều."
+	},
+	"uot_sung": {
+		"title": "Ướt Sũng Mà Vui",
+		"rank": "Kết thúc tinh nghịch",
+		"text": "Không có ô, chẳng sao cả. Có những cơn mưa sinh ra để hai người chạy qua cùng nhau, ướt nhẹp và cười như hai đứa trẻ.",
+		"hint": "Quên ô… nhưng vẫn đủ can đảm lao ra mưa cùng nhau."
+	},
+	"gia_su": {
+		"title": "Gia Sư Tận Tâm",
+		"rank": "Kết thúc học giỏi",
+		"text": "KyKy hiểu bài vèo vèo. Thứ Sáu này chắc chắn qua môn. Còn trái tim thì… chắc phải học thêm vài buổi nữa.",
+		"hint": "Dạy thật kỹ (Hiểu bài cao) nhưng chưa đủ rung động."
+	},
+	"nguoi_tot_bung": {
+		"title": "Người Lạ Tốt Bụng",
+		"rank": "Kết thúc nhẹ nhàng",
+		"text": "Một buổi chiều tử tế giữa hai người lạ. May mà chị M có số của cô bé — câu chuyện vẫn còn tiếp.",
+		"hint": "Kết thúc mặc định. Thử quan tâm KyKy nhiều hơn xem!"
+	}
+}

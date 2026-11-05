@@ -1,0 +1,15 @@
+{
+	"title": "Map – máy pha cà phê",
+	"start": "router",
+	"nodes": {
+		"router": {"branch": [{"if": {"flags": ["drink_made"]}, "next": "done"}], "default": "ask"},
+		"ask": {
+			"text": "Quầy pha chế: máy espresso, bột ca cao, sữa, đường, trà, đào, đá… và một chai tương ớt không biết ai để đây.",
+			"choices": [
+				{"text": "Pha một ly nước", "then": "mini:barista"},
+				{"text": "Để sau", "next": "end"}
+			]
+		},
+		"done": {"text": "Ly nước đã pha xong, đặt sẵn trên khay. Mang ra cho KyKy thôi!"}
+	}
+}

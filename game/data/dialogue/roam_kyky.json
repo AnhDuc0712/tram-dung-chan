@@ -1,0 +1,48 @@
+{
+	"title": "Map – nói chuyện với KyKy",
+	"start": "router",
+	"nodes": {
+		"router": {"branch": [
+			{"if": {"flags": ["is_evening"]}, "next": "ev"},
+			{"if": {"flags": ["drink_made"]}, "next": "serve"},
+			{"if": {"flags": ["talked_kyky_day"]}, "next": "again"}
+		], "default": "first"},
+		"first": {"show": {"duc": "normal@left", "kyky": "sad@right"}, "speaker": "duc", "text": "Gia sư bùng kèo à?", "next": "first2"},
+		"first2": {"show": {"kyky": "worried"}, "speaker": "kyky", "text": "Dạ… Thầy bận đột xuất. Mà thứ Sáu này em thi chứng chỉ Tin học rồi, không qua là hồ sơ du học của em toang luôn…", "effects": {"set_flags": ["talked_kyky_day"]}, "next": "ask"},
+		"again": {"show": {"duc": "normal@left", "kyky": "sad@right"}, "text": "KyKy thở dài lần thứ mười bảy. Ly trà sữa hết trân châu từ lâu rồi.", "next": "ask"},
+		"ask": {
+			"speaker": "duc", "think": true, "text": "Làm gì bây giờ?",
+			"choices": [
+				{"text": "“Đợi anh chút, anh pha cho em cái gì ngọt ngọt.”", "next": "wait"},
+				{"text": "“Thôi khỏi pha chế gì hết. Đưa bài đây anh xem luôn.”", "effects": {"set_flags": ["skip_drink"]}, "next": "direct"},
+				{"text": "“Ừm… chúc em may mắn.” (Quay về quầy)", "next": "leave"}
+			]
+		},
+		"wait": {"show": {"duc": "smirk", "kyky": "confused"}, "speaker": "duc", "text": "Đợi anh chút. Mặt em sắp khóc ngập quán của anh rồi đấy.", "effects": {"set_flags": ["promised_drink"]}},
+		"direct": {"show": {"kyky": "surprised"}, "speaker": "kyky", "text": "Ơ… anh biết Tin học thật ạ?", "then": "vn:ep1_s2"},
+		"leave": {"show": {"duc": "awkward", "kyky": "sad"}, "speaker": "kyky", "text": "Dạ… cảm ơn anh."},
+		"serve": {
+			"show": {"duc": "normal@left", "kyky": "sad@right"}, "speaker": "duc", "think": true, "text": "Ly nước đã sẵn sàng. Mang ra cho cô bé chứ?",
+			"choices": [
+				{"text": "Mang ra ngay", "then": "vn:ep1_s2"},
+				{"text": "Để lát nữa", "next": "later"}
+			]
+		},
+		"later": {"speaker": "duc", "think": true, "text": "Đi một vòng đã. Hy vọng nước chưa nguội."},
+		"ev": {"branch": [{"if": {"flags": ["has_umbrella"]}, "next": "ev_ready"}], "default": "ev_noumb"},
+		"ev_ready": {
+			"show": {"kyky": "sad@right"}, "text": "KyKy đứng trước hiên, lục tung chiếc túi đeo chéo màu kem.",
+			"choices": [
+				{"text": "Ra hiên với KyKy (kết thúc buổi tối)", "then": "vn:ep1_s4"},
+				{"text": "Đợi đã, còn việc chưa làm", "next": "end"}
+			]
+		},
+		"ev_noumb": {
+			"show": {"duc": "think@left", "kyky": "sad@right"}, "speaker": "duc", "think": true, "text": "Mưa to thế này… mà mình còn chưa lấy ô.",
+			"choices": [
+				{"text": "Kệ, cứ ra với cô bé đã (kết thúc buổi tối)", "then": "vn:ep1_s4"},
+				{"text": "Đi lấy ô trước", "next": "end"}
+			]
+		}
+	}
+}

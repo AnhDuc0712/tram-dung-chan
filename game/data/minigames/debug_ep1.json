@@ -1,0 +1,40 @@
+{
+	"title": "Tìm bug trong bài tập của KyKy",
+	"rounds": [
+		{
+			"kyky": "Sao máy em cứ in mãi không dừng vậy anh?? Nó bị ma ám hả?!",
+			"lines": [
+				"i = 1",
+				"while i <= 5:",
+				"    print(\"Em sẽ qua môn!\")",
+				"    i = i - 1"
+			],
+			"bug": 3,
+			"fix": "    i = i + 1",
+			"explain": "i bị TRỪ đi mỗi vòng nên không bao giờ lớn hơn 5, thế là lặp vô hạn. Phải cộng thêm 1. Không phải ma đâu."
+		},
+		{
+			"kyky": "Em được 4 điểm thôi mà sao máy lại khen em đi du học?",
+			"lines": [
+				"diem = 4",
+				"if diem = 10:",
+				"    print(\"Đi du học thôi!\")"
+			],
+			"bug": 1,
+			"fix": "if diem == 10:",
+			"explain": "Một dấu “=” là GÁN giá trị, hai dấu “==” mới là SO SÁNH. Máy không khen em, máy đang bối rối."
+		},
+		{
+			"kyky": "Em cộng 1 + 2 + 3 mà máy bảo bằng 3. Máy tính nói dối!",
+			"lines": [
+				"tong = 0",
+				"for x in [1, 2, 3]:",
+				"    tong = x",
+				"print(tong)   # mong là 6"
+			],
+			"bug": 2,
+			"fix": "    tong = tong + x",
+			"explain": "Mỗi vòng em ghi đè tong bằng x, nên chỉ còn số cuối cùng. Phải cộng dồn: tong = tong + x."
+		}
+	]
+}

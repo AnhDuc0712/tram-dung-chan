@@ -1,0 +1,41 @@
+# CLAUDE.md — Trạm Dừng Chân (Godot 4.7.2, GDScript)
+
+Game 2D tình cảm: visual novel + đi lại tự do (quán cà phê Gờ 23) + mini-game. Single-player, chia sẻ cho nhóm nhỏ (<10 người).
+Người dùng là người mới làm game: giải thích ngắn gọn bằng **tiếng Việt**, chữ trong game cũng tiếng Việt.
+Ý tưởng gốc của tác giả: `kịch bản/`, `mô tả/`, ảnh `thiết kế/` — đọc trước khi viết nội dung mới.
+**Nhật ký phiên làm việc:** ghi việc đã làm + lỗi/vướng mắc vào `memory/text1.md` (người dùng yêu cầu).
+
+## Lệnh (PowerShell, từ thư mục gốc)
+- Kiểm tra (BẮT BUỘC sau mỗi thay đổi trong `game/`): `powershell -ExecutionPolicy Bypass -File tools\check.ps1`
+  6 bước: import · gdlint · test dữ liệu + 5 kết thúc · **GUT** (`game/tests/gut/`) · chạy từng màn · tự chơi trọn Tập 1.
+  `-Quick` chỉ chạy 3 bước đầu. Chạy riêng GUT: `tools\godot\Godot_v4.7.2-stable_win64_console.exe --headless --path game -s res://addons/gut/gut_cmdln.gd -gdir=res://tests/gut -gexit`
+  (thêm `-gtest=res://tests/gut/test_x.gd` để chạy 1 file). Test mới: file `test_*.gd` `extends GutTest` trong `game/tests/gut/`, hàm chung ở `helpers.gd`.
+  gdlint: cấu hình `game/gdlintrc`, cài bằng `tools\.venv-lint` (gdtoolkit 4.x). GUT (`game/addons/gut`) và tests bị loại khỏi bản export.
+- Xem bằng mắt: `tools\screenshot.ps1 -Scene <title|vn|cafe|barista|debug|heartbeat|phone|ending> [-Talk id] [-Clicks n] [-Extra "--evening","--debug-walk"] -Frames n -Name x`
+  rồi Read `build\shots\x.png`. `-Clicks` tự bấm tiếp mỗi 25 frame (chọn lựa chọn đầu). Ghi PNG mỗi frame → Frames lớn rất chậm (2400 frame ≈ 10+ phút).
+- Chạy cho người dùng chơi: `tools\run.ps1` (`-Scene cafe -Extra "--evening"`, `-Scene vn -Talk ep1_s3`).
+- Cắt lại sprite từ bảng thiết kế: `tools\.venv-art\Scripts\python.exe -I tools\art\cut_sprites.py [tên...]`.
+- Sinh ảnh biểu cảm từ sprite gốc: `tools\.venv-art\Scripts\python.exe -I tools\art\make_expressions.py [base...]` → `<base>_<biểu cảm>.png`
+  + `build\shots\expressions_sheet.png` (xem lại bằng mắt). Toạ độ mắt/miệng/lông mày/gọng kính đo sẵn trong `FACES`.
+  Chạy lại cut_sprites thì phải chạy lại script này. Danh sách pose theo nhân vật: `docs/DIALOGUE_FORMAT.md`.
+- Đóng gói `tools\build.ps1` — CHỈ khi người dùng yêu cầu (cần export templates 1.3GB).
+
+## Kiến trúc
+- Autoload: `GameState` (vars heart/brain/nlong, flags, step, save, meta kết thúc, settings) · `Ui` (theme, font, màu) ·
+  `Audio` (`music/ambient/sfx` theo tên file) · `Story` (`goto(step)`, chuyển cảnh, thẻ chữ, mini-game xong) ·
+  `Dialogue` (hộp thoại + sân khấu VN: nền, nhân vật, emote, inset, mưa, ô) · `Hud` (thanh ❤💡, menu, nhật ký, cài đặt).
+- Bước truyện `vn:<id> | roam:day|evening | mini:<x> | phone:<id> | ending | title` → `scripts/story_steps.gd` (bảng scene + MINI_NEXT).
+- Logic hội thoại tách UI: `scripts/dialogue/dialogue_data.gd` (load/validate) + `dialogue_runner.gd`. Test dùng thẳng 2 file này.
+- Dữ liệu: `data/dialogue/*.json` (schema `docs/DIALOGUE_FORMAT.md`), `characters.json`, `endings.json`, `roam/cafe.json`, `phone/*.json`, `minigames/*.json`.
+- UI dựng bằng code; các `.tscn` chỉ là node gốc + script.
+
+## Quy tắc
+- Mỗi kết thúc / tuyến mới → thêm test route trong `tests/run_tests.gd`. Cập nhật `docs/STORY.md` khi thêm nội dung.
+- Mỗi asset thêm vào `game/assets/` → ghi 1 dòng vào `docs/CREDITS.md`. Không dùng asset không rõ license.
+- GDScript: không dùng `:=` với giá trị Variant (`dict.get()`, thuộc tính của biến kiểu Node2D chung); không đặt tên tham số/biến là `name`
+  (trùng Node.name); không đặt hàm trùng hàm có sẵn (`mini`, `max`…). Tab để thụt lề.
+- Coroutine: muốn `await` thì hàm phải trả về signal/Tween (vd `Story.show_card()` trả Tween → `await tw.finished`).
+- Asset đã import kiểm tra bằng `ResourceLoader.exists()`; `.json` vào bản export nhờ `include_filter="*.json"`.
+- Viewport 1280×720, stretch `canvas_items`, filter linear (tranh vẽ, không phải pixel art), renderer GL Compatibility.
+- Không dùng emoji / ký tự hiếm (♥ ★ ♪) trong chữ — font web không có; vẽ bằng `scripts/ui/shapes.gd` / `icon.gd`.
+- Không sửa `tools/godot/`, `game/.godot/` (sinh tự động).

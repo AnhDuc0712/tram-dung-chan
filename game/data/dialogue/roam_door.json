@@ -1,0 +1,23 @@
+{
+	"title": "Map – cửa ra vào",
+	"start": "router",
+	"nodes": {
+		"router": {"branch": [{"if": {"flags": ["is_evening"]}, "next": "eve"}], "default": "day"},
+		"day": {"show": {"duc": "think@left"}, "speaker": "duc", "think": true, "text": "Chưa hết ca. Mà… hình như vẫn còn việc chưa làm. Cô bé kia vẫn ngồi thở dài kìa."},
+		"eve": {"branch": [{"if": {"flags": ["has_umbrella"]}, "next": "eve_ok"}], "default": "eve_no"},
+		"eve_ok": {
+			"text": "Ngoài hiên, KyKy vẫn đứng nhìn mưa.",
+			"choices": [
+				{"text": "Ra hiên với KyKy (kết thúc buổi tối)", "then": "vn:ep1_s4"},
+				{"text": "Chưa, còn việc", "next": "end"}
+			]
+		},
+		"eve_no": {
+			"show": {"duc": "think@left"}, "speaker": "duc", "think": true, "text": "Ra ngoài bây giờ thì không có ô…",
+			"choices": [
+				{"text": "Vẫn ra (kết thúc buổi tối)", "then": "vn:ep1_s4"},
+				{"text": "Quay lại tìm ô", "next": "end"}
+			]
+		}
+	}
+}

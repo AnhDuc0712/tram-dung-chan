@@ -1,0 +1,24 @@
+{
+	"title": "Quầy pha chế Gờ 23",
+	"ingredients": {
+		"cacao": {"name": "Bột ca cao", "color": "#6b3e26"},
+		"milk": {"name": "Sữa nóng", "color": "#f5efe6"},
+		"sugar": {"name": "Đường", "color": "#ffffff"},
+		"espresso": {"name": "Cà phê", "color": "#2b1a12"},
+		"ice": {"name": "Đá viên", "color": "#bfe6f5"},
+		"tea": {"name": "Trà", "color": "#c98a3a"},
+		"peach": {"name": "Đào", "color": "#ffb38a"},
+		"chili": {"name": "Tương ớt", "color": "#d6331f"}
+	},
+	"drinks": {
+		"cacao": {"name": "Ca cao nóng", "desc": "Ngọt ngào, ấm áp. Món “cứu nét” trứ danh.", "needs": ["cacao", "milk", "sugar"], "liquid": "#8a5a3c", "foam": true},
+		"coffee": {"name": "Cà phê đen đá", "desc": "Đắng, tỉnh táo, chuẩn dân IT chạy deadline.", "needs": ["espresso", "ice"], "liquid": "#2b1a12", "foam": false},
+		"peach": {"name": "Trà đào", "desc": "Mát lạnh, thơm mùi đào.", "needs": ["tea", "peach", "ice"], "liquid": "#e0a050", "foam": false}
+	},
+	"arts": {
+		"smile": "Mặt cười",
+		"heart": "Trái tim",
+		"turtle": "Con rùa",
+		"cat": "Mèo Nlong"
+	}
+}

@@ -1,0 +1,9 @@
+{
+	"title": "Map – cửa sổ",
+	"start": "router",
+	"nodes": {
+		"router": {"branch": [{"if": {"flags": ["is_evening"]}, "next": "eve"}], "default": "day"},
+		"day": {"text": "Nắng chiều xuyên qua ô cửa kính, nhuộm vàng những chậu trầu bà treo lơ lửng."},
+		"eve": {"text": "Mưa quất rào rào lên ô kính. Đường phố nhòe đi dưới ánh đèn vàng."}
+	}
+}

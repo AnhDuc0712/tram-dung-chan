@@ -1,0 +1,10 @@
+{
+	"title": "Map buổi tối – mở đầu",
+	"start": "a",
+	"nodes": {
+		"a": {"show": {"m": "busy@left"}, "speaker": "m", "text": "Mưa to quá! Đức ơi, hết ca rồi, em về đi kẻo muộn.", "next": "b"},
+		"b": {"hide": ["m"], "ambient": "rain_loop", "text": "KyKy đã ra đứng trước cửa quán, ôm cuốn sổ, nhìn màn mưa trắng xóa.", "next": "c"},
+		"c": {"show": {"duc": "think@left"}, "speaker": "duc", "think": true, "text": "Ô của mình để trong balo, ở phòng nhân viên thì phải.", "next": "d"},
+		"d": {"hide": "all", "effects": {"set_flags": ["evening_intro_done"]}, "text": "Bạn có thể lấy đồ, chào chị M, chơi với Nlong… rồi ra cửa gặp KyKy khi đã sẵn sàng."}
+	}
+}

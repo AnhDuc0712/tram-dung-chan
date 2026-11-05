@@ -1,0 +1,141 @@
+{
+	"duc": {
+		"name": "Anh Đức",
+		"color": "#3d5a80",
+		"face": [0.5, 0.2],
+		"poses": {
+			"normal": {"img": "duc_front"},
+			"smirk": {"img": "duc_walk", "faces": "right"},
+			"tease": {"img": "duc_walk_smug", "faces": "right", "emote": "sparkle"},
+			"blush": {"img": "duc_walk_flustered", "faces": "right"},
+			"awkward": {"img": "duc_walk_worried", "faces": "right", "emote": "sweat"},
+			"think": {"img": "duc_walk_think", "faces": "right", "emote": "dots"},
+			"glare": {"img": "duc_walk_glare", "faces": "right"},
+			"curious": {"img": "duc_walk_surprised", "faces": "right", "emote": "?"},
+			"soft": {"img": "duc_front_love"},
+			"wave": {"img": "duc_front", "anim": "hop"},
+			"happy": {"img": "duc_front_happy", "anim": "hop"},
+			"laugh": {"img": "duc_front_laugh", "anim": "hop"},
+			"shock": {"img": "duc_front_shock", "emote": "!", "anim": "shake"},
+			"surprised": {"img": "duc_front_surprised"},
+			"panic": {"img": "duc_front_panic", "anim": "shake"},
+			"worried": {"img": "duc_front_worried"},
+			"shy": {"img": "duc_front_shy"},
+			"sad": {"img": "duc_front_sad"},
+			"angry": {"img": "duc_front_angry", "emote": "anger"},
+			"deadpan": {"img": "duc_front_think"}
+		}
+	},
+	"kyky": {
+		"name": "KyKy",
+		"color": "#d0477a",
+		"face": [0.47, 0.2],
+		"poses": {
+			"normal": {"img": "kyky_wave", "faces": "left"},
+			"sparkle": {"img": "kyky_wave", "faces": "left", "emote": "sparkle", "anim": "hop"},
+			"shock": {"img": "kyky_wave_shock", "faces": "left", "emote": "!", "anim": "shake"},
+			"panic": {"img": "kyky_wave_panic", "faces": "left", "anim": "shake"},
+			"surprised": {"img": "kyky_wave_surprised", "faces": "left"},
+			"confused": {"img": "kyky_wave_think", "faces": "left", "emote": "?"},
+			"worried": {"img": "kyky_wave_worried", "faces": "left"},
+			"sad": {"img": "kyky_wave_sad", "faces": "left"},
+			"angry": {"img": "kyky_wave_angry", "faces": "left", "emote": "anger"},
+			"pout": {"img": "kyky_wave_pout", "faces": "left"},
+			"smug": {"img": "kyky_wave_smug", "faces": "left", "emote": "sparkle"},
+			"happy": {"img": "kyky_hug", "emote": "flowers", "anim": "hop"},
+			"laugh": {"img": "kyky_hug_laugh", "anim": "hop"},
+			"hmph": {"img": "kyky_hug_hmph", "emote": "anger"},
+			"shy": {"img": "kyky_hug_shy"},
+			"cry": {"img": "kyky_hug_cry", "anim": "shake"},
+			"love": {"img": "kyky_hug_love", "emote": "heart"}
+		}
+	},
+	"m": {
+		"name": "Chị M",
+		"color": "#7a5230",
+		"face": [0.5, 0.17],
+		"poses": {
+			"normal": {"img": "m_front"},
+			"tease": {"img": "m_front_smug", "emote": "sparkle"},
+			"love": {"img": "m_front_love", "emote": "heart"},
+			"laugh": {"img": "m_front_laugh", "anim": "hop"},
+			"shock": {"img": "m_front_shock", "emote": "!", "anim": "shake"},
+			"worried": {"img": "m_front_worried"},
+			"glare": {"img": "m_front_glare"},
+			"walk": {"img": "m_walk", "faces": "left"},
+			"busy": {"img": "m_walk_worried", "faces": "left", "emote": "sweat"},
+			"surprised": {"img": "m_walk_surprised", "faces": "left"},
+			"smirk": {"img": "m_walk_smug", "faces": "left"}
+		}
+	},
+	"nlong": {
+		"name": "Nlong",
+		"color": "#6d6d80",
+		"face": [0.5, 0.28],
+		"scale": 0.7,
+		"baseline": -150,
+		"poses": {
+			"normal": {"img": "cat_big"},
+			"grumpy": {"img": "cat_big_glare", "emote": "anger"},
+			"love": {"img": "cat_big_purr", "emote": "heart"},
+			"doze": {"img": "cat_big_sleep", "emote": "zzz"},
+			"sleep": {"img": "cat_loaf", "emote": "zzz", "scale": 2.2},
+			"walk": {"img": "cat_walk", "faces": "left", "scale": 1.6},
+			"shock": {"img": "cat_big", "emote": "!", "anim": "shake"}
+		}
+	},
+	"tram": {
+		"name": "Trâm",
+		"color": "#9b59b6",
+		"face": [0.5, 0.17],
+		"poses": {
+			"normal": {"img": "tram_front"},
+			"walk": {"img": "tram_walk"},
+			"suspicious": {"img": "tram_front_think", "emote": "dots"},
+			"smug": {"img": "tram_front_smug"},
+			"glare": {"img": "tram_front_glare", "emote": "anger"},
+			"shock": {"img": "tram_front_shock", "emote": "!", "anim": "shake"},
+			"happy": {"img": "tram_front_happy", "anim": "hop"},
+			"pout": {"img": "tram_front_pout"}
+		}
+	},
+	"thao": {
+		"name": "Thanh Thảo",
+		"color": "#2c4a7a",
+		"face": [0.5, 0.17],
+		"poses": {
+			"normal": {"img": "thao_front"},
+			"walk": {"img": "thao_walk"},
+			"happy": {"img": "thao_front_happy", "anim": "hop"},
+			"shock": {"img": "thao_front_shock", "emote": "!", "anim": "shake"},
+			"worried": {"img": "thao_front_worried", "emote": "sweat"},
+			"smug": {"img": "thao_front_smug"}
+		}
+	},
+	"ducanh": {
+		"name": "Đức Anh",
+		"color": "#b8860b",
+		"face": [0.5, 0.17],
+		"poses": {
+			"normal": {"img": "ducanh_front"},
+			"tired": {"img": "ducanh_front_tired", "emote": "sweat"},
+			"walk": {"img": "ducanh_walk"},
+			"happy": {"img": "ducanh_front_happy", "anim": "hop"},
+			"laugh": {"img": "ducanh_front_laugh", "anim": "hop"},
+			"shock": {"img": "ducanh_front_shock", "emote": "!", "anim": "shake"},
+			"worried": {"img": "ducanh_front_worried"}
+		}
+	},
+	"hai": {
+		"name": "Hải",
+		"color": "#6b8e23",
+		"face": [0.5, 0.17],
+		"poses": {
+			"normal": {"img": "hai_front"},
+			"shy": {"img": "hai_front_shy"},
+			"happy": {"img": "hai_front_happy", "anim": "hop"},
+			"shock": {"img": "hai_front_shock", "emote": "!", "anim": "shake"},
+			"worried": {"img": "hai_front_worried"}
+		}
+	}
+}

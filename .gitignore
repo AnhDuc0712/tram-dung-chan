@@ -1,0 +1,16 @@
+# Godot
+game/.godot/
+*.import.tmp
+# công cụ tải về (cài lại bằng tools\setup.ps1)
+tools/godot/
+tools/.venv-art/
+tools/.venv-lint/
+# kết quả build / ảnh chụp
+build/
+# ảnh gốc chưa xử lý (có thể là ảnh cá nhân)
+raw/
+.claude/settings.local.json
+# liên kết project Vercel (tools/deploy_web.ps1 tạo ra)
+deploy/.vercel/
+.vercel/
+node_modules/

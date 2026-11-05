@@ -1,0 +1,28 @@
+{
+	"title": "Map – mèo Nlong",
+	"start": "router",
+	"nodes": {
+		"router": {"branch": [
+			{"if": {"flags": ["is_evening", "has_treat"], "not_flags": ["fed_treat"]}, "next": "feed"},
+			{"if": {"flags": ["is_evening"], "not_flags": ["has_treat", "fed_treat"]}, "next": "beg"},
+			{"if": {"min": {"nlong": 3}}, "next": "full"},
+			{"if": {"min": {"nlong": 2}}, "next": "pet3"},
+			{"if": {"min": {"nlong": 1}}, "next": "pet2"}
+		], "default": "pet1"},
+		"pet1": {"event": "nlong_pet", "sfx": "mew_purr", "show": {"duc": "soft@left", "nlong": "love@right"}, "speaker": "duc", "text": "Hoàng thượng béo của anh ngoan quá đi~ Ai là bé mèo giỏi nhất quán nào~", "effects": {"add": {"nlong": 1}}, "next": "seen"},
+		"seen": {"branch": [{"if": {"not_flags": ["kyky_saw_catvoice", "is_evening"]}, "next": "seen2"}], "default": "end"},
+		"seen2": {"hide": ["nlong"], "show": {"kyky": "surprised@right"}, "speaker": "kyky", "text": "…?!", "next": "seen3"},
+		"seen3": {"text": "Ở góc quán, KyKy tròn mắt nhìn chàng barista mặt lạnh vừa đổi sang giọng… dỗ em bé.", "effects": {"heart": 1, "set_flags": ["kyky_saw_catvoice"]}, "next": "seen4"},
+		"seen4": {"show": {"duc": "panic"}, "speaker": "duc", "think": true, "text": "…Cô bé nghe thấy hết rồi."},
+		"pet2": {"event": "nlong_pet", "sfx": "purr", "show": {"nlong": "love@center"}, "text": "Rừ rừ rừ… Nlong lật ngửa cái bụng mỡ ra. Đặc ân chỉ dành cho người hầu thân cận nhất.", "effects": {"add": {"nlong": 1}}},
+		"pet3": {"event": "nlong_pet", "sfx": "mew_soft", "show": {"nlong": "doze@center"}, "text": "Nlong dụi đầu vào tay Anh Đức, rồi nằm ườn ra, mắt lim dim. Hoàng thượng đã hài lòng.", "effects": {"add": {"nlong": 1}}},
+		"full": {"event": "nlong_pet", "sfx": "purr", "show": {"nlong": "sleep@center"}, "text": "Nlong ngủ say rồi, bụng phập phồng đều đều. Đừng làm phiền hoàng thượng."},
+		"beg": {"sfx": "meow", "show": {"nlong": "grumpy@center"}, "text": "Nlong nhìn Anh Đức chằm chằm, rồi nhìn sang phòng nhân viên… Hình như hoàng thượng biết trong balo có súp thưởng."},
+		"feed": {"event": "nlong_pet", "show": {"nlong": "love@center", "duc": "soft@left", "kyky": "sparkle@right"}, "text": "Anh Đức lấy gói súp thưởng ra. Chưa kịp xé, Nlong đã phi tới với tốc độ ánh sáng. KyKy cũng chạy lại theo.", "next": "feed2"},
+		"feed2": {"speaker": "kyky", "text": "Woaa! Cho em đút với! Cho em đút với!", "next": "feed3"},
+		"feed3": {"speaker": "duc", "text": "Cầm thế này. Nghiêng nhẹ thôi, không là hoàng thượng ăn luôn cả ngón tay em đấy.", "next": "feed4"},
+		"feed4": {"sfx": "mew_food", "text": "Hai cái đầu chụm lại bên chú mèo béo. Nlong ăn ngon lành, đuôi ve vẩy.", "next": "feed5"},
+		"feed5": {"show": {"kyky": "love"}, "speaker": "kyky", "text": "Anh nói chuyện với Nlong dịu dàng ghê… Sao nói chuyện với em toàn trêu không vậy?", "next": "feed6"},
+		"feed6": {"show": {"duc": "blush"}, "speaker": "duc", "text": "…Vì Nlong không cầm ngược bản đồ.", "effects": {"heart": 1, "add": {"nlong": 1}, "set_flags": ["fed_treat"]}}
+	}
+}

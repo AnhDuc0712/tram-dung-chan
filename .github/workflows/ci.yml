@@ -1,0 +1,123 @@
+# CI/CD "Trạm Dừng Chân"
+#  - Pull request  : kiểm tra 6 bước -> xuất bản web -> Vercel PREVIEW (link được gắn vào PR để thử trên điện thoại)
+#  - Đẩy vào main  : kiểm tra 6 bước -> xuất bản web -> Vercel PRODUCTION (link chính cho người chơi)
+# Cần secrets (Settings > Secrets and variables > Actions): VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID
+# Hướng dẫn đầy đủ: docs/CICD.md
+name: CI/CD
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  GODOT_VERSION: "4.7.2"
+  VERCEL_CLI: "vercel@65.11.0"
+
+jobs:
+  test:
+    name: Kiểm tra + xuất bản web
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Cài gdtoolkit (gdlint)
+        run: pip install "gdtoolkit==4.*"
+
+      - name: Cache Godot + template web
+        id: cache-godot
+        uses: actions/cache@v4
+        with:
+          path: ~/godot
+          key: godot-${{ env.GODOT_VERSION }}-web-v1
+
+      - name: Tải Godot + template web (chỉ ~80 MB)
+        if: steps.cache-godot.outputs.cache-hit != 'true'
+        run: |
+          mkdir -p ~/godot && cd ~/godot
+          curl -sSL -o godot.zip "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_linux.x86_64.zip"
+          unzip -q godot.zip && rm godot.zip
+          mv "Godot_v${GODOT_VERSION}-stable_linux.x86_64" godot && chmod +x godot
+          python "$GITHUB_WORKSPACE/tools/get_templates.py" "$GODOT_VERSION" ~/godot/templates web
+
+      - name: Cài template + biến GODOT
+        run: |
+          T=~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+          mkdir -p "$T" && cp ~/godot/templates/* "$T/"
+          echo "GODOT=$HOME/godot/godot" >> "$GITHUB_ENV"
+
+      - name: Import project (2 lần — lần đầu ảnh chưa kịp import xong)
+        run: |
+          $GODOT --headless --path game --import || true
+          $GODOT --headless --path game --import
+
+      - name: Kiểm tra 6 bước (import · gdlint · test · GUT · từng màn · tự chơi trọn Tập 1)
+        shell: pwsh
+        run: ./tools/check.ps1
+
+      - name: Xuất bản Web
+        run: |
+          mkdir -p build/tram-dung-chan
+          $GODOT --headless --path game --export-release "Web" ../build/tram-dung-chan/index.html
+          test -f build/tram-dung-chan/index.pck
+          cp deploy/vercel.json build/tram-dung-chan/
+          du -sh build/tram-dung-chan
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: web-build
+          path: build/tram-dung-chan
+          retention-days: 14
+
+  deploy:
+    name: Deploy Vercel
+    needs: test
+    runs-on: ubuntu-latest
+    # PR từ fork không có secrets -> bỏ qua
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    environment:
+      name: ${{ github.ref == 'refs/heads/main' && 'production' || 'preview' }}
+      url: ${{ steps.vercel.outputs.url }}
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: web-build
+          path: site
+
+      - name: Đưa lên Vercel
+        id: vercel
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: |
+          if [ -z "$VERCEL_TOKEN" ]; then
+            echo "::warning::Chưa cài secrets VERCEL_TOKEN/VERCEL_ORG_ID/VERCEL_PROJECT_ID -> bỏ qua deploy (xem docs/CICD.md)"
+            exit 0
+          fi
+          PROD=""
+          if [ "$GITHUB_REF" = "refs/heads/main" ]; then PROD="--prod"; fi
+          URL=$(npx --yes "$VERCEL_CLI" deploy site --yes --token "$VERCEL_TOKEN" $PROD)
+          echo "url=$URL" >> "$GITHUB_OUTPUT"
+          echo "### Đã deploy: $URL" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Gắn link xem thử vào PR
+        if: github.event_name == 'pull_request' && steps.vercel.outputs.url != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh pr comment ${{ github.event.pull_request.number }} --repo "$GITHUB_REPOSITORY" \
+            --body "Bản xem thử (đã qua kiểm tra 6 bước): ${{ steps.vercel.outputs.url }} — mở trên điện thoại, xoay ngang để chơi."

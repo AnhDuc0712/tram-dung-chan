@@ -1,0 +1,69 @@
+{
+	"title": "Tập 1 – Phân cảnh 4: Cơn mưa bất chợt & lời hứa ngày mai",
+	"start": "start",
+	"nodes": {
+		"start": {"card": "18:15 — Trước hiên quán Gờ 23", "bg": "street_rain", "music": "rain_night", "ambient": "rain_loop", "fx": "rain_on", "next": "s1"},
+		"s1": {"show": {"kyky": "sad@right"}, "text": "KyKy đứng dưới mái hiên, lục tung chiếc túi đeo chéo màu kem. Không có ô.", "next": "umb"},
+		"umb": {"branch": [{"if": {"flags": ["has_umbrella"]}, "next": "u1"}], "default": "n1"},
+		"u1": {"show": {"duc": "normal@left"}, "text": "Anh Đức từ trong quán bước ra, balo đeo lệch một vai…", "next": "u1b"},
+		"u1b": {"branch": [{"if": {"flags": ["umbrella_pink"], "not_flags": ["umbrella_black"]}, "next": "u_pink"}], "default": "u_black"},
+		"u_black": {"text": "…trên tay là một chiếc ô đen lớn.", "next": "u2"},
+		"u_pink": {"text": "…trên tay là một chiếc ô màu hồng in hình mèo của chị M.", "next": "u_pink2"},
+		"u_pink2": {"show": {"kyky": "laugh"}, "speaker": "kyky", "text": "Phụt! Ô hồng hình mèo?!", "next": "u_pink3"},
+		"u_pink3": {"show": {"duc": "deadpan"}, "speaker": "duc", "text": "Không bình luận.", "next": "u2"},
+		"u2": {"fx": "umbrella_on", "sfx": "whoosh", "show": {"duc": "normal@520", "kyky": "shy@800"}, "text": "Anh Đức bung ô, tự nhiên bước tới, đứng che phía trên đầu cô. Vì chênh lệch chiều cao, KyKy phải ngước lên nhìn.", "next": "u3"},
+		"u3": {"show": {"kyky": "surprised"}, "speaker": "kyky", "text": "Ơ, anh đi cùng đường với em hả?", "next": "u4"},
+		"u4": {"show": {"duc": "think"}, "speaker": "duc", "think": true, "text": "Nhà mình ở hướng ngược lại…",
+			"choices": [
+				{"text": "“Không, nhà tôi ở hướng ngược lại. Nhưng…”", "effects": {"heart": 1}, "next": "u_a"},
+				{"text": "“Ừ. Tiện đường.” (nói dối không chớp mắt)", "effects": {"heart": 1, "set_flags": ["lied_way"]}, "next": "u_b"}
+			]
+		},
+		"u_a": {"show": {"duc": "tease"}, "speaker": "duc", "text": "Không, nhà tôi ở hướng ngược lại. Nhưng để một người xem Google Maps ngược tự đi về dưới mưa, tôi sợ mai báo đăng tin có người đi lạc sang tận thành phố bên cạnh.", "next": "u5"},
+		"u_b": {"show": {"duc": "smirk"}, "speaker": "duc", "text": "Ừ. Tiện đường.", "next": "u_b2"},
+		"u_b2": {"text": "(Nhà Anh Đức ở hướng hoàn toàn ngược lại. Nlong biết. Chị M biết. Cả con rùa trên tờ giấy note cũng biết.)", "next": "u5"},
+		"u5": {"show": {"kyky": "happy"}, "speaker": "kyky", "text": "Anh Đức này… anh nói chuyện đáng ghét thật đấy, nhưng mà anh tốt bụng cực kỳ!", "next": "u6"},
+		"u6": {"show": {"kyky": "shy"}, "speaker": "kyky", "text": "Mai… anh lại dạy kèm cho em nữa nhé?", "next": "u7"},
+		"u7": {
+			"show": {"duc": "shy"}, "speaker": "duc", "think": true, "text": "Trả lời sao đây…",
+			"choices": [
+				{"text": "“Xem thái độ của học trò ngày mai thế nào đã. Đi thôi, kẻo ướt giày.”", "effects": {"heart": 1}, "next": "u_end"},
+				{"text": "“Ừ. Ba giờ chiều. Lần này cầm bản đồ đúng chiều vào.”", "effects": {"heart": 1, "set_flags": ["promised_3pm"]}, "next": "u_end"},
+				{"text": "“Chỉ khi em nhớ mang theo ô.”", "next": "u_tease"}
+			]
+		},
+		"u_tease": {"show": {"kyky": "smug"}, "speaker": "kyky", "text": "Vậy em sẽ không bao giờ mang ô nữa!", "next": "u_tease2"},
+		"u_tease2": {"show": {"duc": "blush"}, "speaker": "duc", "text": "……Đồ ngốc.", "effects": {"heart": 1}, "next": "u_end"},
+		"u_end": {"show": {"duc": "smirk", "kyky": "love"}, "text": "Hai người bước đi dưới một chiếc ô. Chiếc ô nghiêng hẳn về phía KyKy, vai áo bên trái của Anh Đức ướt dần…", "next": "final"},
+		"n1": {"show": {"duc": "worried@left"}, "text": "Anh Đức bước ra… tay không. Chiếc ô vẫn nằm yên trong balo ở phòng nhân viên.", "next": "n1b"},
+		"n1b": {"show": {"kyky": "confused"}, "speaker": "kyky", "text": "Anh cũng không có ô hả?", "next": "n2"},
+		"n2": {"show": {"duc": "think"}, "speaker": "duc", "think": true, "text": "Tính sao đây…",
+			"choices": [
+				{"text": "“Chạy thôi! Đếm đến ba — một, hai…”", "effects": {"set_flags": ["ran_rain"]}, "next": "n_run"},
+				{"text": "Cởi balo ra, giơ lên che đầu cho cô bé", "effects": {"heart": 1, "set_flags": ["ran_rain", "bag_shield"]}, "next": "n_bag"},
+				{"text": "“Để anh gọi xe cho em.”", "effects": {"set_flags": ["called_car"]}, "next": "n_car"}
+			]
+		},
+		"n_run": {"show": {"kyky": "shock"}, "speaker": "kyky", "text": "Ơ, khoan đã—", "next": "n_run2"},
+		"n_run2": {"show": {"kyky": "laugh"}, "fx": "shake", "sfx": "whoosh", "text": "Hai người lao ra màn mưa. Nước bắn tung tóe. KyKy hét lên, rồi bật cười khanh khách.", "next": "n_run3"},
+		"n_run3": {"show": {"kyky": "laugh"}, "speaker": "kyky", "text": "Ướt hết rồi! Anh điên quá đi!", "next": "n_run4"},
+		"n_run4": {"show": {"duc": "tease"}, "speaker": "duc", "text": "Em cũng đang cười đấy thôi.", "effects": {"heart": 1}, "next": "final"},
+		"n_bag": {"text": "Anh Đức giơ cao chiếc balo che trên đầu cô bé, mặc kệ mưa xối xả lên vai mình.", "next": "n_bag2"},
+		"n_bag2": {"show": {"kyky": "worried"}, "speaker": "kyky", "text": "Anh ướt hết rồi kìa…", "next": "n_bag3"},
+		"n_bag3": {"show": {"duc": "smirk"}, "speaker": "duc", "text": "Balo chống nước. Anh thì không. Nhưng không sao.", "next": "final"},
+		"n_car": {"show": {"kyky": "normal"}, "text": "Anh Đức mở app, đặt một chiếc xe. Ba phút sau, xe tới.", "next": "n_car2"},
+		"n_car2": {"show": {"kyky": "normal"}, "speaker": "kyky", "text": "Cảm ơn anh nhiều nha! Mai… em lại tới học được không?", "next": "n_car3"},
+		"n_car3": {"show": {"duc": "normal"}, "speaker": "duc", "text": "Ừ. Nhớ mang ô.", "next": "final"},
+		"final": {"branch": [
+			{"if": {"flags": ["has_umbrella", "fed_treat"], "min": {"heart": 15, "nlong": 4}}, "next": "e_secret"},
+			{"if": {"flags": ["has_umbrella"], "min": {"heart": 10}}, "next": "e_umbrella"},
+			{"if": {"flags": ["ran_rain"], "min": {"heart": 7}}, "next": "e_wet"},
+			{"if": {"min": {"brain": 5}}, "next": "e_tutor"}
+		], "default": "e_kind"},
+		"e_secret": {"sfx": "kitten", "text": "Sau lớp kính cửa sổ, Nlong ngồi chễm chệ nhìn theo hai người, chiếc chuông vàng khẽ leng keng. Hoàng thượng đã duyệt.", "effects": {"ending": "hoang_thuong"}, "then": "phone:ep1"},
+		"e_umbrella": {"music": "ending", "text": "Tiếng mưa rơi lộp độp trên tán ô. Không ai nói gì nữa, nhưng cả hai đều đang mỉm cười.", "effects": {"ending": "duoi_mot_chiec_o"}, "then": "phone:ep1"},
+		"e_wet": {"text": "Cả hai ướt như chuột lột. Nhưng đó là buổi tối vui nhất trong cả tháng của KyKy.", "effects": {"ending": "uot_sung"}, "then": "phone:ep1"},
+		"e_tutor": {"text": "KyKy cúi đầu chào thật lễ phép: “Cảm ơn thầy… à không, anh Đức!” Một mối quan hệ thầy trò nghiêm túc. Rất nghiêm túc. Có lẽ vậy.", "effects": {"ending": "gia_su"}, "then": "phone:ep1"},
+		"e_kind": {"text": "KyKy vẫy tay chào rồi đi khuất sau màn mưa. Anh Đức đứng nhìn theo một lúc lâu, rồi mới nhận ra mình quên chưa xin số điện thoại.", "effects": {"ending": "nguoi_tot_bung"}, "then": "phone:ep1"}
+	}
+}

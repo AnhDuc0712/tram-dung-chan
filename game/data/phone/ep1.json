@@ -1,0 +1,57 @@
+{
+	"title": "Cuối Tập 1 – Tin nhắn buổi tối",
+	"threads": [
+		{
+			"title": "KyKy",
+			"subtitle": "đang hoạt động",
+			"members": {"kyky": "kyky_hug"},
+			"messages": [
+				{"from": "kyky", "text": "Em xin số anh từ chị M rồi hihi. Em là KyKy nè!", "if_ending": ["nguoi_tot_bung", "gia_su"]},
+				{"from": "kyky", "text": "Anh Đức ơiii! Em về tới nhà an toàn rồi nè ^^"},
+				{"from": "kyky", "text": "Áo em vẫn đang nhỏ nước tong tỏng… nhưng mà vui ghê á!", "if": {"flags": ["ran_rain"]}},
+				{"from": "kyky", "text": "Hôm nay cảm ơn anh vì cái ô nha. Vai áo anh ướt hết rồi đúng không? Em thấy hết đó!", "if": {"flags": ["has_umbrella"]}},
+				{"from": "kyky", "text": "À mà… chị M bảo nhà anh ở hướng NGƯỢC LẠI. Anh lừa em!!!", "if": {"flags": ["lied_way"]}},
+				{"from": "kyky", "image": "chibi", "text": "Em chụp lén hình anh vẽ trong sổ nè. Em sẽ giữ nó mãi mãi!!", "if": {"flags": ["drew_chibi"]}},
+				{"from": "kyky", "text": "Trán em vẫn còn hơi ê ê vì bị búng kính đó nha. Đồ đáng ghét!", "if": {"flags": ["flicked"]}},
+				{"from": "kyky", "image": "turtle", "text": "Còn con rùa trên ly ca cao nữa… anh giữ tờ giấy của em đúng không? Khai mau!", "if": {"flags": ["turtle_seen"]}},
+				{"from": "kyky", "image": "nlong", "text": "Cho em gửi lời chúc ngủ ngon tới hoàng thượng Nlong nha!", "if": {"flags": ["fed_treat"]}},
+				{"from": "kyky", "text": "Thứ Sáu em thi rồi… Em hơi sợ."},
+				{"choices": [
+					{"sticker": "cat_sit", "text": "Không sao. Có sư phụ đây.", "reply": [
+						{"from": "kyky", "text": "Hihi, dạ sư phụ! Đệ tử sẽ cố gắng!"}
+					]},
+					{"sticker": "cat_big", "text": "Sợ thì học thêm. Mai 3 giờ.", "reply": [
+						{"from": "kyky", "text": "Hứ, nghiêm khắc ghê… Nhưng mà em sẽ tới đúng giờ!"}
+					]},
+					{"sticker": "cat_loaf", "text": "Ngủ sớm đi. Não cá vàng cần sạc pin.", "reply": [
+						{"from": "kyky", "text": "Não cá vàng cũng biết giận đó nha!! …Nhưng mà dạ, em ngủ đây."}
+					]}
+				]},
+				{"from": "kyky", "text": "Chúc anh ngủ ngon. Mai gặp lại nha!"},
+				{"from": "kyky", "image": "kyky_hug_love", "text": "(Tặng anh sticker KyKy phiên bản giới hạn)"}
+			]
+		},
+		{
+			"title": "Hội Đồ Án IT",
+			"subtitle": "3 thành viên",
+			"members": {"ducanh": "ducanh_front", "thao": "thao_front"},
+			"messages": [
+				{"from": "ducanh", "text": "Ê Đức, đồ án sao rồi? Tao vừa thấy story chị M đăng: “Barista nhà mình hôm nay biết cười”."},
+				{"from": "thao", "text": "Mình cũng thấy. Hôm nay cậu tủm tỉm nhìn điện thoại ba lần trong lúc họp nhóm online rồi đấy."},
+				{"from": "ducanh", "text": "CÓ BIẾN!!! Khai mau!!!"},
+				{"choices": [
+					{"text": "Không có gì.", "reply": [
+						{"from": "ducanh", "text": "Không có gì mà tai đỏ thế kia? (Tao đoán thế)"}
+					]},
+					{"text": "Tập trung đồ án đi.", "reply": [
+						{"from": "thao", "text": "Ừ, tập trung. Cậu vừa commit lên nhóm một file tên là “kyky_hoc_while.py” đấy."}
+					]},
+					{"text": "…Có một học trò mới.", "reply": [
+						{"from": "ducanh", "text": "HỌC TRÒ?!?! Mai tao ra quán!!!"}
+					]}
+				]},
+				{"from": "thao", "text": "Mai họp lúc 9 giờ nhé. Đừng có ngủ quên vì mải nhắn tin."}
+			]
+		}
+	]
+}

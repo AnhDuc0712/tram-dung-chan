@@ -1,0 +1,167 @@
+extends Control
+## Mini-game "Giữ bình tĩnh": KyKy ghé sát, tim Anh Đức đập loạn. Bấm (Space / chạm) khi kim
+## nằm trong vùng xanh. 3 lượt — trúng >= 2 là "bình tĩnh" (calm_ok), không thì "lag" (calm_fail).
+## Cả hai kết quả đều dễ thương, chỉ khác lời thoại.
+
+const Icon := preload("res://scripts/ui/icon.gd")
+const TRIES := 3
+
+var tries := 0
+var hits := 0
+var _pos := 0.0  # 0..1
+var _dir := 1.0
+var _speed := 0.75
+var _zone := Vector2(0.4, 0.6)
+var _locked := false
+var _track: Control
+var _heart: Control
+var _msg: Label
+var _count: Label
+var _beat_t := 0.0
+var _ky: Sprite2D
+
+
+func _ready() -> void:
+	Hud.set_visible_hud(true)
+	Hud.set_objective("Giữ bình tĩnh! Bấm Space / chạm màn hình khi kim nằm trong vùng xanh.")
+	Audio.music("")
+	_build()
+	_new_zone()
+	if GameState.autoplay:
+		for i in TRIES:
+			await get_tree().create_timer(0.5).timeout
+			_pos = (_zone.x + _zone.y) * 0.5
+			_press()
+			await get_tree().create_timer(1.0).timeout
+
+
+func _build() -> void:
+	var bg := TextureRect.new()
+	bg.texture = load("res://assets/art/bg/cafe_sunset.jpg")
+	bg.set_anchors_preset(Control.PRESET_FULL_RECT)
+	bg.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	bg.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+	add_child(bg)
+	var pink := ColorRect.new()
+	pink.color = Color(1.0, 0.6, 0.7, 0.18)
+	pink.set_anchors_preset(Control.PRESET_FULL_RECT)
+	pink.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(pink)
+	var tex := Ui.char_tex("kyky_wave")
+	if tex:
+		var s := Sprite2D.new()
+		_ky = s
+		s.texture = tex
+		s.centered = false
+		s.offset = Vector2(-tex.get_width() * 0.5, -tex.get_height())
+		s.position = Vector2(980, 1180)
+		s.scale = Vector2(2.0, 2.0)
+		add_child(s)
+
+	_heart = Icon.new("heart", 150.0)
+	_heart.position = Vector2(265, 150)
+	add_child(_heart)
+
+	var p := PanelContainer.new()
+	p.position = Vector2(80, 360)
+	p.custom_minimum_size = Vector2(560, 0)
+	add_child(p)
+	var v := VBoxContainer.new()
+	v.add_theme_constant_override("separation", 12)
+	p.add_child(v)
+	v.add_child(Ui.label("Giữ bình tĩnh!", 32, Ui.PINK, Ui.font_title))
+	_msg = Ui.label("Cô bé đang ở rất gần… Hít thở. Mày là đại thần IT.", 20, Ui.TEXT)
+	_msg.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_msg.custom_minimum_size = Vector2(520, 0)
+	v.add_child(_msg)
+	_track = Control.new()
+	_track.custom_minimum_size = Vector2(520, 46)
+	_track.draw.connect(_draw_track)
+	v.add_child(_track)
+	_count = Ui.label("", 20, Ui.TEXT_SOFT, Ui.font_bold)
+	v.add_child(_count)
+	var b := Ui.button("BẤM!", 520, 26)
+	b.pressed.connect(_press)
+	v.add_child(b)
+	_update_count()
+
+
+func _draw_track() -> void:
+	var w := _track.size.x
+	var h := _track.size.y
+	_track.draw_rect(Rect2(0, h * 0.25, w, h * 0.5), Color("f1e4d2"))
+	_track.draw_rect(Rect2(w * _zone.x, h * 0.25, w * (_zone.y - _zone.x), h * 0.5), Color("8fd6a8"))
+	_track.draw_rect(Rect2(0, h * 0.25, w, h * 0.5), Ui.BORDER, false, 2.0)
+	var x := w * _pos
+	_track.draw_rect(Rect2(x - 4, 0, 8, h), Ui.PINK)
+
+
+func _new_zone() -> void:
+	var width := 0.24 - tries * 0.04
+	var start := randf_range(0.1, 0.9 - width)
+	_zone = Vector2(start, start + width)
+	_speed = 0.8 + tries * 0.35
+
+
+func _process(delta: float) -> void:
+	var bpm := 80.0 + (tries - hits) * 30.0 + tries * 12.0
+	_beat_t += delta
+	if _beat_t > 60.0 / bpm:
+		_beat_t = 0.0
+		_heart.call("bump")
+	if _locked:
+		return
+	_pos += _dir * _speed * delta
+	if _pos > 1.0:
+		_pos = 1.0
+		_dir = -1.0
+	elif _pos < 0.0:
+		_pos = 0.0
+		_dir = 1.0
+	_track.queue_redraw()
+
+
+func _unhandled_input(ev: InputEvent) -> void:
+	if ev.is_action_pressed("interact"):
+		get_viewport().set_input_as_handled()
+		_press()
+
+
+func _press() -> void:
+	if _locked or tries >= TRIES:
+		return
+	_locked = true
+	tries += 1
+	if _pos >= _zone.x and _pos <= _zone.y:
+		hits += 1
+		Audio.sfx("heart_slow")
+		_face("kyky_wave")
+		_msg.text = ["Phù… ổn. Vẫn ổn.", "Bình tĩnh… vòng lặp… biến i…", "Giọng vẫn đều. Đại thần IT không lag!"][tries - 1]
+	else:
+		Audio.sfx("heart_fast")
+		_face("kyky_wave_surprised" if tries < TRIES else "kyky_wave_think")
+		_msg.text = ["Thình thịch!! Mùi tóc thơm quá…", "Thình thịch thình thịch!!!", "TIM ƠI BÌNH TĨNH!!!"][tries - 1]
+		var tw0 := create_tween()
+		for i in 6:
+			tw0.tween_property(self, "position", Vector2(randf_range(-8, 8), randf_range(-6, 6)), 0.04)
+		tw0.tween_property(self, "position", Vector2.ZERO, 0.04)
+	_update_count()
+	await get_tree().create_timer(0.9).timeout
+	if tries >= TRIES:
+		_msg.text = "Bình tĩnh được rồi!" if hits >= 2 else "…Hỏng rồi. Mặt nóng ran."
+		await get_tree().create_timer(0.8).timeout
+		Story.minigame_done("heartbeat", {"hits": hits})
+		return
+	_new_zone()
+	_locked = false
+
+
+## KyKy phản ứng: anh Đức lag là cô bé ngơ ngác nhìn sang.
+func _face(img: String) -> void:
+	var t := Ui.char_tex(img)
+	if _ky != null and t != null:
+		_ky.texture = t
+
+
+func _update_count() -> void:
+	_count.text = "Lượt: %d / %d    Bình tĩnh: %d" % [tries, TRIES, hits]

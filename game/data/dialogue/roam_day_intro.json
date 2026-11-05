@@ -1,0 +1,13 @@
+{
+	"title": "Map buổi chiều – mở đầu",
+	"start": "a",
+	"nodes": {
+		"a": {"show": {"kyky": "sad@right"}, "speaker": "kyky", "text": "…Dạ? Thầy hủy buổi học ạ? … Dạ, không sao đâu ạ…", "next": "b"},
+		"b": {"text": "Mười lăm phút sau. KyKy úp điện thoại xuống bàn, chọc chọc ống hút vào ly trà sữa, mặt xịu như cái bánh bao ngâm nước.", "next": "c"},
+		"c": {"hide": ["kyky"], "sfx": "doorbell", "show": {"m": "walk@left"}, "speaker": "m", "text": "Chị về rồi đây! Ơ kìa, khách VIP góc kia sao mặt buồn thiu thế?", "next": "d"},
+		"d": {"show": {"m": "tease"}, "speaker": "m", "text": "Đức này, ca của em hết rồi đấy. Hay ra cứu nét cho khách VIP của quán đi — chị trả lương gấp đôi bằng một chầu lẩu!", "next": "e"},
+		"e": {"show": {"duc": "deadpan@right"}, "speaker": "duc", "text": "Cứu nét kiểu gì ạ? Em là coder chứ có phải bác sĩ tâm lý đâu.", "next": "f"},
+		"f": {"show": {"m": "normal"}, "speaker": "m", "text": "Thì pha cho con bé ly gì đó ngọt ngọt. Nhìn là biết hệ hảo ngọt rồi. Quầy pha chế là của em đấy!", "next": "g"},
+		"g": {"hide": "all", "effects": {"set_flags": ["day_intro_done"]}, "text": "Hướng dẫn: đi bằng WASD / phím mũi tên, hoặc chạm vào nơi muốn đến. Lại gần người hay đồ vật có dấu chấm than rồi bấm E (hoặc chạm vào) để tương tác. Muốn làm gì trước cũng được!"}
+	}
+}

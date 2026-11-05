@@ -1,0 +1,40 @@
+{
+	"title": "Tập 1 – Phân cảnh 3 (tiếp): Mèo đè bàn phím",
+	"start": "start",
+	"nodes": {
+		"start": {"branch": [
+			{"if": {"flags": ["debug_perfect"]}, "next": "perf"},
+			{"if": {"min": {"brain": 2}}, "next": "ok"}
+		], "default": "poor"},
+		"perf": {"bg": "cafe_sunset", "music": "study", "show": {"duc": "soft@left", "kyky": "sparkle@right"}, "speaker": "kyky", "text": "Ba trên ba! Em… em tìm ra hết rồi á?!", "next": "perf2"},
+		"perf2": {"show": {"duc": "happy"}, "speaker": "duc", "text": "Ừ. Học trò của anh cũng không đến nỗi nào.", "next": "cat"},
+		"ok": {"bg": "cafe_sunset", "music": "study", "show": {"duc": "smirk@left", "kyky": "happy@right"}, "speaker": "kyky", "text": "Cũng… tìm được kha khá đó chứ!", "next": "ok2"},
+		"ok2": {"speaker": "duc", "text": "Tạm được. Thứ Sáu này chắc không trượt ngay từ vòng gửi xe.", "next": "cat"},
+		"poor": {"bg": "cafe_sunset", "music": "study", "show": {"duc": "normal@left", "kyky": "cry@right"}, "speaker": "kyky", "text": "Em toàn chọn bừa… Hoa cúc phản bội em rồi…", "next": "poor2"},
+		"poor2": {"show": {"duc": "soft"}, "speaker": "duc", "text": "Không sao. Sai thì sửa — code mà. Mai học tiếp.", "effects": {"heart": 1}, "next": "cat"},
+		"cat": {"sfx": "meow", "show": {"nlong": "walk@center"}, "text": "Đúng lúc đó — phốc! Nlong nhảy lên bàn, đi thẳng qua bàn phím…", "next": "cat2"},
+		"cat2": {"fx": "shake", "show": {"nlong": "normal@center"}, "text": "…rồi nằm ườn ra, đè lên đúng hai bàn tay đang đặt cạnh nhau của Anh Đức và KyKy.", "next": "cat3"},
+		"cat3": {"show": {"duc": "blush", "kyky": "shy"}, "text": "Hai bàn tay chạm vào nhau. Ấm.", "next": "hands"},
+		"hands": {"show": {"duc": "shy"}, "speaker": "duc", "think": true, "text": "………",
+			"choices": [
+				{"text": "Rút tay lại, giả vờ ho khan", "next": "h_a"},
+				{"text": "Để yên thêm một chút…", "effects": {"heart": 1, "set_flags": ["hand_stay"]}, "next": "h_b"},
+				{"text": "“Nlong ngoan, xuống đi nào~” (giọng dỗ ngọt)", "effects": {"heart": 1, "set_flags": ["catvoice_study"]}, "next": "h_c"}
+			]
+		},
+		"h_a": {"show": {"duc": "awkward"}, "speaker": "duc", "text": "Khụ… khụ. Nlong, em nặng quá đấy.", "next": "h_a2"},
+		"h_a2": {"show": {"kyky": "shy"}, "speaker": "kyky", "text": "Dạ… dạ…", "next": "cat_bonus"},
+		"h_b": {"sfx": "purr", "text": "Không ai rút tay ra. Nlong kêu rừ rừ, hài lòng như vừa hoàn thành xuất sắc nhiệm vụ.", "next": "h_b2"},
+		"h_b2": {"show": {"kyky": "love"}, "speaker": "kyky", "text": "…Bé mèo ấm ghê ha.", "next": "h_b3"},
+		"h_b3": {"speaker": "duc", "text": "…Ừ. Mèo ấm.", "next": "cat_bonus"},
+		"h_c": {"show": {"duc": "soft"}, "speaker": "duc", "text": "Nlong ngoan, xuống đi nào~ Chị ngốc này đang học bài, tối anh thưởng hai thanh pate nhé~", "next": "h_c2"},
+		"h_c2": {"show": {"kyky": "angry"}, "speaker": "kyky", "text": "Chị ngốc?! Mà sao anh nói với mèo thì dịu dàng thế, còn với em thì…", "next": "h_c3"},
+		"h_c3": {"show": {"kyky": "laugh"}, "speaker": "kyky", "text": "Phụt… giọng anh lúc nãy buồn cười quá đi mất!", "next": "cat_bonus"},
+		"cat_bonus": {"branch": [{"if": {"min": {"nlong": 2}}, "next": "bonus"}], "default": "lean"},
+		"bonus": {"show": {"nlong": "love"}, "sfx": "mew_soft", "text": "Nlong lăn một vòng, rồi trèo hẳn vào lòng KyKy, cuộn tròn lại. Hoàng thượng đã chọn người.", "next": "bonus2"},
+		"bonus2": {"show": {"kyky": "love"}, "speaker": "kyky", "text": "Nó chọn em kìa! Anh Đức, nó chọn em!", "effects": {"heart": 1, "add": {"nlong": 1}}, "next": "lean"},
+		"lean": {"hide": ["nlong"], "show": {"kyky": "normal", "duc": "normal"}, "text": "Nlong bỏ đi. KyKy cúi sát vào màn hình laptop của Anh Đức để xem kết quả chạy code…", "next": "lean2"},
+		"lean2": {"fx": "zoom", "show": {"kyky": "normal@760", "duc": "normal@520"}, "text": "Khoảng cách giữa hai người thu hẹp lại chỉ còn vài centimet. Mùi hương ngọt nhẹ từ tóc cô bé thoảng qua…", "next": "lean3"},
+		"lean3": {"show": {"duc": "panic"}, "speaker": "duc", "think": true, "text": "…Bình tĩnh. Mày là đại thần IT. Mày từng debug lúc 3 giờ sáng. Chuyện này không là gì cả.", "then": "mini:heartbeat"}
+	}
+}

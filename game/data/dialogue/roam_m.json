@@ -1,0 +1,35 @@
+{
+	"title": "Map – chị M ở quầy",
+	"start": "router",
+	"nodes": {
+		"router": {"branch": [
+			{"if": {"flags": ["is_evening", "kept_turtle"], "not_flags": ["m_turtle_talk"]}, "next": "turtle"},
+			{"if": {"flags": ["is_evening"]}, "next": "eve"},
+			{"if": {"flags": ["drink_made"]}, "next": "after"}
+		], "default": "day"},
+		"day": {"show": {"m": "normal@right"}, "speaker": "m", "text": "Quầy pha chế ngay sau lưng chị đấy. Ca cao, cà phê, trà đào — nguyên liệu đủ cả. Pha xong mang ra cho khách VIP nhé!", "next": "day2"},
+		"day2": {"show": {"m": "smirk@right"}, "speaker": "m", "text": "Sao, bắt tay vào việc chưa, chàng barista?",
+			"choices": [
+				{"text": "Vào quầy pha chế luôn", "then": "mini:barista"},
+				{"text": "“Con bé thích uống gì ạ?”", "next": "hint"},
+				{"text": "“Để em đi một vòng đã.”", "next": "end"}
+			]
+		},
+		"hint": {"show": {"m": "tease"}, "speaker": "m", "text": "Nhìn cái mặt bánh bao kia đi. Ngọt. Phải ngọt. Nóng thì càng tốt. Vẽ thêm cái gì dễ thương lên bọt sữa thì… hì hì.", "next": "day2"},
+		"after": {"show": {"m": "love@right"}, "speaker": "m", "text": "Ôi, còn vẽ cả hình lên bọt sữa cơ à? Mang ra nhanh kẻo nguội, chàng trai!"},
+		"turtle": {"show": {"m": "tease@right", "duc": "normal@left"}, "speaker": "m", "text": "À này, hồi chiều chị thấy hết rồi nhé. Có người lén kẹp tờ giấy vẽ con rùa của con bé vào sách.", "next": "turtle2"},
+		"turtle2": {"show": {"duc": "blush"}, "speaker": "duc", "text": "…Chị nhìn nhầm rồi.", "next": "turtle3"},
+		"turtle3": {"show": {"m": "laugh"}, "speaker": "m", "text": "Ừ, chị nhìn nhầm. Nlong cũng nhìn nhầm. Cả quán nhìn nhầm.", "effects": {"set_flags": ["m_turtle_talk"]}, "next": "eve"},
+		"eve": {"show": {"m": "normal@right"}, "speaker": "m", "text": "Mưa to rồi đấy. Về đi em. À mà… khách VIP hình như quên mang ô kìa. Chị chỉ nói vậy thôi nhé.", "next": "eve2"},
+		"eve2": {
+			"speaker": "m", "show": {"m": "tease"}, "text": "Còn cần gì nữa không?",
+			"choices": [
+				{"text": "“Chị cho em mượn ô được không?”", "if": {"not_flags": ["has_umbrella"]}, "next": "umb"},
+				{"text": "“Hôm nay cảm ơn chị nhiều.”", "next": "thanks"},
+				{"text": "“Em biết rồi.”", "next": "end"}
+			]
+		},
+		"umb": {"show": {"m": "love"}, "speaker": "m", "text": "Cầm lấy! Ô hồng in hình mèo của chị đấy, làm mất là trừ lương.", "effects": {"set_flags": ["has_umbrella", "umbrella_pink"]}},
+		"thanks": {"show": {"m": "love"}, "speaker": "m", "text": "Cảm ơn gì. Nhớ là chị vẫn nợ em một chầu lẩu. Mà nếu chầu lẩu có hai người ăn thì… chị vẫn bao.", "effects": {"set_flags": ["m_blessing"]}}
+	}
+}

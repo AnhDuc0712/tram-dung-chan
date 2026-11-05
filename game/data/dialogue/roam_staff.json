@@ -1,0 +1,14 @@
+{
+	"title": "Map – phòng nhân viên",
+	"start": "router",
+	"nodes": {
+		"router": {"branch": [
+			{"if": {"flags": ["is_evening"], "not_flags": ["has_treat"]}, "next": "pack"},
+			{"if": {"flags": ["is_evening"]}, "next": "empty"}
+		], "default": "day"},
+		"day": {"text": "Phòng nhân viên. Balo của Anh Đức vẫn treo trên móc. Giờ chưa cần lấy gì."},
+		"pack": {"sfx": "toggle", "text": "Anh Đức khoác balo lên một bên vai. Trong balo: laptop, sạc, chiếc ô đen lớn… và một gói súp thưởng cho Nlong.", "next": "pack2"},
+		"pack2": {"sfx": "good", "text": "Đã lấy: Ô đen, Súp thưởng của Nlong.", "effects": {"set_flags": ["has_umbrella", "umbrella_black", "has_treat"]}},
+		"empty": {"text": "Phòng nhân viên chỉ còn mấy thùng sữa và tấm lịch phân ca. Ô chị M ghi chú: “Đức — ca chiều thứ 2, 4, 6. (Nhớ dạy kèm.)” Nét chữ mới tinh."}
+	}
+}

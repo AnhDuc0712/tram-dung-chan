@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(powershell -ExecutionPolicy Bypass -File tools\\check.ps1)",
+      "PowerShell(powershell -ExecutionPolicy Bypass -File tools\\screenshot.ps1 *)",
+      "Bash(powershell -ExecutionPolicy Bypass -File tools/check.ps1)",
+      "Bash(powershell -ExecutionPolicy Bypass -File tools/screenshot.ps1 *)",
+      "Bash(tools/godot/Godot_v4.7.2-stable_win64_console.exe --headless *)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"$CLAUDE_PROJECT_DIR/tools/hooks/post_edit_check.ps1\"",
+            "timeout": 180,
+            "statusMessage": "Đang chạy tools/check.ps1..."
+          }
+        ]
+      }
+    ]
+  }
+}

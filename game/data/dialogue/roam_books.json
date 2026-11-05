@@ -1,0 +1,16 @@
+{
+	"title": "Map – kệ sách",
+	"start": "router",
+	"nodes": {
+		"router": {"branch": [{"if": {"flags": ["got_textbook"]}, "next": "again"}], "default": "find"},
+		"find": {
+			"sfx": "scribble", "text": "Trên kệ có cuốn “Tin học đại cương — Giáo trình cho người mới bắt đầu”. Ai bỏ quên ở đây nhỉ?",
+			"choices": [
+				{"text": "Cầm theo, biết đâu lát cần", "effects": {"set_flags": ["got_textbook"]}, "next": "took"},
+				{"text": "Để lại chỗ cũ", "next": "end"}
+			]
+		},
+		"took": {"sfx": "good", "text": "Đã lấy: Giáo trình Tin học. (Có thể dùng khi dạy kèm.)"},
+		"again": {"text": "Kệ sách đầy truyện tranh, sách nấu ăn… và một cuốn “1001 cách dỗ mèo” bị lật nhiều nhất. Chắc của ai đó trong quán."}
+	}
+}

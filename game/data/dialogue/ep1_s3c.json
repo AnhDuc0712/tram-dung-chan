@@ -1,0 +1,20 @@
+{
+	"title": "Tập 1 – Phân cảnh 3 (kết): Khoảnh khắc rung động",
+	"start": "start",
+	"nodes": {
+		"start": {"branch": [{"if": {"flags": ["calm_ok"]}, "next": "ok"}], "default": "fail"},
+		"ok": {"bg": "cafe_sunset", "music": "study", "show": {"duc": "normal@520", "kyky": "normal@760"}, "speaker": "duc", "text": "…Vậy nên kết quả in ra là 15. Hiểu chưa?", "next": "ok2"},
+		"ok2": {"show": {"kyky": "happy"}, "speaker": "kyky", "text": "Hiểu ạ!", "next": "ok3"},
+		"ok3": {"show": {"duc": "shy"}, "text": "Giọng Anh Đức vẫn đều đều, trôi chảy. Chỉ có hai vành tai là đỏ lựng lên như trái cà chua.", "next": "ok4"},
+		"ok4": {"show": {"kyky": "confused"}, "speaker": "kyky", "text": "Ơ… tai anh đỏ kìa. Anh bị sốt hả?", "next": "ok5"},
+		"ok5": {"show": {"duc": "blush"}, "speaker": "duc", "text": "…Do nắng.", "effects": {"heart": 1}, "next": "rain"},
+		"fail": {"bg": "cafe_sunset", "music": "study", "show": {"duc": "panic@520", "kyky": "normal@760"}, "speaker": "duc", "text": "Vậy nên… cái… cái vòng lặp này nó… nó lặp. Rồi nó… lặp tiếp.", "next": "fail2"},
+		"fail2": {"show": {"kyky": "confused"}, "speaker": "kyky", "text": "Anh Đức? Anh vừa nói “nó lặp” bốn lần rồi đó.", "next": "fail3"},
+		"fail3": {"fx": "shake", "show": {"duc": "blush"}, "speaker": "duc", "text": "Khụ! Khụ khụ. Do… do điều hòa.", "next": "fail4"},
+		"fail4": {"show": {"kyky": "laugh"}, "speaker": "kyky", "text": "Hì hì, đại thần IT mà cũng bị lag hả?", "effects": {"heart": 2}, "next": "rain"},
+		"rain": {"fx": ["unzoom", "flash"], "sfx": "rain_window", "show": {"duc": "normal@left", "kyky": "normal@right"}, "text": "Ầm — một tiếng sấm. Ngoài cửa kính, trời đổ mưa rào bất chợt.", "next": "rain2"},
+		"rain2": {"ambient": "rain_loop", "show": {"kyky": "worried"}, "speaker": "kyky", "text": "Chết, mưa rồi! Em… hình như quên mang ô…", "next": "rain3"},
+		"rain3": {"show": {"duc": "smirk"}, "speaker": "duc", "think": true, "text": "Cũng hết ca rồi. Dọn đồ thôi.", "next": "rain4"},
+		"rain4": {"hide": "all", "card": "18:00 — Trời đổ mưa", "then": "roam:evening"}
+	}
+}
