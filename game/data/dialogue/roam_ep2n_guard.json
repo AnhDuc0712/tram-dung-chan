@@ -1,0 +1,12 @@
+{
+	"title": "Tập 2 – Bác bảo vệ khu phố (NPC môi trường)",
+	"start": "s",
+	"nodes": {
+		"s": {"branch": [{"if": {"flags": ["guard_done"]}, "next": "again"}], "default": "a"},
+		"a": {"name": "Bác bảo vệ", "effects": {"set_flags": ["guard_done"]}, "text": "À, cậu barista! Tối qua bác thấy cậu cầm ô đi bộ ngược đường tít sang Cầu Giấy đấy nhé. Bác kể với chị M rồi, hề hề.", "next": "b"},
+		"b": {"show": {"duc": "deadpan@left"}, "speaker": "duc", "text": "…Thì ra nguồn tin là bác.", "next": "c"},
+		"c": {"name": "Bác bảo vệ", "text": "Bác chiều nào cũng mang cá khô cho con mèo xám của quán. Con mèo ấy khôn lắm, nó chỉ quấn người tốt thôi. Mà dạo này nó quấn cô bé này lắm đấy.", "next": "d"},
+		"d": {"show": {"kyky": "happy@right"}, "speaker": "kyky", "text": "Thật hả bác? Nlong quấn cháu thật hả bác?!"},
+		"again": {"name": "Bác bảo vệ", "text": "Về sớm kẻo mưa to nhé hai đứa! Cẩn thận cái ô!"}
+	}
+}

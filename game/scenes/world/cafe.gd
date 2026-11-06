@@ -7,7 +7,7 @@ const Steps := preload("res://scripts/story_steps.gd")
 const DialogueData := preload("res://scripts/dialogue/dialogue_data.gd")
 const Shapes := preload("res://scripts/ui/shapes.gd")
 const Player := preload("res://scenes/world/player.gd")
-const DATA_PATH := "res://data/roam/cafe.json"
+const DATA_DIR := "res://data/roam/%s.json"  # bản đồ theo biến thể: Steps.ROAM_MAPS
 const CELL := 8
 const INTERACT_DIST := 64.0
 
@@ -78,6 +78,8 @@ var _cat_busy := false
 var _autoroam := false  # chỉ để kiểm thử: tự đi tới từng thứ và tương tác
 var _autoroam_i := 0
 var _autoroam_t := 0.0
+var _follower: Sprite2D  # nhân vật đi theo Anh Đức (vd KyKy trên phố buổi tối)
+var _follow_t := 0.0
 
 
 func _ready() -> void:
@@ -85,6 +87,8 @@ func _ready() -> void:
 	for a in OS.get_cmdline_user_args():
 		if a == "--evening":
 			variant = "evening"
+		elif a.begins_with("--variant="):  # chụp ảnh / thử: "-- --variant=ep2_night"
+			variant = a.substr(10)
 		elif a == "--debug-walk":
 			_debug_walk = true
 		elif a == "--autoroam":
@@ -97,20 +101,20 @@ func _ready() -> void:
 		GameState.set_flag("is_evening")
 	else:
 		GameState.set_flag("is_evening", false)
-	data = DialogueData.load_json(DATA_PATH)
+	data = DialogueData.load_json(DATA_DIR % Steps.roam_map(variant))
 	_build_map()
 	_build_entities()
 	_build_prompt()
 	Hud.set_visible_hud(true)
 	Audio.music(str((data.get("music", {}) as Dictionary).get(variant, "roam_day")))
-	Audio.ambient("rain_loop" if variant == "evening" else "")
+	Audio.ambient(str((data.get("ambient", {}) as Dictionary).get(variant, "rain_loop" if variant == "evening" else "")))
 	Dialogue.dialogue_finished.connect(_on_dialogue_finished)
 	Dialogue.event.connect(_on_dialogue_event)
 	_refresh()
-	if variant == "day" and not GameState.has_flag("day_intro_done"):
-		_start_dialogue("roam_day_intro")
-	elif variant == "evening" and not GameState.has_flag("evening_intro_done"):
-		_start_dialogue("roam_evening_intro")
+	# hội thoại mở màn của biến thể: data.intros[variant] = [id hội thoại, cờ "đã xem"]
+	var intro: Array = (data.get("intros", {}) as Dictionary).get(variant, [])
+	if intro.size() == 2 and not GameState.has_flag(str(intro[1])):
+		_start_dialogue(str(intro[0]))
 
 
 # ======================================================================= dựng bản đồ
@@ -120,9 +124,10 @@ func _build_map() -> void:
 	bg.centered = false
 	bg.position = Vector2(0, 3)
 	add_child(bg)
-	if variant == "evening":
+	var tint: Array = (data.get("tint", {}) as Dictionary).get(variant, [])
+	if tint.size() == 3:
 		var cm := CanvasModulate.new()
-		cm.color = Color(0.66, 0.6, 0.74)
+		cm.color = Color(float(tint[0]), float(tint[1]), float(tint[2]))
 		add_child(cm)
 	for p in data.get("walk", []):
 		walk_poly.append(Vector2(float(p[0]), float(p[1])))
@@ -224,6 +229,17 @@ func _build_entities() -> void:
 		player.position = GameState.player_position
 	player.arrived.connect(_on_arrived)
 	_actors.add_child(player)
+	var fol: Dictionary = (data.get("follower", {}) as Dictionary).get(variant, {})
+	if not fol.is_empty() and GameState.check(fol.get("if", {})):
+		var ftex := Ui.char_tex(str(fol.get("sprite", "")))
+		if ftex:
+			_follower = Sprite2D.new()
+			_follower.texture = ftex
+			_follower.centered = false
+			_follower.scale = Vector2.ONE * float(fol.get("scale", 0.16))
+			_follower.offset = Vector2(-ftex.get_width() * 0.5, -ftex.get_height())
+			_follower.position = player.position + Vector2(-40, 4)
+			_actors.add_child(_follower)
 
 	for n in data.get("npcs", []):
 		var when: Dictionary = n.get("when", {})
@@ -254,13 +270,14 @@ func _build_entities() -> void:
 		var e := {
 			"id": str(n["id"]), "kind": "npc", "node": holder, "sprite": spr, "pos": pos,
 			"stand": Vector2(float(stand_a[0]), float(stand_a[1])),
-			"dialogue": str(n.get("dialogue", "")), "label": str(n.get("label", "Nói chuyện")),
+			"dialogue": str((n.get("dialogue_by", {}) as Dictionary).get(variant, n.get("dialogue", ""))),
+			"label": str(n.get("label", "Nói chuyện")),
 			"height": (tex.get_height() * clip * sc) if tex else 80.0, "if": n.get("if", {}),
 			"base_scale": sc,
 		}
 		if bool(n.get("cat", false)):
 			_cat = e
-			if variant == "evening" or GameState.get_var("nlong") >= 1:
+			if variant != "day" or GameState.get_var("nlong") >= 1:
 				_cat_set_tex("cat_sit")
 		# NPC đứng yên cũng chặn đường một chút
 		if str(n["id"]) != "m":
@@ -312,6 +329,25 @@ func _build_prompt() -> void:
 	_prompt.visible = false
 
 
+## Người đi theo: bám sau lưng Anh Đức, nhún nhẹ khi bước, quay mặt theo hướng đi.
+func _update_follower(delta: float) -> void:
+	if _follower == null:
+		return
+	var vel: Vector2 = player.velocity
+	var back := Vector2(-40, 4) if vel.length() < 5.0 else -vel.normalized() * 46.0 + Vector2(0, 4)
+	var target: Vector2 = player.global_position + back
+	var before := _follower.position
+	_follower.position = _follower.position.lerp(target, 1.0 - exp(-5.0 * delta))
+	var step := _follower.position - before
+	if absf(step.x) > 0.3:
+		_follower.flip_h = step.x > 0.0
+	if step.length() > 0.4:
+		_follow_t += delta * 11.0
+		_follower.offset.y = -_follower.texture.get_height() - absf(sin(_follow_t)) * 22.0
+	else:
+		_follower.offset.y = -_follower.texture.get_height()
+
+
 func _on_prompt_input(ev: InputEvent) -> void:
 	if ev is InputEventMouseButton and ev.pressed and ev.button_index == MOUSE_BUTTON_LEFT and not _nearest.is_empty():
 		get_viewport().set_input_as_handled()
@@ -327,7 +363,10 @@ func _process(delta: float) -> void:
 		if _autoroam_t > 2.5 and player.path.is_empty():
 			_autoroam_t = 0.0
 			var order := ["nlong", "guitar", "books", "pen", "window", "menu", "staff", "nlong", "m", "door"]
-			if GameState.autoplay:
+			var auto_order: Array = (data.get("autoplay", {}) as Dictionary).get(variant, [])
+			if GameState.autoplay and not auto_order.is_empty():
+				order = auto_order  # thứ tự tự chơi khai báo trong data/roam/<map>.json
+			elif GameState.autoplay:
 				if variant == "evening":
 					order = ["staff", "nlong", "m", "kyky"]
 				elif GameState.has_flag("drink_made"):
@@ -343,6 +382,7 @@ func _process(delta: float) -> void:
 						player.go_along(_path_to(e["stand"]))
 						break
 	player.frozen = busy
+	_update_follower(delta)
 	if busy:
 		_prompt.visible = false
 		return
@@ -381,6 +421,15 @@ func _refresh() -> void:
 
 func _update_objective() -> void:
 	var t := ""
+	# mục tiêu khai báo trong dữ liệu: data.objectives[variant] = [{"if": {...}, "text": "..."}, ...] (dòng đầu tiên thoả)
+	var objs: Array = (data.get("objectives", {}) as Dictionary).get(variant, [])
+	if not objs.is_empty():
+		for o in objs:
+			if GameState.check((o as Dictionary).get("if", {})):
+				t = str(o.get("text", ""))
+				break
+		Hud.set_objective(t)
+		return
 	if variant == "day":
 		if GameState.has_flag("drink_made"):
 			t = "Mang ly nước ra cho KyKy."
@@ -503,7 +552,7 @@ func _cat_set_tex(img: String) -> void:
 
 func _cat_after_dialogue() -> void:
 	# Ban ngày: được nựng lần đầu thì Nlong nhảy xuống và bắt đầu đi dạo quanh quán
-	if _cat.is_empty() or variant != "day" or _cat_busy or GameState.get_var("nlong") < 1:
+	if _cat.is_empty() or not (variant in ["day", "ep2_morning", "ep2_afternoon"]) or _cat_busy or GameState.get_var("nlong") < 1:
 		return
 	_cat_busy = true
 	_cat_wander()

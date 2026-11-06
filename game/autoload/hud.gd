@@ -4,6 +4,15 @@ extends CanvasLayer
 ##   Hud.set_visible_hud(true)   Hud.set_objective("Nói chuyện với chị M")   Hud.toast("+1")
 
 const Icon := preload("res://scripts/ui/icon.gd")
+const DialogueData := preload("res://scripts/dialogue/dialogue_data.gd")
+## Thông báo "hiệu ứng cánh bướm" khi lựa chọn làm thay đổi thái độ nhân vật phụ.
+const ATTITUDE := {
+	"tram": ["Trâm tin tưởng Anh Đức hơn.", "Trâm nhíu mày… cô ấy sẽ nhớ chuyện này."],
+	"jealous": ["Anh Đức… đang ghen ngầm.", "Anh Đức bình tĩnh lại một chút."],
+	"thao": ["Thanh Thảo nhìn bạn bằng ánh mắt khác.", "Thanh Thảo thở dài."],
+	"ducanh": ["Đức Anh coi bạn là chiến hữu.", "Đức Anh hơi chột dạ."],
+	"hai": ["Hải bắt đầu để ý Anh Đức.", "Hải lùi lại một bước."],
+}
 
 var _root: Control
 var _bars: Control
@@ -23,12 +32,22 @@ var _log_text: RichTextLabel
 var _hud_on := false
 var _rotate_layer: CanvasLayer  # "Xoay ngang điện thoại" khi cầm dọc
 var _fs_btn: Button
+var _relations: Label  # bảng quan hệ trong menu tạm dừng
+var _prev := {}  # giá trị chỉ số lần trước -> biết tăng hay giảm
+var _cat: TextureRect  # Nlong nằm góc màn hình
+var _thought: PanelContainer
+var _thought_label: Label
+var _thought_tw: Tween
+var _thoughts: Array = []
+var _cat_cool := 0.0
+
 
 
 func _ready() -> void:
 	layer = 20
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_build()
+	_build_cat()
 	_build_rotate_hint()
 	GameState.var_changed.connect(_on_var_changed)
 	set_visible_hud(false)
@@ -85,6 +104,9 @@ func set_visible_hud(on: bool) -> void:
 	_hud_on = on
 	_bars.visible = on
 	_buttons.visible = on
+	_cat.visible = on and not Story.current_step.begins_with("mini:")  # mini-game cần chỗ trống
+	if not on:
+		_thought.visible = false
 	refresh()
 
 
@@ -94,8 +116,8 @@ func set_objective(text: String) -> void:
 
 
 func refresh() -> void:
-	_heart_bar.max_value = GameState.BAR_MAX["heart"]
-	_brain_bar.max_value = GameState.BAR_MAX["brain"]
+	_heart_bar.max_value = GameState.bar_max("heart")
+	_brain_bar.max_value = GameState.bar_max("brain")
 	_heart_bar.value = GameState.get_var("heart")
 	_brain_bar.value = GameState.get_var("brain")
 
@@ -113,10 +135,14 @@ func toast(text: String, color: Color = Ui.PINK) -> void:
 	tw.tween_callback(l.queue_free)
 
 
-func _on_var_changed(var_name: String, _value: int) -> void:
+func _on_var_changed(var_name: String, value: int) -> void:
 	refresh()
+	var delta: int = value - int(_prev.get(var_name, 0))
+	_prev[var_name] = value
 	if not _hud_on:
 		return
+	if ATTITUDE.has(var_name) and delta != 0:
+		toast(ATTITUDE[var_name][0 if delta > 0 else 1], Color("7a4fa0") if var_name == "tram" else Color("c0392b") if var_name == "jealous" else Ui.TEXT_SOFT)
 	# hiệu ứng nhỏ khi chỉ số đổi
 	match var_name:
 		"heart":
@@ -206,6 +232,9 @@ func _build() -> void:
 	var tip := Ui.label("Mẹo: bấm nút “Tua »” (hoặc giữ Ctrl) để tua nhanh hội thoại.", 18, Ui.TEXT_SOFT)
 	tip.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	tip.custom_minimum_size = Vector2(340, 0)
+	_relations = Ui.label("", 19, Ui.TEXT, Ui.font_bold)
+	_relations.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	pv.add_child(_relations)
 	tip.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	pv.add_child(tip)
 
@@ -350,6 +379,92 @@ func open_pause() -> void:
 	get_tree().paused = true
 	_overlay.visible = true
 	_pause_panel.visible = true
+	_relations.text = relations_text()
+
+
+## Bảng quan hệ (Tập 2 có thêm thái độ của Trâm và độ ghen của Anh Đức).
+func relations_text() -> String:
+	var lines := PackedStringArray(["Quan hệ hiện tại"])
+	lines.append("KyKy — Rung động %d · Hiểu bài %d" % [GameState.get_var("heart"), GameState.get_var("brain")])
+	if GameState.episode >= 2:
+		lines.append("Trâm — tin tưởng %d" % GameState.get_var("tram"))
+		lines.append("Anh Đức — ghen ngầm %d" % GameState.get_var("jealous"))
+	lines.append("Nlong — thân thiết %d" % GameState.get_var("nlong"))
+	return "\n".join(lines)
+
+
+# ---------------------------------------------------------------- Nlong góc màn hình
+func _build_cat() -> void:
+	_cat = TextureRect.new()
+	_cat.texture = Ui.char_tex("cat_loaf")
+	_cat.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	_cat.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT
+	_cat.size = Vector2(104, 66)
+	_cat.position = Vector2(300, 74)
+	_cat.pivot_offset = Vector2(52, 66)
+	_cat.tooltip_text = "Nựng Nlong"
+	_cat.gui_input.connect(_on_cat_input)
+	_root.add_child(_cat)
+	_thought = PanelContainer.new()
+	_thought.add_theme_stylebox_override("panel", Ui.box(Color(1, 0.98, 0.95, 0.97), Color("e3b3c2"), 16, 3))
+	_thought.position = Vector2(300, 146)
+	_thought.custom_minimum_size = Vector2(420, 0)
+	_thought.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_thought.visible = false
+	_root.add_child(_thought)
+	_thought_label = Ui.label("", 19, Ui.TEXT, Ui.font_italic)
+	_thought_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_thought_label.custom_minimum_size = Vector2(390, 0)
+	_thought.add_child(_thought_label)
+	_thoughts = DialogueData.load_json("res://data/nlong_thoughts.json").get("thoughts", [])
+
+
+func _on_cat_input(ev: InputEvent) -> void:
+	if ev is InputEventMouseButton and ev.pressed and ev.button_index == MOUSE_BUTTON_LEFT:
+		get_viewport().set_input_as_handled()
+		pet_cat()
+
+
+## Chạm Nlong: rừ rừ + một mẩu "tâm tư Anh Đức" (Đức chỉ tâm sự với mèo). Không cộng chỉ số -> không phá kết thúc.
+func pet_cat() -> String:
+	var tw := _cat.create_tween()
+	tw.tween_property(_cat, "scale", Vector2(1.12, 0.9), 0.08)
+	tw.tween_property(_cat, "scale", Vector2.ONE, 0.25).set_trans(Tween.TRANS_BACK)
+	Audio.sfx(["purr", "mew_soft", "meow"][randi() % 3], -4.0)
+	if _cat_cool > 0.0:
+		return ""
+	_cat_cool = 2.5
+	var text := ""
+	for t in _thoughts:
+		var th: Dictionary = t
+		if int(th.get("ep", 1)) > GameState.episode or GameState.seen_thoughts.has(str(th["id"])):
+			continue
+		if GameState.check(th.get("if", {})):
+			text = "Tâm tư Anh Đức: “" + str(th["text"]) + "”"
+			GameState.mark_thought(str(th["id"]))
+			break
+	if text == "":
+		var idle := [
+			"Nlong rừ rừ, nheo mắt nhìn bạn như hoàng thượng nhìn thần dân.",
+			"Nlong lật ngửa bụng… rồi cào nhẹ một phát.",
+			"“Meo.” (Hết chuyện để kể rồi, mai quay lại nhé.)",
+		]
+		text = idle[randi() % idle.size()]
+	_thought_label.text = text
+	_thought.visible = true
+	_thought.modulate.a = 1.0
+	if _thought_tw:
+		_thought_tw.kill()
+	_thought_tw = create_tween()
+	_thought_tw.tween_interval(clampf(text.length() * 0.06, 3.0, 7.0))
+	_thought_tw.tween_property(_thought, "modulate:a", 0.0, 0.5)
+	_thought_tw.tween_callback(func() -> void: _thought.visible = false)
+	return text
+
+
+func _process(delta: float) -> void:
+	if _cat_cool > 0.0:
+		_cat_cool -= delta
 
 
 func open_settings() -> void:

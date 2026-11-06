@@ -16,7 +16,8 @@ func _init() -> void:
 		"test_all_dialogue_valid", "test_story_steps", "test_character_assets", "test_roam_data",
 		"test_phone_data", "test_minigame_data", "test_conditions_and_effects", "test_save_roundtrip",
 		"test_route_secret", "test_route_umbrella", "test_route_wet", "test_route_tutor", "test_route_kind",
-		"test_timeout_choice",
+		"test_timeout_choice", "test_ep2_secret", "test_ep2_sweet", "test_ep2_jealous", "test_ep2_jacket",
+		"test_ep2_comedy",
 	]
 	for t in tests:
 		var before := failed
@@ -102,7 +103,15 @@ func test_character_assets() -> void:
 
 
 func test_roam_data() -> void:
-	var d := DialogueData.load_json("res://data/roam/cafe.json")
+	for m in ["cafe", "street"]:
+		_check_roam_map(m)
+
+
+func _check_roam_map(map_id: String) -> void:
+	var d := DialogueData.load_json("res://data/roam/%s.json" % map_id)
+	expect(ResourceLoader.exists("res://assets/art/bg/%s.jpg" % d.get("map", "")), map_id + ": thiếu ảnh bản đồ")
+	for v in (d.get("intros", {}) as Dictionary):
+		expect(DialogueData.list_ids().has(str(d["intros"][v][0])), "%s: intro %s thiếu hội thoại" % [map_id, v])
 	var poly := PackedVector2Array()
 	for p in d.get("walk", []):
 		poly.append(Vector2(p[0], p[1]))
@@ -348,4 +357,106 @@ func test_timeout_choice() -> void:
 	var s = new_state()
 	play("ep1_s1", s, [-1, 0, 0])
 	expect(s.has_flag("notebook_wet"), "hết giờ -> sổ rơi vào cà phê")
+	s.free()
+
+
+# ---------------------------------------------------------------- Tập 2
+## Bấm các lựa chọn trong điện thoại (mỗi khối "choices" lấy 1 chỉ số) và áp hiệu ứng.
+func phone_pick(s, id: String, picks: Array) -> void:
+	var d := DialogueData.load_json("res://data/phone/%s.json" % id)
+	var i := 0
+	for th in d.get("threads", []):
+		for m in th.get("messages", []):
+			if (m as Dictionary).has("choices"):
+				s.apply(m["choices"][int(picks[i])].get("effects", {}))
+				i += 1
+	expect(i == picks.size(), "%s: số lựa chọn điện thoại không khớp" % id)
+
+
+func ep2_state():
+	var s = new_state()
+	s.start_episode(2, "phone:ep2_night")
+	return s
+
+
+## Buổi sáng chung cho mọi tuyến Tập 2 (tới hết mini-game 1 + cảnh chạm tay).
+func ep2_morning(s, phone: Array, s1: int, extra: Callable, nlong_res: Dictionary, s1b: int) -> void:
+	phone_pick(s, "ep2_night", phone)
+	expect(str(Steps.PHONE_NEXT["ep2_night"]) == "vn:ep2_s1", "điện thoại -> s1")
+	expect(play("ep2_s1", s, [s1]) == "roam:ep2_morning", "s1 -> roam sáng")
+	play("roam_ep2m_intro", s)
+	expect(s.has_flag("ep2m_intro_done"), "intro sáng bật cờ")
+	extra.call()
+	expect(play("roam_ep2m_door", s, [0]) == "vn:ep2_s1k", "cửa -> s1k")
+	expect(play("ep2_s1k", s) == "mini:nlong", "s1k -> mini nlong")
+	expect(run_mini(s, "nlong", nlong_res) == "vn:ep2_s1b", "nlong -> s1b")
+	expect(play("ep2_s1b", s, [s1b]) == "vn:ep2_s2", "s1b -> s2")
+
+
+func ep2_midday(s, s2: int, s3: int, logic: int, afternoon: Callable, dark: int, s4b: int) -> void:
+	expect(play("ep2_s2", s, [s2]) == "vn:ep2_s3", "s2 -> s3")
+	expect(play("ep2_s3", s, [s3]) == "mini:logic", "s3 -> logic")
+	expect(run_mini(s, "logic", {"first_try": logic}) == "vn:ep2_s3b", "logic -> s3b")
+	expect(play("ep2_s3b", s) == "roam:ep2_afternoon", "s3b -> roam chiều")
+	play("roam_ep2a_intro", s)
+	afternoon.call()
+	expect(play("roam_ep2a_m", s, [0]) == "vn:ep2_s4", "chị M -> s4")
+	expect(play("ep2_s4", s) == "mini:dark", "s4 -> dark")
+	expect(run_mini(s, "dark", {"hits": dark}) == "vn:ep2_s4b", "dark -> s4b")
+	expect(play("ep2_s4b", s, [s4b]) == "roam:ep2_night", "s4b -> phố đêm")
+	play("roam_ep2n_intro", s)
+
+
+func ep2_finish(s, hotpot_pick: int, want: String) -> void:
+	expect(play("roam_ep2n_hotpot", s, [hotpot_pick]) == "vn:ep2_end", "lẩu -> kết")
+	expect(play("ep2_end", s) == "phone:ep2_end", "kết -> điện thoại")
+	var info := "heart=%d tram=%d jealous=%d nlong=%d" % [s.get_var("heart"), s.get_var("tram"), s.get_var("jealous"), s.get_var("nlong")]
+	expect(s.ending_id == want, "Tập 2: muốn %s, được %s (%s)" % [want, s.ending_id, info])
+
+
+func test_ep2_secret() -> void:
+	var s = ep2_state()
+	ep2_morning(s, [1, 0], 1, func() -> void:
+		play("roam_ep2_nlong", s)
+		play("roam_ep2m_barista", s, [0]), {"pets": 3, "treat": true}, 0)
+	ep2_midday(s, 0, 0, 3, func() -> void: play("roam_ep2a_tram", s, [0, 1]), 3, 0)
+	expect(play("roam_ep2n_arcade", s, [0]) == "", "khu trò chơi là hẹn hò trong map")
+	expect(s.has_flag("claw_win"), "gắp được gấu bông")
+	ep2_finish(s, 0, "ep2_gau")
+	s.free()
+
+
+func test_ep2_sweet() -> void:
+	var s = ep2_state()
+	ep2_morning(s, [1, 0], 1, func() -> void: play("roam_ep2m_barista", s, [1]), {"pets": 3, "treat": true}, 0)
+	ep2_midday(s, 0, 0, 3, func() -> void: play("roam_ep2a_tram", s, [0, 1]), 3, 0)
+	play("roam_ep2n_books", s, [0])
+	ep2_finish(s, 0, "ep2_lau")
+	s.free()
+
+
+func test_ep2_jealous() -> void:
+	var s = ep2_state()
+	ep2_morning(s, [2, 1], 0, func() -> void: pass, {"pets": 1}, 1)
+	ep2_midday(s, 2, 2, 1, func() -> void: play("roam_ep2a_kyky", s, [1]), 0, 2)
+	play("roam_ep2n_park", s, [0, 1])
+	ep2_finish(s, 0, "ep2_dua")
+	s.free()
+
+
+func test_ep2_jacket() -> void:
+	var s = ep2_state()
+	ep2_morning(s, [0, 0], 0, func() -> void: pass, {"pets": 2}, 1)
+	ep2_midday(s, 2, 0, 0, func() -> void: pass, 0, 1)
+	play("roam_ep2n_bus", s, [0])
+	expect(s.has_flag("gave_jacket"), "khoác áo cho KyKy ở trạm xe buýt")
+	ep2_finish(s, 0, "ep2_ao")
+	s.free()
+
+
+func test_ep2_comedy() -> void:
+	var s = ep2_state()
+	ep2_morning(s, [2, 1], 2, func() -> void: pass, {"pets": 0}, -1)
+	ep2_midday(s, 2, 0, 0, func() -> void: pass, 0, 1)
+	ep2_finish(s, 0, "ep2_nlong")
 	s.free()

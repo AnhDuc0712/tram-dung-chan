@@ -1,0 +1,17 @@
+{
+	"title": "Tập 2 – Sau mini-game 2: “Giỏi lắm”",
+	"start": "a",
+	"nodes": {
+		"a": {"bg": "cafe_sunset", "music": "cafe_day", "show": {"duc": "normal@left", "kyky": "normal@right"}, "effects": {"set_flags": ["ep2_pm"]}, "next": "a2"},
+		"a2": {"branch": [{"if": {"flags": ["logic_perfect"]}, "next": "p"}], "default": "n"},
+		"p": {"show": {"duc": "surprised"}, "text": "Ba mảnh ghép đúng ngay lần đầu. Anh Đức bất ngờ nhướng mày.", "next": "p2"},
+		"p2": {"show": {"duc": "soft"}, "speaker": "duc", "text": "Giỏi lắm. Hoá ra không phải não cá vàng hoàn toàn.", "next": "p3"},
+		"p3": {"show": {"kyky": "love"}, "emote": {"kyky": "blush"}, "effects": {"heart": 2, "set_flags": ["head_pat"]}, "text": "Anh đưa tay xoa nhẹ lên mái tóc xoăn của KyKy. Khoé môi cong lên một nụ cười cực kỳ dịu dàng — nụ cười cả quán chưa từng thấy.", "next": "mood"},
+		"n": {"show": {"duc": "smirk"}, "speaker": "duc", "text": "Sai vài chỗ nhưng ra được kết quả. Chibi KyKy về tới nơi rồi đấy.", "next": "n2"},
+		"n2": {"show": {"kyky": "happy"}, "speaker": "kyky", "text": "Vì Chibi Anh Đức đứng đợi dưới mưa mà! …Á, em nói linh tinh, anh quên đi!", "next": "mood"},
+		"mood": {"branch": [{"if": {"flags": ["cold_war"]}, "next": "cw"}], "default": "wrap"},
+		"cw": {"show": {"kyky": "sad"}, "text": "Dù vậy, không khí giữa hai người vẫn hơi lạnh. KyKy cứ cúi đầu vẽ vẽ vào lề vở — một chú rùa đang hờn dỗi.", "next": "cw2"},
+		"cw2": {"show": {"duc": "worried"}, "speaker": "duc", "think": true, "text": "Câu “tuỳ em” lúc nãy… hình như mình hơi quá.", "next": "wrap"},
+		"wrap": {"hide": "all", "speaker": "duc", "think": true, "text": "Hội bạn vẫn ngồi bàn bên “hóng chuyện”. Chị M đang lúi húi ở quầy. Còn một buổi chiều dài phía trước.", "then": "roam:ep2_afternoon"}
+	}
+}

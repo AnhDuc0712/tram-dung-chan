@@ -69,7 +69,7 @@ func test_all_choice_paths_terminate() -> void:
 			var res := _explore(id, s)
 			assert_lt(int(res["paths"]), MAX_PATHS, "%s.json: quá nhiều nhánh để duyệt hết" % id)
 			assert_eq(res["stuck"], [], "%s.json: nhánh không kết thúc" % id)
-			if id.begins_with("ep1_"):
+			if id.begins_with("ep1_") or id.begins_with("ep2_"):
 				assert_eq(res["no_then"], [], "%s.json: cảnh truyện kết thúc mà không sang bước tiếp theo (game sẽ đứng)" % id)
 	empty_state.free()
 	full.free()
@@ -139,7 +139,9 @@ func _all_flags_read() -> Array:
 	var reads := {}
 	for id in _dl:
 		_collect_conds(_dl[id], reads)
-	_collect_conds(H.load_data("res://data/roam/cafe.json"), reads)
+	for m in H.ROAM_MAPS:
+		_collect_conds(H.load_data("res://data/roam/%s.json" % m), reads)
+	_collect_conds(H.load_data("res://data/nlong_thoughts.json"), reads)
 	for id in H.DialogueData.list_ids("res://data/phone/"):
 		_collect_conds(H.load_data("res://data/phone/%s.json" % id), reads)
 	return reads.keys()
@@ -162,6 +164,8 @@ func test_flags_read_are_set_somewhere() -> void:
 	var sets := {}
 	for id in _dl:
 		_collect_sets(_dl[id], sets)
+	for id in H.DialogueData.list_ids("res://data/phone/"):
+		_collect_sets(H.load_data("res://data/phone/%s.json" % id), sets)
 	# cờ bật trong code: set_flag("x")
 	var re := RegEx.new()
 	re.compile("set_flag\\(\"([a-z0-9_]+)\"")
@@ -174,7 +178,8 @@ func test_flags_read_are_set_somewhere() -> void:
 		sets["drink_" + str(d)] = true
 	for a in b.get("arts", {}):
 		sets["art_" + str(a)] = true
-	for f in ["drink_made", "drink_weird", "art_none", "debug_done", "debug_perfect", "calm_ok", "calm_fail"]:
+	for f in ["drink_made", "drink_weird", "art_none", "debug_done", "debug_perfect", "calm_ok", "calm_fail",
+			"mg_nlong_done", "nlong_perfect", "nlong_tail", "mg_logic_done", "logic_perfect", "dark_calm", "dark_fail"]:
 		sets[f] = true
 	var missing: Array = []
 	for f in _all_flags_read():
@@ -206,10 +211,13 @@ func test_minigame_result_flags_cover_scenes() -> void:
 	var start: Dictionary = _dl["ep1_s3c"]["nodes"][str(_dl["ep1_s3c"].get("start", "start"))]
 	assert_true(start.has("branch") and JSON.stringify(start).contains("calm_"), "ep1_s3c phải rẽ nhánh theo kết quả giữ bình tĩnh")
 	assert_ne(str(start.get("default", "")), str(start["branch"][0].get("next", "")), "hai kết quả giữ bình tĩnh phải dẫn tới 2 đoạn khác nhau")
+	# Tập 2: mỗi mini-game có cảnh sau rẽ nhánh theo kết quả
+	for pair in [["ep2_s1b", "nlong_perfect"], ["ep2_s1b", "nlong_tail"], ["ep2_s3b", "logic_perfect"], ["ep2_s4b", "dark_calm"]]:
+		assert_true(JSON.stringify(_dl[pair[0]]).contains(pair[1]), "%s không phản ứng với kết quả %s" % pair)
 
 
 func test_condition_vars_are_known() -> void:
-	var known := ["heart", "brain", "nlong"]
+	var known := ["heart", "brain", "nlong", "tram", "jealous", "ducanh", "thao", "hai", "dates"]
 	var bad: Array = []
 	for id in _dl:
 		_check_vars(_dl[id], known, bad, id)

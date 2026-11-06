@@ -1,0 +1,37 @@
+{
+	"title": "Tập 2 – KyKy (buổi chiều)",
+	"start": "s",
+	"nodes": {
+		"s": {"show": {"duc": "normal@left", "kyky": "normal@right"}, "next": "s1"},
+		"s1": {"branch": [
+			{"if": {"flags": ["cold_war"], "not_flags": ["made_up"]}, "next": "cw"},
+			{"if": {"flags": ["kyky_doubt"], "not_flags": ["doubt_cleared"]}, "next": "doubt"},
+			{"if": {"flags": ["talked_kyky_pm"]}, "next": "again"}
+		], "default": "chat"},
+		"cw": {"show": {"duc": "worried@left", "kyky": "sad@right"}, "text": "KyKy vẫn cúi đầu vẽ chú rùa hờn dỗi. Cô không ngẩng lên khi bạn lại gần.",
+			"choices": [
+				{"text": "“Lúc nãy tôi nói hơi quá. Xin lỗi.” (thật lòng)", "effects": {"heart": 2, "add": {"jealous": -1}, "set_flags": ["made_up", "apologized"]}, "next": "cw_a"},
+				{"text": "Đặt hộp matcha của Hải trước mặt cô: “Ăn đi, người ta mua cho mà.”", "effects": {"heart": -1, "add": {"jealous": 2}}, "next": "cw_b"},
+				{"text": "Vẽ thêm một chú mèo tai cụp ôm chú rùa vào lề vở của cô", "effects": {"heart": 3, "set_flags": ["made_up", "drew_cat_turtle"]}, "next": "cw_c"}
+			]},
+		"cw_a": {"show": {"duc": "shy"}, "speaker": "duc", "text": "Lúc nãy tôi nói hơi quá. “Tuỳ em” là nói dối đấy. Tôi không muốn em đi.", "next": "cw_a2"},
+		"cw_a2": {"show": {"kyky": "shy"}, "speaker": "kyky", "text": "…Thế thì nói luôn từ đầu đi chứ. Đồ khúc gỗ."},
+		"cw_b": {"show": {"duc": "deadpan"}, "speaker": "duc", "text": "Ăn đi. Người ta mua cho mà.", "next": "cw_b2"},
+		"cw_b2": {"show": {"kyky": "angry"}, "speaker": "kyky", "text": "Anh… anh đúng là! Em không ăn! (đẩy hộp bánh ra xa, quay mặt đi)"},
+		"cw_c": {"show": {"kyky": "surprised"}, "text": "Một chú mèo tai cụp béo tròn xuất hiện bên cạnh chú rùa, vòng tay ôm lấy nó. Bên dưới ghi: “Rùa đừng giận nữa.”", "next": "cw_c2"},
+		"cw_c2": {"show": {"kyky": "laugh"}, "speaker": "kyky", "text": "Phụt… Anh vẽ con mèo này giống Nlong béo quá! Thôi được rồi, em hết giận rồi đó."},
+		"doubt": {"show": {"kyky": "worried@right"}, "speaker": "kyky", "text": "Anh Đức… chị Thanh Thảo học giỏi lắm hả? Hai người lên phòng lab cùng nhau thường xuyên không ạ?",
+			"choices": [
+				{"text": "“Thảo là đồng đội. Người duy nhất tôi kèm 1-1 là em.”", "effects": {"heart": 2, "set_flags": ["doubt_cleared"]}, "next": "d_a"},
+				{"text": "“Ghen à?” (trêu)", "effects": {"heart": 1}, "next": "d_b"}
+			]},
+		"d_a": {"show": {"duc": "soft"}, "speaker": "duc", "text": "Thảo là đồng đội, giỏi thật. Nhưng người duy nhất tôi dạy kèm 1-1 mỗi thứ Bảy là em. Thế đã đủ chưa?", "next": "d_a2"},
+		"d_a2": {"show": {"kyky": "happy"}, "speaker": "kyky", "text": "Đủ… đủ rồi ạ! Em hỏi vậy thôi mà, hì hì."},
+		"d_b": {"show": {"duc": "tease"}, "speaker": "duc", "text": "Ghen à?", "next": "d_b2"},
+		"d_b2": {"show": {"kyky": "panic"}, "speaker": "kyky", "text": "Ai… ai thèm ghen! Em hỏi để… để biết phòng lab ở đâu thôi! (Vẫn chưa hết lăn tăn.)"},
+		"chat": {"show": {"kyky": "happy@right"}, "speaker": "kyky", "effects": {"set_flags": ["talked_kyky_pm"]}, "text": "Anh Đức, Trâm nhìn anh như kiểu đang chấm điểm đó. Em xin lỗi trước nha, nó hơi… bảo vệ em quá.", "next": "chat2"},
+		"chat2": {"show": {"duc": "smirk"}, "speaker": "duc", "text": "Không sao. Tôi quen bị chấm điểm rồi — code của tôi bị chấm suốt.", "next": "chat3"},
+		"chat3": {"show": {"kyky": "laugh"}, "speaker": "kyky", "text": "Hì hì. Thế anh đoán xem Trâm chấm anh mấy điểm?"},
+		"again": {"show": {"kyky": "sparkle@right"}, "speaker": "kyky", "text": "Em làm xong bài 7 rồi nè! Còn mười ba bài nữa… (Nlong lại ngủ trên sổ của cô.)"}
+	}
+}

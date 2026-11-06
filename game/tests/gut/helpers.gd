@@ -7,6 +7,7 @@ const Steps := preload("res://scripts/story_steps.gd")
 const GameStateScript := preload("res://autoload/game_state.gd")
 
 const CODE_DIRS := ["res://autoload/", "res://scenes/", "res://scripts/"]
+const ROAM_MAPS := ["cafe", "street"]
 
 
 ## GameState riêng cho test (không đụng file lưu thật của người chơi). Nhớ free()/autofree().
@@ -96,9 +97,18 @@ static func visible_strings() -> Array:
 		out.append({"src": "characters.json/%s" % c, "text": str(chars[c].get("name", "")), "kind": "name"})
 	for id in DialogueData.list_ids("res://data/phone/"):
 		_strings_rec(load_data("res://data/phone/%s.json" % id), "phone/%s.json" % id, out)
-	var roam := load_data("res://data/roam/cafe.json")
-	for e in roam.get("npcs", []) + roam.get("spots", []):
-		out.append({"src": "cafe.json/%s" % e.get("id"), "text": str(e.get("label", "")), "kind": "label"})
+	for m in ROAM_MAPS:
+		var roam := load_data("res://data/roam/%s.json" % m)
+		for e in roam.get("npcs", []) + roam.get("spots", []):
+			out.append({"src": "%s.json/%s" % [m, e.get("id")], "text": str(e.get("label", "")), "kind": "label"})
+		for v in (roam.get("objectives", {}) as Dictionary):
+			for o in roam["objectives"][v]:
+				out.append({"src": "%s.json/objectives.%s" % [m, v], "text": str(o.get("text", "")), "kind": "data"})
+	for t in load_data("res://data/nlong_thoughts.json").get("thoughts", []):
+		out.append({"src": "nlong_thoughts/%s" % t.get("id"), "text": str(t.get("text", "")), "kind": "data"})
+	var cgs := load_data(DialogueData.CG_PATH)
+	for c in cgs:
+		out.append({"src": "cgs.json/%s" % c, "text": str(cgs[c].get("title", "")), "kind": "data"})
 	for f in ["barista", "debug_ep1"]:
 		_strings_rec(load_data("res://data/minigames/%s.json" % f), "minigames/%s.json" % f, out)
 	return out

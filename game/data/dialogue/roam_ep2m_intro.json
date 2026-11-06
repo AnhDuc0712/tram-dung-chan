@@ -1,0 +1,8 @@
+{
+	"title": "Tập 2 – Buổi sáng tự do (mở màn)",
+	"start": "a",
+	"nodes": {
+		"a": {"text": "8:45. Quán vừa mở cửa, mùi cà phê rang lan khắp căn phòng gỗ. Khách quen lác đác vào.", "next": "b"},
+		"b": {"effects": {"set_flags": ["ep2m_intro_done"]}, "text": "Đi lại tự do: trò chuyện với khách, nựng Nlong, pha sẵn đồ uống… Ra cửa đón KyKy khi bạn sẵn sàng. (Chạm Nlong nhỏ ở góc màn hình để nghe tâm tư Anh Đức.)"}
+	}
+}

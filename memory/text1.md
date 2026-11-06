@@ -115,3 +115,33 @@ cả thư mục này mỗi phiên làm việc bạn làm gì bạn cứ note và
 - GitHub không nhận yêu cầu Range kiểu "N byte cuối" (thư viện remotezip hỏng) → tự viết đọc zip từ xa bằng khoảng byte cụ thể.
 - WSL Ubuntu trên máy bị hỏng ổ đĩa ảo, Docker không chạy → thử Linux trực tiếp trên GitHub Actions.
 - Trong Bash tool, `\` trong heredoc Python bị nuốt → dùng `chr(92)` hoặc công cụ Edit.
+
+## Phiên 7 — 2026-11-06: **Tập 2 — Cơn bão nhỏ ở Gờ 23** + Event CG + gợi ý trong mota.md
+Đọc: `kịch bản/kichban2.md`, `memory/mota.md`, 5 ảnh bối cảnh + bảng NPC/biểu cảm mới (`thiết kế/env/`), 5 Event CG.
+
+**Ảnh** (`tools/art/process_ep2.py`)
+- Xoá dấu ngôi sao Gemini ở góc mọi ảnh (cả 4 nền Tập 1), cắt phụ đề in sẵn trên 5 CG, cắt 3 nền nhỏ + 2 NPC học sinh +
+  10 ô biểu cảm (chị M, Trâm, Đức Anh, Hải) từ bảng thiết kế; nền mới: quán đêm mưa, khu trò chơi, bản đồ phố.
+
+**Engine**
+- Event CG (khóa `cg`, lia máy chậm, mở khoá vào Kỷ niệm → Ảnh sự kiện); chọn tập ở màn hình chính; màn kết thúc có “Sang Tập 2”.
+- Hiệu ứng cánh bướm: chỉ số Trâm tin tưởng / ghen ngầm / Đức Anh / Thảo → HUD báo “Trâm sẽ nhớ chuyện này”; Menu → Quan hệ.
+- Gợi ý mota.md: nhân vật xích lại gần khi Rung động tăng, tiếng lách cách khi chữ chạy, Nlong ở góc màn hình kể
+  “tâm tư Anh Đức” (không cộng chỉ số), đa kết cục + sưu tầm CG.
+- Bản đồ theo dữ liệu: nhiều map/biến thể, mở màn, mục tiêu, KyKy đi theo trên phố, NPC môi trường (freelancer, cặp đôi cấp 3,
+  cô bán hoa, bác bảo vệ). Điện thoại: lựa chọn có hiệu ứng.
+- 3 mini-game: giải cứu bàn phím (gãi 3 điểm + kéo súp), ghép lệnh vòng lặp trái tim, nhịp đập trong bóng tối.
+
+**Nội dung**: 34 file kịch bản + 2 điện thoại; bám kịch bản 2 và mở rộng buổi chiều tự do với hội bạn, buổi tối tự do trên phố
+(5 nơi hẹn, tối đa 2), 5 kết cục (3 theo kịch bản + “Chiếc Áo Khoác” theo mota + “Gấu Bông Hoàng Thượng” bí mật).
+
+**Kiểm thử**: 19 test tuyến (thêm 5 tuyến Tập 2), GUT 55 test / 1316 phép kiểm (người chơi ngẫu nhiên chơi cả 2 tập),
+check.ps1 tự chơi trọn cả Tập 1 lẫn Tập 2 → ALL CHECKS PASSED.
+
+**Lỗi / vướng**
+- Đặt tên node `"end"` → trùng từ khoá kết thúc hội thoại, cảnh truyện đứng lại → thêm luật validator cấm tên này.
+- Node rẽ nhánh mang `show`/`hide`/`bg` bị bỏ qua (đã biết từ Tập 1) — lặp lại 6 lần khi viết nhanh; validator bắt hết.
+- Rung động Tập 2 vượt thanh 18 → thanh theo tập (`bar_max`, Tập 2 = 28).
+- Cân bằng: kết “Áo Khoác” chỉ 1/250 lượt → đổi điều kiện (khoác áo thật) + ưu tiên trước kết ghen.
+- Bảng thông tin mini-game Nlong che mặt mèo → dời sang phải; Nlong góc màn hình ẩn khi chơi mini-game.
+- Lọc trung vị cửa sổ lớn trên ảnh 2752px quá chậm (>10 phút) → đổi sang lọc Gauss.

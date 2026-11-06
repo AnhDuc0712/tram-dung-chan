@@ -1,0 +1,9 @@
+{
+	"title": "Tập 2 – Buổi tối trên phố (mở màn)",
+	"start": "a",
+	"nodes": {
+		"a": {"show": {"duc": "normal@left", "kyky": "normal@right"}, "speaker": "kyky", "text": "Trời lất phất mưa rồi… Còn hai tiếng nữa mới tới giờ ăn lẩu. Mình đi đâu đây anh?", "next": "b"},
+		"b": {"show": {"duc": "smirk"}, "speaker": "duc", "text": "Em chọn đi. Hôm nay em làm bài tốt, được thưởng.", "next": "c"},
+		"c": {"hide": "all", "effects": {"set_flags": ["ep2n_intro_done"]}, "text": "KyKy sẽ đi theo bạn. Quanh đây có khu trò chơi, nhà sách cũ, trạm xe buýt, xích đu công viên, và Gờ 23 vừa đóng cửa… Thời gian chỉ đủ cho khoảng hai nơi."}
+	}
+}

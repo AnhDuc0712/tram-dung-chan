@@ -1,30 +1,629 @@
 {
 	"title": "Bản đồ quán Gờ 23 (toạ độ theo ảnh assets/art/bg/cafe_map.jpg, rộng 1280px)",
 	"map": "cafe_map",
-	"music": {"day": "roam_day", "evening": "evening"},
-	"walk": [[278, 224], [547, 224], [547, 239], [770, 239], [770, 383], [1029, 383], [1029, 318], [1093, 318], [1123, 388], [1158, 497], [1009, 497], [1009, 537], [944, 537], [944, 547], [273, 547], [273, 696], [124, 696], [85, 621], [124, 571], [229, 502], [249, 378], [271, 308]],
-	"obstacles": [
-		[358, 275, 100, 55],
-		[530, 285, 120, 50],
-		[322, 385, 136, 128],
-		[565, 400, 74, 115],
-		[720, 440, 192, 70],
-		[1080, 410, 78, 88]
+	"music": {
+		"day": "roam_day",
+		"evening": "evening",
+		"ep2_morning": "roam_day",
+		"ep2_afternoon": "cafe_day"
+	},
+	"walk": [
+		[
+			278,
+			224
+		],
+		[
+			547,
+			224
+		],
+		[
+			547,
+			239
+		],
+		[
+			770,
+			239
+		],
+		[
+			770,
+			383
+		],
+		[
+			1029,
+			383
+		],
+		[
+			1029,
+			318
+		],
+		[
+			1093,
+			318
+		],
+		[
+			1123,
+			388
+		],
+		[
+			1158,
+			497
+		],
+		[
+			1009,
+			497
+		],
+		[
+			1009,
+			537
+		],
+		[
+			944,
+			537
+		],
+		[
+			944,
+			547
+		],
+		[
+			273,
+			547
+		],
+		[
+			273,
+			696
+		],
+		[
+			124,
+			696
+		],
+		[
+			85,
+			621
+		],
+		[
+			124,
+			571
+		],
+		[
+			229,
+			502
+		],
+		[
+			249,
+			378
+		],
+		[
+			271,
+			308
+		]
 	],
-	"player": {"sprite": "duc_front", "walk": "duc_walk", "scale": 0.17, "start": {"day": [640, 360], "evening": [700, 450]}},
+	"obstacles": [
+		[
+			358,
+			275,
+			100,
+			55
+		],
+		[
+			530,
+			285,
+			120,
+			50
+		],
+		[
+			322,
+			385,
+			136,
+			128
+		],
+		[
+			565,
+			400,
+			74,
+			115
+		],
+		[
+			720,
+			440,
+			192,
+			70
+		],
+		[
+			1080,
+			410,
+			78,
+			88
+		]
+	],
+	"player": {
+		"sprite": "duc_front",
+		"walk": "duc_walk",
+		"scale": 0.17,
+		"start": {
+			"day": [
+				640,
+				360
+			],
+			"evening": [
+				700,
+				450
+			]
+		}
+	},
 	"npcs": [
-		{"id": "kyky", "label": "Nói chuyện", "dialogue": "roam_kyky", "sprite": "kyky_wave", "scale": 0.17, "when": {"day": [965, 470], "evening": [165, 600]}},
-		{"id": "m", "label": "Nói chuyện", "dialogue": "roam_m", "sprite": "m_front", "scale": 0.18, "clip": 0.58, "stand": [905, 398], "when": {"day": [930, 212], "evening": [930, 212]}},
-		{"id": "nlong", "label": "Nựng mèo", "dialogue": "roam_nlong", "sprite": "cat_loaf", "scale": 0.42, "cat": true, "when": {"day": [835, 302], "evening": [985, 522]}}
+		{
+			"id": "kyky",
+			"label": "Nói chuyện",
+			"dialogue": "roam_kyky",
+			"sprite": "kyky_wave",
+			"scale": 0.17,
+			"when": {
+				"day": [
+					965,
+					470
+				],
+				"evening": [
+					165,
+					600
+				]
+			}
+		},
+		{
+			"id": "m",
+			"label": "Nói chuyện",
+			"dialogue": "roam_m",
+			"sprite": "m_front",
+			"scale": 0.18,
+			"clip": 0.58,
+			"stand": [
+				905,
+				398
+			],
+			"when": {
+				"day": [
+					930,
+					212
+				],
+				"evening": [
+					930,
+					212
+				],
+				"ep2_morning": [
+					930,
+					212
+				],
+				"ep2_afternoon": [
+					930,
+					212
+				]
+			},
+			"dialogue_by": {
+				"ep2_morning": "roam_ep2m_m",
+				"ep2_afternoon": "roam_ep2a_m"
+			}
+		},
+		{
+			"id": "nlong",
+			"label": "Nựng mèo",
+			"dialogue": "roam_nlong",
+			"sprite": "cat_loaf",
+			"scale": 0.42,
+			"cat": true,
+			"when": {
+				"day": [
+					835,
+					302
+				],
+				"evening": [
+					985,
+					522
+				],
+				"ep2_morning": [
+					835,
+					302
+				],
+				"ep2_afternoon": [
+					835,
+					302
+				]
+			},
+			"dialogue_by": {
+				"ep2_morning": "roam_ep2_nlong",
+				"ep2_afternoon": "roam_ep2_nlong"
+			}
+		},
+		{
+			"id": "kyky2",
+			"label": "Nói chuyện",
+			"dialogue": "roam_ep2a_kyky",
+			"sprite": "kyky_wave",
+			"scale": 0.17,
+			"when": {
+				"ep2_afternoon": [
+					965,
+					470
+				]
+			}
+		},
+		{
+			"id": "tram",
+			"label": "Nói chuyện",
+			"dialogue": "roam_ep2a_tram",
+			"sprite": "tram_front",
+			"scale": 0.17,
+			"stand": [
+				296,
+				470
+			],
+			"when": {
+				"ep2_afternoon": [
+					300,
+					430
+				]
+			}
+		},
+		{
+			"id": "ducanh",
+			"label": "Nói chuyện",
+			"dialogue": "roam_ep2a_ducanh",
+			"sprite": "ducanh_front",
+			"scale": 0.17,
+			"stand": [
+				488,
+				470
+			],
+			"when": {
+				"ep2_afternoon": [
+					486,
+					430
+				]
+			}
+		},
+		{
+			"id": "thao",
+			"label": "Nói chuyện",
+			"dialogue": "roam_ep2a_thao",
+			"sprite": "thao_front",
+			"scale": 0.17,
+			"stand": [
+				392,
+				536
+			],
+			"when": {
+				"ep2_afternoon": [
+					392,
+					520
+				]
+			}
+		},
+		{
+			"id": "cp_girl",
+			"label": "Cặp đôi cấp 3",
+			"dialogue": "roam_ep2_couple",
+			"sprite": "npc_girl",
+			"scale": 0.21,
+			"stand": [
+				602,
+				540
+			],
+			"when": {
+				"ep2_morning": [
+					556,
+					478
+				],
+				"ep2_afternoon": [
+					556,
+					478
+				]
+			}
+		},
+		{
+			"id": "cp_boy",
+			"label": "Cặp đôi cấp 3",
+			"dialogue": "roam_ep2_couple",
+			"sprite": "npc_boy",
+			"scale": 0.21,
+			"stand": [
+				602,
+				540
+			],
+			"when": {
+				"ep2_morning": [
+					650,
+					478
+				],
+				"ep2_afternoon": [
+					650,
+					478
+				]
+			}
+		}
 	],
 	"spots": [
-		{"id": "barista", "label": "Pha chế", "dialogue": "roam_barista", "marker": [915, 128], "stand": [905, 398], "when": ["day"]},
-		{"id": "guitar", "label": "Đàn một bài", "dialogue": "roam_guitar", "marker": [1118, 470], "stand": [985, 515], "when": ["day", "evening"]},
-		{"id": "books", "label": "Xem kệ sách", "dialogue": "roam_books", "marker": [627, 135], "stand": [627, 252], "when": ["day", "evening"]},
-		{"id": "menu", "label": "Đọc menu", "dialogue": "roam_menu", "marker": [928, 52], "stand": [820, 398], "when": ["day", "evening"]},
-		{"id": "window", "label": "Nhìn ra cửa sổ", "dialogue": "roam_window", "marker": [400, 110], "stand": [410, 240], "when": ["day", "evening"]},
-		{"id": "staff", "label": "Phòng nhân viên", "dialogue": "roam_staff", "marker": [1093, 205], "stand": [1060, 350], "when": ["day", "evening"]},
-		{"id": "door", "label": "Cửa ra vào", "dialogue": "roam_door", "marker": [70, 545], "stand": [140, 645], "when": ["day", "evening"]},
-		{"id": "pen", "label": "Nhặt bút", "dialogue": "roam_pen", "marker": [480, 528], "stand": [480, 535], "when": ["day"], "if": {"flags": ["caught_notebook"], "not_flags": ["found_pen"]}}
-	]
+		{
+			"id": "barista",
+			"label": "Pha chế",
+			"dialogue": "roam_barista",
+			"marker": [
+				915,
+				128
+			],
+			"stand": [
+				905,
+				398
+			],
+			"when": [
+				"day"
+			]
+		},
+		{
+			"id": "guitar",
+			"label": "Đàn một bài",
+			"dialogue": "roam_guitar",
+			"marker": [
+				1118,
+				470
+			],
+			"stand": [
+				985,
+				515
+			],
+			"when": [
+				"day",
+				"evening"
+			]
+		},
+		{
+			"id": "books",
+			"label": "Xem kệ sách",
+			"dialogue": "roam_books",
+			"marker": [
+				627,
+				135
+			],
+			"stand": [
+				627,
+				252
+			],
+			"when": [
+				"day",
+				"evening"
+			]
+		},
+		{
+			"id": "menu",
+			"label": "Đọc menu",
+			"dialogue": "roam_menu",
+			"marker": [
+				928,
+				52
+			],
+			"stand": [
+				820,
+				398
+			],
+			"when": [
+				"day",
+				"evening",
+				"ep2_morning",
+				"ep2_afternoon"
+			]
+		},
+		{
+			"id": "window",
+			"label": "Nhìn ra cửa sổ",
+			"dialogue": "roam_window",
+			"marker": [
+				400,
+				110
+			],
+			"stand": [
+				410,
+				240
+			],
+			"when": [
+				"day",
+				"evening",
+				"ep2_morning",
+				"ep2_afternoon"
+			]
+		},
+		{
+			"id": "staff",
+			"label": "Phòng nhân viên",
+			"dialogue": "roam_staff",
+			"marker": [
+				1093,
+				205
+			],
+			"stand": [
+				1060,
+				350
+			],
+			"when": [
+				"day",
+				"evening"
+			]
+		},
+		{
+			"id": "door",
+			"label": "Cửa ra vào",
+			"dialogue": "roam_door",
+			"marker": [
+				70,
+				545
+			],
+			"stand": [
+				140,
+				645
+			],
+			"when": [
+				"day",
+				"evening"
+			]
+		},
+		{
+			"id": "pen",
+			"label": "Nhặt bút",
+			"dialogue": "roam_pen",
+			"marker": [
+				480,
+				528
+			],
+			"stand": [
+				480,
+				535
+			],
+			"when": [
+				"day"
+			],
+			"if": {
+				"flags": [
+					"caught_notebook"
+				],
+				"not_flags": [
+					"found_pen"
+				]
+			}
+		},
+		{
+			"id": "freelancer",
+			"label": "Anh freelancer",
+			"dialogue": "roam_ep2_freelancer",
+			"marker": [
+				408,
+				262
+			],
+			"stand": [
+				410,
+				345
+			],
+			"when": [
+				"ep2_morning",
+				"ep2_afternoon"
+			]
+		},
+		{
+			"id": "barista2",
+			"label": "Pha chế",
+			"dialogue": "roam_ep2m_barista",
+			"marker": [
+				915,
+				128
+			],
+			"stand": [
+				905,
+				398
+			],
+			"when": [
+				"ep2_morning"
+			],
+			"if": {
+				"not_flags": [
+					"cacao_ready"
+				]
+			}
+		},
+		{
+			"id": "door2",
+			"label": "Ra cửa đón KyKy",
+			"dialogue": "roam_ep2m_door",
+			"marker": [
+				70,
+				545
+			],
+			"stand": [
+				140,
+				645
+			],
+			"when": [
+				"ep2_morning"
+			]
+		}
+	],
+	"intros": {
+		"day": [
+			"roam_day_intro",
+			"day_intro_done"
+		],
+		"evening": [
+			"roam_evening_intro",
+			"evening_intro_done"
+		],
+		"ep2_morning": [
+			"roam_ep2m_intro",
+			"ep2m_intro_done"
+		],
+		"ep2_afternoon": [
+			"roam_ep2a_intro",
+			"ep2a_intro_done"
+		]
+	},
+	"tint": {
+		"evening": [
+			0.66,
+			0.6,
+			0.74
+		],
+		"ep2_afternoon": [
+			1.0,
+			0.93,
+			0.85
+		]
+	},
+	"objectives": {
+		"ep2_morning": [
+			{
+				"if": {
+					"flags": [
+						"cacao_ready"
+					]
+				},
+				"text": "Ly ca cao đã sẵn. Ra cửa đón KyKy khi bạn muốn."
+			},
+			{
+				"text": "9 giờ KyKy mới tới. Dạo quanh quán, trò chuyện với khách, pha sẵn gì đó… rồi ra cửa đón cô bé."
+			}
+		],
+		"ep2_afternoon": [
+			{
+				"if": {
+					"flags": [
+						"kyky_doubt"
+					],
+					"not_flags": [
+						"doubt_cleared"
+					]
+				},
+				"text": "KyKy vẫn lăn tăn chuyện Thanh Thảo… Nói chuyện với cô bé (hoặc nhờ Thảo giải thích)."
+			},
+			{
+				"if": {
+					"flags": [
+						"cold_war"
+					],
+					"not_flags": [
+						"made_up"
+					]
+				},
+				"text": "Không khí với KyKy hơi lạnh. Làm lành trước khi quá muộn?"
+			},
+			{
+				"text": "Hội bạn đang ngồi bàn bên. Trò chuyện với ai cũng được — họ sẽ nhớ cách bạn đối xử. Sẵn sàng thì gặp chị M."
+			}
+		]
+	},
+	"autoplay": {
+		"ep2_morning": [
+			"nlong",
+			"barista2",
+			"freelancer",
+			"door2"
+		],
+		"ep2_afternoon": [
+			"tram",
+			"kyky2",
+			"m"
+		]
+	}
 }

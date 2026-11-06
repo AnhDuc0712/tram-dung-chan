@@ -47,6 +47,10 @@ Mỗi cảnh / hội thoại là một file `game/data/dialogue/<id>.json`. Sử
 
 **Node `branch` chỉ được có** `branch`, `default`, `effects` — muốn đổi nền/nhạc thì đặt ở node đích.
 
+- `cg`: Event CG toàn màn hình (id trong `data/cgs.json`), máy quay lia chậm, lần đầu xem tự mở khoá vào Kỷ niệm; `"cg": "none"` tắt.
+- **Không đặt tên node là `end`** — `end` là từ khoá “kết thúc hội thoại” (validator báo lỗi).
+- Node rẽ nhánh (`branch`) chỉ được có `branch`/`default`/`effects` — `bg`, `show`, `hide`… đặt ở node trước/sau.
+
 ## Điều kiện `if`
 ```json
 {"flags": ["a"], "not_flags": ["b"], "min": {"heart": 5, "nlong": 2}, "below": {"brain": 3}}
@@ -83,11 +87,15 @@ Mini-game xong đi tiếp tới đâu: xem `MINI_NEXT` trong `game/scripts/story
 - Gợi ý chọn mặt theo hoàn cảnh: nói đùa tỉnh bơ → `deadpan`; bị bắt quả tang / chối → `blush`, `panic`; hờn dỗi kiểu
   "Keo kiệt!" → `hmph`; tức thật → `angry`; ngạc nhiên nhẹ "Ơ…" → `surprised`, giật mình mạnh → `shock`; lo cho người kia → `worried`.
 
-## Bản đồ tự do (`data/roam/cafe.json`)
+## Bản đồ tự do (`data/roam/<map>.json`, biến thể → map trong `Steps.ROAM_MAPS`)
+Khoá theo biến thể: `music`, `ambient`, `tint` [r,g,b], `intros` {biến thể: [hội thoại, cờ đã xem]}, `objectives` {biến thể: [{if, text}]},
+`follower` {biến thể: {sprite, scale}} (nhân vật đi theo), `autoplay` {biến thể: [id…]} (thứ tự tự chơi để kiểm thử).
+NPC: `when` {biến thể: [x, y]}, `dialogue_by` {biến thể: hội thoại}. Spot: `when` [biến thể…], `if`.
 Toạ độ theo ảnh `cafe_map.jpg` (1280×714). `walk` = đa giác vùng đi được, `obstacles` = [x, y, rộng, cao], `npcs`/`spots` có `dialogue`, `stand` (chỗ đứng để tương tác), `when` (biến thể day/evening), `if`.
 Xem trực quan: `tools\screenshot.ps1 -Scene cafe -Extra "--debug-walk" -Clicks 7 -Frames 330 -Name dbg`.
 
 ## Điện thoại (`data/phone/<id>.json`)
+Lựa chọn có thể mang `effects` (cộng chỉ số / bật cờ như kịch bản). `end_button`: chữ trên nút kết thúc.
 `threads[]` → `title`, `subtitle`, `members` (`{"kyky": "kyky_hug"}` = ảnh đại diện), `messages[]`:
 `{"from": "kyky", "text": "...", "image": "chibi|turtle|nlong|<ảnh nhân vật>", "if": {...}, "if_ending": ["gia_su"]}`
 hoặc `{"choices": [{"sticker": "cat_sit", "text": "...", "reply": [ ...tin nhắn... ]}]}`.

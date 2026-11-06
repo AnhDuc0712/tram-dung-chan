@@ -1,0 +1,18 @@
+{
+	"_note": "Chạm Nlong ở góc màn hình -> lần lượt kể các 'tâm tư Anh Đức' (Đức chỉ tâm sự với mèo). ep = tập sớm nhất được kể; if = điều kiện như kịch bản.",
+	"thoughts": [
+		{"id": "t1_deadline", "ep": 1, "text": "Deadline đồ án còn ba ngày, bug còn hai mươi bảy con. Ổn. Rất ổn. …Mày đừng nằm lên bàn phím nữa là ổn nhất."},
+		{"id": "t1_notebook", "ep": 1, "if": {"flags": ["caught_notebook"]}, "text": "Hôm nay có đứa cầm ngược bản đồ lao vào quán. Cuốn sổ bay thẳng vào mặt anh. Mà… con rùa trong sổ vẽ đáng yêu phết."},
+		{"id": "t1_turtle", "ep": 1, "if": {"flags": ["turtle_seen"]}, "text": "Anh giữ tờ note con rùa ấy. Đừng kể với ai. Kể là cắt pate."},
+		{"id": "t1_rain", "ep": 1, "if": {"flags": ["has_umbrella"]}, "text": "Nhà anh ở hướng ngược lại. Nhưng ô chỉ có một cái, mà mưa thì to. Logic đơn giản thôi mà, Nlong."},
+		{"id": "t1_lag", "ep": 1, "if": {"flags": ["calm_fail"]}, "text": "Lúc cô bé ghé sát vào màn hình, anh nói “nó lặp” bốn lần. Bốn lần, Nlong ạ. Đại thần IT gì mà lag."},
+		{"id": "t2_text", "ep": 2, "text": "Nửa đêm nhắn tin hỏi anh có bị cảm không. Anh không cảm. Anh chỉ… mất ngủ thôi."},
+		{"id": "t2_tea", "ep": 2, "if": {"flags": ["sweet_text"]}, "text": "Hộp trà gừng có mẩu giấy “Uống cho khỏi cảm nha”. Anh dán nó lên màn hình laptop rồi. Mày đừng có cào."},
+		{"id": "t2_hand", "ep": 2, "if": {"flags": ["thumb_touch"]}, "text": "Tay cô bé nhỏ hơn anh tưởng. Lần sau mày lăn ra mép bàn nữa nhé. Anh thưởng gấp đôi pate."},
+		{"id": "t2_tram", "ep": 2, "if": {"flags": ["talked_tram"]}, "text": "Bạn thân của KyKy đáng sợ hơn cả thầy chấm đồ án. Nhưng con bé có người bảo vệ như thế… cũng tốt."},
+		{"id": "t2_matcha", "ep": 2, "if": {"min": {"jealous": 3}}, "text": "Matcha thì có gì ngon. Đắng, xanh lè. Ca cao của anh ngon hơn. Đúng không? Đúng không, Nlong?"},
+		{"id": "t2_dark", "ep": 2, "if": {"flags": ["dark_calm"]}, "text": "Lúc mất điện, cô bé run như mày hồi mới được nhặt về. Anh chỉ muốn đèn đừng bật lại vội."},
+		{"id": "t2_demo", "ep": 2, "if": {"flags": ["heard_demo"]}, "text": "Bản nhạc chưa có tên. Giờ thì có rồi. Đừng nói với ai."},
+		{"id": "t2_abroad", "ep": 2, "if": {"flags": ["date_park"]}, "text": "Cô bé muốn đi du học. Anh sẽ kèm tới khi qua. Rồi sau đó… sau đó tính sau."}
+	]
+}

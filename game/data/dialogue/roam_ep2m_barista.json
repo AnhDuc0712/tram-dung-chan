@@ -1,0 +1,15 @@
+{
+	"title": "Tập 2 – Quầy pha chế buổi sáng",
+	"start": "a",
+	"nodes": {
+		"a": {"sfx": "cup", "text": "Máy espresso đã nóng. Pha sẵn gì đó cho KyKy trước khi cô bé tới?",
+			"choices": [
+				{"text": "Ca cao nóng, vẽ một con mèo tai cụp lên bọt sữa", "effects": {"set_flags": ["cacao_ready", "cacao_cat"]}, "next": "cacao"},
+				{"text": "Trà gừng mật ong (hôm qua dầm mưa mà)", "effects": {"set_flags": ["cacao_ready", "ginger_ready"]}, "next": "ginger"},
+				{"text": "Thôi, để cô bé tới rồi hỏi", "next": "no"}
+			]},
+		"cacao": {"show": {"duc": "soft@left"}, "text": "Một ly ca cao nóng. Trên bọt sữa là gương mặt tròn xoe của Nlong — lần này tai cụp đúng tỉ lệ hơn hôm qua."},
+		"ginger": {"show": {"duc": "normal@left"}, "text": "Một ấm trà gừng mật ong nhỏ, hơi nóng bốc lên thơm dịu. Uống vào chắc sẽ không cảm."},
+		"no": {"text": "Anh Đức lau lại chiếc ly đã sạch bong lần thứ ba. Hơi hồi hộp thì phải."}
+	}
+}

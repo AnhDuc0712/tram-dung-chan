@@ -46,15 +46,20 @@ func test_code_audio_and_images_exist() -> void:
 
 func test_roam_and_phone_images_exist() -> void:
 	var missing: Array = []
-	var roam := H.load_data("res://data/roam/cafe.json")
-	assert_true(ResourceLoader.exists("res://assets/art/bg/%s.jpg" % roam.get("map", "")), "thiếu ảnh bản đồ")
-	for v in (roam.get("music", {}) as Dictionary).values():
-		if not ResourceLoader.exists(MUSIC % v):
-			missing.append("cafe.json music " + str(v))
-	var pl: Dictionary = roam.get("player", {})
-	for e in roam.get("npcs", []) + [pl, {"sprite": pl.get("walk", "")}]:
-		if e.has("sprite") and not ResourceLoader.exists(CHARS % e["sprite"]):
-			missing.append("cafe.json sprite " + str(e["sprite"]))
+	for m in H.ROAM_MAPS:
+		var roam := H.load_data("res://data/roam/%s.json" % m)
+		assert_true(ResourceLoader.exists("res://assets/art/bg/%s.jpg" % roam.get("map", "")), m + ": thiếu ảnh bản đồ")
+		for v in (roam.get("music", {}) as Dictionary).values():
+			if str(v) != "" and not ResourceLoader.exists(MUSIC % v):
+				missing.append("%s.json music %s" % [m, v])
+		for v in (roam.get("ambient", {}) as Dictionary).values():
+			if str(v) != "" and not ResourceLoader.exists(SFX % v):
+				missing.append("%s.json ambient %s" % [m, v])
+		var pl: Dictionary = roam.get("player", {})
+		var fol: Array = (roam.get("follower", {}) as Dictionary).values()
+		for e in roam.get("npcs", []) + [pl, {"sprite": pl.get("walk", "")}] + fol:
+			if (e as Dictionary).has("sprite") and not ResourceLoader.exists(CHARS % e["sprite"]):
+				missing.append("%s.json sprite %s" % [m, e["sprite"]])
 	for id in H.DialogueData.list_ids("res://data/phone/"):
 		var d := H.load_data("res://data/phone/%s.json" % id)
 		for th in d.get("threads", []):
@@ -127,3 +132,15 @@ func test_credits_cover_audio_and_fonts() -> void:
 		if not credits.contains(fam) and not credits.contains(fam.replace("2", " 2")):
 			missing.append(p.get_file())
 	assert_eq(missing, [], "tài nguyên chưa ghi công trong docs/CREDITS.md")
+
+
+func test_every_cg_exists_and_is_used() -> void:
+	var cgs := H.load_data(H.DialogueData.CG_PATH)
+	assert_gt(cgs.size(), 3, "chưa khai báo CG nào")
+	var all_text := ""
+	var dl := H.all_dialogues()
+	for id in dl:
+		all_text += JSON.stringify(dl[id])
+	for id in cgs:
+		assert_true(ResourceLoader.exists("res://assets/art/cg/%s.jpg" % str(cgs[id].get("img", id))), "thiếu ảnh CG " + str(id))
+		assert_true(all_text.contains('"cg":"%s"' % id), "CG %s chưa được kịch bản nào dùng" % id)

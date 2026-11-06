@@ -34,10 +34,12 @@ func _ready() -> void:
 	_card.add_theme_font_override.call_deferred("font", Ui.font_title)
 
 
-func new_game() -> void:
-	GameState.reset()
+## Chơi mới một tập (mặc định Tập 1).
+func new_game(ep: int = 1) -> void:
+	var info: Dictionary = Steps.EPISODES.get(ep, Steps.EPISODES[1])
+	GameState.start_episode(ep, str(info["first"]))
 	GameState.delete_save()
-	goto(GameState.FIRST_STEP)
+	goto(str(info["first"]))
 
 
 func continue_game() -> void:

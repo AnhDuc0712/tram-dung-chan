@@ -14,7 +14,8 @@ signal flag_changed(flag: String, value: bool)
 
 const SAVE_VERSION := 2
 const FIRST_STEP := "vn:ep1_s1"
-const BAR_MAX := {"heart": 18, "brain": 6}
+const BAR_MAX := {"heart": 18, "brain": 6}  # Tập 1
+const BAR_MAX_EP2 := {"heart": 28, "brain": 6}  # Tập 2 dài hơn, nhiều lựa chọn hơn
 
 var save_path := "user://save.json"  # test đổi sang file khác
 var meta_path := "user://meta.json"
@@ -28,6 +29,10 @@ var has_position := false  # vừa tải save -> đặt lại vị trí nhân v�
 var ending_id := ""
 
 var unlocked_endings: Array = []
+var unlocked_cgs: Array = []  # Event CG đã xem (mục Kỷ niệm)
+var seen_thoughts: Array = []  # "tâm tư Anh Đức" đã nghe từ Nlong
+var ep1_last := ""  # kết thúc Tập 1 gần nhất -> Tập 2 mở đầu khác nhau
+var episode := 1
 ## Chế độ tự chơi để kiểm thử (tham số "-- --autoplay"): tự bấm, tự chọn, tự xong mini-game.
 var autoplay := OS.get_cmdline_user_args().has("--autoplay")
 var settings := {"music": 0.8, "sfx": 0.9, "text_speed": 45.0}
@@ -68,10 +73,17 @@ func _add_keys(action: String, keys: Array) -> void:
 func reset() -> void:
 	vars = {"heart": 0, "brain": 0, "nlong": 0}
 	flags.clear()
+	episode = 1
 	step = FIRST_STEP
 	player_position = Vector2.ZERO
 	has_position = false
 	ending_id = ""
+
+
+## Độ dài thanh hiển thị của chỉ số theo tập đang chơi.
+func bar_max(key: String) -> int:
+	var t: Dictionary = BAR_MAX_EP2 if episode >= 2 else BAR_MAX
+	return int(t.get(key, 10))
 
 
 func get_var(key: String) -> int:
@@ -93,6 +105,21 @@ func set_flag(flag: String, value: bool = true) -> void:
 	else:
 		flags.erase(flag)
 	flag_changed.emit(flag, value)
+
+
+## Bắt đầu một tập mới: chỉ số về 0, mang theo vài cờ từ kết thúc Tập 1 đã chơi (nếu có).
+func start_episode(ep: int, first_step: String) -> void:
+	reset()
+	episode = ep
+	step = first_step
+	if ep == 2:
+		vars = {"heart": 0, "brain": 0, "nlong": 0, "tram": 0, "jealous": 0}
+		var last := ep1_last if ep1_last != "" else "duoi_mot_chiec_o"  # chưa chơi Tập 1 -> theo mạch chính thức
+		set_flag("ep1_" + last)
+		if last in ["duoi_mot_chiec_o", "hoang_thuong"]:
+			set_flag("ep1_umbrella")
+		elif last == "uot_sung":
+			set_flag("ep1_wet")
 
 
 ## Điều kiện (khóa "if"):
@@ -154,6 +181,7 @@ func save_game() -> bool:
 		"vars": vars,
 		"flags": flags.keys(),
 		"step": step,
+		"episode": episode,
 		"ending": ending_id,
 		"pos": [player_position.x, player_position.y] if has_position else [],
 	}
@@ -174,6 +202,7 @@ func load_game() -> bool:
 	for f in parsed.get("flags", []):
 		flags[str(f)] = true
 	step = str(parsed.get("step", FIRST_STEP))
+	episode = int(parsed.get("episode", 1))
 	ending_id = str(parsed.get("ending", ""))
 	var pos: Array = parsed.get("pos", [])
 	if pos.size() == 2:
@@ -189,15 +218,38 @@ func delete_save() -> void:
 
 # ---------------------------------------------------------------- meta & cài đặt
 func unlock_ending(id: String) -> void:
-	if id != "" and not unlocked_endings.has(id):
+	if id == "":
+		return
+	if not unlocked_endings.has(id):
 		unlocked_endings.append(id)
-		_write_json(meta_path, {"endings": unlocked_endings})
+	if episode == 1:
+		ep1_last = id
+	_save_meta()
+
+
+func unlock_cg(id: String) -> void:
+	if id != "" and not unlocked_cgs.has(id):
+		unlocked_cgs.append(id)
+		_save_meta()
+
+
+func mark_thought(id: String) -> void:
+	if not seen_thoughts.has(id):
+		seen_thoughts.append(id)
+		_save_meta()
+
+
+func _save_meta() -> void:
+	_write_json(meta_path, {"endings": unlocked_endings, "cgs": unlocked_cgs, "thoughts": seen_thoughts, "ep1_last": ep1_last})
 
 
 func load_meta() -> void:
 	var m = _read_json(meta_path)
 	if m is Dictionary:
 		unlocked_endings = Array(m.get("endings", []))
+		unlocked_cgs = Array(m.get("cgs", []))
+		seen_thoughts = Array(m.get("thoughts", []))
+		ep1_last = str(m.get("ep1_last", ""))
 
 
 func load_settings() -> void:

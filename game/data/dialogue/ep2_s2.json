@@ -1,0 +1,33 @@
+{
+	"title": "Tập 2 – Phân cảnh 2: Cuộc “đột kích” của đội quân hộ vệ & tổ đội IT",
+	"start": "a",
+	"nodes": {
+		"a": {"bg": "cafe_day", "music": "cafe_day", "sfx": "doorbell", "show": {"duc": "normal@left", "kyky": "normal@right"}, "text": "Cửa quán bật mở cùng lúc bởi hai nhóm người hoàn toàn không hẹn trước.", "next": "b"},
+		"b": {"hide": ["kyky"], "show": {"tram": "cross@right"}, "text": "Từ phía KyKy: Trâm — tóc đen dài cài kẹp, cardigan tím hồng pastel — bước vào với khí thế “chị đại đi kiểm tra lý lịch con rể”.", "next": "c"},
+		"c": {"hide": ["tram"], "show": {"ducanh": "grin@right"}, "text": "Từ phía Anh Đức: Đức Anh tóc vàng chói lọi, tai nghe quàng cổ… và Thanh Thảo ôm iPad theo sau.", "next": "c2"},
+		"c2": {"branch": [{"if": {"flags": ["invited_friends"]}, "next": "da_inv"}], "default": "da_raid"},
+		"da_inv": {"speaker": "ducanh", "text": "Đức ơi bọn tao tới “bàn đồ án” đâyyy! Bánh ngọt miễn phí đâu—", "next": "d2"},
+		"da_raid": {"speaker": "ducanh", "text": "Đức ơi cứu anh em với! Tối qua mày bỏ rơi bọn tao giữa trận rank để đi che ô cho—", "next": "d2"},
+		"d2": {"show": {"ducanh": "sweat"}, "speaker": "ducanh", "text": "…Ối chào hai bạn nữ xinh đẹp! (Đứng hình khi chạm phải ánh mắt sắc lẹm của Trâm.)", "next": "d3"},
+		"d3": {"hide": ["ducanh"], "show": {"thao": "smug@right"}, "speaker": "thao", "text": "(Đẩy gọng kính, nhìn lướt bàn có hai ly nước, Nlong ngủ trong lòng KyKy, và tờ nháp chữ Đức.) Thảo nào sáng nay bảo bận việc đại sự không lên phòng lab cùng nhau. Hoá ra đại thần IT mở lớp phụ đạo 1-kèm-1.", "next": "d4"},
+		"d4": {"hide": ["thao"], "show": {"kyky": "pout@right"}, "text": "KyKy nhìn Thanh Thảo — vừa xinh vừa giỏi, đứng cạnh Đức rất tự nhiên, còn “lên phòng lab cùng nhau”. Cô ôm chặt cuốn sổ vào ngực, ánh mắt thoáng tự ti.", "effects": {"set_flags": ["kyky_doubt"]}, "next": "t1"},
+		"t1": {"hide": ["kyky"], "show": {"tram": "cross@right"}, "speaker": "tram", "text": "Chào anh. Em là Trâm, bạn thân nhất của KyKy. Nghe bảo anh dạy kèm giỏi lắm, nhưng bạn em hơi ngốc, lại dễ tin người.", "next": "t2"},
+		"t2": {"show": {"tram": "angry"}, "speaker": "tram", "text": "Anh dạy kèm vì nhiệt tình thật… hay vì thấy con bé dễ bắt nạt đấy?",
+			"choices": [
+				{"text": "Kéo ghế cho KyKy, nhìn thẳng Trâm: “Tôi chỉ bắt nạt mỗi KyKy. Thảo là đồng đội thôi.”", "effects": {"add": {"tram": 3}, "heart": 3, "set_flags": ["doubt_cleared"]}, "next": "a1"},
+				{"text": "Trêu đúng chất ngông: “Bắt nạt thì có. Nhưng học trò của tôi thì không ai khác được động vào.”", "effects": {"add": {"tram": 2}, "heart": 2}, "next": "b1"},
+				{"text": "Im lặng uống nước, để Đức Anh với Thảo tự giải thích", "effects": {"add": {"tram": -2}, "heart": -1}, "next": "c1"}
+			]},
+		"a1": {"show": {"duc": "glare"}, "speaker": "duc", "text": "Tôi chỉ bắt nạt một mình KyKy thôi. Người ngoài muốn bắt nạt cô ấy thì phải bước qua tôi trước. Còn chị bạn cầm iPad kia là Thanh Thảo — đồng đội đồ án cùng thằng tóc vàng này, không phải đối tượng cần cảnh giác đâu.", "next": "a2"},
+		"a2": {"hide": ["tram"], "show": {"kyky": "happy@right"}, "text": "KyKy thở phào, cười tít mắt.", "next": "a3"},
+		"a3": {"hide": ["kyky"], "show": {"thao": "laugh@right"}, "speaker": "thao", "text": "Đấy, chưa gì đã vội vàng thanh minh chưa kìa!", "next": "wrap"},
+		"b1": {"show": {"duc": "tease"}, "speaker": "duc", "text": "Bắt nạt thì có đấy, tại nhìn cái mặt ngơ ngác của bạn em lúc làm sai bài thú vị phết. Nhưng yên tâm, học trò của Anh Đức này thì không ai khác được phép đụng vào.", "next": "b2"},
+		"b2": {"show": {"tram": "cross"}, "text": "Trâm hơi nhíu mày… nhưng thấy KyKy kéo áo mình cười hì hì nên cũng dịu xuống.", "next": "b3"},
+		"b3": {"speaker": "tram", "text": "…Tạm chấp nhận. Tôi sẽ theo dõi.", "next": "wrap"},
+		"c1": {"hide": ["tram"], "show": {"ducanh": "sweat@right"}, "speaker": "ducanh", "text": "À ừ, Thảo là… là đồng đội! Ba đứa bọn anh làm đồ án chung! Không có gì đâu em ơi, thật đấy!", "next": "c2x"},
+		"c2x": {"hide": ["ducanh"], "show": {"tram": "angry@right"}, "speaker": "tram", "text": "Người ta hỏi anh mà anh để bạn trả lời hộ. Kiêu ngạo ghê nhỉ.", "next": "c3"},
+		"c3": {"hide": ["tram"], "show": {"kyky": "worried@right"}, "text": "KyKy vẫn còn lăn tăn, mắt cứ liếc về phía chiếc iPad của Thanh Thảo.", "next": "wrap"},
+		"wrap": {"hide": "all", "show": {"duc": "think@left"}, "speaker": "duc", "think": true, "text": "Hai bàn, năm người, một con mèo. Buổi dạy kèm hôm nay chắc chắn sẽ không yên ổn.", "next": "card"},
+		"card": {"card": "Chiều — Bàn gỗ lớn cạnh kệ sách", "then": "vn:ep2_s3"}
+	}
+}

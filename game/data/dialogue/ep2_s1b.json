@@ -1,0 +1,27 @@
+{
+	"title": "Tập 2 – Sau mini-game 1: hai bàn tay trên lưng Nlong",
+	"start": "a",
+	"nodes": {
+		"a": {"bg": "cafe_day", "music": "cafe_day", "next": "a2"},
+		"a2": {"branch": [{"if": {"flags": ["nlong_perfect"]}, "next": "perfect"}, {"if": {"flags": ["nlong_tail"]}, "next": "tail"}], "default": "ok"},
+		"perfect": {"show": {"nlong": "love@center", "duc": "normal@left", "kyky": "sparkle@right"}, "text": "Nlong phê đến mức lăn một vòng theo thanh súp thưởng… lăn quá đà, sắp rơi khỏi mép bàn!", "next": "catch"},
+		"tail": {"show": {"nlong": "grumpy@center", "duc": "awkward@left", "kyky": "panic@right"}, "text": "Lỡ đụng vào đuôi, hoàng thượng quạu, quẫy một cái — và trượt khỏi bàn phím, lao về phía mép bàn!", "next": "catch"},
+		"ok": {"show": {"nlong": "normal@center", "duc": "normal@left", "kyky": "normal@right"}, "text": "Nlong uể oải nhích người, lăn sang một bên… lăn hơi xa quá, sắp rơi khỏi mép bàn!", "next": "catch"},
+		"catch": {"fx": "flash", "sfx": "pop", "text": "Cả hai cùng lao tới đỡ. Bàn tay thon dài của Anh Đức vô tình nắm trọn bàn tay nhỏ nhắn của KyKy — ngay trên lớp lông xám mềm mại của Nlong.", "next": "k1"},
+		"k1": {"show": {"kyky": "shy"}, "speaker": "kyky", "text": "Á… em chỉ định đỡ Nlong thôi, nó nặng quá…", "timer": 6.0, "timeout": "t_freeze",
+			"choices": [
+				{"text": "Khựng lại hai giây, khẽ chạm ngón cái lên mu bàn tay cô rồi mới buông", "effects": {"heart": 3, "set_flags": ["thumb_touch"]}, "next": "c_a"},
+				{"text": "Rụt tay lại ngay, ho khan một tiếng", "effects": {"heart": 1}, "next": "c_b"},
+				{"text": "“Tay em lạnh thế. Uống ca cao đi.”", "effects": {"heart": 2}, "next": "c_c"}
+			]},
+		"t_freeze": {"show": {"duc": "panic"}, "text": "Anh Đức đứng hình. Hai người cứ giữ nguyên tư thế ôm mèo đến khi Nlong kêu “Meo!” phản đối.", "effects": {"heart": 1, "set_flags": ["froze_hand"]}, "next": "after"},
+		"c_a": {"show": {"duc": "shy"}, "speaker": "duc", "text": "Ừ, tại Nlong béo quá đấy. Không phải tại em.", "next": "c_a2"},
+		"c_a2": {"show": {"kyky": "love"}, "emote": {"kyky": "blush"}, "text": "Giọng anh trầm hẳn xuống. KyKy cúi gằm, vành tai đỏ lựng sau cặp kính tròn.", "next": "after"},
+		"c_b": {"show": {"duc": "awkward"}, "speaker": "duc", "text": "Khụ. Khụ khụ. …Nlong. Xuống.", "next": "c_b2"},
+		"c_b2": {"show": {"kyky": "laugh"}, "speaker": "kyky", "text": "Hì hì, đại thần IT lại bị lag rồi kìa.", "next": "after"},
+		"c_c": {"show": {"duc": "soft"}, "speaker": "duc", "text": "Tay em lạnh thế. Uống ca cao đi, còn nóng đấy.", "next": "c_c2"},
+		"c_c2": {"show": {"kyky": "shy"}, "speaker": "kyky", "text": "D-dạ… (Tay em không lạnh. Tay anh ấm quá thôi…)", "next": "after"},
+		"after": {"show": {"nlong": "doze"}, "text": "Nlong đã yên vị trong lòng KyKy, ngáy khò khò như chưa từng gây ra chuyện gì.", "next": "card"},
+		"card": {"card": "10:30 — Quán bắt đầu đông khách", "hide": "all", "then": "vn:ep2_s2"}
+	}
+}

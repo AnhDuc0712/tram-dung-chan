@@ -1,0 +1,49 @@
+{
+	"title": "Tập 2 – Tin nhắn nửa đêm (00:15)",
+	"end_button": "Đi ngủ — 9 giờ sáng mai ở quán",
+	"threads": [
+		{
+			"title": "KyKy",
+			"subtitle": "00:15 · đang hoạt động",
+			"members": {"kyky": "kyky_hug"},
+			"messages": [
+				{"from": "kyky", "image": "chibi", "text": "Gia sư Đức ơi, em về tới nhà rồi ạ! Em chụp lại trang vở có hai bạn chibi anh vẽ lúc chiều nè (còn dính cái đuôi Nlong ở góc hihi)."},
+				{"from": "kyky", "text": "Mà lúc nãy anh che ô nghiêng sang bên em nhiều quá, vai áo anh ướt hết trơn… Anh có bị cảm không đó?", "if": {"flags": ["ep1_umbrella"]}},
+				{"from": "kyky", "text": "Mà tối nay hai đứa mình chạy mưa ướt như chuột lột luôn á… Anh có bị cảm không đó?", "if": {"flags": ["ep1_wet"]}},
+				{"from": "kyky", "text": "Hôm nay cảm ơn anh nhiều lắm. Anh có bị cảm mưa không đó?", "if": {"not_flags": ["ep1_umbrella", "ep1_wet"]}},
+				{"choices": [
+					{"sticker": "cat_big", "text": "Mỏ hỗn mà ấm áp", "effects": {"heart": 2}, "reply": [
+						{"from": "kyky", "text": "“Cảm thì chưa, nhưng mai ai quên công thức vòng lặp thì tôi tăng xông máu.” — anh nói vậy đó hả?? Đồ đáng ghét!"},
+						{"from": "kyky", "text": "Mà… em thả tim tin nhắn đó rồi. Ngủ ngon nha gia sư mỏ hỗn!"}
+					]},
+					{"sticker": "cat_sit", "text": "Dịu dàng thẳng thắn", "effects": {"heart": 3, "set_flags": ["sweet_text"]}, "reply": [
+						{"from": "kyky", "text": "“Tôi khỏe như vâm. Uống nước ấm rồi ngủ sớm đi nhé.”… Hức, sao tự nhiên anh dịu dàng vậy, em không quen!"},
+						{"from": "kyky", "text": "Mai em mang cho anh cái này. Bí mật! Ngủ ngon ạ!"}
+					]},
+					{"sticker": "cat_loaf", "text": "Cộc lốc hệ coder", "effects": {"brain": 1, "heart": -1, "set_flags": ["cold_text"]}, "reply": [
+						{"from": "kyky", "text": "“Không sao. Đang fix bug đồ án. Mai 9h đừng đi muộn.”"},
+						{"from": "kyky", "text": "…Dạ. (Đúng là khúc gỗ biết gõ code mà!)"}
+					]}
+				]}
+			]
+		},
+		{
+			"title": "Hội Đồ Án IT",
+			"subtitle": "Đức Anh, Thanh Thảo",
+			"members": {"ducanh": "ducanh_front", "thao": "thao_front"},
+			"messages": [
+				{"from": "ducanh", "text": "ĐỨC!!! Tối nay mày bỏ rơi anh em giữa trận rank để đi đâu hả? Tao thua chuỗi 5 trận rồi đấy!"},
+				{"from": "thao", "text": "Mai 10h lên phòng lab chốt giao diện đồ án nhé. Đừng bảo lại bận việc đại sự."},
+				{"choices": [
+					{"text": "“Mai tao ở Gờ 23 cả ngày. Có gì qua quán.”", "effects": {"add": {"ducanh": 1}, "set_flags": ["invited_friends"]}, "reply": [
+						{"from": "ducanh", "text": "Okeee! Có bánh ngọt miễn phí không?"},
+						{"from": "thao", "text": "Ở quán cả ngày… Hiểu rồi. Mai bọn này qua “kiểm tra tiến độ”."}
+					]},
+					{"text": "(Tắt thông báo nhóm, đi ngủ)", "effects": {"set_flags": ["muted_group"]}, "reply": [
+						{"from": "ducanh", "text": "Seen mà không rep. Được. Mai tao tự tìm mày."}
+					]}
+				]}
+			]
+		}
+	]
+}

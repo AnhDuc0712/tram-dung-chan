@@ -3,30 +3,75 @@
 		"title": "Hoàng Thượng Đã Duyệt",
 		"rank": "Kết thúc bí mật",
 		"text": "Cái ô, nồi lẩu, con rùa trên ly ca cao… và cả cái gật đầu của một chú mèo béo. Ở quán Gờ 23, ai cũng biết: được Nlong chọn thì chạy đằng trời.",
-		"hint": "Chiều Nlong thật nhiều, cùng KyKy đút súp thưởng, và khiến cô bé rung động hết cỡ."
+		"hint": "Chiều Nlong thật nhiều, cùng KyKy đút súp thưởng, và khiến cô bé rung động hết cỡ.",
+		"episode": 1
 	},
 	"duoi_mot_chiec_o": {
 		"title": "Dưới Một Chiếc Ô",
 		"rank": "Kết thúc ngọt ngào",
 		"text": "Chiếc ô nghiêng về phía cô ấy, vai áo anh ướt sũng. Có những điều không cần nói thành lời — chỉ cần một chiếc ô và một con đường đi ngược hướng nhà mình.",
-		"hint": "Nhớ mang ô và khiến KyKy rung động thật nhiều."
+		"hint": "Nhớ mang ô và khiến KyKy rung động thật nhiều.",
+		"episode": 1
 	},
 	"uot_sung": {
 		"title": "Ướt Sũng Mà Vui",
 		"rank": "Kết thúc tinh nghịch",
 		"text": "Không có ô, chẳng sao cả. Có những cơn mưa sinh ra để hai người chạy qua cùng nhau, ướt nhẹp và cười như hai đứa trẻ.",
-		"hint": "Quên ô… nhưng vẫn đủ can đảm lao ra mưa cùng nhau."
+		"hint": "Quên ô… nhưng vẫn đủ can đảm lao ra mưa cùng nhau.",
+		"episode": 1
 	},
 	"gia_su": {
 		"title": "Gia Sư Tận Tâm",
 		"rank": "Kết thúc học giỏi",
 		"text": "KyKy hiểu bài vèo vèo. Thứ Sáu này chắc chắn qua môn. Còn trái tim thì… chắc phải học thêm vài buổi nữa.",
-		"hint": "Dạy thật kỹ (Hiểu bài cao) nhưng chưa đủ rung động."
+		"hint": "Dạy thật kỹ (Hiểu bài cao) nhưng chưa đủ rung động.",
+		"episode": 1
 	},
 	"nguoi_tot_bung": {
 		"title": "Người Lạ Tốt Bụng",
 		"rank": "Kết thúc nhẹ nhàng",
 		"text": "Một buổi chiều tử tế giữa hai người lạ. May mà chị M có số của cô bé — câu chuyện vẫn còn tiếp.",
-		"hint": "Kết thúc mặc định. Thử quan tâm KyKy nhiều hơn xem!"
+		"hint": "Kết thúc mặc định. Thử quan tâm KyKy nhiều hơn xem!",
+		"episode": 1
+	},
+	"ep2_lau": {
+		"episode": 2,
+		"title": "Lời Mời Chính Thức Từ Đại Thần",
+		"rank": "Kết thúc ngọt ngào",
+		"text": "Một nồi lẩu, năm người bạn, một hoàng thượng. Anh Đức chính thức “ra mắt” hội bạn thân của KyKy — và Trâm đã chuyển sang phe đẩy thuyền.",
+		"hint": "Khiến KyKy rung động thật nhiều VÀ chiếm được lòng tin của Trâm.",
+		"next": "Tập 3: Trâm mở khoá “Bản đồ Phố Đi Bộ Đêm” — buổi hẹn hò riêng đầu tiên của hai người."
+	},
+	"ep2_gau": {
+		"episode": 2,
+		"title": "Gấu Bông Hoàng Thượng",
+		"rank": "Kết thúc bí mật",
+		"text": "Nlong Junior về ở với Anh Đức, Nlong thật thì kêu một tiếng “Meo” rất dài. Ở Gờ 23 ai cũng hiểu: hoàng thượng vừa ban hôn.",
+		"hint": "Gắp được gấu bông Nlong, thân với hoàng thượng, khiến KyKy rung động hết cỡ và được Trâm tin tưởng.",
+		"next": "Tập 3: Nlong Junior biến mất khỏi phòng Anh Đức… và xuất hiện trong ảnh đại diện của KyKy."
+	},
+	"ep2_dua": {
+		"episode": 2,
+		"title": "Cuộc Đua Không Khoan Nhượng",
+		"rank": "Kết thúc ghen ngầm",
+		"text": "Trang đầu cuốn sổ của KyKy giờ có số điện thoại và lịch học kín mít bằng nét chữ dứt khoát. Đàn anh khoá trên? Phải xếp hàng.",
+		"hint": "Để cơn ghen ngầm của Anh Đức dâng thật cao (Hải, hộp matcha, tin nhắn lúc tối…).",
+		"next": "Tập 3: “Theo đuổi bá đạo & phá giải hiểu lầm” — Hải xuất hiện nhiều hơn để cạnh tranh trực tiếp."
+	},
+	"ep2_ao": {
+		"episode": 2,
+		"title": "Chiếc Áo Khoác Dưới Mưa",
+		"rank": "Kết thúc ấm áp",
+		"text": "Chiếc áo khoác rộng thùng thình, tay áo xắn ba vòng. “Giặt rồi trả, thứ Bảy tuần sau” — một cái cớ hoàn hảo cho cả hai.",
+		"hint": "Ở trạm xe buýt lúc trời mưa, cởi áo khoác cho KyKy — và khiến cô bé đủ rung động.",
+		"next": "Tập 3: KyKy mang áo trả… kèm một hộp bánh tự làm cháy khét."
+	},
+	"ep2_nlong": {
+		"episode": 2,
+		"title": "Hội Những Người Sợ Hoàng Thượng Nlong",
+		"rank": "Kết thúc hài hước",
+		"text": "Đức Anh ngã ngửa, nồi lẩu đổ, hai người đứng rửa bát phạt. Bọt xà phòng trên chóp mũi — và một tràng cười xoá tan mọi khoảng cách.",
+		"hint": "Kết thúc mặc định. Thử khiến Trâm tin tưởng, hoặc quan tâm KyKy nhiều hơn xem!",
+		"next": "Tập 3: Mở khoá nhánh “Làm thêm cùng nhau tại quán Gờ 23” — dở khóc dở cười."
 	}
 }

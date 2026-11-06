@@ -1,0 +1,21 @@
+{
+	"title": "Tập 2 – KyKy tới quán & Hoàng thượng làm loạn",
+	"start": "a",
+	"nodes": {
+		"a": {"bg": "cafe_day", "music": "study", "show": {"kyky": "sparkle@right", "duc": "normal@left"}, "speaker": "kyky", "text": "Em chào anh Đức! Hôm nay em đúng giờ nha, không cầm ngược bản đồ luôn!", "next": "b"},
+		"b": {"branch": [{"if": {"flags": ["sweet_text"]}, "next": "tea"}, {"if": {"flags": ["cold_text"]}, "next": "cold"}], "default": "drink"},
+		"tea": {"show": {"kyky": "shy"}, "text": "KyKy rụt rè đặt lên bàn một túi giấy nhỏ: hộp trà gừng, kèm mẩu giấy “Uống cho khỏi cảm nha — KyKy”.", "next": "tea2"},
+		"tea2": {"show": {"duc": "shy"}, "speaker": "duc", "effects": {"heart": 1}, "text": "…Bí mật là cái này hả. Cảm ơn. Tôi sẽ uống.", "next": "drink"},
+		"cold": {"show": {"kyky": "pout"}, "speaker": "kyky", "text": "Hôm qua có người nhắn “Mai 9h đừng đi muộn” lạnh như cục đá. Em tới rồi đây, thưa khúc gỗ.", "next": "cold2"},
+		"cold2": {"show": {"duc": "awkward"}, "speaker": "duc", "think": true, "text": "Hình như mình nhắn hơi cụt thật.", "next": "drink"},
+		"drink": {"branch": [{"if": {"flags": ["cacao_cat"]}, "next": "d_cat"}, {"if": {"flags": ["ginger_ready"]}, "next": "d_ginger"}], "default": "d_none"},
+		"d_cat": {"show": {"kyky": "happy"}, "speaker": "kyky", "effects": {"heart": 1}, "text": "Á! Ca cao có mặt Nlong trên bọt sữa! Lần này tai cụp đúng kiểu luôn. Anh luyện vẽ cả đêm hả?", "next": "d_cat2"},
+		"d_cat2": {"show": {"duc": "smirk"}, "speaker": "duc", "text": "Luyện code cả đêm. Vẽ mèo là năng khiếu bẩm sinh.", "next": "jump"},
+		"d_ginger": {"show": {"kyky": "love"}, "speaker": "kyky", "effects": {"heart": 1}, "text": "Trà gừng mật ong… Anh sợ em bị cảm hả? Hihi, vậy là hai đứa cùng nghĩ một thứ rồi.", "next": "jump"},
+		"d_none": {"show": {"duc": "normal"}, "speaker": "duc", "text": "Ngồi đi. Hôm nay vẫn ca cao nóng như mọi khi chứ?", "next": "d_none2"},
+		"d_none2": {"show": {"kyky": "happy"}, "speaker": "kyky", "text": "Dạ! Anh nhớ luôn hả?", "next": "jump"},
+		"jump": {"show": {"nlong": "walk@center"}, "sfx": "kitten", "fx": "shake", "text": "Anh Đức vừa mở laptop thì — phốc! Một khối lông xám bạc nhảy lên bàn, nằm ườn đè thẳng lên bàn phím và cuốn sổ của KyKy.", "next": "jump2"},
+		"jump2": {"show": {"nlong": "grumpy", "kyky": "panic"}, "speaker": "kyky", "text": "Ơ ơ, Nlong ơi, sổ của chị! Bài tập của chị!", "next": "jump3"},
+		"jump3": {"show": {"duc": "deadpan"}, "speaker": "duc", "text": "Hoàng thượng thấy em tới nên ra nghênh đón đấy. Được rồi. Chiến dịch giải cứu bàn phím bắt đầu.", "then": "mini:nlong"}
+	}
+}

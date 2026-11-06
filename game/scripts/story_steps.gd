@@ -14,6 +14,9 @@ const SCENES := {
 	"mini:barista": "res://scenes/minigames/barista.tscn",
 	"mini:debug": "res://scenes/minigames/debug.tscn",
 	"mini:heartbeat": "res://scenes/minigames/heartbeat.tscn",
+	"mini:nlong": "res://scenes/minigames/nlong_rescue.tscn",
+	"mini:logic": "res://scenes/minigames/logic_puzzle.tscn",
+	"mini:dark": "res://scenes/minigames/dark.tscn",
 	"phone": "res://scenes/phone/phone.tscn",
 	"ending": "res://scenes/ui/ending.tscn",
 	"title": "res://scenes/ui/title_screen.tscn",
@@ -24,11 +27,36 @@ const MINI_NEXT := {
 	"barista": "roam:day",
 	"debug": "vn:ep1_s3b",
 	"heartbeat": "vn:ep1_s3c",
+	"nlong": "vn:ep2_s1b",
+	"logic": "vn:ep2_s3b",
+	"dark": "vn:ep2_s4b",
 }
 
-const PHONE_NEXT := {"ep1": "ending"}
+const PHONE_NEXT := {"ep1": "ending", "ep2_night": "vn:ep2_s1", "ep2_end": "ending"}
 
-const ROAM_VARIANTS := ["day", "evening"]
+## Biến thể bản đồ đi lại -> file data/roam/<map>.json
+const ROAM_MAPS := {
+	"day": "cafe",
+	"evening": "cafe",
+	"ep2_morning": "cafe",
+	"ep2_afternoon": "cafe",
+	"ep2_night": "street",
+}
+const ROAM_VARIANTS := ["day", "evening", "ep2_morning", "ep2_afternoon", "ep2_night"]
+
+## Tập -> bước đầu tiên + tên hiển thị
+const EPISODES := {
+	1: {"first": "vn:ep1_s1", "title": "Tập 1 · Cú va chạm ở quán cà phê"},
+	2: {"first": "phone:ep2_night", "title": "Tập 2 · Cơn bão nhỏ ở Gờ 23"},
+}
+
+
+static func roam_map(variant: String) -> String:
+	return str(ROAM_MAPS.get(variant, "cafe"))
+
+
+static func episode_of(step: String) -> int:
+	return 2 if arg(step).begins_with("ep2") or step in ["mini:nlong", "mini:logic", "mini:dark"] else 1
 
 
 static func kind(step: String) -> String:
@@ -83,4 +111,22 @@ static func minigame_effects(name: String, result: Dictionary) -> Dictionary:
 		"heartbeat":
 			var hits := int(result.get("hits", 0))
 			return {"set_flags": ["calm_ok" if hits >= 2 else "calm_fail"]}
+		"nlong":
+			# số điểm gãi trúng (0..3) + có dùng súp thưởng dụ hoàng thượng không
+			var pets := int(result.get("pets", 0))
+			var e2 := {"add": {"nlong": 1 if pets >= 2 else 0}, "set_flags": ["mg_nlong_done"]}
+			if pets >= 3 and bool(result.get("treat", false)):
+				e2["set_flags"].append("nlong_perfect")
+			if bool(result.get("tail", false)):
+				e2["set_flags"].append("nlong_tail")
+			return e2
+		"logic":
+			var first := int(result.get("first_try", 0))  # số mảnh ghép đúng ngay lần đầu (0..3)
+			var e3 := {"brain": 2 if first >= 3 else (1 if first >= 2 else 0), "set_flags": ["mg_logic_done"]}
+			if first >= 3:
+				e3["set_flags"].append("logic_perfect")
+			return e3
+		"dark":
+			var h := int(result.get("hits", 0))
+			return {"heart": 1 if h >= 2 else 0, "set_flags": ["dark_calm" if h >= 2 else "dark_fail"]}
 	return {}

@@ -33,6 +33,12 @@ Người dùng là người mới làm game: giải thích ngắn gọn bằng *
 - Dữ liệu: `data/dialogue/*.json` (schema `docs/DIALOGUE_FORMAT.md`), `characters.json`, `endings.json`, `roam/cafe.json`, `phone/*.json`, `minigames/*.json`.
 - UI dựng bằng code; các `.tscn` chỉ là node gốc + script.
 
+## Tập 2 (mới)
+- `Steps.EPISODES` (tập → bước đầu), `Story.new_game(ep)`, `GameState.start_episode()` (mang `ep1_last` sang), `bar_max()` theo tập.
+- Bản đồ: `Steps.ROAM_MAPS` biến thể → `data/roam/<map>.json` (cafe, street); dữ liệu bản đồ khai báo intros/objectives/follower/autoplay.
+- Event CG: khóa `cg` trong kịch bản + `data/cgs.json`; ảnh xử lý bằng `tools/art/process_ep2.py`. Tự chơi Tập 2: `-- --autoplay --episode=2`.
+- Mở thẳng bản đồ để chụp: `tools\screenshot.ps1 -Scene cafe -Extra "--variant=ep2_night"`.
+
 ## Quy tắc
 - Mỗi kết thúc / tuyến mới → thêm test route trong `tests/run_tests.gd`. Cập nhật `docs/STORY.md` khi thêm nội dung.
 - Mỗi asset thêm vào `game/assets/` → ghi 1 dòng vào `docs/CREDITS.md`. Không dùng asset không rõ license.

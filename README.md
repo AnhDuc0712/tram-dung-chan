@@ -11,6 +11,13 @@ Ver 1 = **Tập 1: Cú va chạm ở quán cà phê** (4 phân cảnh theo `kị
 - Cuối tập: **điện thoại nhắn tin** (KyKy + nhóm “Hội Đồ Án IT”), nội dung đổi theo những gì bạn đã làm.
 - Tự lưu ở mỗi cảnh, “Tiếp tục” từ màn hình chính; mục **Kỷ niệm** xem các kết thúc đã mở.
 
+## Tập 2 — Cơn bão nhỏ ở Gờ 23 (mới)
+- Tin nhắn nửa đêm → sáng thứ Bảy ở quán → Trâm “thẩm vấn”, Hải mang matcha tới, cúp điện ở góc kệ sách → **buổi tối tự do trên phố**
+  cùng KyKy (khu trò chơi, nhà sách, trạm xe buýt, xích đu, Gờ 23 vắng) → lẩu vỉa hè. **5 kết cục**, **5 Event CG**.
+- Lựa chọn thay đổi thái độ từng người (Trâm tin tưởng, Anh Đức ghen ngầm, Đức Anh, Thảo…) — HUD báo “Trâm sẽ nhớ chuyện này”.
+- 3 mini-game mới: giải cứu bàn phím khỏi Nlong, ghép lệnh “vòng lặp trái tim”, nhịp đập trong bóng tối.
+- Nlong nằm ở góc màn hình: chạm để nghe “tâm tư Anh Đức”. Mục Kỷ niệm có thêm ảnh sự kiện.
+
 ## Bắt đầu nhanh (PowerShell, tại `C:\devgame2D`)
 | Việc | Lệnh |
 |---|---|

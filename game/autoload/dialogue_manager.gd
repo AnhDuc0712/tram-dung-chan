@@ -52,6 +52,11 @@ var _next_hint: Control
 var _choice_box: VBoxContainer
 var _timer_bar: ProgressBar
 var _skip_btn: Button
+var _cg: TextureRect  # Event CG toàn màn hình (khóa "cg" trong kịch bản)
+var _cg_id := ""
+var _cg_tw: Tween
+var _cgs: Dictionary = {}
+var _tick_at := 0  # tiếng lách cách khi chữ chạy
 var _skip_on := false  # nút "Tua" (thay cho giữ Ctrl trên điện thoại)
 
 
@@ -59,6 +64,7 @@ func _ready() -> void:
 	layer = 10
 	characters = DialogueData.load_json(CHAR_PATH)
 	_build_ui()
+	GameState.var_changed.connect(_on_heart_changed)
 	_hide_box()
 	for a in OS.get_cmdline_user_args():
 		if a.begins_with("--autoclick="):
@@ -113,7 +119,53 @@ func clear_stage() -> void:
 	_bg_key = ""
 	_rain.visible = false
 	_umbrella.visible = false
+	_hide_cg(true)
 	_hide_box()
+
+
+# ---------------------------------------------------------------- Event CG
+## Ảnh sự kiện toàn màn hình, máy quay lia chậm (Ken Burns). Lần đầu xem -> mở khoá trong mục Kỷ niệm.
+func _show_cg(id: String) -> void:
+	if id == "none" or id == "":
+		_hide_cg(false)
+		return
+	if _cgs.is_empty():
+		_cgs = DialogueData.load_json(DialogueData.CG_PATH)
+	var info: Dictionary = _cgs.get(id, {})
+	var path := "res://assets/art/cg/%s.jpg" % str(info.get("img", id))
+	if not ResourceLoader.exists(path):
+		push_warning("Thiếu ảnh CG: " + path)
+		return
+	if id == _cg_id and _cg.visible:
+		return
+	_cg_id = id
+	_cg.texture = load(path)
+	_cg.visible = true
+	_cg.modulate.a = 0.0
+	_cg.scale = Vector2.ONE * 1.02
+	_cg.position = Vector2(-14, 0)
+	if _cg_tw:
+		_cg_tw.kill()
+	_cg_tw = create_tween().set_parallel()
+	_cg_tw.tween_property(_cg, "modulate:a", 1.0, 0.7)
+	_cg_tw.tween_property(_cg, "scale", Vector2.ONE * 1.1, 16.0).set_trans(Tween.TRANS_SINE)
+	_cg_tw.tween_property(_cg, "position:x", 14.0, 16.0).set_trans(Tween.TRANS_SINE)
+	Audio.sfx("sparkle", -10.0)
+	if not GameState.unlocked_cgs.has(id):
+		GameState.unlock_cg(id)
+		Hud.toast("Mở khoá ảnh kỷ niệm: " + str(info.get("title", id)))
+
+
+func _hide_cg(instant: bool) -> void:
+	_cg_id = ""
+	if _cg_tw:
+		_cg_tw.kill()
+	if instant or not _cg.visible:
+		_cg.visible = false
+		return
+	_cg_tw = create_tween()
+	_cg_tw.tween_property(_cg, "modulate:a", 0.0, 0.5)
+	_cg_tw.tween_callback(func() -> void: _cg.visible = false)
 
 
 func character_name(id: String) -> String:
@@ -149,6 +201,15 @@ func _build_ui() -> void:
 	_rain.set_anchors_preset(Control.PRESET_FULL_RECT)
 	_rain.visible = false
 	_root.add_child(_rain)
+
+	_cg = TextureRect.new()
+	_cg.set_anchors_preset(Control.PRESET_FULL_RECT)
+	_cg.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	_cg.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+	_cg.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_cg.pivot_offset = Vector2(640, 360)
+	_cg.visible = false
+	_root.add_child(_cg)
 
 	_flash = ColorRect.new()
 	_flash.set_anchors_preset(Control.PRESET_FULL_RECT)
@@ -303,6 +364,8 @@ func _apply_stage(n: Dictionary) -> void:
 	if n.has("sfx"):
 		Audio.sfx(str(n["sfx"]))
 	_apply_hide(n)
+	if n.has("cg"):
+		_show_cg(str(n["cg"]))
 	var show_d: Dictionary = n.get("show", {})
 	# ô biểu cảm chỉ hiện trong câu thoại đặt biểu cảm đó
 	for id in _actors:
@@ -382,6 +445,26 @@ func _slot_x(at: String) -> float:
 	return SLOTS["center"]
 
 
+## Vị trí theo ô; Anh Đức & KyKy đứng hai bên thì xích lại gần nhau khi Rung động tăng.
+func _x_for(id: String, at: String) -> float:
+	var x := _slot_x(at)
+	if id in ["duc", "kyky"] and at in ["left", "right", "farleft", "farright"]:
+		var close := clampf(float(GameState.get_var("heart")) / float(GameState.bar_max("heart")), 0.0, 1.0)
+		x += signf(640.0 - x) * close * 80.0
+	return x
+
+
+func _on_heart_changed(var_name: String, _value: int) -> void:
+	if var_name != "heart":
+		return
+	for id in ["duc", "kyky"]:
+		if _actors.has(id) and is_instance_valid(_actors[id]):
+			var a: Node2D = _actors[id]
+			var slot := str(a.get_meta("slot", ""))
+			if slot in ["left", "right", "farleft", "farright"]:
+				a.call("move_to", _x_for(id, slot))
+
+
 func _show_actor(id: String, v) -> void:
 	var c: Dictionary = characters.get(id, {})
 	if c.is_empty():
@@ -391,7 +474,7 @@ func _show_actor(id: String, v) -> void:
 	var poses: Dictionary = c.get("poses", {})
 	var pose: Dictionary = poses.get(s["pose"], poses.get("normal", {}))
 	var tex := Ui.char_tex(str(pose.get("img", "")))
-	var x_target: float = _slot_x(s["at"]) if s["at"] != "" else (_actors[id].position.x if _actors.has(id) else 640.0)
+	var x_target: float = _x_for(id, s["at"]) if s["at"] != "" else (_actors[id].position.x if _actors.has(id) else 640.0)
 	var faces := str(pose.get("faces", ""))
 	var auto_flip := (faces == "right" and x_target > 640.0) or (faces == "left" and x_target < 640.0)
 	var flip: bool = (bool(pose["flip"]) if pose.has("flip") else auto_flip) if s["flip"] == null else bool(s["flip"])
@@ -403,7 +486,7 @@ func _show_actor(id: String, v) -> void:
 	if is_new:
 		a = Actor.new()
 		a.setup(id, sc)
-		a.position = Vector2(_slot_x(s["at"]), BASELINE + float(c.get("baseline", 0.0)))
+		a.position = Vector2(_x_for(id, s["at"]), BASELINE + float(c.get("baseline", 0.0)))
 		_stage.add_child(a)
 		_actors[id] = a
 	else:
@@ -412,11 +495,13 @@ func _show_actor(id: String, v) -> void:
 	a.set_pose(tex, flip, str(pose.get("emote", "")), face)
 	var inset_name := str(pose.get("inset", ""))
 	a.set_inset(Ui.char_tex(inset_name) if inset_name != "" else null, a.position.x < 640.0)
+	if s["at"] != "":
+		a.set_meta("slot", s["at"])
 	if is_new:
-		var x := _slot_x(s["at"])
+		var x := _x_for(id, s["at"])
 		a.enter_from(x + (60.0 if x > 640.0 else -60.0), x)
 	elif s["at"] != "":
-		a.move_to(_slot_x(s["at"]))
+		a.move_to(_x_for(id, s["at"]))
 	if pose.has("anim"):
 		a.animate(str(pose["anim"]))
 
@@ -474,6 +559,7 @@ func _show_text(n: Dictionary) -> void:
 	_text.text = text
 	_text.visible_characters = 0
 	_shown = 0.0
+	_tick_at = 1
 	_typing = true
 	_next_hint.visible = false
 	history.append({"name": who, "text": text})
@@ -492,6 +578,9 @@ func _process(delta: float) -> void:
 		var speed := float(GameState.settings.get("text_speed", 45.0))
 		_shown += delta * (speed if not skipping else 2000.0)
 		_text.visible_characters = int(_shown)
+		if not skipping and int(_shown) >= _tick_at:
+			_tick_at = int(_shown) + 3
+			Audio.sfx("click", -24.0, randf_range(1.45, 1.75))
 		if _shown >= total:
 			_finish_typing()
 	elif _wait_input and skipping and _choice_box.get_child_count() == 0:
@@ -592,6 +681,7 @@ func _finish() -> void:
 		_actors.clear()
 		_set_bg("none")
 		_rain.visible = false
+		_hide_cg(false)
 	dialogue_finished.emit(id, then)
 	if then != "":
 		Story.goto(then)
