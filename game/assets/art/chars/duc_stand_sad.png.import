@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dg1qhpb5cnp87"
-path="res://.godot/imported/duc_front_surprised.png-a463ec3662b072ce3346c6eada468fb1.ctex"
+uid="uid://1n8e4gcbl3bn"
+path="res://.godot/imported/duc_stand_sad.png-de2afd81fbac7e4831ed498645d29d4c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/chars/duc_front_surprised.png"
-dest_files=["res://.godot/imported/duc_front_surprised.png-a463ec3662b072ce3346c6eada468fb1.ctex"]
+source_file="res://assets/art/chars/duc_stand_sad.png"
+dest_files=["res://.godot/imported/duc_stand_sad.png-de2afd81fbac7e4831ed498645d29d4c.ctex"]
 
 [params]
 

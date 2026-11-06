@@ -20,6 +20,8 @@ const SLOTS := {"farleft": 190.0, "left": 360.0, "center": 640.0, "right": 920.0
 const ACTOR_SCALE := 1.2
 const BASELINE := 905.0
 const MAX_HISTORY := 120
+const ROAM_SCALE := 0.72  # hội thoại trong bản đồ đi lại: chân dung nhỏ hơn để không che bản đồ
+const ROAM_BASELINE := 830.0
 
 var characters: Dictionary = {}
 var history: Array = []  # [{name, text}]
@@ -35,6 +37,7 @@ var _wait_input := false
 var _choice_time := 0.0
 var _choice_left := 0.0
 var _auto_timer := 0.0
+var _auto_wait := 0.0  # chế độ tự chuyển câu (Cài đặt > Tự chuyển câu)
 
 var _root: Control
 var _bg: TextureRect
@@ -280,7 +283,7 @@ func _build_ui() -> void:
 	_next_hint.add_child(tri)
 
 	_timer_bar = ProgressBar.new()
-	_timer_bar.position = Vector2(390, 168)
+	_timer_bar.position = Vector2(390, 500)
 	_timer_bar.size = Vector2(500, 14)
 	_timer_bar.show_percentage = false
 	_timer_bar.max_value = 1.0
@@ -289,10 +292,10 @@ func _build_ui() -> void:
 	_root.add_child(_timer_bar)
 
 	_choice_box = VBoxContainer.new()
-	_choice_box.position = Vector2(290, 196)
-	_choice_box.size = Vector2(700, 300)
-	_choice_box.alignment = BoxContainer.ALIGNMENT_CENTER
-	_choice_box.add_theme_constant_override("separation", 14)
+	_choice_box.position = Vector2(370, 150)
+	_choice_box.size = Vector2(540, 340)
+	_choice_box.alignment = BoxContainer.ALIGNMENT_END
+	_choice_box.add_theme_constant_override("separation", 10)
 	# BẮT BUỘC bỏ qua chuột: khung này luôn "hiện" (dù trống) trên lớp 10 -> nếu nhận chuột sẽ nuốt mọi cú chạm
 	# ở giữa màn hình (nút chọn tập, mini-game, bản đồ...). Nút lựa chọn bên trong vẫn bấm được bình thường.
 	_choice_box.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -483,13 +486,13 @@ func _show_actor(id: String, v) -> void:
 	var flip: bool = (bool(pose["flip"]) if pose.has("flip") else auto_flip) if s["flip"] == null else bool(s["flip"])
 	var face_arr: Array = pose.get("face", c.get("face", [0.5, 0.2]))
 	var face := Vector2(float(face_arr[0]), float(face_arr[1]))
-	var sc := ACTOR_SCALE * float(c.get("scale", 1.0)) * float(pose.get("scale", 1.0))
+	var sc := ACTOR_SCALE * float(c.get("scale", 1.0)) * float(pose.get("scale", 1.0)) * (ROAM_SCALE if _in_roam() else 1.0)
 	var a
 	var is_new := not _actors.has(id)
 	if is_new:
 		a = Actor.new()
 		a.setup(id, sc)
-		a.position = Vector2(_x_for(id, s["at"]), BASELINE + float(c.get("baseline", 0.0)))
+		a.position = Vector2(_x_for(id, s["at"]), (ROAM_BASELINE if _in_roam() else BASELINE) + float(c.get("baseline", 0.0)))
 		_stage.add_child(a)
 		_actors[id] = a
 	else:
@@ -510,9 +513,15 @@ func _show_actor(id: String, v) -> void:
 		a.animate(str(pose["anim"]))
 
 
+func _in_roam() -> bool:
+	return Story.current_step.begins_with("roam")
+
+
 func _do_fx(f: String) -> void:
 	match f:
 		"shake":
+			if float(GameState.settings.get("shake", 1.0)) < 0.5:
+				return
 			var tw := create_tween()
 			for i in 8:
 				tw.tween_property(_root, "position", Vector2(randf_range(-10, 10), randf_range(-7, 7)), 0.035)
@@ -556,8 +565,14 @@ func _show_text(n: Dictionary) -> void:
 	_name_label.text = who
 	var col: String = str((characters.get(speaker, {}) as Dictionary).get("color", "#6b3a2a"))
 	_name_label.add_theme_color_override("font_color", Color(col))
+	var narration := speaker == "" and not n.has("name")
 	for id in _actors:
 		_actors[id].set_dim(speaker != "" and id != speaker and _actors.has(speaker))
+		(_actors[id] as CanvasItem).visible = not (narration and _in_roam())
+	var fs := int(round(27.0 * float(GameState.settings.get("text_size", 1.0))))
+	for k in ["normal_font_size", "italics_font_size", "bold_font_size"]:
+		_text.add_theme_font_size_override(k, fs)
+	_auto_wait = 0.0
 	_box.visible = true
 	_skip_btn.visible = true
 	_text.text = text
@@ -592,6 +607,12 @@ func _process(delta: float) -> void:
 		if _auto_timer > 0.07:
 			_auto_timer = 0.0
 			_advance()
+	elif _wait_input and _choice_box.get_child_count() == 0 and float(GameState.settings.get("auto", 0.0)) > 0.5 \
+			and not get_tree().paused:
+		_auto_wait += delta
+		if _auto_wait > 1.2 + _text.get_total_character_count() * 0.03:
+			_auto_wait = 0.0
+			_advance()
 	if _choice_time > 0.0:
 		_choice_left -= delta
 		_timer_bar.value = maxf(_choice_left / _choice_time, 0.0)
@@ -615,15 +636,15 @@ func _finish_typing() -> void:
 	_wait_input = false
 	for i in cs.size():
 		var c: Dictionary = cs[i]
-		var b := Ui.button(str(c.get("text", "...")), 640, 24)
+		var b := Ui.button(str(c.get("text", "...")), 540, int(round(22.0 * float(GameState.settings.get("text_size", 1.0)))))
 		b.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		b.custom_minimum_size = Vector2(640, 58)
+		b.custom_minimum_size = Vector2(540, 52)
 		var idx := i
 		b.pressed.connect(func() -> void: _on_choice(idx))
 		_choice_box.add_child(b)
 		b.modulate.a = 0.0
 		create_tween().tween_property(b, "modulate:a", 1.0, 0.2).set_delay(0.05 * i)
-	var timer := float(_runner.current.get("timer", 0.0))
+	var timer := float(_runner.current.get("timer", 0.0)) * float(GameState.settings.get("timer_scale", 1.5))
 	if timer > 0.0:
 		_choice_time = timer
 		_choice_left = timer

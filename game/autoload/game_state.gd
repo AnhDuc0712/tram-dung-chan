@@ -35,7 +35,9 @@ var ep1_last := ""  # kết thúc Tập 1 gần nhất -> Tập 2 mở đầu kh
 var episode := 1
 ## Chế độ tự chơi để kiểm thử (tham số "-- --autoplay"): tự bấm, tự chọn, tự xong mini-game.
 var autoplay := OS.get_cmdline_user_args().has("--autoplay")
-var settings := {"music": 0.8, "sfx": 0.9, "text_speed": 45.0}
+## timer_scale: nhân thời gian lựa chọn có đếm giờ (0 = không giới hạn); text_size: cỡ chữ hội thoại;
+## auto: tự chuyển câu; shake: rung màn hình.
+var settings := {"music": 0.8, "sfx": 0.9, "text_speed": 45.0, "timer_scale": 1.5, "text_size": 1.0, "auto": 0.0, "shake": 1.0}
 var _snap_dir := ""  # --snap=DIR (chỉ kiểm thử)
 var _snap_every := 45
 var _snap_frame := 0

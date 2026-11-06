@@ -2,8 +2,7 @@
 	"title": "Tập 1 – Phân cảnh 1: Cú “Bug” đầu tiên mang tên em",
 	"start": "start",
 	"nodes": {
-		"start": {"card": "Tập 1\nCú va chạm ở quán cà phê", "card_hold": 1.8, "next": "card2"},
-		"card2": {"card": "15:00 — Quán cà phê Gờ 23", "bg": "cafe_day", "music": "cafe_day", "next": "intro1"},
+		"start": {"card": "Tập 1 · Cú va chạm ở quán cà phê\n\n15:00 — Quán cà phê Gờ 23", "card_hold": 1.6, "bg": "cafe_day", "music": "cafe_day", "next": "intro1"},
 		"intro1": {"text": "Một buổi chiều nắng ấm. Tiếng guitar mộc vang khe khẽ trong quán cà phê Gờ 23.", "next": "intro2"},
 		"intro2": {"show": {"duc": "worried@left"}, "speaker": "duc", "think": true, "text": "Deadline đồ án còn 3 ngày. Bug còn 27 con. Ổn. Rất ổn.", "next": "intro3"},
 		"intro3": {"show": {"nlong": "sleep@center"}, "sfx": "purr", "text": "Một khối lông xám bạc béo tròn đang nằm ườn ngay trên bàn phím laptop.", "next": "intro4"},

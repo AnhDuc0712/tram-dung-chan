@@ -35,7 +35,7 @@
 						"dates": 2
 					}
 				},
-				"text": "Đến giờ hẹn ăn lẩu với hội bạn rồi! (Hàng lẩu vỉa hè, góc dưới bên phải)"
+				"target": "friends", "text": "Đến giờ hẹn ăn lẩu với hội bạn rồi! (Hàng lẩu vỉa hè, góc dưới bên phải)"
 			},
 			{
 				"if": {
@@ -125,7 +125,7 @@
 		]
 	],
 	"player": {
-		"sprite": "duc_front",
+		"sprite": "duc_stand",
 		"walk": "duc_walk",
 		"scale": 0.17,
 		"start": {

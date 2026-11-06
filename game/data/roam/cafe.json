@@ -136,7 +136,7 @@
 		]
 	],
 	"player": {
-		"sprite": "duc_front",
+		"sprite": "duc_stand",
 		"walk": "duc_walk",
 		"scale": 0.17,
 		"start": {
@@ -579,10 +579,10 @@
 						"cacao_ready"
 					]
 				},
-				"text": "Ly ca cao đã sẵn. Ra cửa đón KyKy khi bạn muốn."
+				"target": "door2", "text": "Ly ca cao đã sẵn. Ra cửa đón KyKy khi bạn muốn."
 			},
 			{
-				"text": "9 giờ KyKy mới tới. Dạo quanh quán, trò chuyện với khách, pha sẵn gì đó… rồi ra cửa đón cô bé."
+				"target": "door2", "text": "9 giờ KyKy mới tới. Dạo quanh quán, trò chuyện với khách, pha sẵn gì đó… rồi ra cửa đón cô bé."
 			}
 		],
 		"ep2_afternoon": [
@@ -595,7 +595,7 @@
 						"doubt_cleared"
 					]
 				},
-				"text": "KyKy vẫn lăn tăn chuyện Thanh Thảo… Nói chuyện với cô bé (hoặc nhờ Thảo giải thích)."
+				"target": "kyky2", "text": "KyKy vẫn lăn tăn chuyện Thanh Thảo… Nói chuyện với cô bé (hoặc nhờ Thảo giải thích)."
 			},
 			{
 				"if": {
@@ -606,10 +606,10 @@
 						"made_up"
 					]
 				},
-				"text": "Không khí với KyKy hơi lạnh. Làm lành trước khi quá muộn?"
+				"target": "kyky2", "text": "Không khí với KyKy hơi lạnh. Làm lành trước khi quá muộn?"
 			},
 			{
-				"text": "Hội bạn đang ngồi bàn bên. Trò chuyện với ai cũng được — họ sẽ nhớ cách bạn đối xử. Sẵn sàng thì gặp chị M."
+				"target": "m", "text": "Hội bạn đang ngồi bàn bên. Trò chuyện với ai cũng được — họ sẽ nhớ cách bạn đối xử. Sẵn sàng thì gặp chị M."
 			}
 		]
 	},

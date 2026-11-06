@@ -3,18 +3,18 @@
 	"start": "a",
 	"nodes": {
 		"a": {"bg": "cafe_night", "music": "", "ambient": "rain_window", "show": {"duc": "normal@left", "kyky": "normal@right"}, "effects": {"add": {"dates": 1}, "set_flags": ["date_cafe"]}, "text": "Gờ 23 đã đóng cửa, chỉ còn dây đèn vàng nhỏ. Anh Đức mở khoá bằng chìa dự phòng. Quán vắng tanh, nghe rõ tiếng mưa trên ô kính.", "next": "b"},
-		"b": {"speaker": "kyky", "text": "Quán lúc không có ai yên tĩnh ghê… Anh hay ở lại đây một mình hả?", "next": "c"},
+		"b": {"show": {"kyky": "confused"}, "speaker": "kyky", "text": "Quán lúc không có ai yên tĩnh ghê… Anh hay ở lại đây một mình hả?", "next": "c"},
 		"c": {"show": {"duc": "think"}, "speaker": "duc", "text": "Thỉnh thoảng. Ở lại làm… cái này.", "next": "c2"},
 		"c2": {"speaker": "duc", "think": true, "text": "Có nên cho cô bé nghe không?",
 			"choices": [
 				{"text": "Đeo tai nghe cho cô: “Đây, nghe thử cái này đi. Bản demo hôm trước em cứ đòi nghe đấy.”", "effects": {"heart": 3, "set_flags": ["heard_demo"]}, "next": "demo"},
 				{"text": "Mở laptop cho cô xem đồ án thay vì nhạc", "effects": {"brain": 1}, "next": "proj"}
 			]},
-		"demo": {"cg": "cg_headphones", "speaker": "duc", "text": "Đây, nghe thử cái này đi. Bản demo hôm trước em cứ đòi nghe đấy… thấy sao?", "next": "demo2"},
+		"demo": {"show": {"duc": "curious"}, "cg": "cg_headphones", "speaker": "duc", "text": "Đây, nghe thử cái này đi. Bản demo hôm trước em cứ đòi nghe đấy… thấy sao?", "next": "demo2"},
 		"demo2": {"speaker": "kyky", "think": true, "text": "Ối… tự dưng lại đeo tai nghe cho mình… nhạc thì hay, nhưng tim mình đập to thế này, không biết anh ấy có nghe thấy không…", "next": "demo3"},
 		"demo3": {"branch": [{"if": {"flags": ["headphone_hint"]}, "next": "demo_hint"}], "default": "demo4"},
-		"demo_hint": {"speaker": "kyky", "text": "(Nhỏ giọng) Hồi chiều anh nói… giờ thì anh hiểu vì sao người ta chia tai nghe rồi hả?", "next": "demo_hint2"},
-		"demo_hint2": {"speaker": "duc", "effects": {"heart": 1}, "text": "…Ừ. Hiểu rồi.", "next": "demo4"},
+		"demo_hint": {"show": {"kyky": "confused"}, "speaker": "kyky", "text": "(Nhỏ giọng) Hồi chiều anh nói… giờ thì anh hiểu vì sao người ta chia tai nghe rồi hả?", "next": "demo_hint2"},
+		"demo_hint2": {"show": {"duc": "think"}, "speaker": "duc", "effects": {"heart": 1}, "text": "…Ừ. Hiểu rồi.", "next": "demo4"},
 		"demo4": {"cg": "none", "show": {"kyky": "love"}, "speaker": "kyky", "text": "Bài này tên gì vậy anh?", "next": "demo5"},
 		"demo5": {"show": {"duc": "shy"}, "speaker": "duc", "text": "Chưa đặt tên. …Có lẽ là “Trạm Dừng Chân”."},
 		"proj": {"show": {"duc": "smirk"}, "speaker": "duc", "text": "Đây là đồ án của tôi: app đặt bàn cho quán cà phê. Giao diện đăng nhập còn lệch 2 pixel.", "next": "proj2"},

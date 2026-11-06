@@ -76,8 +76,19 @@ func _build() -> void:
 	var sub := Ui.label("Quán Gờ 23 · ghé lại một chút", 24, Color("ffc7d8"), Ui.font_mono)
 	sub.position = Vector2(80, 276)
 	add_child(sub)
-	var ep := Ui.label("Tập 1 · Cú va chạm  —  Tập 2 · Cơn bão nhỏ (mới)", 24, Color("f3e6d3"), Ui.font_italic)
+	# nền mờ tối phía sau 2 dòng phụ -> không chìm vào ảnh cửa quán
+	var plate := Panel.new()
+	plate.position = Vector2(66, 272)
+	plate.size = Vector2(560, 76)
+	plate.add_theme_stylebox_override("panel", Ui.box(Color(0.1, 0.06, 0.07, 0.62), Color(0, 0, 0, 0), 14, 0, false))
+	plate.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(plate)
+	move_child(plate, sub.get_index())
+	var ep := Ui.label("Tập 1 · Cú va chạm  —  Tập 2 · Cơn bão nhỏ (mới)", 24, Color("fff4e6"), Ui.font_bold)
 	ep.position = Vector2(80, 310)
+	for l in [sub, ep]:
+		l.add_theme_color_override("font_outline_color", Color(0.12, 0.06, 0.08))
+		l.add_theme_constant_override("outline_size", 6)
 	add_child(ep)
 
 	var menu := VBoxContainer.new()

@@ -23,7 +23,7 @@
 | Heartbeat sounds | bart | https://opengameart.org/content/heartbeat-sounds | CC0 | `sfx/heart_slow, heart_fast` |
 | Rain (loopable) | Ylmir | https://opengameart.org/content/rain-loopable | CC0 | `sfx/rain_loop` |
 | Rain on Window Loop | alxl | https://opengameart.org/content/rain-on-window-loop | CC0 | `sfx/rain_window` |
-| Baloo 2 | Ek Type | https://fonts.google.com/specimen/Baloo+2 | SIL OFL 1.1 | `fonts/Baloo2.ttf` (tiêu đề, tên) |
+| Baloo 2 | Ek Type | https://fonts.google.com/specimen/Baloo+2 | SIL OFL 1.1 | `fonts/Baloo2.ttf` (tiêu đề, tên) — mọi font đã cắt chỉ giữ chữ Latin + tiếng Việt bằng `tools/art/subset_fonts.py` |
 | Nunito | Vernon Adams, Cyreal | https://fonts.google.com/specimen/Nunito | SIL OFL 1.1 | `fonts/Nunito*.ttf` (chữ thoại) |
 | JetBrains Mono | JetBrains | https://fonts.google.com/specimen/JetBrains+Mono | SIL OFL 1.1 | `fonts/JetBrainsMono.ttf` (mini-game code) |
 | Godot Engine 4.7 | Godot contributors | https://godotengine.org | MIT | engine |

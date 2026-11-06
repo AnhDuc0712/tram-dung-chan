@@ -1,19 +1,115 @@
 {
 	"title": "Quầy pha chế Gờ 23",
 	"ingredients": {
-		"cacao": {"name": "Bột ca cao", "color": "#6b3e26"},
-		"milk": {"name": "Sữa nóng", "color": "#f5efe6"},
-		"sugar": {"name": "Đường", "color": "#ffffff"},
-		"espresso": {"name": "Cà phê", "color": "#2b1a12"},
-		"ice": {"name": "Đá viên", "color": "#bfe6f5"},
-		"tea": {"name": "Trà", "color": "#c98a3a"},
-		"peach": {"name": "Đào", "color": "#ffb38a"},
-		"chili": {"name": "Tương ớt", "color": "#d6331f"}
+		"cacao": {
+			"name": "Bột ca cao",
+			"color": "#6b3e26"
+		},
+		"milk": {
+			"name": "Sữa nóng",
+			"color": "#f5efe6"
+		},
+		"cheese": {
+			"name": "Kem phô mai",
+			"color": "#fff3c4"
+		},
+		"sugar": {
+			"name": "Đường",
+			"color": "#ffffff"
+		},
+		"espresso": {
+			"name": "Cà phê",
+			"color": "#2b1a12"
+		},
+		"ice": {
+			"name": "Đá viên",
+			"color": "#bfe6f5"
+		},
+		"tea": {
+			"name": "Trà",
+			"color": "#c98a3a"
+		},
+		"matcha": {
+			"name": "Bột matcha",
+			"color": "#7fa650"
+		},
+		"peach": {
+			"name": "Đào",
+			"color": "#ffb38a"
+		},
+		"chili": {
+			"name": "Tương ớt",
+			"color": "#d6331f"
+		}
 	},
 	"drinks": {
-		"cacao": {"name": "Ca cao nóng", "desc": "Ngọt ngào, ấm áp. Món “cứu nét” trứ danh.", "needs": ["cacao", "milk", "sugar"], "liquid": "#8a5a3c", "foam": true},
-		"coffee": {"name": "Cà phê đen đá", "desc": "Đắng, tỉnh táo, chuẩn dân IT chạy deadline.", "needs": ["espresso", "ice"], "liquid": "#2b1a12", "foam": false},
-		"peach": {"name": "Trà đào", "desc": "Mát lạnh, thơm mùi đào.", "needs": ["tea", "peach", "ice"], "liquid": "#e0a050", "foam": false}
+		"cacao": {
+			"name": "Ca cao nóng",
+			"desc": "Ngọt ngào, ấm áp. Món “cứu nét” trứ danh.",
+			"needs": [
+				"cacao",
+				"milk",
+				"sugar"
+			],
+			"liquid": "#8a5a3c",
+			"foam": true
+		},
+		"cacao_ice": {
+			"name": "Ca cao đá",
+			"desc": "Ca cao ngọt béo, thêm đá mát lạnh. Hạ nhiệt cái đầu đang bốc khói.",
+			"needs": [
+				"cacao",
+				"milk",
+				"sugar",
+				"ice"
+			],
+			"liquid": "#7a4a30",
+			"foam": false
+		},
+		"coffee": {
+			"name": "Cà phê đen đá",
+			"desc": "Đắng, tỉnh táo, chuẩn dân IT chạy deadline.",
+			"needs": [
+				"espresso",
+				"ice"
+			],
+			"liquid": "#2b1a12",
+			"foam": false
+		},
+		"peach": {
+			"name": "Trà đào",
+			"desc": "Mát lạnh, thơm mùi đào.",
+			"needs": [
+				"tea",
+				"peach",
+				"ice"
+			],
+			"liquid": "#e0a050",
+			"foam": false
+		},
+		"matcha": {
+			"name": "Matcha sữa",
+			"desc": "Trà xanh Nhật thơm dịu, béo nhẹ vị sữa. Uống vào tỉnh táo mà không đắng.",
+			"needs": [
+				"matcha",
+				"milk",
+				"sugar"
+			],
+			"liquid": "#9cc06a",
+			"foam": true
+		},
+		"matcha_cheese": {
+			"name": "Matcha kem phô mai",
+			"desc": "Matcha sữa phủ lớp kem phô mai mằn mặn. Uống cả hai lớp mới đúng điệu.",
+			"needs": [
+				"matcha",
+				"milk",
+				"cheese"
+			],
+			"liquid": "#8fb85c",
+			"foam": true,
+			"foam_color": "#fff3c4"
+		}
 	},
 	"arts": {
 		"smile": "Mặt cười",

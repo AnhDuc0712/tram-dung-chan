@@ -169,6 +169,10 @@ func test_minigame_data() -> void:
 	for dk in b.get("drinks", {}):
 		for n in b["drinks"][dk].get("needs", []):
 			expect(ings.has(n), "barista: món %s cần nguyên liệu lạ %s" % [dk, n])
+		# mỗi món (trừ ca cao nóng = mặc định) phải có phản ứng riêng của KyKy ở Tập 1 cảnh 2
+		if dk != "cacao":
+			var s2 := FileAccess.get_file_as_string("res://data/dialogue/ep1_s2.json")
+			expect(s2.contains("\"drink_%s\"" % dk), "barista: món %s chưa có câu phản ứng trong ep1_s2.json" % dk)
 	var dbg := DialogueData.load_json("res://data/minigames/debug_ep1.json")
 	for r in dbg.get("rounds", []):
 		expect(int(r.get("bug", -1)) >= 0 and int(r["bug"]) < (r.get("lines", []) as Array).size(), "debug: chỉ số dòng bug sai")

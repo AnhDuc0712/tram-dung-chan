@@ -7,7 +7,10 @@
 		"drink": {"branch": [
 			{"if": {"flags": ["drink_weird"]}, "next": "d_weird"},
 			{"if": {"flags": ["drink_coffee"]}, "next": "d_coffee"},
-			{"if": {"flags": ["drink_peach"]}, "next": "d_peach"}
+			{"if": {"flags": ["drink_peach"]}, "next": "d_peach"},
+			{"if": {"flags": ["drink_cacao_ice"]}, "next": "d_cice"},
+			{"if": {"flags": ["drink_matcha"]}, "next": "d_matcha"},
+			{"if": {"flags": ["drink_matcha_cheese"]}, "next": "d_mcheese"}
 		], "default": "d_cacao"},
 		"d_cacao": {"show": {"duc": "smirk"}, "speaker": "duc", "text": "Tặng cô bé làm rơi sổ. Uống đồ ngọt vào cho não chạy lại đi, nhìn em sắp khóc ngập quán của tôi rồi.", "effects": {"heart": 1}, "next": "d_cacao2"},
 		"d_cacao2": {"show": {"kyky": "sparkle"}, "speaker": "kyky", "text": "Ca cao nóng! Sao anh biết em thích đồ ngọt?", "next": "d_cacao3"},
@@ -17,6 +20,16 @@
 		"d_coffee3": {"show": {"duc": "awkward"}, "speaker": "duc", "text": "…Lần sau anh cho thêm sữa.", "next": "art"},
 		"d_peach": {"speaker": "duc", "text": "Trà đào. Mát, nhẹ, giải nhiệt cái đầu đang bốc khói của em.", "next": "d_peach2"},
 		"d_peach2": {"show": {"kyky": "happy"}, "speaker": "kyky", "text": "Thơm quá! Còn có cả miếng đào to đùng nữa!", "next": "art"},
+		"d_cice": {"show": {"duc": "smirk"}, "speaker": "duc", "text": "Ca cao đá. Ngọt cho não chạy lại, lạnh cho cái đầu đang bốc khói của em hạ nhiệt.", "effects": {"heart": 1}, "next": "d_cice2"},
+		"d_cice2": {"show": {"kyky": "sparkle"}, "speaker": "kyky", "sfx": "drop", "text": "Mát lạnh mà vẫn ngọt lịm! Sao anh biết em đang nóng đầu vậy?", "next": "d_cice3"},
+		"d_cice3": {"show": {"duc": "tease"}, "speaker": "duc", "text": "Tóc em sắp bốc khói thật rồi kìa.", "next": "art"},
+		"d_matcha": {"show": {"duc": "smirk"}, "speaker": "duc", "text": "Matcha sữa. Trà xanh giúp tập trung — hợp với người sắp phải học lại môn Tin.", "next": "d_matcha2"},
+		"d_matcha2": {"show": {"kyky": "pout"}, "speaker": "kyky", "text": "Anh nói thẳng quá đó!", "next": "d_matcha3"},
+		"d_matcha3": {"show": {"kyky": "happy"}, "speaker": "kyky", "text": "…Mà thơm thật. Vị trà nhẹ nhẹ, không đắng chút nào.", "effects": {"heart": 1}, "next": "art"},
+		"d_mcheese": {"show": {"duc": "smirk"}, "speaker": "duc", "text": "Matcha kem phô mai. Uống cả lớp kem mằn mặn ở trên mới đúng điệu.", "next": "d_mcheese2"},
+		"d_mcheese2": {"show": {"kyky": "surprised"}, "speaker": "kyky", "text": "Ngon quá! …Ơ, sao anh nhìn em cười vậy?", "next": "d_mcheese3"},
+		"d_mcheese3": {"show": {"duc": "blush"}, "speaker": "duc", "text": "…Có ria mép kem phô mai kìa. Lau đi. Ở mép ấy.", "next": "d_mcheese4"},
+		"d_mcheese4": {"show": {"kyky": "shy"}, "speaker": "kyky", "text": "Á! Đừng nhìn!", "effects": {"heart": 1}, "next": "art"},
 		"d_weird": {"show": {"kyky": "confused"}, "text": "Màu nước… khó tả. Có gì đó vừa nổi lên rồi lại chìm xuống.", "next": "d_weird2"},
 		"d_weird2": {"show": {"kyky": "confused"}, "speaker": "kyky", "text": "Đây là… món gì vậy anh?", "next": "d_weird3"},
 		"d_weird3": {"show": {"duc": "awkward"}, "speaker": "duc", "text": "Món đặc biệt. Tên là… “Lỗi Logic”.", "next": "d_weird4"},

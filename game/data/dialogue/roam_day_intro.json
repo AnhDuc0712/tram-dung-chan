@@ -8,6 +8,6 @@
 		"d": {"show": {"m": "tease"}, "speaker": "m", "text": "Đức này, ca của em hết rồi đấy. Hay ra cứu nét cho khách VIP của quán đi — chị trả lương gấp đôi bằng một chầu lẩu!", "next": "e"},
 		"e": {"show": {"duc": "deadpan@right"}, "speaker": "duc", "text": "Cứu nét kiểu gì ạ? Em là coder chứ có phải bác sĩ tâm lý đâu.", "next": "f"},
 		"f": {"show": {"m": "normal"}, "speaker": "m", "text": "Thì pha cho con bé ly gì đó ngọt ngọt. Nhìn là biết hệ hảo ngọt rồi. Quầy pha chế là của em đấy!", "next": "g"},
-		"g": {"hide": "all", "effects": {"set_flags": ["day_intro_done"]}, "text": "Hướng dẫn: đi bằng WASD / phím mũi tên, hoặc chạm vào nơi muốn đến. Lại gần người hay đồ vật có dấu chấm than rồi bấm E (hoặc chạm vào) để tương tác. Muốn làm gì trước cũng được!"}
+		"g": {"hide": "all", "effects": {"set_flags": ["day_intro_done"]}, "text": "Hướng dẫn: đi bằng WASD / phím mũi tên, hoặc chạm vào nơi muốn đến. (Mũi tên hồng trên đầu là bạn.) Ngôi sao vàng = việc chính của câu chuyện; chấm hồng nhỏ = thứ xem thêm cho vui. Lại gần rồi bấm E (hoặc chạm vào) để tương tác."}
 	}
 }

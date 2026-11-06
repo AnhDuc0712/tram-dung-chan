@@ -45,7 +45,32 @@ class FloatFx extends Node2D:
 
 
 class Marker extends Node2D:
-	## Bong bóng "!" nhún nhảy trên đầu thứ chưa xem.
+	## Dấu trên đầu thứ chưa xem. main = việc chính (ngôi sao vàng to, nhún mạnh);
+	## phụ = chấm nhỏ mờ (xem cho vui, không bắt buộc).
+	var t := 0.0
+	var main := false
+
+	func _process(delta: float) -> void:
+		t += delta
+		queue_redraw()
+
+	func _draw() -> void:
+		if main:
+			var y := -absf(sin(t * 3.5)) * 9.0
+			draw_circle(Vector2(0, y), 24.0 + sin(t * 5.0) * 2.0, Color(1.0, 0.85, 0.3, 0.28))
+			Shapes.draw_star(self, Vector2(0, y), 19.0, Color("ffcc33"))
+			draw_rect(Rect2(-2.5, y - 9, 5, 10), Color("8a4b00"))
+			draw_circle(Vector2(0, y + 5), 2.6, Color("8a4b00"))
+		else:
+			var y2 := -sin(t * 2.0) * 2.0
+			draw_circle(Vector2(0, y2), 8.0, Color(1, 0.97, 0.93, 0.7))
+			draw_arc(Vector2(0, y2), 8.0, 0, TAU, 20, Color(0.91, 0.38, 0.55, 0.6), 2.0)
+			draw_circle(Vector2(0, y2), 2.5, Color(0.91, 0.38, 0.55, 0.7))
+
+
+class PlayerMark extends Node2D:
+	## Vòng sáng dưới chân + mũi tên nhỏ trên đầu nhân vật mình điều khiển.
+	var head := 100.0
 	var t := 0.0
 
 	func _process(delta: float) -> void:
@@ -53,11 +78,32 @@ class Marker extends Node2D:
 		queue_redraw()
 
 	func _draw() -> void:
-		var y := -sin(t * 4.0) * 4.0
-		draw_circle(Vector2(0, y), 13.0, Color(1, 0.97, 0.93, 0.95))
-		draw_arc(Vector2(0, y), 13.0, 0, TAU, 24, Color("e8608c"), 2.5)
-		draw_rect(Rect2(-2, y - 8, 4, 10), Color("e8608c"))
-		draw_circle(Vector2(0, y + 6), 2.2, Color("e8608c"))
+		draw_set_transform(Vector2(0, 2), 0.0, Vector2(1.0, 0.36))
+		draw_arc(Vector2.ZERO, 30.0, 0, TAU, 32, Color(1.0, 0.55, 0.7, 0.55 + 0.25 * sin(t * 4.0)), 5.0)
+		draw_set_transform(Vector2.ZERO)
+		var y := -head - 16.0 - absf(sin(t * 3.0)) * 6.0
+		var tri := PackedVector2Array([Vector2(-10, y - 12), Vector2(10, y - 12), Vector2(0, y)])
+		draw_colored_polygon(tri, Color("e8608c"))
+		draw_polyline(PackedVector2Array([tri[0], tri[1], tri[2], tri[0]]), Color("fff8ee"), 2.0)
+
+
+class CarryCup extends Node2D:
+	## Ly nước trên tay khi đang mang đồ uống cho ai đó.
+	var t := 0.0
+
+	func _process(delta: float) -> void:
+		t += delta
+		queue_redraw()
+
+	func _draw() -> void:
+		draw_rect(Rect2(-8, -14, 16, 16), Color("fbf7f0"))
+		draw_rect(Rect2(-8, -14, 16, 16), Color("8a6a55"), false, 1.5)
+		draw_arc(Vector2(9, -7), 4.0, -PI / 2, PI / 2, 8, Color("8a6a55"), 2.0)
+		draw_rect(Rect2(-7, -13, 14, 4), Color("8a5a3c"))
+		for i in 2:
+			var x := -3.0 + i * 6.0
+			var a := 0.5 + 0.3 * sin(t * 3.0 + i)
+			draw_line(Vector2(x, -17), Vector2(x + sin(t * 2.0 + i) * 2.0, -25), Color(1, 1, 1, a), 1.5)
 
 
 var variant := "day"
@@ -80,6 +126,7 @@ var _autoroam_i := 0
 var _autoroam_t := 0.0
 var _follower: Sprite2D  # nhân vật đi theo Anh Đức (vd KyKy trên phố buổi tối)
 var _follow_t := 0.0
+var _carry: CarryCup
 
 
 func _ready() -> void:
@@ -229,6 +276,15 @@ func _build_entities() -> void:
 		player.position = GameState.player_position
 	player.arrived.connect(_on_arrived)
 	_actors.add_child(player)
+	var pmark := PlayerMark.new()
+	var ptex := Ui.char_tex(str(pl.get("sprite", "duc_stand")))
+	pmark.head = (ptex.get_height() if ptex else 600.0) * float(pl.get("scale", 0.17))
+	pmark.show_behind_parent = true  # vòng sáng nằm dưới chân; mũi tên ở trên đầu nên không bị che
+	player.add_child(pmark)
+	_carry = CarryCup.new()
+	_carry.position = Vector2(16, -pmark.head * 0.42)
+	_carry.z_index = 2
+	player.add_child(_carry)
 	var fol: Dictionary = (data.get("follower", {}) as Dictionary).get(variant, {})
 	if not fol.is_empty() and GameState.check(fol.get("if", {})):
 		var ftex := Ui.char_tex(str(fol.get("sprite", "")))
@@ -271,7 +327,7 @@ func _build_entities() -> void:
 			"id": str(n["id"]), "kind": "npc", "node": holder, "sprite": spr, "pos": pos,
 			"stand": Vector2(float(stand_a[0]), float(stand_a[1])),
 			"dialogue": str((n.get("dialogue_by", {}) as Dictionary).get(variant, n.get("dialogue", ""))),
-			"label": str(n.get("label", "Nói chuyện")),
+			"label": _talk_label(n),
 			"height": (tex.get_height() * clip * sc) if tex else 80.0, "if": n.get("if", {}),
 			"base_scale": sc,
 		}
@@ -302,6 +358,19 @@ func _build_entities() -> void:
 		entities.append(e2)
 		_add_marker(e2)
 	_build_grid()  # cập nhật lại vì thêm vật cản NPC
+
+
+## "Nói chuyện" -> "Nói chuyện với Chị M" (biết ngay mình sắp nói với ai khi đứng gần nhiều người).
+func _talk_label(n: Dictionary) -> String:
+	var label := str(n.get("label", "Nói chuyện"))
+	if label != "Nói chuyện":
+		return label
+	var who := str(n.get("name", ""))
+	if who == "":
+		var cid := str(n.get("char", str(n["id"]).trim_suffix("2")))
+		if Dialogue.characters.has(cid):
+			who = Dialogue.character_name(cid)
+	return label + (" với " + who if who != "" else "")
 
 
 func _add_marker(e: Dictionary) -> void:
@@ -418,35 +487,54 @@ func _refresh() -> void:
 		var mk: Node2D = e.get("marker")
 		if mk:
 			mk.visible = vis and not GameState.has_flag("seen_" + str(e["id"]))
-	_update_objective()
+	var target := _update_objective()
+	for e in entities:
+		var mk2: Marker = e.get("marker")
+		if mk2:
+			mk2.main = str(e["id"]) == target and _available(e)
+			if mk2.main:
+				mk2.visible = true  # việc chính luôn có dấu, kể cả khi đã xem
+	if _carry:
+		_carry.visible = (variant == "day" and GameState.has_flag("drink_made")) \
+				or (variant == "ep2_morning" and GameState.has_flag("cacao_ready"))
 
 
-func _update_objective() -> void:
+## Cập nhật dòng nhiệm vụ; trả về id thứ cần tới (dấu sao vàng), "" nếu tự do.
+func _update_objective() -> String:
 	var t := ""
+	var target := ""
 	# mục tiêu khai báo trong dữ liệu: data.objectives[variant] = [{"if": {...}, "text": "..."}, ...] (dòng đầu tiên thoả)
 	var objs: Array = (data.get("objectives", {}) as Dictionary).get(variant, [])
 	if not objs.is_empty():
 		for o in objs:
 			if GameState.check((o as Dictionary).get("if", {})):
 				t = str(o.get("text", ""))
+				target = str(o.get("target", ""))
 				break
 		Hud.set_objective(t)
-		return
+		return target
 	if variant == "day":
 		if GameState.has_flag("drink_made"):
 			t = "Mang ly nước ra cho KyKy."
+			target = "kyky"
 		elif GameState.has_flag("promised_drink") or GameState.has_flag("talked_kyky_day"):
 			t = "Pha một ly nước cho KyKy ở quầy pha chế (máy espresso sau quầy)."
+			target = "barista"
 		else:
 			t = "KyKy trông buồn quá… Hỏi thăm cô bé, hoặc dạo quanh quán trước."
+			target = "kyky"
 	else:
 		if not GameState.has_flag("has_umbrella"):
 			t = "Trời mưa! Lấy ô trong phòng nhân viên (cửa bên phải quầy)… hoặc mượn chị M."
+			target = "staff"
 		elif GameState.has_flag("has_treat") and not GameState.has_flag("fed_treat"):
 			t = "Ra cửa gặp KyKy. (Nlong đang thèm súp thưởng…)"
+			target = "door"
 		else:
 			t = "Ra cửa gặp KyKy khi bạn đã sẵn sàng."
+			target = "door"
 	Hud.set_objective(t)
+	return target
 
 
 func _unhandled_input(ev: InputEvent) -> void:
@@ -513,6 +601,9 @@ func _start_dialogue(id: String) -> void:
 
 
 func _on_dialogue_finished(_id: String, then_step: String) -> void:
+	if then_step.begins_with("mini:") and is_instance_valid(player):
+		GameState.player_position = player.global_position
+		GameState.has_position = true
 	_refresh()
 	if then_step == "":
 		GameState.save_game()

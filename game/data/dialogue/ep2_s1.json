@@ -2,8 +2,7 @@
 	"title": "Tập 2 – Phân cảnh 1B: Sáng thứ Bảy ở Gờ 23",
 	"start": "start",
 	"nodes": {
-		"start": {"card": "Tập 2\nCơn bão nhỏ ở Gờ 23", "card_hold": 1.8, "next": "c2"},
-		"c2": {"card": "9:00 sáng thứ Bảy — Quán Gờ 23", "bg": "cafe_day", "music": "cafe_day", "ambient": "", "next": "s1"},
+		"start": {"card": "Tập 2 · Cơn bão nhỏ ở Gờ 23\n\n9:00 sáng thứ Bảy — Quán Gờ 23", "card_hold": 1.6, "bg": "cafe_day", "music": "cafe_day", "ambient": "", "next": "s1"},
 		"s1": {"show": {"duc": "normal@left"}, "text": "Ánh nắng sớm rọi qua ô cửa kính. Anh Đức đứng sau quầy, máy espresso xì hơi đều đều.", "sfx": "cup", "next": "s2"},
 		"s2": {"show": {"m": "wink@right"}, "text": "Chị M vừa kiểm kê sổ sách vừa liếc chiếc áo khoác còn hơi ẩm vắt trên ghế của cậu nhân viên.", "next": "s3"},
 		"s3": {"branch": [{"if": {"flags": ["ep1_wet"]}, "next": "m_wet"}], "default": "m_umb"},

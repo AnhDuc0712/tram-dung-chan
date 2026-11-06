@@ -26,7 +26,7 @@
 		"h_a2": {"show": {"kyky": "shy"}, "speaker": "kyky", "text": "Dạ… dạ…", "next": "cat_bonus"},
 		"h_b": {"sfx": "purr", "text": "Không ai rút tay ra. Nlong kêu rừ rừ, hài lòng như vừa hoàn thành xuất sắc nhiệm vụ.", "next": "h_b2"},
 		"h_b2": {"show": {"kyky": "love"}, "speaker": "kyky", "text": "…Bé mèo ấm ghê ha.", "next": "h_b3"},
-		"h_b3": {"speaker": "duc", "text": "…Ừ. Mèo ấm.", "next": "cat_bonus"},
+		"h_b3": {"show": {"duc": "think"}, "speaker": "duc", "text": "…Ừ. Mèo ấm.", "next": "cat_bonus"},
 		"h_c": {"show": {"duc": "soft"}, "speaker": "duc", "text": "Nlong ngoan, xuống đi nào~ Chị ngốc này đang học bài, tối anh thưởng hai thanh pate nhé~", "next": "h_c2"},
 		"h_c2": {"show": {"kyky": "angry"}, "speaker": "kyky", "text": "Chị ngốc?! Mà sao anh nói với mèo thì dịu dàng thế, còn với em thì…", "next": "h_c3"},
 		"h_c3": {"show": {"kyky": "laugh"}, "speaker": "kyky", "text": "Phụt… giọng anh lúc nãy buồn cười quá đi mất!", "next": "cat_bonus"},

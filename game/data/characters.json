@@ -8,7 +8,7 @@
 		],
 		"poses": {
 			"normal": {
-				"img": "duc_front"
+				"img": "duc_stand"
 			},
 			"smirk": {
 				"img": "duc_walk",
@@ -43,14 +43,14 @@
 				"emote": "?"
 			},
 			"soft": {
-				"img": "duc_front_love"
+				"img": "duc_stand_love"
 			},
 			"wave": {
 				"img": "duc_front",
 				"anim": "hop"
 			},
 			"happy": {
-				"img": "duc_front_happy",
+				"img": "duc_stand_happy",
 				"anim": "hop"
 			},
 			"laugh": {
@@ -63,27 +63,27 @@
 				"anim": "shake"
 			},
 			"surprised": {
-				"img": "duc_front_surprised"
+				"img": "duc_stand_surprised"
 			},
 			"panic": {
 				"img": "duc_front_panic",
 				"anim": "shake"
 			},
 			"worried": {
-				"img": "duc_front_worried"
+				"img": "duc_stand_worried"
 			},
 			"shy": {
-				"img": "duc_front_shy"
+				"img": "duc_stand_shy"
 			},
 			"sad": {
-				"img": "duc_front_sad"
+				"img": "duc_stand_sad"
 			},
 			"angry": {
-				"img": "duc_front_angry",
+				"img": "duc_stand_angry",
 				"emote": "anger"
 			},
 			"deadpan": {
-				"img": "duc_front_think"
+				"img": "duc_stand_think"
 			}
 		}
 	},
@@ -96,8 +96,7 @@
 		],
 		"poses": {
 			"normal": {
-				"img": "kyky_wave",
-				"faces": "left"
+				"img": "kyky_hug"
 			},
 			"sparkle": {
 				"img": "kyky_wave",
