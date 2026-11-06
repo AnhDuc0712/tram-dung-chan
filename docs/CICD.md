@@ -55,9 +55,10 @@ git tag v1.2.0; git push origin v1.2.0
 1. Đăng nhập Vercel trên máy: `npx vercel@65.11.0 login` (đã làm). Bản chính thức: https://tram-dung-chan-beige.vercel.app
 2. Deploy lần đầu để tạo project: `powershell -ExecutionPolicy Bypass -File tools\deploy_web.ps1 -Prod`
    → file `deploy/.vercel/project.json` chứa `orgId`, `projectId`.
-3. Tạo token: vercel.com → Account Settings → Tokens → Create (đặt tên `github-actions`).
-4. Cài 3 secrets cho GitHub — **tự chạy** trong PowerShell (token nhập ẩn, không lưu file):
+3. Tạo token: vercel.com → Account Settings → Tokens → Create (đặt tên `github-actions`) → bấm **Copy**.
+4. Cài 3 secrets cho GitHub — **tự chạy** trong PowerShell (script đọc token từ clipboard, kiểm tra rồi xoá clipboard):
    `powershell -ExecutionPolicy Bypass -File tools\setup_ci_secrets.ps1`
+   Đừng Ctrl+V vào ô nhập ẩn của Windows PowerShell 5.1 — nó ghi ký tự ^V thay vì dán (CI sẽ báo "VERCEL_TOKEN sai định dạng (độ dài 1…)").
 5. (Nên làm) GitHub → Settings → Branches → bảo vệ `main`: bắt buộc PR + bắt buộc job "Kiểm tra + xuất bản web" đạt.
 
 ## Ghi chú kỹ thuật
