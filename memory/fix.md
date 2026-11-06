@@ -96,7 +96,7 @@ Chọn đi dạo trước rồi mới ăn lẩu cho cảm giác tự do thật s
 Màn kết đủ thông tin: tên kết thúc, mô tả, bốn chỉ số, gợi ý Tập 3.
 Kỷ niệm có gợi ý cách mở từng kết thúc, rất tiện cho người chơi lại.
 ==================================================================================
-ĐÃ XỬ LÝ — 2026-11-06 21:02 (Claude, nhánh fix/gop-y-choi-thu, phiên bản 1.2.1)
+ĐÃ XỬ LÝ — 2026-11-06 21:02 (Claude, nhánh fix/gop-y-choi-thu, phiên bản 1.3.0)
 Ký hiệu: [XONG] đã sửa + kiểm tra · [MỘT PHẦN] sửa được phần làm được · [CẦN BẠN] cần bạn quyết định / có ảnh mới
 ==================================================================================
 Lỗi nặng
