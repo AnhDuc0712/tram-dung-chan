@@ -57,6 +57,7 @@ jobs:
           mkdir -p build/windows build/tram-dung-chan
           $GODOT --headless --path game --export-release "Windows Desktop" ../build/windows/TramDungChan.exe
           $GODOT --headless --path game --export-release "Web" ../build/tram-dung-chan/index.html
+          $GODOT --headless --path game --export-pack "WebMusic" ../build/tram-dung-chan/music.pck
           cp deploy/vercel.json build/tram-dung-chan/
           cd build
           (cd windows && zip -qr "../TramDungChan-${GITHUB_REF_NAME}-windows.zip" .)

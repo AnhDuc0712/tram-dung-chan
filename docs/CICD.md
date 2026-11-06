@@ -67,6 +67,7 @@ git tag v1.2.0; git push origin v1.2.0
 - Link xem thử (preview) mặc định bị Vercel khoá bằng đăng nhập (Deployment Protection). Muốn gửi link xem thử cho bạn bè:
   Vercel → Project → Settings → Deployment Protection → tắt "Vercel Authentication". Link chính thức luôn công khai.
 - CI chỉ tải template **web** (~20 MB) bằng HTTP Range (`tools/get_templates.py`), không tải gói 1.3 GB; có cache.
+- Bản web gồm `index.pck` (game, ~7,5 MB) + `music.pck` (nhạc nền, tải ngầm sau khi vào game). Ảnh import Lossy WebP.
 - Bản web dùng chế độ một luồng (`variant/thread_support=false`) → chạy được trên iPhone/Safari, không cần header đặc biệt.
 - `deploy/vercel.json`: header + `Cache-Control: must-revalidate` để người chơi luôn nhận bản mới sau mỗi lần deploy.
 - Chạy thử bản web trên máy: `python -m http.server 8765 -d build/tram-dung-chan` rồi mở http://localhost:8765

@@ -4,17 +4,23 @@ extends Node
 ##   Audio.ambient("rain_loop") / Audio.ambient("")  -> bật / tắt tiếng mưa
 ##   Audio.sfx("meow")         -> res://assets/audio/sfx/meow.ogg
 ## File không tồn tại thì bỏ qua (không crash).
+## Bản web: nhạc nền nằm trong gói riêng music.pck (preset "WebMusic") để game vào nhanh;
+## gói được tải ngầm ngay khi mở game, bài đang chờ sẽ tự phát khi tải xong.
 
 const MUSIC_DIR := "res://assets/audio/music/"
 const SFX_DIR := "res://assets/audio/sfx/"
 const MUSIC_DB := -9.0
 const AMBIENT_DB := -10.0
+const MUSIC_PACK := "user://music.pck"
 
+var music_pack_ready := true  # false khi bản web đang tải music.pck
 var _music: AudioStreamPlayer
 var _ambient: AudioStreamPlayer
 var _current := ""
 var _current_ambient := ""
 var _music_tween: Tween
+var _wanted := ""  # bài được gọi khi gói nhạc web chưa tải xong
+var _pack_tries := 0
 
 
 func _ready() -> void:
@@ -23,6 +29,45 @@ func _ready() -> void:
 	add_child(_music)
 	_ambient = AudioStreamPlayer.new()
 	add_child(_ambient)
+	if OS.has_feature("web") and not ResourceLoader.exists(MUSIC_DIR + "title.ogg"):
+		music_pack_ready = false
+		_fetch_music_pack()
+
+
+func _fetch_music_pack() -> void:
+	_pack_tries += 1
+	var href := str(JavaScriptBridge.eval("window.location.href", true))
+	var url := href.split("?")[0].split("#")[0]
+	url = url.substr(0, url.rfind("/") + 1) + "music.pck"
+	var req := HTTPRequest.new()
+	req.accept_gzip = false  # trình duyệt đã tự giải nén br/gzip
+	req.download_chunk_size = 1 << 20  # mặc định 64 KB/khung hình -> 15 MB mất rất lâu
+	add_child(req)
+	req.request_completed.connect(_on_music_pack.bind(req))
+	if req.request(url) != OK:
+		req.queue_free()
+
+
+## Nhận music.pck vào bộ nhớ rồi ghi ra file (download_file của HTTPRequest không ghi được trên web).
+func _on_music_pack(result: int, code: int, _h: PackedStringArray, body: PackedByteArray, req: HTTPRequest) -> void:
+	req.queue_free()
+	if result == HTTPRequest.RESULT_SUCCESS and code < 400 and body.size() > 16:
+		var f := FileAccess.open(MUSIC_PACK, FileAccess.WRITE)
+		if f:
+			f.store_buffer(body)
+			f.close()
+			if ProjectSettings.load_resource_pack(MUSIC_PACK, false):
+				music_pack_ready = true
+				print("music.pck: da tai xong")
+				var w := _wanted
+				_wanted = ""
+				if w != "":
+					music(w)
+				return
+	if _pack_tries < 3:
+		get_tree().create_timer(2.0).timeout.connect(_fetch_music_pack)
+	else:
+		push_warning("Không tải được music.pck (%d, %d, %d byte) -> chơi không nhạc nền" % [result, code, body.size()])
 
 
 func _vol(base_db: float, kind: String) -> float:
@@ -56,7 +101,10 @@ func music(track: String, fade: float = 1.2) -> void:
 		return
 	var stream := _load_loop(MUSIC_DIR + track + ".ogg")
 	if stream == null:
+		if not music_pack_ready:
+			_wanted = track  # phát khi gói nhạc về
 		return
+	_wanted = ""
 	_current = track
 	if _music_tween:
 		_music_tween.kill()
@@ -72,6 +120,7 @@ func music(track: String, fade: float = 1.2) -> void:
 
 func stop_music(fade: float = 1.0) -> void:
 	_current = ""
+	_wanted = ""
 	if _music_tween:
 		_music_tween.kill()
 	_music_tween = create_tween()
