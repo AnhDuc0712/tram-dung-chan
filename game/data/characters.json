@@ -8,7 +8,7 @@
 		],
 		"poses": {
 			"normal": {
-				"img": "duc_front"
+				"img": "duc_stand"
 			},
 			"smirk": {
 				"img": "duc_walk",
@@ -43,14 +43,14 @@
 				"emote": "?"
 			},
 			"soft": {
-				"img": "duc_front_love"
+				"img": "duc_stand_love"
 			},
 			"wave": {
 				"img": "duc_front",
 				"anim": "hop"
 			},
 			"happy": {
-				"img": "duc_front_happy",
+				"img": "duc_stand_happy",
 				"anim": "hop"
 			},
 			"laugh": {
@@ -63,27 +63,27 @@
 				"anim": "shake"
 			},
 			"surprised": {
-				"img": "duc_front_surprised"
+				"img": "duc_stand_surprised"
 			},
 			"panic": {
 				"img": "duc_front_panic",
 				"anim": "shake"
 			},
 			"worried": {
-				"img": "duc_front_worried"
+				"img": "duc_stand_worried"
 			},
 			"shy": {
-				"img": "duc_front_shy"
+				"img": "duc_stand_shy"
 			},
 			"sad": {
-				"img": "duc_front_sad"
+				"img": "duc_stand_sad"
 			},
 			"angry": {
-				"img": "duc_front_angry",
+				"img": "duc_stand_angry",
 				"emote": "anger"
 			},
 			"deadpan": {
-				"img": "duc_front_think"
+				"img": "duc_stand_think"
 			}
 		}
 	},
@@ -96,8 +96,7 @@
 		],
 		"poses": {
 			"normal": {
-				"img": "kyky_wave",
-				"faces": "left"
+				"img": "kyky_hug"
 			},
 			"sparkle": {
 				"img": "kyky_wave",
@@ -194,8 +193,7 @@
 			},
 			"laugh": {
 				"img": "m_front_laugh",
-				"anim": "hop",
-				"inset": "m_x_laugh"
+				"anim": "hop"
 			},
 			"shock": {
 				"img": "m_front_shock",
@@ -215,8 +213,7 @@
 			"busy": {
 				"img": "m_walk_worried",
 				"faces": "left",
-				"emote": "sweat",
-				"inset": "m_x_sweat"
+				"emote": "sweat"
 			},
 			"surprised": {
 				"img": "m_walk_surprised",
@@ -228,8 +225,7 @@
 			},
 			"wink": {
 				"img": "m_front_smug",
-				"emote": "sparkle",
-				"inset": "m_x_smile"
+				"emote": "sparkle"
 			}
 		}
 	},
@@ -303,8 +299,7 @@
 			"shock": {
 				"img": "tram_front_shock",
 				"emote": "!",
-				"anim": "shake",
-				"inset": "tram_x_shock"
+				"anim": "shake"
 			},
 			"happy": {
 				"img": "tram_front_happy",
@@ -314,13 +309,11 @@
 				"img": "tram_front_pout"
 			},
 			"smile": {
-				"img": "tram_front_happy",
-				"inset": "tram_x_smile"
+				"img": "tram_front_happy"
 			},
 			"angry": {
 				"img": "tram_front_glare",
-				"emote": "anger",
-				"inset": "tram_x_angry"
+				"emote": "anger"
 			},
 			"cross": {
 				"img": "tram_front_glare",
@@ -400,13 +393,11 @@
 			},
 			"grin": {
 				"img": "ducanh_front_laugh",
-				"anim": "hop",
-				"inset": "ducanh_x_grin"
+				"anim": "hop"
 			},
 			"confused": {
 				"img": "ducanh_front_worried",
-				"emote": "?",
-				"inset": "ducanh_x_confused"
+				"emote": "?"
 			},
 			"sweat": {
 				"img": "ducanh_front_worried",
@@ -442,13 +433,11 @@
 				"img": "hai_front_worried"
 			},
 			"smile": {
-				"img": "hai_front_happy",
-				"inset": "hai_x_smile"
+				"img": "hai_front_happy"
 			},
 			"blush": {
 				"img": "hai_front_shy",
-				"emote": "sweat",
-				"inset": "hai_x_blush"
+				"emote": "sweat"
 			}
 		}
 	}

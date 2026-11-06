@@ -4,13 +4,18 @@ extends Control
 ## Kết quả: {"first_try": số mảnh chọn đúng ngay lần đầu (0..3)}
 
 const Shapes := preload("res://scripts/ui/shapes.gd")
+const MiniFrame := preload("res://scripts/ui/mini_frame.gd")
+## "wrong": câu phản hồi RIÊNG cho từng đáp án sai (chỉ số đáp án -> câu), khớp đúng hành động đã chọn.
 const ROWS := [
 	{"head": "Nếu (Trời đổ mưa) thì…", "options": ["Đứng yên ở hiên quán đợi Anh Đức", "Cầm ngược bản đồ chạy lung tung", "Đội cuốn sổ lên đầu chạy về"], "right": 0,
-		"wrong": "Chibi KyKy cầm ngược bản đồ… lao thẳng vào bức tường quen thuộc."},
+		"wrong": {1: "Chibi KyKy cầm ngược bản đồ… lao thẳng vào bức tường quen thuộc.",
+			2: "Chibi KyKy đội cuốn sổ lên đầu chạy ào ra mưa… sổ ướt nhẹp, bài tập nhoè hết."}},
 	{"head": "Trong khi (Đang buồn hoặc đói bụng) thì…", "options": ["Gặm bút thỏ", "Uống ca cao nóng & nựng mèo Nlong", "Đếm cánh hoa cúc"], "right": 1,
-		"wrong": "Hoa cúc bảo “có”… nhưng cái bụng vẫn kêu ọt ọt."},
+		"wrong": {0: "Chibi KyKy gặm bút thỏ… tai thỏ méo xệch mà bụng vẫn kêu ọt ọt.",
+			2: "Hoa cúc bảo “có”… nhưng cái bụng vẫn kêu ọt ọt."}},
 	{"head": "Kết quả trả về (Return):", "options": ["Hộp bánh matcha", "Lỗi 404: Không tìm thấy não", "Nụ cười của KyKy"], "right": 2,
-		"wrong": "Anh Đức nheo mắt nhìn đáp án đó. Rất lâu. (Đặc biệt là hộp bánh matcha.)"},
+		"wrong": {0: "Anh Đức nheo mắt nhìn hộp bánh matcha. Rất lâu. (Ai tặng thế?)",
+			1: "Anh Đức gõ bút lên trán KyKy: “Não em vẫn ở đây, chỉ đang bận nghĩ linh tinh thôi.”"}},
 ]
 
 var first_try := 0
@@ -23,6 +28,7 @@ var _msg: Label
 var _code: RichTextLabel
 var _scene: Control
 var _run_t := -1.0
+var _locked := false
 
 
 func _ready() -> void:
@@ -33,7 +39,7 @@ func _ready() -> void:
 	_show_row()
 	if GameState.autoplay:
 		for i in ROWS.size():
-			await get_tree().create_timer(0.5).timeout
+			await get_tree().create_timer(1.0).timeout  # > thời gian khoá sau câu đúng (0,7 giây)
 			_pick(int(ROWS[i]["right"]))
 
 
@@ -107,19 +113,37 @@ func _show_row() -> void:
 		var b := Ui.button(str(r["options"][i]), 520, 21)
 		b.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		var idx := i
-		b.pressed.connect(func() -> void: _pick(idx))
+		b.pressed.connect(func() -> void: _pick(idx, b))
 		_opts.add_child(b)
 
 
-func _pick(i: int) -> void:
-	if _done or _row >= ROWS.size():
+func _mark(b: Button, ok: bool) -> void:
+	## tô màu nút đã chọn: xanh = đúng, đỏ = sai (sai thì khoá luôn nút đó)
+	if b == null:
+		return
+	var col := Color("3f8a4a") if ok else Color("c0392b")
+	for st in ["normal", "hover", "pressed", "disabled"]:
+		b.add_theme_stylebox_override(st, Ui.box(Color("e3f4e6") if ok else Color("fbe3df"), col, 18, 3, false))
+	b.add_theme_color_override("font_color", col)
+	b.add_theme_color_override("font_disabled_color", col)
+	b.text = ("Đúng: " if ok else "Sai: ") + b.text
+	b.disabled = true
+
+
+func _pick(i: int, b: Button = null) -> void:
+	if _done or _row >= ROWS.size() or _locked:
 		return
 	var r: Dictionary = ROWS[_row]
 	if i == int(r["right"]):
 		if not _missed:
 			first_try += 1
 		Audio.sfx("good")
-		_msg.text = ["“Đúng rồi. Trời mưa thì đứng yên đó, tôi tới.”", "“Ừ. Buồn thì có ca cao với hoàng thượng.”", "“…Đúng. Kết quả trả về là cái đó.”"][_row]
+		_mark(b, true)
+		_msg.add_theme_color_override("font_color", Color("3f8a4a"))
+		_msg.text = "Đúng rồi! " + ["“Trời mưa thì đứng yên đó, tôi tới.”", "“Ừ. Buồn thì có ca cao với hoàng thượng.”", "“…Đúng. Kết quả trả về là cái đó.”"][_row]
+		_locked = true
+		await get_tree().create_timer(0.7).timeout
+		_locked = false
 		_row += 1
 		_show_row()
 		if _row >= ROWS.size():
@@ -127,7 +151,9 @@ func _pick(i: int) -> void:
 	else:
 		_missed = true
 		Audio.sfx("bad")
-		_msg.text = str(r["wrong"])
+		_mark(b, false)
+		_msg.add_theme_color_override("font_color", Color("c0392b"))
+		_msg.text = "Sai rồi! " + str((r["wrong"] as Dictionary).get(i, "Chưa đúng, thử đáp án khác nhé."))
 		var tw := create_tween()
 		for k in 4:
 			tw.tween_property(_opts, "position:x", (6.0 if k % 2 == 0 else -6.0), 0.04)
@@ -138,7 +164,9 @@ func _win() -> void:
 	_done = true
 	_head.text = "Hoàn thành!"
 	_run_t = 0.0
-	await get_tree().create_timer(2.2).timeout
+	await get_tree().create_timer(1.8).timeout
+	await MiniFrame.result(self, first_try >= 2, "Chạy tới nơi rồi!" if first_try >= 2 else "Tới nơi… sau vài lần lạc",
+		["Chibi KyKy đã tìm được đường tới chỗ Anh Đức dưới mưa.", "Đúng ngay lần đầu: %d / 3 mảnh lệnh" % first_try])
 	Story.minigame_done("logic", {"first_try": first_try})
 
 

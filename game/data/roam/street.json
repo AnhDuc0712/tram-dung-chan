@@ -35,7 +35,7 @@
 						"dates": 2
 					}
 				},
-				"text": "Đến giờ hẹn ăn lẩu với hội bạn rồi! (Hàng lẩu vỉa hè, góc dưới bên phải)"
+				"target": "friends", "text": "Đến giờ hẹn ăn lẩu với hội bạn rồi! (Hàng lẩu vỉa hè, góc dưới bên phải)"
 			},
 			{
 				"if": {
@@ -46,7 +46,7 @@
 				"text": "Còn thời gian cho một nơi nữa với KyKy… hoặc đi ăn lẩu luôn."
 			},
 			{
-				"text": "19:00 — Còn khoảng 2 tiếng trước giờ hẹn ăn lẩu. Muốn đưa KyKy đi đâu? (Đi đâu cũng được — mỗi nơi một kỷ niệm khác)"
+				"text": "19:00 — Còn khoảng 2 tiếng trước giờ hẹn ăn lẩu (9 giờ tối). Muốn đưa KyKy đi đâu? (Đi đâu cũng được — mỗi nơi một kỷ niệm khác)"
 			}
 		]
 	},
@@ -125,7 +125,7 @@
 		]
 	],
 	"player": {
-		"sprite": "duc_front",
+		"sprite": "duc_stand",
 		"walk": "duc_walk",
 		"scale": 0.17,
 		"start": {

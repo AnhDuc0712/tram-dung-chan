@@ -23,6 +23,9 @@ Người dùng là người mới làm game: giải thích ngắn gọn bằng *
 - **Git/CI:** không commit thẳng `main` — tạo nhánh `fix/...`, `tap-N/...` rồi `gh pr create`. Quy trình: `docs/CICD.md`.
   Workflow: `.github/workflows/ci.yml` (Linux, `$env:GODOT`), `release.yml` (tag `vX.Y.Z` = `config/version`).
 - Soi bằng mắt cả tập: `Godot --path game -- --autoplay --episode=2 --snap=C:/devgame2D/build/snap --snap-every=40` (ảnh JPG mỗi 40 frame).
+- Mở sẵn menu để chụp: `-Extra "--hud-open=pause"` (hoặc `settings`, `log`).
+- Công cụ ảnh/font: `tools/art/make_stand.py` (dáng đứng Anh Đức, chạy trước make_expressions) · `make_morning.py` (nền sáng) ·
+  `make_splash.py` (ảnh chờ tải web) · `subset_fonts.py` (cắt font chỉ giữ Latin + tiếng Việt) · `tools/auto_poses.py` (gợi ý biểu cảm theo câu chữ).
 - Điện thoại: thử chế độ cảm ứng bằng `-Extra "--touch"`, màn dọc `-Resolution 422x844` (tools\screenshot.ps1).
 
 ## Kiến trúc
@@ -52,5 +55,7 @@ Người dùng là người mới làm game: giải thích ngắn gọn bằng *
   cú chạm cả màn bên dưới (test `test_input_blockers.gd`).
 - Bản web tải nhanh: ảnh import **Lossy** (test chặn lossless); nhạc nền nằm trong `music.pck` (preset `WebMusic` trong
   `export_presets.cfg`) — thêm bài nhạc mới phải thêm vào `export_files` của preset đó (test `test_web_export.gd`).
+- Mini-game mới: dùng `scripts/ui/mini_frame.gd` — `await MiniFrame.intro(...)` trước khi chạy đồng hồ, `MiniFrame.result(...)` khi xong.
+- Cài đặt người chơi (`GameState.settings`): `timer_scale` (0 = không giới hạn giờ chọn), `text_size`, `auto`, `shake` — code mới phải tôn trọng.
 - Không dùng emoji / ký tự hiếm (♥ ★ ♪) trong chữ — font web không có; vẽ bằng `scripts/ui/shapes.gd` / `icon.gd`.
 - Không sửa `tools/godot/`, `game/.godot/` (sinh tự động).

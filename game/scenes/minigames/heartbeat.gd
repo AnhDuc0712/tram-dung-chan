@@ -4,6 +4,7 @@ extends Control
 ## Cả hai kết quả đều dễ thương, chỉ khác lời thoại.
 
 const Icon := preload("res://scripts/ui/icon.gd")
+const MiniFrame := preload("res://scripts/ui/mini_frame.gd")
 const TRIES := 3
 const DARK_HIT := ["Chỉnh lại cặp kính bị lệch trên sống mũi cô ấy.", "Cài lại chiếc kẹp tóc bị tuột.", "Cúi xuống ngang tầm mắt KyKy… và đèn bật sáng!"]
 const DARK_MISS := ["Tay run quá, chạm nhầm vào má cô ấy…", "Thình thịch… thình thịch…", "Tim đập to đến mức chắc cô ấy nghe thấy mất."]
@@ -21,6 +22,7 @@ var _msg: Label
 var _count: Label
 var _beat_t := 0.0
 var _ky: Sprite2D
+var _btn: Button
 ## "dark" = mini-game 3 Tập 2 (Nhịp đập trong bóng tối, scene dark.tscn): cùng cơ chế, khác hình + lời.
 var _mode := "heartbeat"
 
@@ -36,6 +38,20 @@ func _ready() -> void:
 	Audio.music("")
 	_build()
 	_new_zone()
+	_locked = true
+	if _mode == "dark":
+		await MiniFrame.intro(self, "Nhịp đập trong bóng tối", [
+			"Mất điện. KyKy run run túm áo bạn. Giữ bình tĩnh để dỗ cô ấy.",
+			"Vòng tròn hồng co giãn theo nhịp tim. Chạm vào BẤT KỲ đâu trên màn hình (hoặc Space) đúng lúc nó nằm trong vòng sáng vàng.",
+			"3 lượt — trúng 2 lượt là bình tĩnh được.",
+		])
+	else:
+		await MiniFrame.intro(self, "Giữ bình tĩnh!", [
+			"KyKy ghé sát quá… tim Anh Đức đập loạn xạ.",
+			"Chạm vào BẤT KỲ đâu trên màn hình (hoặc Space) khi kim hồng nằm trong vùng xanh.",
+			"3 lượt — trúng 2 lượt là qua.",
+		])
+	_locked = false
 	if GameState.autoplay:
 		for i in TRIES:
 			await get_tree().create_timer(0.5).timeout
@@ -63,8 +79,8 @@ func _build() -> void:
 		s.texture = tex
 		s.centered = false
 		s.offset = Vector2(-tex.get_width() * 0.5, -tex.get_height())
-		s.position = Vector2(980, 1180)
-		s.scale = Vector2(2.0, 2.0)
+		s.position = Vector2(1030, 1010)
+		s.scale = Vector2(1.4, 1.4)
 		add_child(s)
 
 	_heart = Icon.new("heart", 150.0)
@@ -87,7 +103,7 @@ func _build() -> void:
 	_msg.custom_minimum_size = Vector2(520, 0)
 	v.add_child(_msg)
 	_track = Control.new()
-	_track.custom_minimum_size = Vector2(520, 150 if _mode == "dark" else 46)
+	_track.custom_minimum_size = Vector2(520, 210 if _mode == "dark" else 46)
 	_track.draw.connect(_draw_track)
 	v.add_child(_track)
 	_count = Ui.label("", 20, Ui.TEXT_SOFT, Ui.font_bold)
@@ -95,6 +111,7 @@ func _build() -> void:
 	var b := Ui.button("BẤM!", 520, 26)
 	b.pressed.connect(_press)
 	v.add_child(b)
+	_btn = b
 	_update_count()
 
 
@@ -117,10 +134,10 @@ func _draw_track() -> void:
 
 
 func _new_zone() -> void:
-	var width := 0.24 - tries * 0.04
-	var start := randf_range(0.1, 0.9 - width)
+	var width := (0.3 if _mode == "dark" else 0.24) - tries * 0.04
+	var start := randf_range(0.25 if _mode == "dark" else 0.1, 0.9 - width)  # vòng sáng không quá nhỏ ở giữa
 	_zone = Vector2(start, start + width)
-	_speed = 0.8 + tries * 0.35
+	_speed = (0.6 + tries * 0.2) if _mode == "dark" else (0.8 + tries * 0.35)
 
 
 func _process(delta: float) -> void:
@@ -142,7 +159,9 @@ func _process(delta: float) -> void:
 
 
 func _unhandled_input(ev: InputEvent) -> void:
-	if ev.is_action_pressed("interact"):
+	# chạm bất kỳ đâu cũng tính (trước chỉ nút BẤM -> trên điện thoại dễ chạm trượt)
+	var tap: bool = ev is InputEventMouseButton and ev.pressed and ev.button_index == MOUSE_BUTTON_LEFT
+	if ev.is_action_pressed("interact") or tap:
 		get_viewport().set_input_as_handled()
 		_press()
 
@@ -151,6 +170,8 @@ func _press() -> void:
 	if _locked or tries >= TRIES:
 		return
 	_locked = true
+	_btn.disabled = true
+	_btn.text = "Thở đều…"  # báo rõ đang chờ lượt sau, không phải bấm không ăn
 	tries += 1
 	if _pos >= _zone.x and _pos <= _zone.y:
 		hits += 1
@@ -166,16 +187,23 @@ func _press() -> void:
 			tw0.tween_property(self, "position", Vector2(randf_range(-8, 8), randf_range(-6, 6)), 0.04)
 		tw0.tween_property(self, "position", Vector2.ZERO, 0.04)
 	_update_count()
-	await get_tree().create_timer(0.9).timeout
+	await get_tree().create_timer(0.6).timeout
 	if tries >= TRIES:
+		var win := hits >= 2
+		var end_text := ""
 		if _mode == "dark":
-			_msg.text = "Đèn bật sáng!" if hits >= 2 else "Đèn bật sáng… đúng lúc bạn đang lóng ngóng nhất."
+			end_text = "Đèn bật sáng!" if win else "Đèn bật sáng… đúng lúc bạn đang lóng ngóng nhất."
 		else:
-			_msg.text = "Bình tĩnh được rồi!" if hits >= 2 else "…Hỏng rồi. Mặt nóng ran."
-		await get_tree().create_timer(0.8).timeout
+			end_text = "Bình tĩnh được rồi!" if win else "…Hỏng rồi. Mặt nóng ran."
+		_msg.text = end_text
+		await get_tree().create_timer(0.5).timeout
+		await MiniFrame.result(self, win, "Bình tĩnh như đại thần IT!" if win else "Tim đập loạn mất rồi…",
+			[end_text, "Trúng nhịp: %d / %d lượt" % [hits, TRIES]])
 		Story.minigame_done(_mode, {"hits": hits})
 		return
 	_new_zone()
+	_btn.disabled = false
+	_btn.text = "BẤM!"
 	_locked = false
 
 

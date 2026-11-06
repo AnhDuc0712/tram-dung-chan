@@ -4,7 +4,7 @@
 	"nodes": {
 		"a": {"bg": "library", "music": "study", "ambient": "rain_window", "show": {"duc": "normal@left", "kyky": "happy@right"}, "effects": {"add": {"dates": 1}, "set_flags": ["date_books"]}, "text": "Nhà sách cũ có góc đọc mở muộn. KyKy kéo Anh Đức ngồi xuống: “Mình ôn nốt bài 8 ở đây nha, ở đây yên tĩnh!”", "next": "b"},
 		"b": {"text": "Hai mươi phút sau, tiếng bút của KyKy chậm dần… rồi dừng hẳn. Một ngày dài với mèo, hội bạn và mất điện đã vắt kiệt cô bé.", "next": "c"},
-		"c": {"cg": "cg_library", "speaker": "duc", "text": "Đồ ngốc… Học có một chút đã mệt đến gục rồi. Thế mà cũng đòi qua môn Tin để đi du học sao?", "next": "c2"},
+		"c": {"show": {"duc": "curious"}, "cg": "cg_library", "speaker": "duc", "text": "Đồ ngốc… Học có một chút đã mệt đến gục rồi. Thế mà cũng đòi qua môn Tin để đi du học sao?", "next": "c2"},
 		"c2": {"speaker": "kyky", "name": "KyKy (nói mớ)", "text": "Anh Đức mỏ hỗn… đừng… đừng bắt em làm lại loop nữa mà… khó…", "next": "c3"},
 		"c3": {"speaker": "duc", "think": true, "text": "Du học… Cô bé muốn đi du học à.",
 			"choices": [

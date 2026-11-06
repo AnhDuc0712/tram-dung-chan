@@ -5,6 +5,7 @@ extends Control
 ## Kết quả: {"pets": 0..3, "treat": bool, "tail": bool} -> Steps.minigame_effects("nlong", ...)
 
 const Shapes := preload("res://scripts/ui/shapes.gd")
+const MiniFrame := preload("res://scripts/ui/mini_frame.gd")
 const CAT_POS := Vector2(580, 540)  # chân Nlong (gốc ảnh)
 const CAT_SCALE := 0.9
 # điểm gãi theo toạ độ ảnh cat_big (317x460)
@@ -39,13 +40,21 @@ func _ready() -> void:
 	if GameState.has_flag("petted_ep2"):
 		time_left = 20.0  # sáng nay đã nựng hoàng thượng -> ngài dễ tính hơn
 	_build()
+	_done = true  # đồng hồ chưa chạy cho tới khi bấm "Bắt đầu!"
+	await MiniFrame.intro(self, "Giải cứu bàn phím!", [
+		"Hoàng thượng Nlong đang nằm chễm chệ trên laptop của Anh Đức.",
+		"1. Chạm vào 3 chỗ Nlong thích được gãi: dưới cằm, sau tai cụp, má phúng phính. Tránh cái đuôi!",
+		"2. Gãi đủ 3 chỗ thì kéo thanh SÚP MÈO từ balo sang cuốn sổ để dụ ngài rời bàn phím.",
+		"Bạn có %d giây." % int(time_left),
+	])
+	_done = false
 	if GameState.autoplay:
 		_autoplay()
 
 
 func _build() -> void:
 	var bg := TextureRect.new()
-	bg.texture = load("res://assets/art/bg/cafe_day.jpg")
+	bg.texture = load("res://assets/art/bg/cafe_morning.jpg")  # Tập 2 buổi sáng
 	bg.set_anchors_preset(Control.PRESET_FULL_RECT)
 	bg.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	bg.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
@@ -65,12 +74,8 @@ func _build() -> void:
 			for j in 12:
 				desk.draw_rect(Rect2(448 + j * 32, 486 + i * 16, 26, 11), Color("4c515c"))
 		# cuốn sổ + balo
-		desk.draw_rect(_book, Color("f6d98b"))
-		desk.draw_rect(_book, Color("b08a3c"), false, 4.0)
-		desk.draw_string(Ui.font_bold, _book.position + Vector2(30, 80), "Sổ KyKy", HORIZONTAL_ALIGNMENT_LEFT, -1, 30, Color("6b4a1a"))
-		desk.draw_rect(_bag, Color("2f3440"))
-		desk.draw_rect(Rect2(_bag.position + Vector2(30, -26), Vector2(140, 34)), Color("2f3440"))
-		desk.draw_string(Ui.font_bold, _bag.position + Vector2(40, 100), "Balo", HORIZONTAL_ALIGNMENT_LEFT, -1, 30, Color("cfd4dc")))
+		_draw_book(desk)
+		_draw_bag(desk))
 	add_child(desk)
 	_cat = Sprite2D.new()
 	_cat.texture = Ui.char_tex("cat_big")
@@ -129,6 +134,31 @@ func _process(delta: float) -> void:
 	_time.text = "%d giây" % ceili(maxf(time_left, 0.0))
 	if time_left <= 0.0:
 		_finish("Hết giờ! Nlong vẫn chưa chịu nhích…")
+
+
+func _draw_book(ci: CanvasItem) -> void:
+	var r := _book
+	ci.draw_style_box(Ui.box(Color(0, 0, 0, 0.18), Color(0, 0, 0, 0), 14, 0, false), Rect2(r.position + Vector2(6, 8), r.size))
+	ci.draw_style_box(Ui.box(Color("f2c46d"), Color("a8782c"), 14, 3, false), r)
+	ci.draw_style_box(Ui.box(Color("fff6dc"), Color("d9b46a"), 8, 2, false), Rect2(r.position + Vector2(40, 34), Vector2(r.size.x - 60, 46)))
+	ci.draw_string(Ui.font_title, r.position + Vector2(52, 68), "Sổ KyKy", HORIZONTAL_ALIGNMENT_LEFT, -1, 28, Color("8a4b1a"))
+	for i in 7:  # gáy lò xo
+		var y := r.position.y + 14 + i * 19
+		ci.draw_arc(Vector2(r.position.x + 12, y), 7.0, -PI * 0.5, PI * 0.5, 10, Color("6b6f78"), 3.0)
+	Shapes.draw_heart(ci, r.position + Vector2(r.size.x - 40, r.size.y - 34), 26.0, Color("f06292"))
+	ci.draw_circle(r.position + Vector2(70, r.size.y - 34), 10, Color("8fd6a8"))  # sticker
+
+
+func _draw_bag(ci: CanvasItem) -> void:
+	var r := _bag
+	ci.draw_arc(Vector2(r.get_center().x, r.position.y + 6), 48.0, PI, TAU, 24, Color("1f232b"), 10.0)  # quai xách
+	ci.draw_style_box(Ui.box(Color(0, 0, 0, 0.2), Color(0, 0, 0, 0), 26, 0, false), Rect2(r.position + Vector2(6, 8), r.size))
+	ci.draw_style_box(Ui.box(Color("394150"), Color("1f232b"), 28, 3, false), r)
+	ci.draw_style_box(Ui.box(Color("454e60"), Color("1f232b"), 22, 3, false), Rect2(r.position + Vector2(0, 0), Vector2(r.size.x, 62)))  # nắp
+	ci.draw_style_box(Ui.box(Color("2f3644"), Color("1f232b"), 14, 3, false), Rect2(r.position + Vector2(36, 86), Vector2(r.size.x - 72, 56)))  # túi trước
+	ci.draw_line(r.position + Vector2(48, 98), r.position + Vector2(r.size.x - 48, 98), Color("aeb4c0"), 2.0)  # khoá kéo
+	ci.draw_circle(r.position + Vector2(r.size.x * 0.5, 62), 7, Color("e0b44c"))  # khoá nắp
+	ci.draw_string(Ui.font_bold, r.position + Vector2(52, 132), "Balo Đức", HORIZONTAL_ALIGNMENT_LEFT, -1, 20, Color("cfd4dc"))
 
 
 ## Toạ độ màn hình của một điểm trên ảnh mèo.
@@ -199,7 +229,13 @@ func _finish(text: String) -> void:
 		return
 	_done = true
 	_msg.text = text
-	await get_tree().create_timer(1.4).timeout
+	await get_tree().create_timer(1.0).timeout
+	var win := pets.size() >= 3 and treat
+	var lines := [text, "Gãi trúng: %d / 3 điểm yếu" % pets.size(),
+		"Súp thưởng: " + ("dụ được hoàng thượng rời bàn phím!" if treat else "chưa kịp dùng")]
+	if tail:
+		lines.append("Lỡ đụng vào đuôi — Nlong sẽ nhớ chuyện này đấy.")
+	await MiniFrame.result(self, win, "Giải cứu thành công!" if win else ("Gần được rồi!" if pets.size() >= 2 else "Hoàng thượng thắng…"), lines)
 	Story.minigame_done("nlong", {"pets": pets.size(), "treat": treat, "tail": tail})
 
 

@@ -130,7 +130,7 @@ func _build() -> void:
 	tv.add_child(_subtitle)
 
 	_scroll = ScrollContainer.new()
-	_scroll.custom_minimum_size = Vector2(400, 470)
+	_scroll.custom_minimum_size = Vector2(400, 220)
 	_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	v.add_child(_scroll)
@@ -160,15 +160,19 @@ func _build() -> void:
 	cpad.add_child(_choices)
 	v.add_child(cpad)
 
-	var tip := Ui.label("Chạm (hoặc giữ Ctrl) để tin nhắn hiện nhanh hơn", 18, Color(1, 1, 1, 0.5))
-	tip.position = Vector2(890, 680)
+	var tip := Ui.label("Chạm màn hình (hoặc giữ Ctrl) để tin nhắn hiện nhanh hơn", 18, Color(1, 1, 1, 0.6))
+	tip.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	tip.custom_minimum_size = Vector2(360, 0)
+	tip.position = Vector2(890, 620)
 	add_child(tip)
 
 
-func _make_avatar(tex: Texture2D, s: float) -> TextureRect:
+func _make_avatar(tex: Texture2D, s: float, ring: Color = Color("e3b3c2")) -> TextureRect:
 	var holder := Panel.new()
 	holder.custom_minimum_size = Vector2(s, s)
-	holder.add_theme_stylebox_override("panel", Ui.box(Color("ffffff"), Color("e3b3c2"), int(s / 2), 2, false))
+	holder.size_flags_vertical = Control.SIZE_SHRINK_BEGIN  # không kéo giãn theo dòng tin cao (tin có ảnh)
+	holder.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	holder.add_theme_stylebox_override("panel", Ui.box(Color("ffffff"), ring, int(s / 2), 3, false))
 	holder.clip_children = CanvasItem.CLIP_CHILDREN_AND_DRAW
 	var tr := TextureRect.new()
 	tr.texture = tex
@@ -201,21 +205,23 @@ func _run() -> void:
 	for ti in threads.size():
 		var th: Dictionary = threads[ti]
 		_open_thread(th)
-		await _wait(0.6)
+		await _wait(0.3)
 		await _play_messages(th.get("messages", []))
-		await _wait(0.8)
+		await _wait(0.4)
 		if ti < threads.size() - 1:
 			var nxt: Dictionary = threads[ti + 1]
 			_typing.text = ""
 			var b := Ui.button("Tin nhắn mới: " + str(nxt.get("title", "")), 400, 19)
 			_choices.add_child(b)
 			Audio.sfx("msg")
+			_scroll_to_end.call_deferred()
 			if GameState.autoplay:
 				b.pressed.emit.call_deferred()
 			await b.pressed
 			_clear_choices()
 	var end_b := Ui.button(str(data.get("end_button", "Tắt điện thoại, đi ngủ")), 400, 20)
 	_choices.add_child(end_b)
+	_scroll_to_end.call_deferred()
 	if GameState.autoplay:
 		print("[autoplay] điện thoại xong")
 		end_b.pressed.emit.call_deferred()
@@ -255,17 +261,20 @@ func _play_messages(msgs: Array) -> void:
 		var who := str(msg.get("from", ""))
 		var text := str(msg.get("text", ""))
 		_typing.text = "%s đang soạn tin…" % Dialogue.character_name(who)
-		await _wait(clampf(0.5 + text.length() * 0.025, 0.6, 2.0))
+		await _wait(clampf(0.2 + text.length() * 0.008, 0.3, 0.8))
 		_typing.text = ""
 		_add_bubble(who, text, str(msg.get("image", "")))
 		Audio.sfx("msg", -8.0)
-		await _wait(0.35)
+		await _wait(0.15)
 
 
 func _ask(choices: Array) -> Dictionary:
 	_clear_choices()
 	var picked := {}
-	var row := HBoxContainer.new()
+	var stickers := false
+	for c in choices:
+		stickers = stickers or (c as Dictionary).has("sticker")
+	var row: BoxContainer = HBoxContainer.new() if stickers else VBoxContainer.new()
 	row.add_theme_constant_override("separation", 6)
 	_choices.add_child(row)
 	var holder := {"done": false, "pick": {}}
@@ -273,7 +282,7 @@ func _ask(choices: Array) -> Dictionary:
 		var ch: Dictionary = c
 		var b := Button.new()
 		b.focus_mode = Control.FOCUS_NONE
-		b.custom_minimum_size = Vector2(124, 132 if ch.has("sticker") else 76)
+		b.custom_minimum_size = Vector2(124, 124) if stickers else Vector2(392, 54)
 		b.add_theme_stylebox_override("normal", Ui.box(Color("ffffff"), Color("e3b3c2"), 14, 2, false))
 		b.add_theme_stylebox_override("hover", Ui.box(Color("fff1f4"), Ui.PINK, 14, 2, false))
 		b.add_theme_stylebox_override("pressed", Ui.box(Ui.PINK_SOFT, Ui.PINK, 14, 2, false))
@@ -287,13 +296,13 @@ func _ask(choices: Array) -> Dictionary:
 			st.texture = Ui.char_tex(str(ch["sticker"]))
 			st.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 			st.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-			st.custom_minimum_size = Vector2(110, 58)
+			st.custom_minimum_size = Vector2(110, 54)
 			st.mouse_filter = Control.MOUSE_FILTER_IGNORE
 			bv.add_child(st)
-		var l := Ui.label(str(ch.get("text", "")), 16, Ui.TEXT, Ui.font_bold)
+		var l := Ui.label(str(ch.get("text", "")), 16 if stickers else 19, Ui.TEXT, Ui.font_bold)
 		l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		l.custom_minimum_size = Vector2(112, 0)
+		l.custom_minimum_size = Vector2(112 if stickers else 370, 0)
 		l.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		bv.add_child(l)
 		b.pressed.connect(func() -> void:
@@ -301,6 +310,7 @@ func _ask(choices: Array) -> Dictionary:
 			holder["pick"] = ch
 			holder["done"] = true)
 		row.add_child(b)
+	_scroll_to_end.call_deferred()
 	if GameState.autoplay:
 		holder["pick"] = choices[0]
 		holder["done"] = true
@@ -309,6 +319,12 @@ func _ask(choices: Array) -> Dictionary:
 	picked = holder["pick"]
 	_clear_choices()
 	return picked
+
+
+func _scroll_to_end() -> void:
+	await get_tree().process_frame
+	await get_tree().process_frame
+	_scroll.scroll_vertical = int(_scroll.get_v_scroll_bar().max_value)
 
 
 func _clear_choices() -> void:
@@ -323,13 +339,13 @@ func _add_bubble(who: String, text: String, image: String) -> void:
 	row.alignment = BoxContainer.ALIGNMENT_END if me else BoxContainer.ALIGNMENT_BEGIN
 	_list.add_child(row)
 	if not me:
-		var av := _make_avatar(Ui.head_tex(str(_members.get(who, "kyky_hug"))), 34)
+		var av := _make_avatar(Ui.head_tex(str(_members.get(who, "kyky_hug"))), 38, _who_color(who))
 		row.add_child(av.get_parent())
 	var col := VBoxContainer.new()
 	col.add_theme_constant_override("separation", 4)
 	row.add_child(col)
 	if not me and _members.size() > 1:
-		col.add_child(Ui.label(Dialogue.character_name(who), 15, Ui.TEXT_SOFT, Ui.font_bold))
+		col.add_child(Ui.label(Dialogue.character_name(who), 15, _who_color(who), Ui.font_bold))
 	if image != "":
 		col.add_child(_make_image(image))
 	if text != "":
@@ -354,11 +370,15 @@ func _add_bubble(who: String, text: String, image: String) -> void:
 	_scroll.scroll_vertical = int(_scroll.get_v_scroll_bar().max_value)
 
 
+func _who_color(who: String) -> Color:
+	return Color(str((Dialogue.characters.get(who, {}) as Dictionary).get("color", "#e3b3c2")))
+
+
 func _make_image(image: String) -> Control:
 	if image == "chibi" or image == "turtle":
 		var d := Doodle.new()
 		d.kind = image
-		d.custom_minimum_size = Vector2(230, 150)
+		d.custom_minimum_size = Vector2(220, 140)
 		d.tex_a = Ui.head_tex("duc_front")
 		d.tex_b = Ui.head_tex("kyky_hug")
 		return d

@@ -191,3 +191,23 @@ Nguyên nhân: 112 ảnh import kiểu **lossless** (JPG 470 KB phình thành 1,
 **Vướng mắc đã gặp**: HTTPRequest trên web — (1) tự giải nén lần 2 khi máy chủ gửi br/gzip → lỗi 8 → `accept_gzip = false`;
 (2) `download_file` không ghi được file trên web → nhận vào bộ nhớ rồi tự ghi user://music.pck; (3) mặc định đọc 64 KB/khung hình
 → 15 MB mất >10 s → `download_chunk_size = 1 MB`.
+
+## Phiên 11 — 2026-11-06 (tối): sửa theo góp ý chơi thử (`memory/fix.md`)
+Nhánh `fix/gop-y-choi-thu`. Chi tiết từng mục + ngày giờ ghi ở cuối `memory/fix.md`.
+**Đã làm (chính)**
+- Mở game nhanh hơn: thẻ chữ mở đầu gộp 1 + bấm để tua; hết lộ HUD giữa chừng (tween màn đen của Story xung đột với thẻ chữ);
+  font cắt chỉ giữ Latin + tiếng Việt (1,4 MB → 0,57 MB); ảnh `_x_` (inset) loại khỏi bản xuất (−1,2 MB); lời nhắc "lần đầu tải hơi lâu".
+- Hộp thoại: nút lựa chọn dồn xuống sát hộp thoại; giờ chọn dài ×1,5 + tuỳ chọn "Không giới hạn"; cỡ chữ, tự chuyển câu, tắt rung;
+  Tua tự dừng khi có ảnh sự kiện; bỏ inset (chân dung hiện 2 lần); chân dung trên bản đồ nhỏ + ẩn ở câu dẫn truyện.
+- Anh Đức dáng đứng thường (không vẫy tay) — ảnh mới `duc_stand*` (make_stand.py); KyKy dáng thường ôm sổ.
+- HUD: mèo vẽ dưới cửa sổ pop-up; nút Lưu game; "Đã tự lưu"; "+1" bay lên + giải thích chỉ số; nhật ký dùng icon quyển sổ.
+- Bản đồ: sao vàng = việc chính, chấm hồng nhỏ = việc phụ; mũi tên + vòng sáng trên nhân vật mình; "E · Nói chuyện với <tên>";
+  nhớ vị trí theo từng bản đồ (sau mini-game / địa điểm không bị dịch chuyển); cầm ly nước khi đang mang đồ uống.
+- Pha chế: lớp màu từng nguyên liệu + đá + đường, bấm Xong khuấy đều, hình vẽ nằm trên bọt sữa, công thức đánh dấu, dòng hướng dẫn đổi theo bước;
+  thêm Ca cao đá, Matcha sữa, Matcha kem phô mai (+ câu phản ứng của KyKy).
+- Chat điện thoại: avatar cỡ cố định + viền màu riêng; nút trả lời không bị cắt; tin hiện nhanh ×3; tự cuộn khi có nút "Tin nhắn mới".
+- Mini-game Tập 2: màn chuẩn bị + màn tổng kết (`scripts/ui/mini_frame.gd`); nhịp đập: chạm đâu cũng được, vòng to hơn, báo "Thở đều…";
+  logic: câu phản hồi riêng từng đáp án sai, tô đỏ/xanh; balo + sổ vẽ lại.
+- Nền: quán buổi sáng mới (`cafe_morning.jpg`), công viên không còn dùng ảnh sân trường nắng; "9 giờ tối" ghi rõ; cảnh mất điện tối hẳn.
+**Vướng mắc**: heredoc trong Bash làm hỏng ký tự `\n` và chữ Việt khi chạy Python inline → viết script ra file rồi chạy.
+Test mới: `test_playtest_fixes.gd`, `test_web_export.gd` (từ phiên 10). check.ps1: ALL CHECKS PASSED (66 test GUT).

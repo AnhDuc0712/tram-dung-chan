@@ -76,8 +76,19 @@ func _build() -> void:
 	var sub := Ui.label("Quán Gờ 23 · ghé lại một chút", 24, Color("ffc7d8"), Ui.font_mono)
 	sub.position = Vector2(80, 276)
 	add_child(sub)
-	var ep := Ui.label("Tập 1 · Cú va chạm  —  Tập 2 · Cơn bão nhỏ (mới)", 24, Color("f3e6d3"), Ui.font_italic)
+	# nền mờ tối phía sau 2 dòng phụ -> không chìm vào ảnh cửa quán
+	var plate := Panel.new()
+	plate.position = Vector2(66, 272)
+	plate.size = Vector2(560, 76)
+	plate.add_theme_stylebox_override("panel", Ui.box(Color(0.1, 0.06, 0.07, 0.62), Color(0, 0, 0, 0), 14, 0, false))
+	plate.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(plate)
+	move_child(plate, sub.get_index())
+	var ep := Ui.label("Tập 1 · Cú va chạm  —  Tập 2 · Cơn bão nhỏ (mới)", 24, Color("fff4e6"), Ui.font_bold)
 	ep.position = Vector2(80, 310)
+	for l in [sub, ep]:
+		l.add_theme_color_override("font_outline_color", Color(0.12, 0.06, 0.08))
+		l.add_theme_constant_override("outline_size", 6)
 	add_child(ep)
 
 	var menu := VBoxContainer.new()
@@ -214,14 +225,25 @@ func _build_gallery() -> PanelContainer:
 		vb.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		b.add_child(vb)
 		var tr := TextureRect.new()
-		tr.texture = load("res://assets/art/cg/%s.jpg" % str(info.get("img", id)))
 		tr.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		tr.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 		tr.custom_minimum_size = Vector2(250, 118)
 		tr.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		if not got:
-			tr.modulate = Color(0.12, 0.1, 0.14)
-		vb.add_child(tr)
+		if got:
+			tr.texture = load("res://assets/art/cg/%s.jpg" % str(info.get("img", id)))
+			vb.add_child(tr)
+		else:  # chưa mở: ô trống có dấu "?" — không lộ bóng hình (tránh lộ cốt truyện)
+			var lock := Panel.new()
+			lock.custom_minimum_size = tr.custom_minimum_size
+			tr.free()
+			lock.add_theme_stylebox_override("panel", Ui.box(Color("2a2230"), Color(0, 0, 0, 0), 10, 0, false))
+			lock.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			var q := Ui.label("?", 64, Color("6e5a72"), Ui.font_title)
+			q.set_anchors_preset(Control.PRESET_FULL_RECT)
+			q.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+			q.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+			lock.add_child(q)
+			vb.add_child(lock)
 		var cap := Ui.label(str(info.get("title", "")) if got else "??? — Tập %d" % int(info.get("episode", 1)), 16, Ui.TEXT if got else Ui.TEXT_SOFT, Ui.font_bold)
 		cap.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		cap.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART

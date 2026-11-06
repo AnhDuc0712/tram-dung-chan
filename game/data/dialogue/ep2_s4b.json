@@ -32,7 +32,7 @@
 		"o3": {"show": {"duc": "angry"}, "speaker": "duc", "text": "Ai cho mày cắm máy nướng bánh vào ổ của quầy?", "next": "o3b"},
 		"o3b": {"name": "Đức Anh (từ ngoài cửa)", "text": "Ơ, sao lại là tao?! Tao vừa giúp mày có khoảnh khắc đẹp nhất đời đấy!", "next": "out"},
 		"out": {"hide": "all", "show": {"m": "normal@center"}, "speaker": "m", "text": "Thôi, điện chập chờn thế này chị đóng cửa sớm. Tụi em đi chơi đi. Trâm bảo 9 giờ cả hội đi ăn lẩu vỉa hè đầu phố đấy.", "next": "out2"},
-		"out2": {"hide": ["m"], "show": {"tram": "cross@center"}, "speaker": "tram", "text": "9 giờ. Hàng lẩu đầu ngõ. Anh Đức — trả KyKy về chỗ hẹn đúng giờ, nguyên vẹn. Còn hai tiếng.", "next": "out3"},
+		"out2": {"hide": ["m"], "show": {"tram": "cross@center"}, "speaker": "tram", "text": "9 giờ tối. Hàng lẩu đầu ngõ. Anh Đức — trả KyKy về chỗ hẹn đúng giờ, nguyên vẹn. Còn hai tiếng.", "next": "out3"},
 		"out3": {"card": "19:00 — Phố trước quán Gờ 23", "hide": "all", "then": "roam:ep2_night"}
 	}
 }

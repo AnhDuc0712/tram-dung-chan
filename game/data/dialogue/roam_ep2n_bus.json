@@ -15,7 +15,7 @@
 		"jacket3": {"cg": "none", "show": {"kyky": "love"}, "speaker": "kyky", "text": "Thế còn anh? Anh chỉ còn mỗi cái áo polo thôi đó…", "next": "jacket4"},
 		"jacket4": {"show": {"duc": "smirk"}, "speaker": "duc", "text": "Tôi là đại thần IT. Thân nhiệt tôi chạy bằng caffeine."},
 		"tea": {"show": {"kyky": "happy"}, "text": "KyKy ôm chai trà gừng ấm bằng hai tay, hơi nóng phả lên cặp kính tròn mờ đi.", "next": "tea2"},
-		"tea2": {"speaker": "kyky", "text": "Anh lúc nào cũng chuẩn bị sẵn hết vậy? Hay… anh chuẩn bị riêng cho em?"},
+		"tea2": {"show": {"kyky": "confused"}, "speaker": "kyky", "text": "Anh lúc nào cũng chuẩn bị sẵn hết vậy? Hay… anh chuẩn bị riêng cho em?"},
 		"close": {"show": {"kyky": "shy"}, "text": "KyKy nhích lại gần. Vai hai người chạm nhau. Không ai nói gì, chỉ có tiếng mưa gõ lên mái tôn trạm xe.", "next": "close2"},
 		"close2": {"speaker": "duc", "think": true, "text": "…Mưa to thêm chút nữa cũng được."}
 	}

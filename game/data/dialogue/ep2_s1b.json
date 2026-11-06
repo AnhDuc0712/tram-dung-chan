@@ -2,7 +2,7 @@
 	"title": "Tập 2 – Sau mini-game 1: hai bàn tay trên lưng Nlong",
 	"start": "a",
 	"nodes": {
-		"a": {"bg": "cafe_day", "music": "cafe_day", "next": "a2"},
+		"a": {"bg": "cafe_morning", "music": "cafe_day", "next": "a2"},
 		"a2": {"branch": [{"if": {"flags": ["nlong_perfect"]}, "next": "perfect"}, {"if": {"flags": ["nlong_tail"]}, "next": "tail"}], "default": "ok"},
 		"perfect": {"show": {"nlong": "love@center", "duc": "normal@left", "kyky": "sparkle@right"}, "text": "Nlong phê đến mức lăn một vòng theo thanh súp thưởng… lăn quá đà, sắp rơi khỏi mép bàn!", "next": "catch"},
 		"tail": {"show": {"nlong": "grumpy@center", "duc": "awkward@left", "kyky": "panic@right"}, "text": "Lỡ đụng vào đuôi, hoàng thượng quạu, quẫy một cái — và trượt khỏi bàn phím, lao về phía mép bàn!", "next": "catch"},

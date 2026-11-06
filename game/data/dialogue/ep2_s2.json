@@ -2,7 +2,7 @@
 	"title": "Tập 2 – Phân cảnh 2: Cuộc “đột kích” của đội quân hộ vệ & tổ đội IT",
 	"start": "a",
 	"nodes": {
-		"a": {"bg": "cafe_day", "music": "cafe_day", "sfx": "doorbell", "show": {"duc": "normal@left", "kyky": "normal@right"}, "text": "Cửa quán bật mở cùng lúc bởi hai nhóm người hoàn toàn không hẹn trước.", "next": "b"},
+		"a": {"bg": "cafe_morning", "music": "cafe_day", "sfx": "doorbell", "show": {"duc": "normal@left", "kyky": "normal@right"}, "text": "Cửa quán bật mở cùng lúc bởi hai nhóm người hoàn toàn không hẹn trước.", "next": "b"},
 		"b": {"hide": ["kyky"], "show": {"tram": "cross@right"}, "text": "Từ phía KyKy: Trâm — tóc đen dài cài kẹp, cardigan tím hồng pastel — bước vào với khí thế “chị đại đi kiểm tra lý lịch con rể”.", "next": "c"},
 		"c": {"hide": ["tram"], "show": {"ducanh": "grin@right"}, "text": "Từ phía Anh Đức: Đức Anh tóc vàng chói lọi, tai nghe quàng cổ… và Thanh Thảo ôm iPad theo sau.", "next": "c2"},
 		"c2": {"branch": [{"if": {"flags": ["invited_friends"]}, "next": "da_inv"}], "default": "da_raid"},

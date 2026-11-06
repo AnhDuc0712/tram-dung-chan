@@ -13,7 +13,7 @@
 		"c2": {"name": "Đức Anh (thì thầm)", "text": "Thôi xong, áp suất không khí giảm đột ngột. Tao cá với mày 50k là trong vòng 3 câu nữa thằng Đức sẽ giở trò.", "next": "c3"},
 		"c3": {"name": "Thanh Thảo (thì thầm)", "text": "Tao cá 2 câu.", "next": "d"},
 		"d": {"show": {"hai": "smile"}, "speaker": "hai", "text": "Chào bạn, bạn là anh trai hay gia sư của KyKy thế? Thứ Bảy mà học chăm quá. Hay học xong KyKy đi xem triển lãm sách với anh nhé, anh có dư một vé.", "next": "q"},
-		"q": {"speaker": "duc", "think": true, "show": {"duc": "angry"}, "text": "…",
+		"q": {"speaker": "duc", "think": true, "show": {"duc": "angry"}, "text": "…Anh trai? Gia sư? Còn rủ đi xem triển lãm nữa cơ đấy. Được thôi.",
 			"choices": [
 				{"text": "Bế Nlong đặt vào lòng KyKy, dời hộp matcha sang một góc, đẩy ly ca cao tới trước mặt cô", "effects": {"heart": 4, "add": {"jealous": 3, "tram": 2, "nlong": 1}, "set_flags": ["used_nlong"]}, "next": "qa"},
 				{"text": "Chống tay lên thành ghế KyKy, cười nửa miệng: “Tôi đang giữ sinh mệnh môn Tin học của cô ấy.”", "effects": {"heart": 3, "brain": 1, "add": {"jealous": 4}}, "next": "qb"},

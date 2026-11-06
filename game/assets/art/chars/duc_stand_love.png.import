@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cw7h5rs4xah38"
-path="res://.godot/imported/duc_front_worried.png-4262cfa27b33983d7c0609da55aef71f.ctex"
+uid="uid://diua6klsacicw"
+path="res://.godot/imported/duc_stand_love.png-0f9ac619a879f7e6fe5f161267186bd5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/chars/duc_front_worried.png"
-dest_files=["res://.godot/imported/duc_front_worried.png-4262cfa27b33983d7c0609da55aef71f.ctex"]
+source_file="res://assets/art/chars/duc_stand_love.png"
+dest_files=["res://.godot/imported/duc_stand_love.png-0f9ac619a879f7e6fe5f161267186bd5.ctex"]
 
 [params]
 

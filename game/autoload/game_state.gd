@@ -25,7 +25,8 @@ var vars: Dictionary = {}  # tên -> int
 var flags: Dictionary = {}  # tên cờ -> true
 var step: String = FIRST_STEP
 var player_position := Vector2.ZERO
-var has_position := false  # vừa tải save -> đặt lại vị trí nhân vật trong map
+var has_position := false  # có vị trí nhân vật đã nhớ (vừa tải save / vừa rời bản đồ để vào cảnh khác)
+var position_step := ""  # vị trí trên thuộc bước bản đồ nào (roam:...) -> chỉ dùng lại đúng bản đồ đó
 var ending_id := ""
 
 var unlocked_endings: Array = []
@@ -35,7 +36,9 @@ var ep1_last := ""  # kết thúc Tập 1 gần nhất -> Tập 2 mở đầu kh
 var episode := 1
 ## Chế độ tự chơi để kiểm thử (tham số "-- --autoplay"): tự bấm, tự chọn, tự xong mini-game.
 var autoplay := OS.get_cmdline_user_args().has("--autoplay")
-var settings := {"music": 0.8, "sfx": 0.9, "text_speed": 45.0}
+## timer_scale: nhân thời gian lựa chọn có đếm giờ (0 = không giới hạn); text_size: cỡ chữ hội thoại;
+## auto: tự chuyển câu; shake: rung màn hình.
+var settings := {"music": 0.8, "sfx": 0.9, "text_speed": 45.0, "timer_scale": 1.5, "text_size": 1.0, "auto": 0.0, "shake": 1.0}
 var _snap_dir := ""  # --snap=DIR (chỉ kiểm thử)
 var _snap_every := 45
 var _snap_frame := 0
@@ -94,6 +97,7 @@ func reset() -> void:
 	step = FIRST_STEP
 	player_position = Vector2.ZERO
 	has_position = false
+	position_step = ""
 	ending_id = ""
 
 
@@ -193,6 +197,7 @@ func save_game() -> bool:
 		if player:
 			player_position = player.global_position
 			has_position = true
+			position_step = step
 	var data := {
 		"version": SAVE_VERSION,
 		"vars": vars,
@@ -201,6 +206,7 @@ func save_game() -> bool:
 		"episode": episode,
 		"ending": ending_id,
 		"pos": [player_position.x, player_position.y] if has_position else [],
+		"pos_step": position_step,
 	}
 	return _write_json(save_path, data)
 
@@ -225,6 +231,7 @@ func load_game() -> bool:
 	if pos.size() == 2:
 		player_position = Vector2(float(pos[0]), float(pos[1]))
 		has_position = true
+		position_step = str(parsed.get("pos_step", step))
 	return true
 
 

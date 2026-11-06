@@ -4,7 +4,7 @@
 	"nodes": {
 		"start": {"card": "17:30 — Góc quán, nắng chiều", "bg": "cafe_sunset", "music": "study", "next": "s1"},
 		"s1": {"show": {"duc": "normal@left", "kyky": "normal@right"}, "text": "Hoàng hôn nhuộm cam cả góc quán. Hai cái đầu chụm lại bên chiếc laptop.", "next": "s2"},
-		"s2": {"speaker": "duc", "text": "Rồi. Câu 1: vòng lặp While là gì?", "next": "s3"},
+		"s2": {"show": {"duc": "curious"}, "speaker": "duc", "text": "Rồi. Câu 1: vòng lặp While là gì?", "next": "s3"},
 		"s3": {"show": {"kyky": "confused"}, "speaker": "kyky", "text": "Là… cái gì đó… lặp lại… nhiều lần ạ?", "next": "s4"},
 		"s4": {"show": {"duc": "smirk"}, "speaker": "duc", "text": "Đúng một nửa. Thế câu trắc nghiệm này em chọn đáp án nào?", "next": "s5"},
 		"s5": {"show": {"duc": "surprised"}, "text": "KyKy rút từ túi ra… một bông hoa cúc.", "next": "s6"},

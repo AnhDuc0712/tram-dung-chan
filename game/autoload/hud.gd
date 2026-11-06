@@ -13,6 +13,10 @@ const ATTITUDE := {
 	"ducanh": ["Đức Anh coi bạn là chiến hữu.", "Đức Anh hơi chột dạ."],
 	"hai": ["Hải bắt đầu để ý Anh Đức.", "Hải lùi lại một bước."],
 }
+const STAT_HELP := {
+	"heart": "Rung động: tăng khi lựa chọn của Anh Đức làm KyKy rung động (quan tâm, chọc đúng lúc, nhớ chi tiết nhỏ).",
+	"brain": "Hiểu bài: tăng khi KyKy thật sự hiểu bài (giảng đúng, kiên nhẫn, làm tốt mini-game code).",
+}
 
 var _root: Control
 var _bars: Control
@@ -40,6 +44,7 @@ var _thought_label: Label
 var _thought_tw: Tween
 var _thoughts: Array = []
 var _cat_cool := 0.0
+var _bar_rows := {}  # "heart"/"brain" -> PanelContainer (để hiện "+1" cạnh thanh)
 
 
 
@@ -51,6 +56,19 @@ func _ready() -> void:
 	_build_rotate_hint()
 	GameState.var_changed.connect(_on_var_changed)
 	set_visible_hud(false)
+	for arg in OS.get_cmdline_user_args():  # chụp ảnh kiểm thử: "-- --hud-open=pause|settings|log"
+		if arg.begins_with("--hud-open="):
+			get_tree().create_timer(1.0).timeout.connect(_debug_open.bind(arg.substr(11)))
+
+
+func _debug_open(what: String) -> void:
+	match what:
+		"pause":
+			open_pause()
+		"settings":
+			open_settings()
+		"log":
+			_open_log()
 
 
 # ---------------------------------------------------------------- điện thoại cầm dọc
@@ -133,6 +151,7 @@ func toast(text: String, color: Color = Ui.PINK) -> void:
 	l.add_theme_stylebox_override("panel", sb)
 	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var t := Ui.label(text, 20, color, Ui.font_bold)
+	l.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	t.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	l.add_child(t)
 	_toast_box.add_child(l)
@@ -161,11 +180,33 @@ func _on_var_changed(var_name: String, value: int) -> void:
 		"heart":
 			_heart_icon.call("bump")
 			Audio.sfx("sparkle", -6.0)
+			_float_delta("heart", delta)
 		"brain":
 			_brain_icon.call("bump")
 			Audio.sfx("good", -6.0)
+			_float_delta("brain", delta)
 		"nlong":
 			toast("Nlong thân với bạn hơn rồi!", Color("6d6d80"))
+
+
+## Số "+1" / "-1" bay lên cạnh thanh chỉ số; lần đầu mỗi chỉ số tăng -> giải thích ngắn.
+func _float_delta(key: String, delta: int) -> void:
+	if delta == 0 or not _bar_rows.has(key):
+		return
+	var row: Control = _bar_rows[key]
+	var l := Ui.label(("+%d" % delta) if delta > 0 else str(delta), 30, Color("e8608c") if key == "heart" else Color("c99a1c"), Ui.font_title)
+	l.add_theme_color_override("font_outline_color", Color("fff8ee"))
+	l.add_theme_constant_override("outline_size", 8)
+	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_root.add_child(l)
+	l.position = row.global_position + Vector2(row.size.x + 8, row.size.y * 0.5 - 22)
+	var tw := l.create_tween()
+	tw.tween_property(l, "position:y", l.position.y - 26, 1.1).set_trans(Tween.TRANS_SINE)
+	tw.parallel().tween_property(l, "modulate:a", 0.0, 1.1).set_delay(0.5)
+	tw.tween_callback(l.queue_free)
+	if delta > 0 and not GameState.seen_thoughts.has("tip_" + key):
+		GameState.mark_thought("tip_" + key)
+		toast(STAT_HELP[key].split(":")[0] + " +%d — %s" % [delta, STAT_HELP[key].split(": ")[1]], Ui.TEXT_SOFT)
 
 
 # ======================================================================= dựng UI
@@ -184,15 +225,20 @@ func _build() -> void:
 	var hb := _make_bar("heart", "Rung động", Color("f06292"))
 	_heart_bar = hb[0]
 	_heart_icon = hb[1]
+	_bar_rows["heart"] = hb[2]
 	var bb := _make_bar("bulb", "Hiểu bài", Color("f5c84c"))
 	_brain_bar = bb[0]
 	_brain_icon = bb[1]
+	_bar_rows["brain"] = bb[2]
+	for k in _bar_rows:
+		(_bar_rows[k] as Control).tooltip_text = STAT_HELP[k]
+		(_bar_rows[k] as Control).mouse_filter = Control.MOUSE_FILTER_PASS  # chỉ để hiện chú thích, nhỏ
 
 	_buttons = HBoxContainer.new()
 	_buttons.position = Vector2(1060, 14)
 	_buttons.add_theme_constant_override("separation", 10)
 	_root.add_child(_buttons)
-	_buttons.add_child(_round_button("phone", "Nhật ký", _open_log))
+	_buttons.add_child(_round_button("book", "Nhật ký", _open_log))
 	_buttons.add_child(_round_button("menu", "Menu", open_pause))
 
 	_objective = PanelContainer.new()
@@ -208,7 +254,8 @@ func _build() -> void:
 	_objective.visible = false
 
 	_toast_box = VBoxContainer.new()
-	_toast_box.position = Vector2(20, 156)
+	_toast_box.position = Vector2(390, 108)
+	_toast_box.custom_minimum_size = Vector2(500, 0)
 	_toast_box.add_theme_constant_override("separation", 6)
 	_toast_box.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_root.add_child(_toast_box)
@@ -220,7 +267,7 @@ func _build() -> void:
 	_root.add_child(_overlay)
 
 	# --- menu tạm dừng
-	_pause_panel = _panel(Vector2(440, 150), Vector2(400, 0))
+	_pause_panel = _panel(Vector2(400, 70), Vector2(480, 0))
 	var pv := VBoxContainer.new()
 	pv.add_theme_constant_override("separation", 12)
 	_pause_panel.add_child(pv)
@@ -236,16 +283,27 @@ func _build() -> void:
 		_settings_panel.visible = true
 		_update_fs_label())
 	pv.add_child(b2)
+	var bsave := Ui.button("Lưu game", 340)
+	bsave.pressed.connect(func() -> void:
+		var ok := GameState.save_game()
+		bsave.text = "Đã lưu!" if ok else "Không lưu được"
+		Audio.sfx("good" if ok else "bad")
+		get_tree().create_timer(1.4, true).timeout.connect(func() -> void: bsave.text = "Lưu game"))
+	pv.add_child(bsave)
 	var b3 := Ui.button("Lưu & về màn hình chính", 340)
 	b3.pressed.connect(func() -> void:
 		close_all()
-		if GameState.step.begins_with("roam"):
-			GameState.save_game()
+		GameState.save_game()
 		Story.goto("title", false))
 	pv.add_child(b3)
-	var tip := Ui.label("Mẹo: bấm nút “Tua »” (hoặc giữ Ctrl) để tua nhanh hội thoại.", 18, Ui.TEXT_SOFT)
+	var tip_text := "\n".join([
+		"Game tự lưu ở đầu mỗi cảnh (cảnh hội thoại tiếp tục từ đầu cảnh).",
+		"Rung động: KyKy rung động vì lựa chọn của bạn. Hiểu bài: KyKy hiểu bài thật.",
+		"Mẹo: nút “Tua »” (hoặc giữ Ctrl) để tua nhanh.",
+	])
+	var tip := Ui.label(tip_text, 17, Ui.TEXT_SOFT)
 	tip.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	tip.custom_minimum_size = Vector2(340, 0)
+	tip.custom_minimum_size = Vector2(420, 0)
 	_relations = Ui.label("", 19, Ui.TEXT, Ui.font_bold)
 	_relations.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	pv.add_child(_relations)
@@ -253,16 +311,20 @@ func _build() -> void:
 	pv.add_child(tip)
 
 	# --- cài đặt
-	_settings_panel = _panel(Vector2(390, 140), Vector2(500, 0))
+	_settings_panel = _panel(Vector2(340, 30), Vector2(600, 0))
 	var sv := VBoxContainer.new()
 	sv.add_theme_constant_override("separation", 10)
 	_settings_panel.add_child(sv)
 	var st := Ui.label("Cài đặt", 38, Ui.TEXT, Ui.font_title)
 	st.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	sv.add_child(st)
-	sv.add_child(_slider("Nhạc nền", "music", 0.0, 1.0))
-	sv.add_child(_slider("Âm thanh", "sfx", 0.0, 1.0))
-	sv.add_child(_slider("Tốc độ chữ", "text_speed", 15.0, 120.0))
+	sv.add_child(_slider("Nhạc nền", "music", 0.0, 1.0, "Tắt", "To"))
+	sv.add_child(_slider("Âm thanh", "sfx", 0.0, 1.0, "Tắt", "To"))
+	sv.add_child(_slider("Tốc độ chữ", "text_speed", 15.0, 120.0, "Chậm", "Nhanh"))
+	sv.add_child(_cycle("Cỡ chữ hội thoại", "text_size", [[0.9, "Nhỏ"], [1.0, "Vừa"], [1.15, "Lớn"], [1.3, "Rất lớn"]]))
+	sv.add_child(_cycle("Thời gian chọn (câu có đếm giờ)", "timer_scale", [[1.0, "Nhanh"], [1.5, "Vừa"], [2.5, "Thong thả"], [0.0, "Không giới hạn"]]))
+	sv.add_child(_cycle("Tự chuyển câu (auto)", "auto", [[0.0, "Tắt"], [1.0, "Bật"]]))
+	sv.add_child(_cycle("Rung màn hình", "shake", [[1.0, "Bật"], [0.0, "Tắt"]]))
 	_fs_btn = Ui.button("Toàn màn hình", 300, 22)
 	_fs_btn.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	_fs_btn.pressed.connect(func() -> void:
@@ -327,7 +389,7 @@ func _make_bar(icon_kind: String, title: String, fill: Color) -> Array:
 	var fs := Ui.box(fill, Color(0, 0, 0, 0), 10, 0, false)
 	bar.add_theme_stylebox_override("fill", fs)
 	v.add_child(bar)
-	return [bar, ic]
+	return [bar, ic, p]
 
 
 func _round_button(icon_kind: String, text: String, cb: Callable) -> Button:
@@ -370,20 +432,60 @@ func _panel(pos: Vector2, min_size: Vector2) -> PanelContainer:
 	return p
 
 
-func _slider(title: String, key: String, lo: float, hi: float) -> Control:
+func _slider(title: String, key: String, lo: float, hi: float, lo_text: String, hi_text: String) -> Control:
 	var v := VBoxContainer.new()
-	v.add_child(Ui.label(title, 22, Ui.TEXT, Ui.font_bold))
+	v.add_theme_constant_override("separation", 0)
+	var head := HBoxContainer.new()
+	v.add_child(head)
+	var t := Ui.label(title, 21, Ui.TEXT, Ui.font_bold)
+	t.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	head.add_child(t)
+	var num := Ui.label("", 21, Ui.PINK, Ui.font_bold)
+	head.add_child(num)
+	var row := HBoxContainer.new()
+	row.add_theme_constant_override("separation", 10)
+	v.add_child(row)
+	row.add_child(Ui.label(lo_text, 17, Ui.TEXT_SOFT))
 	var s := HSlider.new()
 	s.min_value = lo
 	s.max_value = hi
 	s.step = (hi - lo) / 100.0
 	s.value = float(GameState.settings.get(key, hi))
-	s.custom_minimum_size = Vector2(420, 30)
+	s.custom_minimum_size = Vector2(400, 30)
+	s.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	row.add_child(s)
+	row.add_child(Ui.label(hi_text, 17, Ui.TEXT_SOFT))
+	var show := func(val: float) -> void: num.text = "%d%%" % roundi((val - lo) / (hi - lo) * 100.0)
+	show.call(s.value)
 	s.value_changed.connect(func(val: float) -> void:
 		GameState.settings[key] = val
+		show.call(val)
 		Audio.refresh_volume())
-	v.add_child(s)
 	return v
+
+
+## Nút bấm xoay vòng các lựa chọn: [[giá trị, "nhãn"], ...]
+func _cycle(title: String, key: String, opts: Array) -> Control:
+	var h := HBoxContainer.new()
+	var t := Ui.label(title, 21, Ui.TEXT, Ui.font_bold)
+	t.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	h.add_child(t)
+	var b := Ui.button("", 200, 19)
+	b.custom_minimum_size = Vector2(200, 44)
+	h.add_child(b)
+	var idx_of := func() -> int:
+		var cur := float(GameState.settings.get(key, opts[0][0]))
+		for i in opts.size():
+			if absf(float(opts[i][0]) - cur) < 0.01:
+				return i
+		return 0
+	b.text = str(opts[idx_of.call()][1])
+	b.pressed.connect(func() -> void:
+		var i: int = (int(idx_of.call()) + 1) % opts.size()
+		GameState.settings[key] = float(opts[i][0])
+		b.text = str(opts[i][1])
+		Audio.sfx("toggle"))
+	return h
 
 
 # ======================================================================= mở / đóng
@@ -431,6 +533,8 @@ func _build_cat() -> void:
 	_thought_label.custom_minimum_size = Vector2(390, 0)
 	_thought.add_child(_thought_label)
 	_thoughts = DialogueData.load_json("res://data/nlong_thoughts.json").get("thoughts", [])
+	_root.move_child(_cat, _overlay.get_index())
+	_root.move_child(_thought, _overlay.get_index())
 
 
 func _on_cat_input(ev: InputEvent) -> void:

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ypmpw3hc45t7"
-path="res://.godot/imported/duc_front_think.png-0213bd981a9958742f3517ff964091ed.ctex"
+uid="uid://b3a74eyx52pe6"
+path="res://.godot/imported/cafe_morning.jpg-a782fe8fe4287b70bd44a56e8ba0b138.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/chars/duc_front_think.png"
-dest_files=["res://.godot/imported/duc_front_think.png-0213bd981a9958742f3517ff964091ed.ctex"]
+source_file="res://assets/art/bg/cafe_morning.jpg"
+dest_files=["res://.godot/imported/cafe_morning.jpg-a782fe8fe4287b70bd44a56e8ba0b138.ctex"]
 
 [params]
 

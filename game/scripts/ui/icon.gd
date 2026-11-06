@@ -46,6 +46,17 @@ func _draw() -> void:
 			draw_rect(r, Color("4a2e1f"), false, 3.0)
 			draw_rect(Rect2(r.position + Vector2(4, 6), r.size - Vector2(8, 16)), Color("cfe8f7"))
 			draw_circle(Vector2(c.x, r.end.y - 5), 2.5, Color("4a2e1f"))
+		"book":
+			var bw := s * 0.62
+			var bh := s * 0.74
+			var r2 := Rect2(c.x - bw * 0.5, c.y - bh * 0.5, bw, bh)
+			draw_rect(r2, Color("c96f8a"))
+			draw_rect(Rect2(r2.position, Vector2(bw * 0.16, bh)), Color("9c4a63"))
+			draw_rect(Rect2(r2.position + Vector2(bw * 0.3, bh * 0.18), Vector2(bw * 0.56, bh * 0.2)), Color("fff4ea"))
+			for i in 2:
+				var ly := r2.position.y + bh * (0.58 + 0.16 * i)
+				draw_line(Vector2(r2.position.x + bw * 0.3, ly), Vector2(r2.end.x - bw * 0.14, ly), Color("fff4ea"), 2.0)
+			draw_rect(r2, Color("4a2e1f"), false, 2.5)
 		"menu":
 			for i in 3:
 				var y := c.y - s * 0.2 + i * s * 0.2

@@ -53,6 +53,8 @@ FACES = {
 
 # eyes: "closed_happy" (^^) | "closed_calm" (mắt cười hiền) | "closed_tight" (> <) | "closed_flat" (nhắm hờn)
 #       | "wide" (tròn xoe, con ngươi nhỏ) | ("lid", độ sụp 0..1, nghiêng: +1 giận / -1 buồn / 0)
+FACES["duc_stand"] = FACES["duc_front"]  # cùng gương mặt, chỉ khác tay
+
 # brows: (kiểu, độ xoay, nhấc px) kiểu = angry | worried | raise | one (nhướn một bên)
 # mouth: smile | grin | laugh | o | gasp | frown | wavy | wavy_open | flat | pout | smirk | cry
 RECIPES = {
@@ -79,7 +81,9 @@ RECIPES = {
 }
 
 PLAN = {
-	"duc_front": ["happy", "laugh", "shock", "surprised", "sad", "angry", "shy", "worried", "love", "think", "panic"],
+	"duc_front": ["laugh", "shock", "panic"],  # dáng vẫy tay: chỉ cho lúc vui / hoảng
+	# dáng đứng thường (tay đút túi) — tools/art/make_stand.py tạo duc_stand.png từ duc_front.png
+	"duc_stand": ["happy", "surprised", "sad", "angry", "shy", "worried", "love", "think"],
 	"duc_walk": ["smug", "flustered", "worried", "think", "surprised", "glare"],
 	"kyky_wave": ["shock", "panic", "worried", "sad", "angry", "surprised", "think", "smug", "pout"],
 	"kyky_hug": ["hmph", "cry", "shy", "love", "laugh"],
