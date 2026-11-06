@@ -164,3 +164,11 @@ Tập 2 — khác
 - Trâm bị nút lựa chọn che ... [XONG] (cùng sửa nút lựa chọn dồn xuống).
 - Kỷ niệm lộ bóng hình ....... [XONG] ảnh chưa mở hiện ô "?" trống.
 Kiểm tra: tools\check.ps1 ALL CHECKS PASSED (66 test GUT, tự chơi trọn Tập 1 + Tập 2); test mới test_playtest_fixes.gd chặn các lỗi trên quay lại.
+
+==================================================================================
+ĐÃ XỬ LÝ — 2026-11-06 21:35 (Claude)
+==================================================================================
+- Cảnh kệ sách không có ảnh (mục 3 + mục "thư viện" lần sau) .... [XONG] gắn ảnh sự kiện mới "Chưa đầy một gang tay"
+  (cg_shelf, ảnh tác giả gửi, đã xoá dấu Gemini) đúng lúc KyKy túm áo Anh Đức; mở khoá trong Kỷ niệm (Ảnh sự kiện giờ có 6 ảnh).
+  Lời dẫn sửa cho khớp ảnh (KyKy ngước lên nhìn, hai khuôn mặt cách nhau chưa đầy một gang tay).
+- Còn chờ bạn: đổi tên "Đức Anh" (nếu muốn).

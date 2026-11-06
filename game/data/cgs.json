@@ -1,6 +1,7 @@
 {
 	"cg_headphones": {"img": "cg_headphones", "title": "Bản nhạc chỉ mở cho một người", "episode": 2},
 	"cg_library": {"img": "cg_library", "title": "Ngủ gục trên trang vở", "episode": 2},
+	"cg_shelf": {"img": "cg_shelf", "title": "Chưa đầy một gang tay", "episode": 2},
 	"cg_claw": {"img": "cg_claw", "title": "Nhắm lệch sang trái một chút", "episode": 2},
 	"cg_jacket": {"img": "cg_jacket", "title": "Chiếc áo khoác dưới mưa", "episode": 2},
 	"cg_hotpot": {"img": "cg_hotpot", "title": "Nồi lẩu đêm mưa", "episode": 2}
