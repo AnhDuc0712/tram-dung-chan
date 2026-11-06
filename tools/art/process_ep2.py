@@ -34,6 +34,7 @@ CGS = {
     "cg_jacket": (CGDIR / "Gemini_Generated_Image_9gl1vc9gl1vc9gl1.png", 0.885),
     "cg_library": (CGDIR / "Gemini_Generated_Image_fz0o7xfz0o7xfz0o.png", 0.885),
     "cg_headphones": (CGDIR / "Gemini_Generated_Image_v4r5uhv4r5uhv4r5.png", 0.885),
+    "cg_shelf": (CGDIR / "Gemini_Generated_Image_qc6g0jqc6g0jqc6g.png", 1.0),  # áp sát ở kệ sách (không phụ đề)
 }
 # id -> (file, khung cắt theo tỉ lệ (trái, trên, phải, dưới), kích thước xuất)
 BGS = {
