@@ -15,7 +15,7 @@
 		"cat": {"sfx": "meow", "show": {"nlong": "walk@center"}, "text": "Đúng lúc đó — phốc! Nlong nhảy lên bàn, đi thẳng qua bàn phím…", "next": "cat2"},
 		"cat2": {"fx": "shake", "show": {"nlong": "normal@center"}, "text": "…rồi nằm ườn ra, đè lên đúng hai bàn tay đang đặt cạnh nhau của Anh Đức và KyKy.", "next": "cat3"},
 		"cat3": {"show": {"duc": "blush", "kyky": "shy"}, "text": "Hai bàn tay chạm vào nhau. Ấm.", "next": "hands"},
-		"hands": {"show": {"duc": "shy"}, "speaker": "duc", "think": true, "text": "………",
+		"hands": {"show": {"duc": "shy"}, "speaker": "duc", "think": true, "text": "…Tay cô ấy ấm thật. Giờ mình phải làm gì đây?",
 			"choices": [
 				{"text": "Rút tay lại, giả vờ ho khan", "next": "h_a"},
 				{"text": "Để yên thêm một chút…", "effects": {"heart": 1, "set_flags": ["hand_stay"]}, "next": "h_b"},

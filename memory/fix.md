@@ -95,3 +95,72 @@ Bản đồ phố đẹp, nhiều điểm đến (công viên, trạm xe buýt, 
 Chọn đi dạo trước rồi mới ăn lẩu cho cảm giác tự do thật sự.
 Màn kết đủ thông tin: tên kết thúc, mô tả, bốn chỉ số, gợi ý Tập 3.
 Kỷ niệm có gợi ý cách mở từng kết thúc, rất tiện cho người chơi lại.
+==================================================================================
+ĐÃ XỬ LÝ — 2026-11-06 21:02 (Claude, nhánh fix/gop-y-choi-thu, phiên bản 1.2.1)
+Ký hiệu: [XONG] đã sửa + kiểm tra · [MỘT PHẦN] sửa được phần làm được · [CẦN BẠN] cần bạn quyết định / có ảnh mới
+==================================================================================
+Lỗi nặng
+- Tải trang chậm ............ [XONG] thêm dòng "Lần đầu tải hơi lâu… lần sau nhanh hơn" + "Mạng hơi chậm, đừng tắt trang" nếu >12 giây;
+                               font cắt còn chữ Latin + tiếng Việt (1,4 MB → 0,57 MB); bỏ 1,2 MB ảnh thừa (inset) khỏi bản web.
+                               (Engine index.wasm 9,3 MB không giảm được nếu không tự biên dịch lại Godot.)
+- Chuyển cảnh sau Bắt đầu lâu  [XONG] gộp 2 thẻ chữ mở đầu thành 1, giữ 1,6 giây, CHẠM để tua; HUD không còn lộ ra trước. Đo trên web: ~4 giây là vào cảnh.
+- Lựa chọn đếm giờ quá nhanh . [XONG] mặc định dài ×1,5; Cài đặt > "Thời gian chọn": Nhanh / Vừa / Thong thả / Không giới hạn.
+- Latte art lơ lửng .......... [XONG] hình vẽ nằm ngay trên mặt bọt sữa trong miệng ly.
+- Ly nước một khối nâu ....... [XONG] mỗi nguyên liệu một lớp màu, đá viên + hạt đường hiện riêng, bấm Xong có hiệu ứng khuấy;
+                               công thức đánh dấu "[x] … (đã cho)", ghi cả thứ thêm ngoài công thức.
+- Mèo che tiêu đề Nhật ký .... [XONG] mèo + bong bóng tâm tư nằm dưới lớp phủ; đã chụp kiểm tra Nhật ký, Menu, Cài đặt.
+Lỗi vừa
+- Lựa chọn che mặt ........... [XONG] nút dồn xuống sát hộp thoại, hẹp lại (540px).
+- Anh Đức luôn vẫy tay ....... [XONG] ảnh dáng đứng mới (tay đút túi) cho dáng thường + 8 biểu cảm; KyKy dáng thường ôm sổ;
+                               gán thêm biểu cảm cho các câu có cảm xúc rõ (đa số câu vốn đã có biểu cảm).
+- Chân dung to trên bản đồ ... [XONG] nhỏ lại (×0,72), ẩn ở câu dẫn truyện.
+- Quá nhiều dấu "!" .......... [XONG] ngôi sao vàng = việc chính, chấm hồng nhỏ mờ = xem cho vui; hướng dẫn giải thích 2 loại dấu.
+- Nhân vật mình khó thấy ..... [XONG] mũi tên hồng trên đầu + vòng sáng dưới chân.
+- "E · Nói chuyện" thiếu tên . [XONG] "E · Nói chuyện với Chị M / KyKy / …".
+- Bị dịch chuyển sau mini-game [XONG] quay lại đúng chỗ đứng; cầm ly nước trên tay khi đang mang đồ uống.
+- Dòng hướng dẫn không đổi ... [XONG] đổi theo từng bước: chọn món → kéo nguyên liệu → đang khuấy → vẽ bọt sữa → đặt lên khay.
+Chi tiết nhỏ
+- Dòng Tập 1/Tập 2 khó đọc ... [XONG] nền mờ tối + viền chữ.
+- Cài đặt còn thô ............ [XONG] thanh trượt có % và nhãn Tắt–To / Chậm–Nhanh; thêm Cỡ chữ, Tự chuyển câu (auto), Rung màn hình.
+- Không có nút Lưu riêng ..... [XONG] nút "Lưu game" trong menu tạm dừng + thông báo "Đã tự lưu" mỗi lần tự lưu. (Lưu vẫn còn sau khi tải lại trang — đã thử.)
+- Chỉ số không giải thích .... [XONG] "+1" bay lên cạnh thanh; lần đầu mỗi chỉ số tăng có dòng giải thích; menu tạm dừng ghi rõ ý nghĩa.
+- Nút Nhật ký icon điện thoại  [XONG] đổi thành quyển sổ.
+- Chữ nhỏ trên điện thoại .... [XONG] Cài đặt > Cỡ chữ hội thoại: Nhỏ / Vừa / Lớn / Rất lớn.
+- Thêm đồ uống ............... [XONG] Ca cao đá, Matcha sữa, Matcha kem phô mai (+ câu phản ứng riêng của KyKy cho từng món).
+Tập 2 — chat điện thoại
+- Avatar bị cắt / to bất thường [XONG] avatar cỡ cố định, không giãn theo tin có ảnh; viền màu riêng từng người.
+- Nút trả lời / sticker bị cắt, bấm lần đầu không ăn [XONG] khung tin co lại nhường chỗ; 3 sticker vừa khít; nút chữ xếp dọc, to, dễ bấm.
+- Dòng "Chạm (hoặc giữ Ctrl)…" bị cắt [XONG] xuống dòng, nằm trong màn hình.
+- Thảo giống KyKy ............ [MỘT PHẦN] tên + viền avatar khác màu (KyKy hồng, Thảo màu riêng). Ảnh hai người vốn khác nhau (Thảo tóc đen búi, KyKy tóc nâu xoăn) nhưng nhỏ quá nên dễ nhầm.
+- Tin hiện rất chậm .......... [XONG] nhanh ~3 lần. (10–40 giây là do trình duyệt chạy nền/bị giới hạn — cần thử máy thật.)
+- "Tin nhắn mới" che tin cuối  [XONG] tự cuộn xuống khi nút hiện.
+Tập 2 — khác
+- Nền sáng = ảnh hoàng hôn ... [XONG] ảnh quán buổi sáng mới (cafe_morning) cho 9:00–10:30 + mini-game Nlong; bản đồ buổi sáng ánh mát hơn.
+- Thông báo Nlong chen HUD ... [XONG] thông báo chuyển ra giữa phía trên, dưới ô nhiệm vụ.
+- Thẻ chữ Tập 2 đứng 30 giây . [XONG] thẻ ngắn lại + chạm để tua. (Đứng 30 giây nhiều khả năng do trình duyệt chạy nền — cần thử máy thật.)
+- Cảnh báo WebGL ............. [CẦN BẠN] chỉ thấy ở Chrome giả lập (SwiftShader); cần thử Chrome thật trên máy/điện thoại.
+- Mini-game cào Nlong ........ [XONG] màn chuẩn bị (đồng hồ chỉ chạy sau khi bấm Bắt đầu) + màn tổng kết thắng/thua.
+- Mini-game nhịp đập ......... [XONG] chạm BẤT KỲ đâu cũng tính; vòng sáng to hơn, chậm hơn; nút hiện "Thở đều…" trong lúc chờ lượt sau
+                               (trước đây bấm trong 0,9 giây chờ bị bỏ qua nên tưởng không ăn); có màn chuẩn bị + tổng kết; KyKy nhỏ lại không che bảng.
+- Cảnh kệ sách không có ảnh .. [MỘT PHẦN] hai nhân vật giờ xích sát nhau + cảnh tối hẳn khi mất điện. Chưa có ảnh sự kiện cho cảnh này
+                               (ảnh "Ngủ gục trên trang vở" thuộc Nhà sách cũ buổi tối) → [CẦN BẠN] vẽ thêm 1 CG "áp sát ở kệ sách" nếu muốn.
+- Bài logic không báo đúng/sai [XONG] nút sai tô đỏ "Sai:", nút đúng tô xanh; câu phản hồi riêng khớp đúng đáp án đã chọn; có màn tổng kết.
+- Anh Đức / Đức Anh dễ nhầm .. [CẦN BẠN] đổi tên là quyết định của tác giả — bạn muốn đổi "Đức Anh" thành tên/biệt danh gì?
+- "Tối om" mà nền sáng ....... [XONG] hiệu ứng tối làm tối hẳn cả nền lẫn nhân vật.
+- Chân dung hiện hai lần ..... [XONG] bỏ khung inset cho Chị M, Trâm, Đức Anh, Hải.
+- E nói nhầm người ........... [XONG] nhãn có tên người; vùng tương tác rộng hơn (64 → 84px).
+- Mèo bản đồ khác mèo HUD .... [XONG] cùng một chú mèo xám tai cụp — tô sẫm lại trên bản đồ (đèn vàng làm trông như mèo trắng).
+- Balo / Sổ KyKy hình phẳng .. [XONG] vẽ lại: balo có nắp, túi, khoá kéo, quai; sổ có gáy lò xo, nhãn, sticker.
+- KyKy to che UI nhịp đập .... [XONG] thu nhỏ, đặt sang phải.
+- Chú thích nút Tua đè hộp thoại [XONG] bỏ chú thích.
+- Chỉ dẫn buổi sáng mơ hồ .... [XONG] "9 giờ sáng KyKy mới tới… pha sẵn đồ uống ở quầy… sẵn sàng thì ra cửa ra vào (ngôi sao vàng)".
+- Công viên dùng ảnh sân trường [XONG] dùng ảnh phố đêm mưa.
+- Tua nuốt ảnh sự kiện ....... [XONG] Tua tự tắt khi ảnh sự kiện hiện ("Tạm dừng Tua để ngắm ảnh kỷ niệm").
+- Avatar to khi tin có ảnh ... [XONG] (cùng lỗi avatar ở trên).
+- Giờ lệch 19:00 / 9 giờ ..... [XONG] ghi rõ "9 giờ tối" (Trâm, quán lẩu, banner) và "9 giờ sáng" (buổi sáng).
+- Dịch chuyển sau mỗi địa điểm [XONG] nhớ vị trí theo từng bản đồ.
+- Khó biết đứng gần cỡ nào ... [XONG] vùng tương tác rộng hơn; gợi ý luôn ghi tên thứ sẽ tương tác.
+- Tua dừng ở "(…)" ........... [XONG] 3 câu lựa chọn có lời nghĩ thầm rõ ràng thay cho "…".
+- Trâm bị nút lựa chọn che ... [XONG] (cùng sửa nút lựa chọn dồn xuống).
+- Kỷ niệm lộ bóng hình ....... [XONG] ảnh chưa mở hiện ô "?" trống.
+Kiểm tra: tools\check.ps1 ALL CHECKS PASSED (66 test GUT, tự chơi trọn Tập 1 + Tập 2); test mới test_playtest_fixes.gd chặn các lỗi trên quay lại.

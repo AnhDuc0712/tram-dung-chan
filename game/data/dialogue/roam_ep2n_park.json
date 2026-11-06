@@ -2,7 +2,7 @@
 	"title": "Tập 2 – Xích đu công viên: những điều chưa nói",
 	"start": "a",
 	"nodes": {
-		"a": {"bg": "campus", "music": "evening", "show": {"duc": "normal@left", "kyky": "normal@right"}, "effects": {"add": {"dates": 1}, "set_flags": ["date_park"]}, "text": "Mưa tạnh tạm. Công viên nhỏ vắng người, chiếc xích đu còn đọng nước. KyKy lau ghế bằng khăn giấy rồi ngồi xuống, đung đưa chân.", "next": "b"},
+		"a": {"bg": "street_rain", "music": "evening", "show": {"duc": "normal@left", "kyky": "normal@right"}, "effects": {"add": {"dates": 1}, "set_flags": ["date_park"]}, "text": "Mưa tạnh tạm. Công viên nhỏ vắng người, chiếc xích đu còn đọng nước. KyKy lau ghế bằng khăn giấy rồi ngồi xuống, đung đưa chân.", "next": "b"},
 		"b": {"show": {"kyky": "confused"}, "speaker": "kyky", "text": "Anh Đức… em kể anh nghe một bí mật nha. Em muốn đi du học Nhật. Nhưng phải qua chứng chỉ Tin học trước đã. Nghe buồn cười không?", "next": "c"},
 		"c": {"speaker": "duc", "think": true, "show": {"duc": "think"}, "text": "Du học. Xa lắm.",
 			"choices": [
@@ -17,7 +17,7 @@
 		"p3": {"show": {"duc": "tease"}, "speaker": "duc", "text": "Chứng chỉ Tin với em là chuyện nhỏ. Sợ là sợ cầm ngược bản đồ ở sân bay rồi bay nhầm sang Nam Cực.", "next": "p3b"},
 		"p3b": {"show": {"kyky": "hmph"}, "speaker": "kyky", "text": "Anh lại thế! (Đạp xích đu bay cao, nước bắn lên tay áo anh Đức.)", "next": "hai"},
 		"hai": {"sfx": "msg", "show": {"kyky": "surprised"}, "text": "Điện thoại KyKy rung. Màn hình sáng lên: “Hải: Em về chưa? Tuần sau nhóm học từ vựng họp tối thứ Năm nhé”", "next": "hai2"},
-		"hai2": {"speaker": "duc", "think": true, "show": {"duc": "glare"}, "text": "…",
+		"hai2": {"speaker": "duc", "think": true, "show": {"duc": "glare"}, "text": "…Lại là cậu Hải này. Tối thứ Năm à?",
 			"choices": [
 				{"text": "Giả vờ không thấy", "next": "h_ignore"},
 				{"text": "“Tối thứ Năm em có lịch học Tin với tôi.”", "effects": {"add": {"jealous": 2}, "heart": 1}, "next": "h_claim"}

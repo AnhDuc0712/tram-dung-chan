@@ -569,6 +569,11 @@
 			1.0,
 			0.93,
 			0.85
+		],
+		"ep2_morning": [
+			0.97,
+			1.0,
+			1.06
 		]
 	},
 	"objectives": {
@@ -579,10 +584,10 @@
 						"cacao_ready"
 					]
 				},
-				"target": "door2", "text": "Ly ca cao đã sẵn. Ra cửa đón KyKy khi bạn muốn."
+				"target": "door2", "text": "Đồ uống đã pha xong. Ra cửa ra vào (ngôi sao vàng) đón KyKy khi bạn sẵn sàng."
 			},
 			{
-				"target": "door2", "text": "9 giờ KyKy mới tới. Dạo quanh quán, trò chuyện với khách, pha sẵn gì đó… rồi ra cửa đón cô bé."
+				"target": "door2", "text": "9 giờ sáng KyKy mới tới. Muốn thì pha sẵn đồ uống ở quầy pha chế hoặc trò chuyện với khách — sẵn sàng thì ra cửa ra vào (ngôi sao vàng) đón cô bé."
 			}
 		],
 		"ep2_afternoon": [

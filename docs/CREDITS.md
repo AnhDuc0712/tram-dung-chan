@@ -4,6 +4,8 @@
 |---|---|---|---|---|
 | Thiết kế nhân vật, bối cảnh (ảnh trong `thiết kế/`) | Tác giả game (tạo bằng AI theo mô tả riêng) | — | Thuộc tác giả game | `assets/art/chars/*`, `assets/art/bg/*` (đã cắt nền / thu nhỏ bằng `tools/art/cut_sprites.py`; ảnh biểu cảm `*_<biểu cảm>.png` chỉnh từ chính các sprite này bằng `tools/art/make_expressions.py`) |
 | Event CG, bối cảnh & NPC Tập 2 (`thiết kế/Event CG  Cutscene/`, `thiết kế/env/`) | Tác giả game (tạo bằng AI theo mô tả riêng) | — | Thuộc tác giả game | `assets/art/cg/*`, `assets/art/bg/{cafe_night,arcade,map_street,campus,library,hotpot}.jpg`, `chars/npc_*`, `chars/*_x_*` — xoá dấu Gemini, cắt phụ đề, tách nền bằng `tools/art/process_ep2.py` |
+| Nền quán buổi sáng (`assets/art/bg/cafe_morning.jpg`) | Tác giả game | chỉnh màu từ `bg/cafe_day.jpg` bằng `tools/art/make_morning.py` | Thuộc tác giả game | Tập 2 buổi sáng |
+| Dáng đứng Anh Đức (`chars/duc_stand*.png`) | Tác giả game | ghép lại từ `duc_front.png` bằng `tools/art/make_stand.py` | Thuộc tác giả game | dáng thường không vẫy tay |
 | Ảnh chờ tải bản web (`assets/art/ui/splash.png`) | Tác giả game | ghép từ `bg/street_rain.jpg` + font Baloo 2/Nunito bằng `tools/art/make_splash.py` | Thuộc tác giả game | màn hình chờ tải |
 | First Light Particles | Yoiyami | https://opengameart.org/node/182244 | CC0 | `music/title.ogg` |
 | Starfield Romance | Yoiyami | https://opengameart.org/node/182246 | CC0 | `music/ending.ogg` |

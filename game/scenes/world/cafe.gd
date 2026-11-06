@@ -9,7 +9,7 @@ const Shapes := preload("res://scripts/ui/shapes.gd")
 const Player := preload("res://scenes/world/player.gd")
 const DATA_DIR := "res://data/roam/%s.json"  # bản đồ theo biến thể: Steps.ROAM_MAPS
 const CELL := 8
-const INTERACT_DIST := 64.0
+const INTERACT_DIST := 84.0
 
 
 class FloatFx extends Node2D:
@@ -272,7 +272,7 @@ func _build_entities() -> void:
 	player.setup(Ui.char_tex(str(pl.get("sprite", "duc_front"))), Ui.char_tex(str(pl.get("walk", "duc_walk"))), float(pl.get("scale", 0.17)))
 	var start: Array = (pl.get("start", {}) as Dictionary).get(variant, [640, 360])
 	player.position = Vector2(float(start[0]), float(start[1]))
-	if GameState.has_position and GameState.step == Story.current_step:
+	if GameState.has_position and GameState.position_step == Story.current_step:
 		player.position = GameState.player_position
 	player.arrived.connect(_on_arrived)
 	_actors.add_child(player)
@@ -601,9 +601,10 @@ func _start_dialogue(id: String) -> void:
 
 
 func _on_dialogue_finished(_id: String, then_step: String) -> void:
-	if then_step.begins_with("mini:") and is_instance_valid(player):
+	if then_step != "" and is_instance_valid(player):
 		GameState.player_position = player.global_position
 		GameState.has_position = true
+		GameState.position_step = Story.current_step
 	_refresh()
 	if then_step == "":
 		GameState.save_game()
@@ -635,6 +636,7 @@ func _cat_set_tex(img: String) -> void:
 		return
 	var sc := 0.32 if img == "cat_sit" else (0.24 if img == "cat_walk" else 0.42)
 	spr.texture = tex
+	spr.modulate = Color(0.84, 0.82, 0.86)  # đèn vàng của quán làm mèo xám trông như trắng -> sẫm nhẹ cho giống Nlong ở HUD
 	spr.scale = Vector2.ONE * sc
 	spr.position = Vector2(-tex.get_width() * sc * 0.5, -tex.get_height() * sc)
 	_cat["height"] = tex.get_height() * sc

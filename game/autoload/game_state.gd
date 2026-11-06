@@ -25,7 +25,8 @@ var vars: Dictionary = {}  # tên -> int
 var flags: Dictionary = {}  # tên cờ -> true
 var step: String = FIRST_STEP
 var player_position := Vector2.ZERO
-var has_position := false  # vừa tải save -> đặt lại vị trí nhân vật trong map
+var has_position := false  # có vị trí nhân vật đã nhớ (vừa tải save / vừa rời bản đồ để vào cảnh khác)
+var position_step := ""  # vị trí trên thuộc bước bản đồ nào (roam:...) -> chỉ dùng lại đúng bản đồ đó
 var ending_id := ""
 
 var unlocked_endings: Array = []
@@ -96,6 +97,7 @@ func reset() -> void:
 	step = FIRST_STEP
 	player_position = Vector2.ZERO
 	has_position = false
+	position_step = ""
 	ending_id = ""
 
 
@@ -195,6 +197,7 @@ func save_game() -> bool:
 		if player:
 			player_position = player.global_position
 			has_position = true
+			position_step = step
 	var data := {
 		"version": SAVE_VERSION,
 		"vars": vars,
@@ -203,6 +206,7 @@ func save_game() -> bool:
 		"episode": episode,
 		"ending": ending_id,
 		"pos": [player_position.x, player_position.y] if has_position else [],
+		"pos_step": position_step,
 	}
 	return _write_json(save_path, data)
 
@@ -227,6 +231,7 @@ func load_game() -> bool:
 	if pos.size() == 2:
 		player_position = Vector2(float(pos[0]), float(pos[1]))
 		has_position = true
+		position_step = str(parsed.get("pos_step", step))
 	return true
 
 

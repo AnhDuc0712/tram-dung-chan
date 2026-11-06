@@ -2,7 +2,7 @@
 	"title": "Tập 2 – KyKy tới quán & Hoàng thượng làm loạn",
 	"start": "a",
 	"nodes": {
-		"a": {"bg": "cafe_day", "music": "study", "show": {"kyky": "sparkle@right", "duc": "normal@left"}, "speaker": "kyky", "text": "Em chào anh Đức! Hôm nay em đúng giờ nha, không cầm ngược bản đồ luôn!", "next": "b"},
+		"a": {"bg": "cafe_morning", "music": "study", "show": {"kyky": "sparkle@right", "duc": "normal@left"}, "speaker": "kyky", "text": "Em chào anh Đức! Hôm nay em đúng giờ nha, không cầm ngược bản đồ luôn!", "next": "b"},
 		"b": {"branch": [{"if": {"flags": ["sweet_text"]}, "next": "tea"}, {"if": {"flags": ["cold_text"]}, "next": "cold"}], "default": "drink"},
 		"tea": {"show": {"kyky": "shy"}, "text": "KyKy rụt rè đặt lên bàn một túi giấy nhỏ: hộp trà gừng, kèm mẩu giấy “Uống cho khỏi cảm nha — KyKy”.", "next": "tea2"},
 		"tea2": {"show": {"duc": "shy"}, "speaker": "duc", "effects": {"heart": 1}, "text": "…Bí mật là cái này hả. Cảm ơn. Tôi sẽ uống.", "next": "drink"},

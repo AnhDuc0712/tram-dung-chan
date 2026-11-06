@@ -151,6 +151,7 @@ func toast(text: String, color: Color = Ui.PINK) -> void:
 	l.add_theme_stylebox_override("panel", sb)
 	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var t := Ui.label(text, 20, color, Ui.font_bold)
+	l.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	t.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	l.add_child(t)
 	_toast_box.add_child(l)
@@ -253,7 +254,8 @@ func _build() -> void:
 	_objective.visible = false
 
 	_toast_box = VBoxContainer.new()
-	_toast_box.position = Vector2(20, 156)
+	_toast_box.position = Vector2(390, 108)
+	_toast_box.custom_minimum_size = Vector2(500, 0)
 	_toast_box.add_theme_constant_override("separation", 6)
 	_toast_box.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_root.add_child(_toast_box)

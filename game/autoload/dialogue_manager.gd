@@ -119,6 +119,8 @@ func clear_stage() -> void:
 	_actors.clear()
 	_bg.texture = null
 	_bg.modulate.a = 0.0
+	_bg.self_modulate = Color.WHITE
+	_stage.modulate = Color.WHITE
 	_bg_key = ""
 	_rain.visible = false
 	_umbrella.visible = false
@@ -154,6 +156,9 @@ func _show_cg(id: String) -> void:
 	_cg_tw.tween_property(_cg, "scale", Vector2.ONE * 1.1, 16.0).set_trans(Tween.TRANS_SINE)
 	_cg_tw.tween_property(_cg, "position:x", 14.0, 16.0).set_trans(Tween.TRANS_SINE)
 	Audio.sfx("sparkle", -10.0)
+	if _skip_on:  # đang Tua -> dừng lại để người chơi kịp ngắm ảnh sự kiện
+		_set_skip(false)
+		Hud.toast("Tạm dừng Tua để ngắm ảnh kỷ niệm", Ui.TEXT_SOFT)
 	if not GameState.unlocked_cgs.has(id):
 		GameState.unlock_cg(id)
 		Hud.toast("Mở khoá ảnh kỷ niệm: " + str(info.get("title", id)))
@@ -264,7 +269,6 @@ func _build_ui() -> void:
 	_skip_btn.toggle_mode = true
 	_skip_btn.custom_minimum_size = Vector2(128, 50)
 	_skip_btn.position = Vector2(1062, 474)
-	_skip_btn.tooltip_text = "Tua nhanh hội thoại (hoặc giữ Ctrl)"
 	_skip_btn.toggled.connect(func(on: bool) -> void: _skip_on = on)
 	_skip_btn.visible = false
 	_root.add_child(_skip_btn)
@@ -539,10 +543,12 @@ func _do_fx(f: String) -> void:
 			create_tween().tween_property(_umbrella, "modulate:a", 1.0, 0.6)
 		"umbrella_off":
 			_umbrella.visible = false
-		"dark":
-			create_tween().tween_property(_bg, "self_modulate", Color(0.62, 0.58, 0.66), 0.6)
+		"dark":  # mất điện / tối om: cả nền lẫn nhân vật tối hẳn
+			create_tween().tween_property(_bg, "self_modulate", Color(0.3, 0.28, 0.38), 0.4)
+			create_tween().tween_property(_stage, "modulate", Color(0.58, 0.56, 0.68), 0.4)
 		"light":
 			create_tween().tween_property(_bg, "self_modulate", Color.WHITE, 0.6)
+			create_tween().tween_property(_stage, "modulate", Color.WHITE, 0.6)
 		"zoom":
 			for id in _actors:
 				_actors[id].animate("lean")

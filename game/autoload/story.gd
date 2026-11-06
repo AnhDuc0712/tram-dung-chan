@@ -59,8 +59,6 @@ func goto(step: String, save: bool = true) -> void:
 	# Lưu điểm kiểm tra (mini-game pha chế quay lại map nên không lưu ở đó)
 	if k in ["vn", "roam", "phone"] or step in ["mini:debug", "mini:heartbeat"]:
 		GameState.step = step
-		if k != "roam":
-			GameState.has_position = false
 		if save:
 			saved = GameState.save_game()
 	var scene := Steps.scene_for(step)

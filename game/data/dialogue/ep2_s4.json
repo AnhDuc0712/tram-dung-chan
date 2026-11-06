@@ -12,7 +12,7 @@
 		"off2": {"show": {"kyky": "panic"}, "speaker": "kyky", "text": "Á!!!", "next": "light"},
 		"light": {"text": "Toàn bộ quán tối om. Chỉ còn ánh sáng mờ từ màn hình điện thoại Anh Đức vừa bật lên, hắt sáng góc kệ hẹp.", "next": "bump"},
 		"bump": {"sfx": "drop", "text": "“Bộp!” — ngoài kia Nlong vô tình làm rơi một cuốn sách.", "next": "grab"},
-		"grab": {"show": {"kyky": "cry"}, "text": "KyKy theo phản xạ nhắm tịt mắt, lao tới túm chặt vạt áo polo đen của Anh Đức, vùi mặt vào ngực anh, run nhẹ.", "next": "k"},
+		"grab": {"show": {"kyky": "cry@715", "duc": "shock@575"}, "fx": "zoom", "text": "KyKy theo phản xạ nhắm tịt mắt, lao tới túm chặt vạt áo polo đen của Anh Đức, vùi mặt vào ngực anh, run nhẹ.", "next": "k"},
 		"k": {"speaker": "kyky", "text": "Anh Đức ơi… tối quá… có phải có cái gì vừa rơi không ạ? Em sợ…", "next": "k2"},
 		"k2": {"branch": [{"if": {"flags": ["knows_dark"]}, "next": "know"}], "default": "d1"},
 		"know": {"speaker": "duc", "think": true, "show": {"duc": "worried"}, "text": "Trâm nói đúng. Con bé sợ bóng tối thật. Bình tĩnh. Mình phải bình tĩnh hơn cô ấy.", "effects": {"heart": 1}, "next": "d1"},
