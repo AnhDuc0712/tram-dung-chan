@@ -108,6 +108,10 @@ jobs:
             echo "::warning::Chưa cài secrets VERCEL_TOKEN/VERCEL_ORG_ID/VERCEL_PROJECT_ID -> bỏ qua deploy (xem docs/CICD.md)"
             exit 0
           fi
+          if ! [[ "$VERCEL_TOKEN" =~ ^[A-Za-z0-9_]{16,}$ ]]; then
+            echo "::error::VERCEL_TOKEN sai định dạng (độ dài ${#VERCEL_TOKEN}, có ký tự lạ/khoảng trắng). Copy lại token trên vercel.com rồi chạy tools/setup_ci_secrets.ps1 (script đọc từ clipboard)."
+            exit 1
+          fi
           PROD=""
           if [ "$GITHUB_REF" = "refs/heads/main" ]; then PROD="--prod"; fi
           URL=$(npx --yes "$VERCEL_CLI" deploy site --yes --token "$VERCEL_TOKEN" $PROD)
