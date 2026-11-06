@@ -50,5 +50,7 @@ Người dùng là người mới làm game: giải thích ngắn gọn bằng *
 - Viewport 1280×720, stretch `canvas_items`, filter linear (tranh vẽ, không phải pixel art), renderer GL Compatibility.
 - Control trong autoload (Dialogue/Hud, lớp cao) luôn hiện mà không phải nút → `mouse_filter = IGNORE`, nếu không sẽ nuốt
   cú chạm cả màn bên dưới (test `test_input_blockers.gd`).
+- Bản web tải nhanh: ảnh import **Lossy** (test chặn lossless); nhạc nền nằm trong `music.pck` (preset `WebMusic` trong
+  `export_presets.cfg`) — thêm bài nhạc mới phải thêm vào `export_files` của preset đó (test `test_web_export.gd`).
 - Không dùng emoji / ký tự hiếm (♥ ★ ♪) trong chữ — font web không có; vẽ bằng `scripts/ui/shapes.gd` / `icon.gd`.
 - Không sửa `tools/godot/`, `game/.godot/` (sinh tự động).

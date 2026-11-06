@@ -22,6 +22,7 @@ Write-Host "Windows: build\TramDungChan-windows.zip" -ForegroundColor Green
 if ($Web) {
     New-Item -ItemType Directory -Force (Join-Path $build "tram-dung-chan") | Out-Null
     & $Godot --headless --path $GameDir --export-release "Web" (Join-Path $build "tram-dung-chan\index.html")
+    & $Godot --headless --path $GameDir --export-pack "WebMusic" (Join-Path $build "tram-dung-chan\music.pck")
     Compress-Archive -Path (Join-Path $build "tram-dung-chan\*") -DestinationPath (Join-Path $build "TramDungChan-web.zip") -Force
     Write-Host "Web: build\tram-dung-chan\ + build\TramDungChan-web.zip (đưa lên Vercel: tools\deploy_web.ps1)" -ForegroundColor Green
 }

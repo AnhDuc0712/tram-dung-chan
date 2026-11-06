@@ -176,3 +176,18 @@ Cách kiểm: check.ps1 6 bước; tự chơi trọn 2 tập có ĐỒ HOẠ th�
 - Màn hình chính vẫn ghi chỉ "Tập 1" → ghi cả Tập 2. Phiên bản 1.2.0.
 **Còn lại (không sửa được ở đây)**: Chrome headless (SwiftShader) in nhiều cảnh báo WebGL "bindBuffer… different target" —
 game vẫn chạy trọn tập; cần thử trên điện thoại thật xem có vệt/thiếu hình không.
+
+## Phiên 10 — 2026-11-06: vào game nhanh hơn (bản web)
+Đo: bản web phải tải index.wasm (nén br còn 9,5 MB) + **index.pck 42,5 MB không nén được** → mạng 20 Mbps mất ~24 s mới thấy màn hình chính.
+Nguyên nhân: 112 ảnh import kiểu **lossless** (JPG 470 KB phình thành 1,8 MB) + 15 MB nhạc nền nằm chung gói.
+**Đã làm**
+- Ảnh → Lossy WebP chất lượng 0,85 (`[importer_defaults]` trong project.godot cho ảnh thêm sau): ảnh 27 MB → 5,5 MB, mắt không thấy khác.
+- Nhạc nền tách gói riêng `music.pck` (preset "WebMusic"); gói chính bỏ `assets/audio/music/*`. `Audio` trên web tự tải ngầm
+  ngay khi mở game, bài đang chờ tự phát khi tải xong. Bản Windows / test / editor vẫn có đủ nhạc như cũ.
+- Màn hình chờ: ảnh "Trạm Dừng Chân" thay logo Godot (`tools/art/make_splash.py`) + dòng "Đang tải trò chơi… N%".
+- Kết quả: index.pck 41,5 MB → **7,5 MB**; mạng 20 Mbps vào game **9 s** (trước 24 s), nhạc có sau ~16 s.
+- Test mới `test_web_export.gd`: nhạc mới phải có trong preset WebMusic, ảnh không được import lossless. CI/release/build/deploy xuất thêm music.pck.
+- Phiên bản 1.2.1.
+**Vướng mắc đã gặp**: HTTPRequest trên web — (1) tự giải nén lần 2 khi máy chủ gửi br/gzip → lỗi 8 → `accept_gzip = false`;
+(2) `download_file` không ghi được file trên web → nhận vào bộ nhớ rồi tự ghi user://music.pck; (3) mặc định đọc 64 KB/khung hình
+→ 15 MB mất >10 s → `download_chunk_size = 1 MB`.

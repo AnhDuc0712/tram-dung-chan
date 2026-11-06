@@ -70,6 +70,9 @@ jobs:
           mkdir -p build/tram-dung-chan
           $GODOT --headless --path game --export-release "Web" ../build/tram-dung-chan/index.html
           test -f build/tram-dung-chan/index.pck
+          # nhạc nền tách gói riêng, game tải ngầm sau khi vào (Audio._fetch_music_pack)
+          $GODOT --headless --path game --export-pack "WebMusic" ../build/tram-dung-chan/music.pck
+          test -f build/tram-dung-chan/music.pck
           cp deploy/vercel.json build/tram-dung-chan/
           du -sh build/tram-dung-chan
 

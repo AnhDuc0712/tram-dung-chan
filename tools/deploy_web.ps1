@@ -23,7 +23,8 @@ $out = Join-Path $Root "build/tram-dung-chan"
 if (Test-Path $out) { Get-ChildItem $out -Exclude ".vercel" | Remove-Item -Recurse -Force }
 New-Item -ItemType Directory -Force $out | Out-Null
 & $Godot --headless --path $GameDir --export-release "Web" (Join-Path $out "index.html") 2>&1 | Where-Object { $_ -match "ERROR" }
-if (-not (Test-Path (Join-Path $out "index.pck"))) { Write-Host "Export web thất bại." -ForegroundColor Red; exit 1 }
+& $Godot --headless --path $GameDir --export-pack "WebMusic" (Join-Path $out "music.pck") 2>&1 | Where-Object { $_ -match "ERROR" }
+if (-not (Test-Path (Join-Path $out "index.pck")) -or -not (Test-Path (Join-Path $out "music.pck"))) { Write-Host "Export web thất bại." -ForegroundColor Red; exit 1 }
 Copy-Item (Join-Path $Root "deploy/vercel.json") $out
 
 # 3) giữ liên kết project Vercel giữa các lần build (deploy/.vercel/project.json, không đưa lên git)
