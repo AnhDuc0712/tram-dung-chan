@@ -1,0 +1,351 @@
+{
+	"title": "Phố trước quán Gờ 23 (toạ độ theo assets/art/bg/map_street.jpg, rộng 1280px)",
+	"map": "map_street",
+	"music": {
+		"ep2_night": "evening"
+	},
+	"ambient": {
+		"ep2_night": "rain_loop"
+	},
+	"tint": {
+		"ep2_night": [
+			0.62,
+			0.6,
+			0.78
+		]
+	},
+	"intros": {
+		"ep2_night": [
+			"roam_ep2n_intro",
+			"ep2n_intro_done"
+		]
+	},
+	"follower": {
+		"ep2_night": {
+			"sprite": "kyky_wave",
+			"walk": "kyky_wave",
+			"scale": 0.16
+		}
+	},
+	"objectives": {
+		"ep2_night": [
+			{
+				"if": {
+					"min": {
+						"dates": 2
+					}
+				},
+				"text": "Đến giờ hẹn ăn lẩu với hội bạn rồi! (Hàng lẩu vỉa hè, góc dưới bên phải)"
+			},
+			{
+				"if": {
+					"min": {
+						"dates": 1
+					}
+				},
+				"text": "Còn thời gian cho một nơi nữa với KyKy… hoặc đi ăn lẩu luôn."
+			},
+			{
+				"text": "19:00 — Còn khoảng 2 tiếng trước giờ hẹn ăn lẩu. Muốn đưa KyKy đi đâu? (Đi đâu cũng được — mỗi nơi một kỷ niệm khác)"
+			}
+		]
+	},
+	"walk": [
+		[
+			0,
+			232
+		],
+		[
+			250,
+			200
+		],
+		[
+			470,
+			152
+		],
+		[
+			562,
+			182
+		],
+		[
+			640,
+			252
+		],
+		[
+			760,
+			274
+		],
+		[
+			1060,
+			274
+		],
+		[
+			1280,
+			214
+		],
+		[
+			1280,
+			714
+		],
+		[
+			0,
+			714
+		]
+	],
+	"obstacles": [
+		[
+			296,
+			512,
+			230,
+			46
+		],
+		[
+			1092,
+			520,
+			136,
+			120
+		],
+		[
+			944,
+			214,
+			132,
+			74
+		],
+		[
+			36,
+			600,
+			286,
+			114
+		],
+		[
+			0,
+			150,
+			150,
+			90
+		]
+	],
+	"player": {
+		"sprite": "duc_front",
+		"walk": "duc_walk",
+		"scale": 0.17,
+		"start": {
+			"ep2_night": [
+				860,
+				312
+			]
+		}
+	},
+	"npcs": [
+		{
+			"id": "friends",
+			"label": "Hội bạn (ăn lẩu)",
+			"dialogue": "roam_ep2n_hotpot",
+			"sprite": "tram_front",
+			"scale": 0.16,
+			"stand": [
+				930,
+				690
+			],
+			"when": {
+				"ep2_night": [
+					1000,
+					668
+				]
+			}
+		},
+		{
+			"id": "ducanh_n",
+			"label": "Hội bạn (ăn lẩu)",
+			"dialogue": "roam_ep2n_hotpot",
+			"sprite": "ducanh_front",
+			"scale": 0.16,
+			"stand": [
+				930,
+				690
+			],
+			"when": {
+				"ep2_night": [
+					1062,
+					676
+				]
+			}
+		}
+	],
+	"spots": [
+		{
+			"id": "cafe_back",
+			"label": "Quay lại Gờ 23",
+			"dialogue": "roam_ep2n_cafe",
+			"marker": [
+				850,
+				196
+			],
+			"stand": [
+				850,
+				300
+			],
+			"when": [
+				"ep2_night"
+			],
+			"if": {
+				"below": {
+					"dates": 2
+				},
+				"not_flags": [
+					"date_cafe"
+				]
+			}
+		},
+		{
+			"id": "bookstore",
+			"label": "Nhà sách cũ (góc đọc)",
+			"dialogue": "roam_ep2n_books",
+			"marker": [
+				1186,
+				118
+			],
+			"stand": [
+				1180,
+				252
+			],
+			"when": [
+				"ep2_night"
+			],
+			"if": {
+				"below": {
+					"dates": 2
+				},
+				"not_flags": [
+					"date_books"
+				]
+			}
+		},
+		{
+			"id": "arcade",
+			"label": "Khu trò chơi (tầng 2)",
+			"dialogue": "roam_ep2n_arcade",
+			"marker": [
+				420,
+				60
+			],
+			"stand": [
+				430,
+				206
+			],
+			"when": [
+				"ep2_night"
+			],
+			"if": {
+				"below": {
+					"dates": 2
+				},
+				"not_flags": [
+					"date_arcade"
+				]
+			}
+		},
+		{
+			"id": "busstop",
+			"label": "Trạm xe buýt",
+			"dialogue": "roam_ep2n_bus",
+			"marker": [
+				420,
+				438
+			],
+			"stand": [
+				470,
+				624
+			],
+			"when": [
+				"ep2_night"
+			],
+			"if": {
+				"below": {
+					"dates": 2
+				},
+				"not_flags": [
+					"date_bus"
+				]
+			}
+		},
+		{
+			"id": "park",
+			"label": "Xích đu công viên",
+			"dialogue": "roam_ep2n_park",
+			"marker": [
+				92,
+				428
+			],
+			"stand": [
+				190,
+				566
+			],
+			"when": [
+				"ep2_night"
+			],
+			"if": {
+				"below": {
+					"dates": 2
+				},
+				"not_flags": [
+					"date_park"
+				]
+			}
+		},
+		{
+			"id": "shop",
+			"label": "Cửa hàng tiện lợi",
+			"dialogue": "roam_ep2n_shop",
+			"marker": [
+				650,
+				92
+			],
+			"stand": [
+				690,
+				268
+			],
+			"when": [
+				"ep2_night"
+			]
+		},
+		{
+			"id": "flowers",
+			"label": "Cô bán hoa dạo",
+			"dialogue": "roam_ep2n_flowers",
+			"marker": [
+				702,
+				360
+			],
+			"stand": [
+				722,
+				432
+			],
+			"when": [
+				"ep2_night"
+			]
+		},
+		{
+			"id": "guard",
+			"label": "Bác bảo vệ khu phố",
+			"dialogue": "roam_ep2n_guard",
+			"marker": [
+				1012,
+				300
+			],
+			"stand": [
+				1000,
+				362
+			],
+			"when": [
+				"ep2_night"
+			]
+		}
+	],
+	"autoplay": {
+		"ep2_night": [
+			"arcade",
+			"busstop",
+			"friends"
+		]
+	}
+}

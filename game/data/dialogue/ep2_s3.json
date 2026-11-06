@@ -1,0 +1,33 @@
+{
+	"title": "Tập 2 – Phân cảnh 3: “Vệ tinh” Hải & cơn bão ghen ngầm",
+	"start": "a",
+	"nodes": {
+		"a": {"bg": "cafe_sunset", "music": "study", "show": {"duc": "normal@left", "kyky": "normal@right"}, "text": "Nắng chiều dịu xuống. Bàn bên cạnh, Đức Anh đang ra sức xin Instagram của Trâm… và bị phũ đẹp.", "next": "a2"},
+		"a2": {"show": {"ducanh": "grin@center"}, "speaker": "ducanh", "text": "Trâm ơi, cho anh xin “in tư” để… để trao đổi tài liệu học tập!", "next": "a3"},
+		"a3": {"hide": ["ducanh"], "show": {"tram": "cross@center"}, "speaker": "tram", "text": "Anh học ngành gì? — IT à. Em học ngôn ngữ. Không có tài liệu nào chung đâu ạ.", "next": "b"},
+		"b": {"hide": ["tram"], "sfx": "doorbell", "text": "Chuông cửa reo. Một chàng trai sơ mi trắng lồng gile len màu be, túi da chéo vai, bước vào với nụ cười ấm áp chuẩn mực.", "next": "b2"},
+		"b2": {"show": {"hai": "smile@center"}, "speaker": "hai", "text": "Ơ, KyKy? Trùng hợp thật đấy! Anh vừa đi mua sách ngang qua thấy bóng lưng giống em nên ghé vào.", "next": "b3"},
+		"b3": {"speaker": "hai", "text": "Đây, cuốn tài liệu luyện thi từ vựng… và hộp bánh matcha ở tiệm hôm trước em khen ngon này.", "next": "b4"},
+		"b4": {"show": {"kyky": "surprised"}, "speaker": "kyky", "text": "Á, anh Hải! Em cảm ơn anh nhiều ạ, anh chu đáo quá…", "next": "c"},
+		"c": {"show": {"duc": "glare"}, "emote": {"duc": "!"}, "sfx": "glitch", "text": "Ngồi đối diện, chiếc bút bi đang xoay trên ngón tay Anh Đức bỗng dừng phắt lại. Nụ cười bất cần tắt hẳn. Ánh mắt sắc lạnh quét từ hộp bánh matcha sang nụ cười lễ phép của KyKy.", "effects": {"add": {"jealous": 2}}, "next": "c2"},
+		"c2": {"name": "Đức Anh (thì thầm)", "text": "Thôi xong, áp suất không khí giảm đột ngột. Tao cá với mày 50k là trong vòng 3 câu nữa thằng Đức sẽ giở trò.", "next": "c3"},
+		"c3": {"name": "Thanh Thảo (thì thầm)", "text": "Tao cá 2 câu.", "next": "d"},
+		"d": {"show": {"hai": "smile"}, "speaker": "hai", "text": "Chào bạn, bạn là anh trai hay gia sư của KyKy thế? Thứ Bảy mà học chăm quá. Hay học xong KyKy đi xem triển lãm sách với anh nhé, anh có dư một vé.", "next": "q"},
+		"q": {"speaker": "duc", "think": true, "show": {"duc": "angry"}, "text": "…",
+			"choices": [
+				{"text": "Bế Nlong đặt vào lòng KyKy, dời hộp matcha sang một góc, đẩy ly ca cao tới trước mặt cô", "effects": {"heart": 4, "add": {"jealous": 3, "tram": 2, "nlong": 1}, "set_flags": ["used_nlong"]}, "next": "qa"},
+				{"text": "Chống tay lên thành ghế KyKy, cười nửa miệng: “Tôi đang giữ sinh mệnh môn Tin học của cô ấy.”", "effects": {"heart": 3, "brain": 1, "add": {"jealous": 4}}, "next": "qb"},
+				{"text": "Giả vờ lịch sự: “Tuỳ em đấy KyKy. Học xong muốn đi đâu với ai là quyền của em.”", "effects": {"heart": -2, "add": {"jealous": 5}, "set_flags": ["cold_war"]}, "next": "qc"}
+			]},
+		"qa": {"show": {"duc": "smirk"}, "speaker": "duc", "text": "Cảm ơn ý tốt của anh bạn, nhưng học trò của tôi dạ dày yếu, sáng chưa ăn gì không hợp đồ trà xanh. Với lại chiều nay cô ấy có lịch… trông mèo cùng tôi tới tối rồi.", "next": "qa2"},
+		"qa2": {"show": {"nlong": "love@farright"}, "speaker": "nlong", "sfx": "purr", "text": "Meo~ (Hoàng thượng nằm gọn trong lòng KyKy, ngẩng lên lườm Hải đúng một cái.)", "next": "qa3"},
+		"qa3": {"hide": ["nlong"], "show": {"tram": "smile@farright"}, "speaker": "tram", "text": "(Gật gù ở bàn bên) Được đấy. Pha chặn họng này chị chấm 9 điểm!", "next": "hai_out"},
+		"qb": {"show": {"duc": "tease"}, "speaker": "duc", "text": "Tôi là người đang giữ sinh mệnh môn Tin học của cô ấy. Vé triển lãm của anh chắc phải để dịp khác rồi, vì hôm nay cô ấy còn nợ tôi 20 bài thực hành. Đúng không, KyKy?", "next": "qb2"},
+		"qb2": {"show": {"kyky": "shy"}, "speaker": "kyky", "text": "D-dạ đúng ạ! Hai mươi bài! (gật đầu lia lịa)", "next": "hai_out"},
+		"qc": {"show": {"duc": "deadpan"}, "speaker": "duc", "text": "Tuỳ em đấy KyKy. Học xong muốn đi đâu với ai là quyền của em.", "next": "qc2"},
+		"qc2": {"show": {"kyky": "sad"}, "speaker": "kyky", "text": "…Em cảm ơn anh Hải, nhưng chiều nay em phải học ạ. (Cô nàng từ chối Hải, nhưng ánh mắt nhìn Anh Đức đầy tủi thân.)", "next": "hai_out"},
+		"hai_out": {"show": {"hai": "blush"}, "speaker": "hai", "text": "À… vậy hẹn em dịp khác nhé. Chào mọi người! (Hải mỉm cười rời đi, để lại hộp bánh matcha trên bàn.)", "next": "bet"},
+		"bet": {"hide": ["hai", "tram", "nlong"], "show": {"ducanh": "grin@center"}, "speaker": "ducanh", "text": "Hai câu rưỡi! Thảo ơi tính hoà nhé!", "next": "after"},
+		"after": {"hide": ["ducanh"], "show": {"duc": "glare", "kyky": "worried"}, "speaker": "duc", "text": "(Gõ nhẹ bút lên trán KyKy.) Tập trung vào. Nhìn người ta cười tươi thế, giờ làm thử bài kiểm tra nhỏ này xem còn nhớ chữ nào trong đầu không.", "then": "mini:logic"}
+	}
+}

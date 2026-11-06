@@ -148,3 +148,16 @@ func test_no_forbidden_symbols() -> void:
 			if c >= 0x2600 and c <= 0x27BF or c >= 0x1F000:
 				bad.append("%s: '%s'" % [s["src"], ch])
 	assert_eq(bad, [], "có emoji / ký hiệu hiếm trong chữ")
+
+
+func test_think_lines_not_double_wrapped() -> void:
+	# Lời nghĩ thầm ("think": true) được game tự bọc trong ngoặc -> viết thêm "(" sẽ hiện thành "((".
+	var bad: Array = []
+	var dl := H.all_dialogues()
+	for id in dl:
+		var nodes: Dictionary = dl[id].get("nodes", {})
+		for k in nodes:
+			var n: Dictionary = nodes[k]
+			if bool(n.get("think", false)) and str(n.get("text", "")).strip_edges().begins_with("("):
+				bad.append("%s/%s" % [id, k])
+	assert_eq(bad, [], "lời nghĩ thầm bắt đầu bằng '(' -> hiện thành '(('")

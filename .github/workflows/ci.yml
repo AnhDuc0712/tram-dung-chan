@@ -25,9 +25,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
 
@@ -36,7 +36,7 @@ jobs:
 
       - name: Cache Godot + template web
         id: cache-godot
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: ~/godot
           key: godot-${{ env.GODOT_VERSION }}-web-v1
@@ -73,7 +73,7 @@ jobs:
           cp deploy/vercel.json build/tram-dung-chan/
           du -sh build/tram-dung-chan
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: web-build
           path: build/tram-dung-chan
@@ -92,7 +92,7 @@ jobs:
       contents: read
       pull-requests: write
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           name: web-build
           path: site
@@ -107,6 +107,10 @@ jobs:
           if [ -z "$VERCEL_TOKEN" ]; then
             echo "::warning::Chưa cài secrets VERCEL_TOKEN/VERCEL_ORG_ID/VERCEL_PROJECT_ID -> bỏ qua deploy (xem docs/CICD.md)"
             exit 0
+          fi
+          if ! [[ "$VERCEL_TOKEN" =~ ^[A-Za-z0-9_]{16,}$ ]]; then
+            echo "::error::VERCEL_TOKEN sai định dạng (độ dài ${#VERCEL_TOKEN}, có ký tự lạ/khoảng trắng). Copy lại token trên vercel.com rồi chạy tools/setup_ci_secrets.ps1 (script đọc từ clipboard)."
+            exit 1
           fi
           PROD=""
           if [ "$GITHUB_REF" = "refs/heads/main" ]; then PROD="--prod"; fi

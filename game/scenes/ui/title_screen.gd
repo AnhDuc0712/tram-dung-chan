@@ -3,10 +3,12 @@ extends Control
 
 const Rain := preload("res://scripts/vn/rain.gd")
 const DialogueData := preload("res://scripts/dialogue/dialogue_data.gd")
+const Steps := preload("res://scripts/story_steps.gd")
 
 
 var _gallery: PanelContainer
 var _credits: PanelContainer
+var _episodes: PanelContainer
 
 
 func _ready() -> void:
@@ -17,7 +19,12 @@ func _ready() -> void:
 	Audio.ambient("rain_loop")
 	_build()
 	if GameState.autoplay and GameState.ending_id == "":
-		get_tree().create_timer(0.5).timeout.connect(_on_new)
+		# tự chơi: "-- --autoplay --episode=2" để chơi thử Tập 2
+		var ep := 1
+		for a in OS.get_cmdline_user_args():
+			if a.begins_with("--episode="):
+				ep = int(a.substr(10))
+		get_tree().create_timer(0.5).timeout.connect(func() -> void: Story.new_game(ep))
 
 
 func _build() -> void:
@@ -69,7 +76,7 @@ func _build() -> void:
 	var sub := Ui.label("Quán Gờ 23 · ghé lại một chút", 24, Color("ffc7d8"), Ui.font_mono)
 	sub.position = Vector2(80, 276)
 	add_child(sub)
-	var ep := Ui.label("Tập 1 · Cú va chạm ở quán cà phê", 24, Color("f3e6d3"), Ui.font_italic)
+	var ep := Ui.label("Tập 1 · Cú va chạm  —  Tập 2 · Cơn bão nhỏ (mới)", 24, Color("f3e6d3"), Ui.font_italic)
 	ep.position = Vector2(80, 310)
 	add_child(ep)
 
@@ -116,7 +123,42 @@ func _build() -> void:
 
 
 func _on_new() -> void:
-	Story.new_game()
+	if _episodes == null:
+		_episodes = _build_episodes()
+	_episodes.visible = true
+
+
+## Chọn tập: tập nào cũng chơi được ngay (game mở, không khoá); Tập 2 mang theo kết thúc Tập 1 gần nhất.
+func _build_episodes() -> PanelContainer:
+	var p := PanelContainer.new()
+	p.add_theme_stylebox_override("panel", Ui.box(Ui.CREAM, Ui.BORDER, 26, 4))
+	p.position = Vector2(330, 150)
+	p.custom_minimum_size = Vector2(620, 0)
+	add_child(p)
+	var v := VBoxContainer.new()
+	v.add_theme_constant_override("separation", 14)
+	p.add_child(v)
+	v.add_child(Ui.label("Chọn tập", 38, Ui.TEXT, Ui.font_title))
+	for ep in Steps.EPISODES:
+		var info: Dictionary = Steps.EPISODES[ep]
+		var b := Ui.button(str(info["title"]), 560, 24)
+		var e: int = ep
+		b.pressed.connect(func() -> void: Story.new_game(e))
+		v.add_child(b)
+	var note := "Tập 2 tiếp nối kết thúc Tập 1 bạn chơi gần nhất"
+	if GameState.ep1_last != "":
+		var last_title := str(DialogueData.load_json(DialogueData.ENDINGS_PATH).get(GameState.ep1_last, {}).get("title", ""))
+		note += " (" + last_title + ")."
+	else:
+		note += " — chưa chơi Tập 1 thì theo mạch “Dưới Một Chiếc Ô”."
+	var nl := Ui.label(note, 18, Ui.TEXT_SOFT)
+	nl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	nl.custom_minimum_size = Vector2(560, 0)
+	v.add_child(nl)
+	var close := Ui.button("Quay lại", 200, 20)
+	close.pressed.connect(func() -> void: p.visible = false)
+	v.add_child(close)
+	return p
 
 
 func _panel(title_text: String) -> Array:
@@ -146,14 +188,60 @@ func _panel(title_text: String) -> Array:
 
 
 func _build_gallery() -> PanelContainer:
-	var parts := _panel("Kỷ niệm — Các kết thúc của Tập 1")
+	var parts := _panel("Kỷ niệm — Kết thúc & Ảnh sự kiện")
 	var list := VBoxContainer.new()
 	list.add_theme_constant_override("separation", 12)
 	list.custom_minimum_size = Vector2(850, 0)
 	(parts[1] as ScrollContainer).add_child(list)
+	# --- ảnh sự kiện (Event CG)
+	var cgs := DialogueData.load_json(DialogueData.CG_PATH)
+	list.add_child(Ui.label("Ảnh sự kiện  (%d/%d)" % [GameState.unlocked_cgs.size(), cgs.size()], 28, Ui.TEXT, Ui.font_title))
+	var grid := GridContainer.new()
+	grid.columns = 3
+	grid.add_theme_constant_override("h_separation", 12)
+	grid.add_theme_constant_override("v_separation", 12)
+	list.add_child(grid)
+	for id in cgs:
+		var info: Dictionary = cgs[id]
+		var got := GameState.unlocked_cgs.has(id)
+		var b := Button.new()
+		b.custom_minimum_size = Vector2(270, 168)
+		b.focus_mode = Control.FOCUS_NONE
+		b.add_theme_stylebox_override("normal", Ui.box(Color("fffdf8"), Ui.PINK if got else Color("d8c8b4"), 12, 2, false))
+		b.add_theme_stylebox_override("hover", Ui.box(Color("fff1f4"), Ui.PINK, 12, 3, false))
+		var vb := VBoxContainer.new()
+		vb.set_anchors_preset(Control.PRESET_FULL_RECT)
+		vb.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		b.add_child(vb)
+		var tr := TextureRect.new()
+		tr.texture = load("res://assets/art/cg/%s.jpg" % str(info.get("img", id)))
+		tr.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		tr.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+		tr.custom_minimum_size = Vector2(250, 118)
+		tr.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		if not got:
+			tr.modulate = Color(0.12, 0.1, 0.14)
+		vb.add_child(tr)
+		var cap := Ui.label(str(info.get("title", "")) if got else "??? — Tập %d" % int(info.get("episode", 1)), 16, Ui.TEXT if got else Ui.TEXT_SOFT, Ui.font_bold)
+		cap.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		cap.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		cap.custom_minimum_size = Vector2(250, 0)
+		vb.add_child(cap)
+		if got:
+			var tex := tr.texture
+			b.pressed.connect(func() -> void: _view_cg(tex))
+		else:
+			b.disabled = true
+		grid.add_child(b)
+	# --- các kết thúc, theo tập
 	var endings := DialogueData.load_json(DialogueData.ENDINGS_PATH)
+	var last_ep := 0
 	for id in endings:
 		var e: Dictionary = endings[id]
+		var ep := int(e.get("episode", 1))
+		if ep != last_ep:
+			last_ep = ep
+			list.add_child(Ui.label("Kết thúc Tập %d" % ep, 28, Ui.TEXT, Ui.font_title))
 		var got := GameState.unlocked_endings.has(id)
 		var card := PanelContainer.new()
 		card.add_theme_stylebox_override("panel", Ui.box(Color("fffdf8") if got else Color("efe5d8"), Ui.PINK if got else Color("d8c8b4"), 16, 2, false))
@@ -169,6 +257,24 @@ func _build_gallery() -> PanelContainer:
 		d.custom_minimum_size = Vector2(800, 0)
 		v.add_child(d)
 	return parts[0]
+
+
+## Xem CG toàn màn hình, chạm để đóng.
+func _view_cg(tex: Texture2D) -> void:
+	var bg := ColorRect.new()
+	bg.color = Color(0, 0, 0, 0.92)
+	bg.set_anchors_preset(Control.PRESET_FULL_RECT)
+	add_child(bg)
+	var tr := TextureRect.new()
+	tr.texture = tex
+	tr.set_anchors_preset(Control.PRESET_FULL_RECT)
+	tr.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	tr.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	tr.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	bg.add_child(tr)
+	bg.gui_input.connect(func(ev: InputEvent) -> void:
+		if ev is InputEventMouseButton and ev.pressed:
+			bg.queue_free())
 
 
 func _build_credits() -> PanelContainer:

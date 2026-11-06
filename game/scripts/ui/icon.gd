@@ -39,6 +39,8 @@ func _draw() -> void:
 			for i in 4:
 				var a := PI + PI * (0.15 + 0.7 * i / 3.0)
 				draw_circle(c + Vector2(cos(a), sin(a)) * s * 0.3 + Vector2(0, s * 0.02), s * 0.1 * k, col)
+		"star":
+			Shapes.draw_star(self, c, s * 0.48 * k, Color("b388d9"))  # draw_star nhận BÁN KÍNH
 		"phone":
 			var r := Rect2(c.x - s * 0.22, c.y - s * 0.36, s * 0.44, s * 0.72)
 			draw_rect(r, Color("4a2e1f"), false, 3.0)

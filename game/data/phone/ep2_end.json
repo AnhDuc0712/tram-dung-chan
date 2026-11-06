@@ -1,0 +1,41 @@
+{
+	"title": "Cuối Tập 2 – Tin nhắn sau nồi lẩu",
+	"threads": [
+		{
+			"title": "KyKy",
+			"subtitle": "đang hoạt động",
+			"members": {"kyky": "kyky_hug"},
+			"messages": [
+				{"from": "kyky", "text": "Em về tới nhà rồi ạ! Hôm nay là ngày dài nhất và… vui nhất của em luôn á."},
+				{"from": "kyky", "text": "Nlong Junior đang nằm cạnh gối anh chưa đó? Chụp em xem!", "if_ending": ["ep2_gau"]},
+				{"from": "kyky", "text": "Áo khoác của anh thơm mùi cà phê với mưa… Em không giặt vội đâu. Đùa đó! (Một chút thôi.)", "if_ending": ["ep2_ao"]},
+				{"from": "kyky", "text": "Lịch học anh ghi kín cả trang đầu sổ em luôn đó. Tối thứ Năm em có… “lịch học Tin”, đúng không ạ?", "if_ending": ["ep2_dua"]},
+				{"from": "kyky", "text": "Mũi anh còn mùi xà phòng rửa bát không? Hì hì, lần sau mình đừng cho Nlong đi ăn lẩu nữa!", "if_ending": ["ep2_nlong"]},
+				{"from": "kyky", "text": "Thịt bò anh gắp ngon nhất quả đất. Em đạt điểm 10 thật hả? Em chụp màn hình câu đó rồi đó!", "if_ending": ["ep2_lau"]},
+				{"from": "kyky", "image": "nlong", "text": "Bản nhạc hôm nay em vẫn còn nhớ giai điệu. Khi nào có tên thì gửi em nghe trước nha!", "if": {"flags": ["heard_demo"]}},
+				{"from": "kyky", "text": "Mà… lúc mất điện, cảm ơn anh vì đã không cười em. Em sợ tối thật đó.", "if": {"flags": ["dark_calm"]}},
+				{"from": "kyky", "text": "Bài 8 anh chép hộ em, chữ anh đẹp hơn chữ em nữa. Đáng ghét!", "if": {"flags": ["let_sleep"]}},
+				{"from": "kyky", "text": "Bó cúc hoạ mi em cắm vào lọ rồi. Không đếm cánh nào hết!", "if": {"flags": ["gave_flowers"]}},
+				{"choices": [
+					{"sticker": "cat_sit", "text": "Ngủ ngon, công chúa", "reply": [
+						{"from": "kyky", "text": "Anh lại gọi em là công chúa!!! …Ngủ ngon, gia sư mỏ hỗn."}
+					]},
+					{"sticker": "cat_loaf", "text": "Mai học tiếp. 9h.", "reply": [
+						{"from": "kyky", "text": "Mai là Chủ nhật mà!!! …Nhưng mà được ạ. 9h."}
+					]}
+				]}
+			]
+		},
+		{
+			"title": "Trâm",
+			"subtitle": "bạn thân của KyKy",
+			"members": {"tram": "tram_front"},
+			"messages": [
+				{"from": "tram", "text": "Tôi xin số anh từ chị M. Đừng hỏi."},
+				{"from": "tram", "image": "chibi", "text": "Ảnh ở góc kệ sách tôi giữ làm bằng chứng. Làm bạn tôi khóc là tôi gửi cho cả trường.", "if": {"min": {"tram": 4}}},
+				{"from": "tram", "text": "Anh qua vòng gửi xe rồi đấy. Vòng tiếp theo khó hơn.", "if": {"min": {"tram": 3}}},
+				{"from": "tram", "text": "Tôi vẫn chưa tin anh lắm. Nhưng KyKy cười nhiều hơn rồi. Thế thôi.", "if": {"below": {"tram": 3}}}
+			]
+		}
+	]
+}

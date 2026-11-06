@@ -1,0 +1,38 @@
+{
+	"title": "Tập 2 – Đèn bật sáng: cả hội nhìn thấy",
+	"start": "a",
+	"nodes": {
+		"a": {"bg": "library", "fx": "light", "sfx": "toggle", "music": "study", "show": {"duc": "shy@left", "kyky": "shy@right"}, "text": "Đèn bật sáng. Anh Đức đang một tay vịn lên kệ sách sau lưng KyKy — khoảng cách giữa hai khuôn mặt chưa đầy một gang tay.", "next": "a2"},
+		"a2": {"branch": [{"if": {"flags": ["dark_calm"]}, "next": "calm"}], "default": "fail"},
+		"calm": {"text": "Kính của cô đã ngay ngắn, kẹp tóc đã cài lại gọn gàng. KyKy mở mắt, nhìn thẳng vào mắt anh.", "next": "peek"},
+		"fail": {"show": {"duc": "panic"}, "text": "Kính của KyKy vẫn lệch, kẹp tóc rơi dưới chân. Hai người đứng đơ như tượng.", "next": "peek"},
+		"peek": {"sfx": "pop", "text": "Và đúng lúc đó, bốn cái đầu đồng loạt thò vào: chị M, Trâm, Thanh Thảo, Đức Anh.", "next": "r_m"},
+		"r_m": {"hide": ["kyky"], "show": {"m": "laugh@right"}, "speaker": "m", "text": "Ôi trời ơi. Chị nhờ lấy túi cà phê, không phải nhờ quay phim truyền hình.", "next": "r_tram"},
+		"r_tram": {"branch": [
+			{"if": {"min": {"tram": 4}}, "next": "t_hi"},
+			{"if": {"below": {"tram": 1}}, "next": "t_lo"}
+		], "default": "t_mid"},
+		"t_hi": {"hide": ["m"], "show": {"tram": "smile@right"}, "speaker": "tram", "text": "(Giơ điện thoại lên chụp) Tôi không thấy gì hết. À mà ảnh này nét ghê.", "next": "r_da"},
+		"t_mid": {"hide": ["m"], "show": {"tram": "shock@right"}, "speaker": "tram", "text": "ANH! Bỏ tay ra khỏi kệ sách! …À, kệ sách thôi à. Ừ. Được.", "next": "r_da"},
+		"t_lo": {"hide": ["m"], "show": {"tram": "angry@right"}, "speaker": "tram", "text": "Tôi biết ngay mà! KyKy, ra đây với tôi!", "effects": {"add": {"tram": -1}}, "next": "r_da"},
+		"r_da": {"branch": [{"if": {"flags": ["ducanh_toaster"]}, "next": "da_t"}], "default": "da_n"},
+		"da_t": {"hide": ["tram"], "show": {"ducanh": "sweat@right"}, "speaker": "ducanh", "text": "Cái máy nướng bánh nổ cầu dao là lỗi của thằng Đức! Nó xúi tao!", "next": "r_thao"},
+		"da_n": {"hide": ["tram"], "show": {"ducanh": "grin@right"}, "speaker": "ducanh", "text": "Thảo ơi, tao thắng cược rồi! Tao đã bảo mà!", "next": "r_thao"},
+		"r_thao": {"hide": ["ducanh"], "show": {"thao": "smug@right"}, "speaker": "thao", "text": "Cái này không tính là cược nữa. Cái này là bằng chứng.", "next": "r_duc"},
+		"r_duc": {"hide": ["thao"], "show": {"kyky": "shy@right"}, "speaker": "duc", "think": true, "text": "Bị cả hội bắt gặp… Phản ứng sao đây?",
+			"choices": [
+				{"text": "Không rút tay ngay. Bình thản đỡ KyKy ra ngoài: “Cúp điện, cô ấy sợ tối. Có ai thắc mắc gì không?”", "effects": {"heart": 2, "add": {"tram": 1}, "set_flags": ["owned_it"]}, "next": "o1"},
+				{"text": "Rụt tay lại, quay đi giả vờ tìm túi cà phê", "effects": {"heart": -1}, "next": "o2"},
+				{"text": "Lườm Đức Anh: “Ai cho mày cắm máy nướng bánh?”", "effects": {"add": {"jealous": 1, "ducanh": -1}}, "next": "o3"}
+			]},
+		"o1": {"show": {"duc": "glare"}, "speaker": "duc", "text": "Cúp điện, cô ấy sợ tối. Có ai thắc mắc gì không?", "next": "o1b"},
+		"o1b": {"show": {"kyky": "love"}, "text": "Không ai dám thắc mắc. KyKy nấp sau lưng anh, tay vẫn nắm vạt áo.", "next": "out"},
+		"o2": {"show": {"duc": "awkward"}, "speaker": "duc", "text": "À… túi cà phê. Túi cà phê đâu nhỉ. Chị M ơi túi cà phê màu gì?", "next": "o2b"},
+		"o2b": {"show": {"kyky": "pout"}, "speaker": "kyky", "text": "…Nó ở ngay dưới chân anh đó.", "next": "out"},
+		"o3": {"show": {"duc": "angry"}, "speaker": "duc", "text": "Ai cho mày cắm máy nướng bánh vào ổ của quầy?", "next": "o3b"},
+		"o3b": {"name": "Đức Anh (từ ngoài cửa)", "text": "Ơ, sao lại là tao?! Tao vừa giúp mày có khoảnh khắc đẹp nhất đời đấy!", "next": "out"},
+		"out": {"hide": "all", "show": {"m": "normal@center"}, "speaker": "m", "text": "Thôi, điện chập chờn thế này chị đóng cửa sớm. Tụi em đi chơi đi. Trâm bảo 9 giờ cả hội đi ăn lẩu vỉa hè đầu phố đấy.", "next": "out2"},
+		"out2": {"hide": ["m"], "show": {"tram": "cross@center"}, "speaker": "tram", "text": "9 giờ. Hàng lẩu đầu ngõ. Anh Đức — trả KyKy về chỗ hẹn đúng giờ, nguyên vẹn. Còn hai tiếng.", "next": "out3"},
+		"out3": {"card": "19:00 — Phố trước quán Gờ 23", "hide": "all", "then": "roam:ep2_night"}
+	}
+}

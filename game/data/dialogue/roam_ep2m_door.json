@@ -1,0 +1,12 @@
+{
+	"title": "Tập 2 – Ra cửa đón KyKy",
+	"start": "a",
+	"nodes": {
+		"a": {"sfx": "doorbell", "text": "Chuông cửa leng keng. Đúng 9 giờ.",
+			"choices": [
+				{"text": "Ra đón KyKy", "then": "vn:ep2_s1k"},
+				{"text": "Đợi chút, dạo thêm một vòng", "next": "wait"}
+			]},
+		"wait": {"text": "…Chỉ là gió thôi. Nhưng chắc cô bé sắp tới rồi."}
+	}
+}

@@ -95,17 +95,19 @@ if (-not $Quick) {
         Write-Host "SMOKE FAILED" -ForegroundColor Red
         exit 1
     }
-    Write-Host "== 6/$total Tự chơi trọn Tập 1 (headless) ==" -ForegroundColor Cyan
-    $log = & $Godot --headless --path $GameDir --fixed-fps 30 --quit-after 60000 -- --autoplay 2>&1 | Out-String
-    $errs = $log -split "`n" | Where-Object { $_ -match $pattern -and $_ -notmatch "still in use at exit|leaked at exit" }
-    $endLine = $log -split "`n" | Where-Object { $_ -match "\[autoplay\] K" }
-    if ($errs -or -not $endLine) {
-        $errs | Select-Object -First 12 | ForEach-Object { Write-Host "     $_" -ForegroundColor Red }
-        if (-not $endLine) { Write-Host "  Không chơi được tới kết thúc" -ForegroundColor Red }
-        Write-Host "AUTOPLAY FAILED" -ForegroundColor Red
-        exit 1
+    Write-Host "== 6/$total Tự chơi trọn từng tập từ màn hình chính (headless) ==" -ForegroundColor Cyan
+    foreach ($ep in 1, 2) {
+        $log = & $Godot --headless --path $GameDir --fixed-fps 30 --quit-after 90000 -- --autoplay "--episode=$ep" 2>&1 | Out-String
+        $errs = $log -split "`n" | Where-Object { $_ -match $pattern -and $_ -notmatch "still in use at exit|leaked at exit" }
+        $endLine = $log -split "`n" | Where-Object { $_ -match "\[autoplay\] K" }
+        if ($errs -or -not $endLine) {
+            $errs | Select-Object -First 12 | ForEach-Object { Write-Host "     $_" -ForegroundColor Red }
+            if (-not $endLine) { Write-Host "  Tập ${ep}: không chơi được tới kết thúc" -ForegroundColor Red }
+            Write-Host "AUTOPLAY FAILED" -ForegroundColor Red
+            exit 1
+        }
+        Write-Host "  OK  Tập ${ep}: $endLine"
     }
-    Write-Host "  OK  $endLine"
 }
 Write-Host "ALL CHECKS PASSED" -ForegroundColor Green
 exit 0

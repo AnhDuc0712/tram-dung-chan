@@ -1,0 +1,12 @@
+{
+	"title": "Tập 2 – Chị M (buổi chiều): nhờ vào kho",
+	"start": "a",
+	"nodes": {
+		"a": {"show": {"m": "busy@right", "duc": "normal@left"}, "speaker": "m", "text": "Đức ơi, trời âm u quá, chắc sắp mưa. Em với KyKy vào góc kệ sách sâu phía trong lấy giúp chị tập tài liệu cũ và túi hạt cà phê dự trữ nhé.",
+			"choices": [
+				{"text": "“Vâng, bọn em đi ngay.”", "then": "vn:ep2_s4"},
+				{"text": "“Chờ em chút, em nói chuyện với mọi người đã.”", "next": "later"}
+			]},
+		"later": {"show": {"m": "wink"}, "speaker": "m", "text": "Ừ, nhưng nhanh lên kẻo tối. Kho không có đèn riêng đâu đấy."}
+	}
+}

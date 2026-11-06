@@ -1,0 +1,23 @@
+{
+	"title": "Tập 2 – Anh Freelancer “Cột Sống Bất Ổn” (NPC môi trường)",
+	"start": "s",
+	"nodes": {
+		"s": {"branch": [
+			{"if": {"flags": ["ep2_pm"]}, "next": "pm"},
+			{"if": {"flags": ["freelancer_am"]}, "next": "am_again"}
+		], "default": "am"},
+		"am": {"name": "Anh Freelancer", "sfx": "click", "text": "(Gõ phím cạch cạch bên hai ly espresso rỗng.) “Sửa lại theo bản thiết kế đầu tiên”… bản đầu tiên là bản nào hả trời…", "next": "am2"},
+		"am2": {"name": "Anh Freelancer", "text": "À em ơi! Cho anh thêm một ly bạc xỉu nhiều đá, ít tuyệt vọng!",
+			"choices": [
+				{"text": "“Một bạc xỉu, nhiều đá, tuyệt vọng em để riêng.”", "effects": {"set_flags": ["freelancer_am", "freelancer_joke"]}, "next": "am_a"},
+				{"text": "“Anh nên đứng dậy vươn vai đi, cột sống kêu răng rắc rồi kìa.”", "effects": {"set_flags": ["freelancer_am"]}, "next": "am_b"}
+			]},
+		"am_a": {"name": "Anh Freelancer", "text": "Ha! Cậu barista này được. Khách hàng tôi mà có khiếu hài như cậu thì đời tôi đã khác.", "next": "am_end"},
+		"am_b": {"name": "Anh Freelancer", "text": "(Vươn vai, nghe “rắc” một tiếng rất to.) …Ôi. Cảm ơn em. Lâu lắm rồi anh mới nhớ mình có cái lưng.", "next": "am_end"},
+		"am_end": {"show": {"duc": "smirk@left"}, "speaker": "duc", "think": true, "text": "Tương lai của dân IT đây sao. Phải nhớ tập thể dục."},
+		"am_again": {"name": "Anh Freelancer", "text": "(Gõ phím. Thở dài. Gõ phím tiếp. Một ngày bình thường của anh.)"},
+		"pm": {"name": "Anh Freelancer", "text": "(Ly cà phê thứ ba.) Em ơi, bàn bên kia có anh chàng mang hộp bánh matcha vào… Anh nói thật, anh ngồi đây thấy áp suất không khí giảm hẳn.", "next": "pm2"},
+		"pm2": {"show": {"duc": "deadpan@left"}, "speaker": "duc", "text": "Anh nên tập trung vào bản thiết kế đầu tiên thì hơn.", "next": "pm3"},
+		"pm3": {"name": "Anh Freelancer", "text": "Ừ ừ. Nhưng cậu ghen thì cứ nói, anh hiểu mà. Anh cũng từng trẻ."}
+	}
+}

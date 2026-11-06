@@ -1,0 +1,23 @@
+{
+	"title": "Tập 2 – Cặp đôi cấp 3 chia tai nghe (NPC môi trường)",
+	"start": "s",
+	"nodes": {
+		"s": {"branch": [
+			{"if": {"flags": ["ep2_pm", "couple_pm"]}, "next": "done"},
+			{"if": {"flags": ["ep2_pm"]}, "next": "pm"},
+			{"if": {"flags": ["couple_am"]}, "next": "done"}
+		], "default": "am"},
+		"am": {"text": "Bàn sát cửa kính: một cậu bé và một cô bé mặc đồng phục cấp 3, chia nhau một cặp tai nghe dây. Cả hai cùng nhìn ra cửa sổ, không ai nói gì.", "next": "am2"},
+		"am2": {"name": "Cô bé cấp 3", "text": "(thì thầm) …Bài này hay ghê.", "next": "am3"},
+		"am3": {"name": "Cậu bé cấp 3", "effects": {"set_flags": ["couple_am"]}, "text": "(đỏ tai) Ừ. Tớ… tớ nghe bài này cả tuần rồi. Từ hôm cậu bảo cậu thích.", "next": "am4"},
+		"am4": {"show": {"duc": "soft@left"}, "speaker": "duc", "think": true, "text": "Hồi cấp 3 mình chỉ biết ngồi cày code. Giờ nhìn tụi nhỏ mới thấy… cũng hay."},
+		"pm": {"show": {"duc": "normal@left", "kyky": "sparkle@right"}, "speaker": "kyky", "text": "Anh Đức nhìn kìa, hai bạn đó dễ thương ghê! Chia nhau tai nghe luôn…", "next": "pm_b"},
+		"pm_b": {"branch": [{"if": {"min": {"heart": 9}}, "next": "pm_hi"}], "default": "pm_lo"},
+		"pm_hi": {"show": {"duc": "shy"}, "speaker": "duc", "text": "Hồi trước tôi không hiểu sao người ta lại chia đôi một cái tai nghe. Nghe nửa bài thì có gì hay. Giờ thì…", "next": "pm_hi2"},
+		"pm_hi2": {"show": {"kyky": "shy"}, "speaker": "kyky", "effects": {"heart": 1, "set_flags": ["couple_pm", "headphone_hint"]}, "text": "…Giờ thì sao ạ?", "next": "pm_hi3"},
+		"pm_hi3": {"show": {"duc": "deadpan"}, "speaker": "duc", "text": "Giờ thì làm bài tập đi."},
+		"pm_lo": {"show": {"duc": "smirk"}, "speaker": "duc", "text": "Tai nghe dây nghe một bên thì mất nửa kênh âm thanh stereo. Về mặt kỹ thuật là kém tối ưu.", "next": "pm_lo2"},
+		"pm_lo2": {"show": {"kyky": "hmph"}, "speaker": "kyky", "effects": {"set_flags": ["couple_pm"]}, "text": "…Anh đúng là khúc gỗ biết gõ code."},
+		"done": {"text": "Hai bạn nhỏ vẫn chia nhau cặp tai nghe, mỗi người một bên, lắc lư theo cùng một nhịp."}
+	}
+}

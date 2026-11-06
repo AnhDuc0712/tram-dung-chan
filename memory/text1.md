@@ -89,3 +89,90 @@ cả thư mục này mỗi phiên làm việc bạn làm gì bạn cứ note và
 - Trong Bash tool, `\n` trong heredoc Python bị biến thành xuống dòng thật → chuỗi GDScript gãy (Godot vẫn chấp nhận, gdlint thì không). Dùng công cụ Edit cho chuỗi có `\`.
 - GUT coi mọi lỗi engine trong lúc test là trượt (kể cả lỗi in ra từ `JSON.parse_string`) — tốt, nhưng code phải xử lý lỗi êm.
 - Test giao diện đặt `Story.busy = true` để chặn chuyển cảnh (nếu không sẽ phá trình chạy GUT) và `Engine.time_scale = 12` cho nhanh.
+
+## Phiên 6 — 2026-11-05: **chơi trên điện thoại + Vercel + CI/CD**
+**Giao diện điện thoại**
+- Nút "Tua »" trong khung thoại (thay giữ Ctrl), gợi ý trong quán đổi "E ·" → "Chạm ·" và chạm vào gợi ý cũng tương tác,
+  vùng chạm nhân vật/đồ vật to hơn, chữ nhỏ 13–17 → 15–19, màn "Xoay ngang điện thoại" khi cầm dọc,
+  nút "Toàn màn hình" (màn hình chính trên web/điện thoại + Cài đặt); vào toàn màn hình thì Android tự khoá ngang.
+- Trang web: chặn kéo/zoom/bôi đen khi chạm, màu nền, thẻ meta cho điện thoại (`html/head_include` trong export_presets.cfg).
+- Thử thật bản web bằng Chrome giả lập Pixel 8 (puppeteer-core): vào game, chạm, tua, cầm dọc — chạy tốt.
+- Bản web: 68 MB (wasm 39 MB — Vercel nén còn ~9 MB khi gửi; pck 31 MB).
+
+**Đóng gói nhẹ**: `tools/get_templates.py` chỉ tải template cần (web 20 MB / windows ~90 MB) bằng HTTP Range thay vì gói 1.3 GB.
+
+**CI/CD** (chi tiết `docs/CICD.md`)
+- Kho công khai: https://github.com/AnhDuc0712/tram-dung-chan (nhánh `main`).
+- `.github/workflows/ci.yml`: PR/push → Linux chạy `tools/check.ps1` 6 bước → xuất bản web → Vercel (PR: preview + bot gắn link; main: production).
+- `.github/workflows/release.yml`: tag `vX.Y.Z` (trùng `config/version`) → GitHub Release kèm Windows .zip + Web .zip.
+- `tools/deploy_web.ps1` deploy từ máy; `tools/common.ps1` chạy được cả Windows lẫn Linux (`$env:GODOT`).
+- Phiên bản game: `config/version` trong project.godot (hiện 1.1.0), màn hình chính đọc từ đó.
+
+**Lỗi / vướng**
+- `scenes/world/player.gd` bị sửa ngoài phiên làm việc (15:31): thêm tăng tốc + NavigationAgent2D nhưng `move_and_slide()` bị
+  thụt vào nhầm nhánh → **Anh Đức không đi được**. Đã sửa giữ nguyên ý tưởng (tăng tốc khi đi bằng phím, hỗ trợ NavigationAgent2D),
+  bản trước khi sửa lưu ở `build/player.gd.ban_chinh_sua_15h31.bak`. Thêm test `test_player_move.gd` để lỗi này không lọt lại.
+- GitHub không nhận yêu cầu Range kiểu "N byte cuối" (thư viện remotezip hỏng) → tự viết đọc zip từ xa bằng khoảng byte cụ thể.
+- WSL Ubuntu trên máy bị hỏng ổ đĩa ảo, Docker không chạy → thử Linux trực tiếp trên GitHub Actions.
+- Trong Bash tool, `\` trong heredoc Python bị nuốt → dùng `chr(92)` hoặc công cụ Edit.
+
+## Phiên 7 — 2026-11-06: **Tập 2 — Cơn bão nhỏ ở Gờ 23** + Event CG + gợi ý trong mota.md
+Đọc: `kịch bản/kichban2.md`, `memory/mota.md`, 5 ảnh bối cảnh + bảng NPC/biểu cảm mới (`thiết kế/env/`), 5 Event CG.
+
+**Ảnh** (`tools/art/process_ep2.py`)
+- Xoá dấu ngôi sao Gemini ở góc mọi ảnh (cả 4 nền Tập 1), cắt phụ đề in sẵn trên 5 CG, cắt 3 nền nhỏ + 2 NPC học sinh +
+  10 ô biểu cảm (chị M, Trâm, Đức Anh, Hải) từ bảng thiết kế; nền mới: quán đêm mưa, khu trò chơi, bản đồ phố.
+
+**Engine**
+- Event CG (khóa `cg`, lia máy chậm, mở khoá vào Kỷ niệm → Ảnh sự kiện); chọn tập ở màn hình chính; màn kết thúc có “Sang Tập 2”.
+- Hiệu ứng cánh bướm: chỉ số Trâm tin tưởng / ghen ngầm / Đức Anh / Thảo → HUD báo “Trâm sẽ nhớ chuyện này”; Menu → Quan hệ.
+- Gợi ý mota.md: nhân vật xích lại gần khi Rung động tăng, tiếng lách cách khi chữ chạy, Nlong ở góc màn hình kể
+  “tâm tư Anh Đức” (không cộng chỉ số), đa kết cục + sưu tầm CG.
+- Bản đồ theo dữ liệu: nhiều map/biến thể, mở màn, mục tiêu, KyKy đi theo trên phố, NPC môi trường (freelancer, cặp đôi cấp 3,
+  cô bán hoa, bác bảo vệ). Điện thoại: lựa chọn có hiệu ứng.
+- 3 mini-game: giải cứu bàn phím (gãi 3 điểm + kéo súp), ghép lệnh vòng lặp trái tim, nhịp đập trong bóng tối.
+
+**Nội dung**: 34 file kịch bản + 2 điện thoại; bám kịch bản 2 và mở rộng buổi chiều tự do với hội bạn, buổi tối tự do trên phố
+(5 nơi hẹn, tối đa 2), 5 kết cục (3 theo kịch bản + “Chiếc Áo Khoác” theo mota + “Gấu Bông Hoàng Thượng” bí mật).
+
+**Kiểm thử**: 19 test tuyến (thêm 5 tuyến Tập 2), GUT 55 test / 1316 phép kiểm (người chơi ngẫu nhiên chơi cả 2 tập),
+check.ps1 tự chơi trọn cả Tập 1 lẫn Tập 2 → ALL CHECKS PASSED.
+
+**Lỗi / vướng**
+- Đặt tên node `"end"` → trùng từ khoá kết thúc hội thoại, cảnh truyện đứng lại → thêm luật validator cấm tên này.
+- Node rẽ nhánh mang `show`/`hide`/`bg` bị bỏ qua (đã biết từ Tập 1) — lặp lại 6 lần khi viết nhanh; validator bắt hết.
+- Rung động Tập 2 vượt thanh 18 → thanh theo tập (`bar_max`, Tập 2 = 28).
+- Cân bằng: kết “Áo Khoác” chỉ 1/250 lượt → đổi điều kiện (khoác áo thật) + ưu tiên trước kết ghen.
+- Bảng thông tin mini-game Nlong che mặt mèo → dời sang phải; Nlong góc màn hình ẩn khi chơi mini-game.
+- Lọc trung vị cửa sổ lớn trên ảnh 2752px quá chậm (>10 phút) → đổi sang lọc Gauss.
+
+## Phiên 8 — 2026-11-06: cài secret Vercel cho CI
+- Người dùng chạy `tools\setup_ci_secrets.ps1` → 3 secret đã có, chạy lại CI của PR #1: phần kiểm tra xanh, **deploy lỗi**
+  `You defined "--token", but its contents are invalid`.
+- Nguyên nhân: token lưu trên GitHub dài **1 ký tự** — Ctrl+V trong ô `Read-Host -AsSecureString` của Windows PowerShell 5.1
+  ghi ký tự điều khiển ^V thay vì dán. (VERCEL_ORG_ID / VERCEL_PROJECT_ID không bị ảnh hưởng: lấy từ file.)
+- Sửa (commit 8879341 trên nhánh tap-2/co-ban): script đọc token từ **clipboard**, kiểm tra `^[A-Za-z0-9_]{16,}$` rồi mới cài,
+  sau đó xoá clipboard; CI thêm bước kiểm tra định dạng token, báo lỗi tiếng Việt kèm độ dài (không in token).
+- Chờ người dùng: copy token trên vercel.com → chạy lại script → báo để chạy lại CI lấy link xem thử → merge PR #1.
+- Người dùng chép token vào `tokenvercel.md` (KHÔNG commit — file untracked) → Claude kiểm tra định dạng (60 ký tự) và cài
+  VERCEL_TOKEN theo yêu cầu. CI chạy lại: deploy OK, bot gắn link xem thử vào PR #1. Link preview trả 302 = Vercel bảo vệ
+  bản xem thử (phải đăng nhập Vercel mới mở được).
+
+## Phiên 9 — 2026-11-06: kiểm thử lại toàn bộ (bản web + điện thoại) và sửa lỗi
+Cách kiểm: check.ps1 6 bước; tự chơi trọn 2 tập có ĐỒ HOẠ thật + chụp mỗi 40 frame (`--snap`) rồi duyệt bằng mắt;
+đóng gói web, cho Chrome headless tự chơi trọn Tập 2 trên bản web; giả lập điện thoại ngang có cảm ứng, chạm từng bước.
+**Lỗi tìm được + đã sửa**
+- NGHIÊM TRỌNG: khung lựa chọn của hộp thoại (lớp 10) luôn "hiện" và nhận chuột → nuốt mọi cú chạm ở giữa màn
+  (290–990 × 196–496): không bấm được Tập 1/Tập 2 trong bảng chọn tập, chỗ chạm giữa bản đồ / mini-game. → mouse_filter IGNORE
+  + test mới `test_input_blockers.gd` (rà mọi lớp phủ của Dialogue/Hud ở 6 màn).
+- Dòng báo thái độ ("Trâm sẽ nhớ…") chồng chữ, khó đọc → mỗi dòng 1 ô nền, tối đa 4 dòng.
+- Ô biểu cảm tràn khỏi mép phải khi nhân vật đứng sát mép → tự đổi bên / kéo vào trong.
+- Ô biểu cảm Trâm vẽ SAI người (tóc nâu, áo hồng) → chỉnh màu tóc đen + áo tím (ảnh gốc giữ ở build/tram_inset_bak).
+- Mini-game ghép lệnh: thanh Hiểu bài che dòng đầu khung code → dời xuống. Mini-game bóng tối: bảng tràn mép dưới → dời lên.
+- Lời nghĩ thầm hiện "((" ở 3 câu → sửa dữ liệu + test chặn.
+- Ngôi sao "Trâm tin tưởng" ở màn kết thúc to gấp đôi, đè chữ (draw_star nhận bán kính).
+- Nhãn "E · Đọc menu" đè ô nhiệm vụ / nút Menu → đặt xuống dưới.
+- Trạm xe buýt dùng nền mặt tiền Gờ 23 → câu dẫn nói rõ trạm ngay trước cửa quán.
+- Màn hình chính vẫn ghi chỉ "Tập 1" → ghi cả Tập 2. Phiên bản 1.2.0.
+**Còn lại (không sửa được ở đây)**: Chrome headless (SwiftShader) in nhiều cảnh báo WebGL "bindBuffer… different target" —
+game vẫn chạy trọn tập; cần thử trên điện thoại thật xem có vệt/thiếu hình không.

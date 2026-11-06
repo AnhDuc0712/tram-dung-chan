@@ -1,0 +1,30 @@
+{
+	"title": "Tập 2 – Phân cảnh 1B: Sáng thứ Bảy ở Gờ 23",
+	"start": "start",
+	"nodes": {
+		"start": {"card": "Tập 2\nCơn bão nhỏ ở Gờ 23", "card_hold": 1.8, "next": "c2"},
+		"c2": {"card": "9:00 sáng thứ Bảy — Quán Gờ 23", "bg": "cafe_day", "music": "cafe_day", "ambient": "", "next": "s1"},
+		"s1": {"show": {"duc": "normal@left"}, "text": "Ánh nắng sớm rọi qua ô cửa kính. Anh Đức đứng sau quầy, máy espresso xì hơi đều đều.", "sfx": "cup", "next": "s2"},
+		"s2": {"show": {"m": "wink@right"}, "text": "Chị M vừa kiểm kê sổ sách vừa liếc chiếc áo khoác còn hơi ẩm vắt trên ghế của cậu nhân viên.", "next": "s3"},
+		"s3": {"branch": [{"if": {"flags": ["ep1_wet"]}, "next": "m_wet"}], "default": "m_umb"},
+		"m_umb": {"speaker": "m", "show": {"m": "tease"}, "text": "Này Đức, chị nhớ nhà em ở hướng Nguyễn Trãi cơ mà? Sao tối qua bác bảo vệ bảo thấy cậu barista quán chị cầm ô đi bộ tít sang Cầu Giấy?", "next": "ask"},
+		"m_wet": {"speaker": "m", "show": {"m": "tease"}, "text": "Này Đức, áo khoác còn ướt nhẹp thế kia. Bác bảo vệ kể tối qua có hai đứa dở hơi chạy giữa mưa cười như được mùa đấy. Đứa nào nhỉ?", "next": "ask"},
+		"ask": {"speaker": "duc", "think": true, "show": {"duc": "awkward"}, "text": "Trả lời sao đây…",
+			"choices": [
+				{"text": "“Đi dạo cho tiêu cơm thôi chị.” (gãi đầu, quay sang vuốt Nlong)", "next": "a1"},
+				{"text": "“Đưa học trò về nhà. Trời mưa mà.” (nói thẳng)", "effects": {"set_flags": ["honest_m"]}, "next": "b1"},
+				{"text": "“Chị có muốn bị trừ pate không?” (đe doạ… bằng mèo)", "next": "c1"}
+			]},
+		"a1": {"show": {"duc": "smirk", "nlong": "normal@center"}, "speaker": "duc", "text": "Đi dạo cho tiêu cơm thôi chị. Nlong nhỉ? Hôm nay đứa nào hỏi nhiều là cắt pate của đứa đấy.", "next": "a2"},
+		"a2": {"show": {"nlong": "grumpy"}, "speaker": "nlong", "sfx": "meow", "text": "Meow~ (Hoàng thượng nằm ườn ra quầy, đạp chân sau vào tay Anh Đức đòi gãi cằm.)", "next": "a3"},
+		"a3": {"show": {"m": "laugh"}, "speaker": "m", "text": "Đi dạo năm cây số giữa trời mưa. Ừ, tiêu cơm ghê.", "next": "join"},
+		"b1": {"show": {"duc": "deadpan"}, "speaker": "duc", "text": "Đưa học trò về nhà. Trời mưa mà.", "next": "b2"},
+		"b2": {"show": {"m": "love"}, "speaker": "m", "text": "Ôi trời ơi, thẳng thắn thế này chị không quen. Được, chị duyệt. Hôm nay em pha gì cho con bé chị không tính tiền.", "next": "b3"},
+		"b3": {"show": {"nlong": "love@center"}, "speaker": "nlong", "sfx": "purr", "text": "Rừ rừ… (Nlong dụi đầu vào tay Anh Đức như thể cũng duyệt luôn.)", "effects": {"add": {"nlong": 1}}, "next": "join"},
+		"c1": {"show": {"duc": "glare"}, "speaker": "duc", "text": "Chị còn hỏi nữa là em khoá tủ pate của Nlong lại. Ngài sẽ nằm trước cửa phòng chị mà kêu cả đêm.", "next": "c2b"},
+		"c2b": {"show": {"m": "shock", "nlong": "shock@center"}, "speaker": "m", "text": "Đồ nhẫn tâm! Lấy cả hoàng thượng ra làm con tin!", "next": "c3"},
+		"c3": {"show": {"nlong": "grumpy"}, "text": "Nlong quay ngoắt sang lườm Anh Đức. Có vẻ ngài không thích làm con tin chút nào.", "next": "join"},
+		"join": {"hide": ["nlong"], "show": {"m": "normal"}, "speaker": "m", "text": "Thôi, khách VIP hẹn em 9 giờ đúng không? Còn mười lăm phút. Đi dạo quanh quán đi, khách quen tới rồi kìa.", "next": "join2"},
+		"join2": {"show": {"duc": "think"}, "speaker": "duc", "think": true, "text": "Anh freelancer góc ổ điện đang gõ phím như đánh trận. Cặp học sinh cấp 3 bàn cửa sổ lại chia nhau một chiếc tai nghe… Còn chút thời gian.", "then": "roam:ep2_morning"}
+	}
+}

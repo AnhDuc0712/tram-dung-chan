@@ -1,0 +1,18 @@
+{
+	"title": "Tập 2 – Cửa hàng tiện lợi",
+	"start": "s",
+	"nodes": {
+		"s": {"branch": [{"if": {"flags": ["shop_done"]}, "next": "again"}], "default": "a"},
+		"a": {"sfx": "doorbell", "text": "Cửa hàng tiện lợi sáng trưng. Tủ lạnh đầy sữa chuối, trà gừng đóng chai, và… pate mèo.",
+			"choices": [
+				{"text": "Mua sữa chuối cho KyKy", "effects": {"heart": 1, "set_flags": ["shop_done", "banana_milk"]}, "next": "milk"},
+				{"text": "Mua pate cho hoàng thượng Nlong (mang về quán)", "effects": {"add": {"nlong": 1}, "set_flags": ["shop_done", "bought_pate"]}, "next": "pate"},
+				{"text": "Thôi, đi tiếp", "next": "no"}
+			]},
+		"milk": {"show": {"kyky": "sparkle@right"}, "speaker": "kyky", "text": "Sữa chuối! Sao anh biết em thích cái này? …À, nhìn mặt là biết, đúng không? Em thuộc câu đó rồi."},
+		"pate": {"show": {"duc": "soft@left"}, "speaker": "duc", "text": "Vị cá ngừ. Hoàng thượng chỉ ăn cá ngừ. Mai mang về cho ngài.", "next": "pate2"},
+		"pate2": {"show": {"kyky": "love@right"}, "speaker": "kyky", "text": "Anh chiều Nlong hơn chiều người yêu luôn á. …Ý em là… người yêu tương lai của anh! Giả sử thôi!"},
+		"no": {"text": "Hai người đi tiếp. Tiếng chuông cửa leng keng sau lưng."},
+		"again": {"text": "Cô nhân viên ca tối vẫy tay: “Lần sau ghé nữa nha hai bạn!”"}
+	}
+}

@@ -214,7 +214,7 @@ func _run() -> void:
 				b.pressed.emit.call_deferred()
 			await b.pressed
 			_clear_choices()
-	var end_b := Ui.button("Tắt điện thoại, đi ngủ", 400, 20)
+	var end_b := Ui.button(str(data.get("end_button", "Tắt điện thoại, đi ngủ")), 400, 20)
 	_choices.add_child(end_b)
 	if GameState.autoplay:
 		print("[autoplay] điện thoại xong")
@@ -247,6 +247,7 @@ func _play_messages(msgs: Array) -> void:
 			continue
 		if msg.has("choices"):
 			var picked: Dictionary = await _ask(msg["choices"])
+			GameState.apply(picked.get("effects", {}))
 			_add_bubble("me", str(picked.get("text", "")), str(picked.get("sticker", "")))
 			Audio.sfx("pop")
 			await _play_messages(picked.get("reply", []))

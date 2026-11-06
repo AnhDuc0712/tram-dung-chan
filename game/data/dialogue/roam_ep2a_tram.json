@@ -1,0 +1,30 @@
+{
+	"title": "Tập 2 – Trâm (buổi chiều): “Bài kiểm tra của hội bạn thân”",
+	"start": "s",
+	"nodes": {
+		"s": {"show": {"duc": "normal@left", "tram": "cross@right"}, "next": "s1"},
+		"s1": {"branch": [{"if": {"flags": ["talked_tram"]}, "next": "again"}], "default": "q1"},
+		"q1": {"speaker": "tram", "effects": {"set_flags": ["talked_tram"]}, "text": "Anh ngồi xuống đi. Tôi hỏi thẳng: anh biết KyKy sợ nhất cái gì không?",
+			"choices": [
+				{"text": "“Sợ bóng tối. Với cả sợ ma.”", "next": "q1_dark"},
+				{"text": "“Sợ môn Tin học.”", "next": "q1_it"},
+				{"text": "“Sợ bị bỏ lại một mình.”", "next": "q1_alone"}
+			]},
+		"q1_dark": {"show": {"tram": "shock"}, "speaker": "tram", "effects": {"add": {"tram": 2}, "set_flags": ["knows_dark"]}, "text": "…Sao anh biết? Con bé kể với anh à? Nó chưa kể với ai ngoài tôi đâu đấy.", "next": "q2"},
+		"q1_it": {"show": {"tram": "cross"}, "speaker": "tram", "text": "Cái đó ai cũng biết. Tôi hỏi cái khác cơ. Thôi bỏ qua.", "next": "q2"},
+		"q1_alone": {"show": {"tram": "smile"}, "speaker": "tram", "effects": {"add": {"tram": 1}}, "text": "…Không hẳn, nhưng cũng gần đúng. Anh để ý con bé hơn tôi tưởng.", "next": "q2"},
+		"q2": {"show": {"tram": "cross"}, "speaker": "tram", "text": "Câu cuối. Nếu một ngày KyKy khóc vì anh, anh sẽ làm gì?",
+			"choices": [
+				{"text": "“Sẽ không có ngày đó.”", "effects": {"add": {"tram": 1}}, "next": "q2_a"},
+				{"text": "“Đưa em ấy đi ăn lẩu, rồi xin lỗi. Theo đúng thứ tự đó.”", "effects": {"add": {"tram": 2}}, "next": "q2_b"},
+				{"text": "“Chuyện của bọn tôi, em không cần lo.”", "effects": {"add": {"tram": -2}}, "next": "q2_c"}
+			]},
+		"q2_a": {"show": {"duc": "glare"}, "speaker": "duc", "text": "Sẽ không có ngày đó.", "next": "q2_a2"},
+		"q2_a2": {"show": {"tram": "cross"}, "speaker": "tram", "text": "Câu trả lời của mấy anh hay hứa. Nhưng mắt anh không có vẻ nói dối. Tạm được."},
+		"q2_b": {"show": {"duc": "smirk"}, "speaker": "duc", "text": "Đưa em ấy đi ăn lẩu, rồi xin lỗi. Theo đúng thứ tự đó — đói thì không nghe ai giải thích được.", "next": "q2_b2"},
+		"q2_b2": {"show": {"tram": "smile"}, "speaker": "tram", "text": "Phụt— được! Anh hiểu con bé thật. Tối nay đi lẩu không? Tôi đang thấy đói đây."},
+		"q2_c": {"show": {"duc": "deadpan"}, "speaker": "duc", "text": "Chuyện của bọn tôi, em không cần lo.", "next": "q2_c2"},
+		"q2_c2": {"show": {"tram": "angry"}, "speaker": "tram", "text": "“Bọn tôi”? Mới quen nhau hai ngày đã “bọn tôi”? Tôi sẽ theo dõi anh rất kỹ đấy."},
+		"again": {"show": {"tram": "cross@right"}, "speaker": "tram", "text": "Nhìn gì? Tôi đang chấm điểm. Còn đang suy nghĩ có nên cho anh qua vòng gửi xe không."}
+	}
+}

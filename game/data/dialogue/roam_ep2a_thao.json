@@ -1,0 +1,20 @@
+{
+	"title": "Tập 2 – Thanh Thảo (buổi chiều)",
+	"start": "s",
+	"nodes": {
+		"s": {"show": {"duc": "normal@left", "thao": "normal@right"}, "next": "s1"},
+		"s1": {"branch": [{"if": {"flags": ["talked_thao"]}, "next": "again"}], "default": "a"},
+		"a": {"speaker": "thao", "effects": {"set_flags": ["talked_thao"]}, "text": "Giao diện đồ án tao làm xong phần đăng nhập rồi. Mà này… cô bé kia nhìn tao như nhìn đối thủ ấy. Mày chưa giải thích gì à?",
+			"choices": [
+				{"text": "“Nhờ mày nói giúp một câu được không?”", "effects": {"add": {"thao": 1}, "set_flags": ["doubt_cleared", "thao_helped"]}, "next": "help"},
+				{"text": "“Kệ đi, để em ấy ghen một chút cũng vui.”", "effects": {"add": {"thao": -1, "jealous": 1}}, "next": "tease"},
+				{"text": "“Bàn đồ án thôi. Màn hình đăng nhập lệch 2 pixel kìa.”", "effects": {"brain": 1}, "next": "work"}
+			]},
+		"help": {"show": {"thao": "laugh"}, "speaker": "thao", "text": "Được, coi như mày nợ tao một ly bạc xỉu.", "next": "help2"},
+		"help2": {"hide": ["duc"], "show": {"kyky": "surprised@left"}, "text": "Thanh Thảo bước sang bàn KyKy, cúi xuống nói gì đó. Một phút sau KyKy đỏ mặt cười tít mắt, còn Thảo thì giơ ngón cái về phía Anh Đức.", "next": "help3"},
+		"help3": {"speaker": "thao", "text": "Tao bảo: “Thằng Đức chưa bao giờ pha ca cao cho ai, kể cả tao.” Thế là đủ."},
+		"tease": {"show": {"thao": "smug"}, "speaker": "thao", "text": "Mày đang chơi với lửa đấy. Tao không chịu trách nhiệm đâu nhé."},
+		"work": {"show": {"thao": "worried"}, "speaker": "thao", "text": "…Mày vừa nhìn ra lỗi 2 pixel từ khoảng cách 3 mét. Ừ, đại thần. Nhưng chuyện cô bé thì mày mù thật."},
+		"again": {"show": {"thao": "smug@right"}, "speaker": "thao", "text": "Đừng nhìn tao. Nhìn sang bàn bên kia kìa, có người đang lén nhìn mày đấy."}
+	}
+}

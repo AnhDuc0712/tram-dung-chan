@@ -1,0 +1,47 @@
+{
+	"title": "Tập 2 – Kết: Nồi lẩu đêm mưa & các kết cục",
+	"start": "a",
+	"nodes": {
+		"a": {"card": "21:00 — Hàng lẩu vỉa hè đầu ngõ", "bg": "hotpot", "music": "evening", "ambient": "rain_loop", "fx": "rain_on", "next": "b"},
+		"b": {"show": {"duc": "normal@left", "kyky": "happy@right"}, "text": "Mái bạt, bàn nhựa đỏ, ghế xanh, nồi lẩu sôi lục bục. Trâm, Đức Anh, Thanh Thảo đã ngồi sẵn. Chị M tới muộn, xách theo… một chiếc lồng mèo.", "next": "c"},
+		"c": {"show": {"m": "laugh@center"}, "speaker": "m", "text": "Hoàng thượng không chịu ở nhà một mình! Cứ cào cửa kêu ầm lên. Đành mang theo.", "next": "c2"},
+		"c2": {"hide": ["m"], "show": {"nlong": "love@center"}, "sfx": "kitten", "text": "Nlong chui ra khỏi lồng, đi một vòng quanh bàn như duyệt binh… rồi nhảy thẳng lên đùi KyKy, cuộn tròn.", "next": "c3"},
+		"c3": {"hide": ["nlong"], "wait": 0.2, "next": "c3b"},
+		"c3b": {"branch": [{"if": {"flags": ["claw_win"]}, "next": "plush"}], "default": "fin"},
+		"plush": {"show": {"kyky": "laugh"}, "text": "KyKy đặt con gấu bông Nlong Junior cạnh Nlong thật. Hoàng thượng ngửi ngửi “đồng loại” một lúc lâu, rồi… ôm nó ngủ.", "next": "fin"},
+		"fin": {"branch": [
+			{"if": {"flags": ["claw_win"], "min": {"heart": 12, "tram": 3, "nlong": 2}}, "next": "e_gau"},
+			{"if": {"min": {"heart": 10, "tram": 3}}, "next": "e_lau"},
+			{"if": {"flags": ["gave_jacket"], "min": {"heart": 6}}, "next": "e_ao"},
+			{"if": {"min": {"jealous": 8}}, "next": "e_dua"}
+		], "default": "e_nlong"},
+
+		"e_lau": {"cg": "cg_hotpot", "speaker": "duc", "text": "Cận thì lo ngồi im đi, để tôi lau cho. Mắt mũi mờ tịt thế kia gắp trúng Nlong bây giờ.", "next": "e_lau2"},
+		"e_lau2": {"speaker": "kyky", "think": true, "text": "Ơ… tự dưng lại gần thế này… làm sao mình dám nhìn thẳng đây…", "next": "e_lau3"},
+		"e_lau3": {"cg": "none", "show": {"duc": "smirk", "tram": "smile@center"}, "speaker": "duc", "text": "Tiện có mặt đủ bạn thân của hai bên, hôm nay tôi mời. Coi như… ra mắt bạn bè của học trò luôn.", "next": "e_lau4"},
+		"e_lau4": {"speaker": "tram", "text": "Chấp nhận! Nhưng nói trước: anh mà làm con bé khóc là tôi với chị Thanh Thảo đây xử đẹp anh đấy!", "next": "e_lau5"},
+		"e_lau5": {"hide": ["tram"], "show": {"duc": "soft", "kyky": "love"}, "music": "ending", "text": "Dưới gầm bàn, Anh Đức lặng lẽ gắp miếng thịt bò ngon nhất bỏ vào bát KyKy, nói nhỏ chỉ đủ hai người nghe: “Thưởng cho học trò hôm nay đạt điểm 10.”", "effects": {"ending": "ep2_lau"}, "then": "phone:ep2_end"},
+
+		"e_gau": {"cg": "cg_hotpot", "speaker": "duc", "text": "Cận thì lo ngồi im đi, để tôi lau kính cho. Mắt mũi mờ tịt thế kia gắp nhầm hai con Nlong bây giờ.", "next": "e_gau2"},
+		"e_gau2": {"cg": "none", "show": {"kyky": "shy", "duc": "normal"}, "speaker": "kyky", "text": "Anh Đức… con gấu này anh giữ đi. Anh có Nlong ở quán rồi, giờ có thêm Nlong Junior ở nhà… để lúc nào thức khuya code cũng có người trông.", "next": "e_gau3"},
+		"e_gau3": {"show": {"duc": "shy"}, "speaker": "duc", "text": "…Còn em thì sao?", "next": "e_gau4"},
+		"e_gau4": {"show": {"kyky": "love"}, "speaker": "kyky", "text": "Em… em có anh trông rồi mà. Mỗi thứ Bảy.", "next": "e_gau5"},
+		"e_gau5": {"show": {"nlong": "love@center"}, "music": "ending", "sfx": "purr", "text": "Nlong ngẩng lên khỏi con gấu bông, nhìn hai người một lúc lâu, rồi kêu một tiếng “Meo” rất dài. Chị M bảo: cả đời làm chủ quán, chị chưa nghe ngài kêu kiểu đó bao giờ.", "effects": {"ending": "ep2_gau"}, "then": "phone:ep2_end"},
+
+		"e_dua": {"sfx": "msg", "show": {"kyky": "surprised", "duc": "glare"}, "text": "Điện thoại của KyKy trên bàn đổ chuông: “Hải: Em về chưa? Gửi em lịch học nhóm tuần sau nhé.”", "next": "e_dua2"},
+		"e_dua2": {"text": "Anh Đức nhìn cái tên trên màn hình. Không nói gì, anh cầm lấy cuốn sổ của KyKy, ghi thẳng số điện thoại cá nhân và lịch học kín mít các tối trong tuần vào trang đầu tiên, nét chữ dứt khoát.", "next": "e_dua3"},
+		"e_dua3": {"show": {"duc": "tease"}, "speaker": "duc", "text": "Từ tuần sau, mọi lịch học thêm của em đều do tôi quản lý. Không nhận lịch hẹn của bất kỳ “đàn anh khoá trên” nào khác. Nghe rõ chưa, công chúa?", "next": "e_dua4"},
+		"e_dua4": {"show": {"kyky": "shy"}, "music": "ending", "speaker": "kyky", "text": "…Dạ. (Mặt đỏ hơn cả nước lẩu.)", "effects": {"ending": "ep2_dua"}, "then": "phone:ep2_end"},
+
+		"e_ao": {"show": {"kyky": "shy", "duc": "normal"}, "text": "KyKy vẫn khoác chiếc áo khoác rộng thùng thình của Anh Đức, tay áo phải xắn ba vòng mới thấy ngón tay.", "next": "e_ao2"},
+		"e_ao2": {"speaker": "kyky", "text": "Em trả áo anh nha… Mà thôi, để em giặt rồi trả. Thứ Bảy tuần sau! Em hứa!", "next": "e_ao3"},
+		"e_ao3": {"show": {"duc": "smirk"}, "speaker": "duc", "think": true, "text": "Giặt rồi trả. Thứ Bảy tuần sau. …Vậy là lại có một cái cớ.", "next": "e_ao4"},
+		"e_ao4": {"cg": "cg_jacket", "music": "ending", "text": "Đêm đó, KyKy về nhà trong chiếc áo khoác còn ấm, và đi ngủ với nụ cười không tắt.", "effects": {"ending": "ep2_ao"}, "then": "phone:ep2_end"},
+
+		"e_nlong": {"show": {"ducanh": "grin@center"}, "speaker": "ducanh", "text": "Để anh múc lẩu cho mọi người! Anh múc khéo lắm—", "next": "e_nlong2"},
+		"e_nlong2": {"hide": ["ducanh"], "show": {"nlong": "shock@center"}, "sfx": "meow", "fx": "shake", "text": "Đúng lúc đó Nlong phóng từ đùi KyKy lên… đáp thẳng lên đầu Đức Anh. Cậu chàng tóc vàng ngã ngửa, kéo theo cả đĩa rau và nửa nồi nước dùng.", "next": "e_nlong3"},
+		"e_nlong3": {"hide": ["nlong"], "show": {"m": "shock@center"}, "speaker": "m", "text": "TRỜI ƠI! Đức, KyKy, phạt hai đứa phụ cô chủ quán rửa bát! Đức Anh lau bàn!", "next": "e_nlong4"},
+		"e_nlong4": {"hide": ["m"], "show": {"duc": "deadpan", "kyky": "laugh"}, "text": "Hai người đeo tạp dề đứng rửa bát sau hàng lẩu. KyKy vô tình quệt bọt xà phòng lên chóp mũi Anh Đức.", "next": "e_nlong5"},
+		"e_nlong5": {"show": {"duc": "laugh"}, "music": "ending", "text": "Anh Đức nhìn cô. Cô nhìn anh. Rồi cả hai cùng bật cười, giữa tiếng mưa và tiếng chị M mắng Nlong.", "effects": {"ending": "ep2_nlong"}, "then": "phone:ep2_end"}
+	}
+}

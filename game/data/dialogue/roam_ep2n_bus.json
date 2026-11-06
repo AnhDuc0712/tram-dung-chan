@@ -1,0 +1,22 @@
+{
+	"title": "Tập 2 – Trạm xe buýt dưới mưa: chiếc áo khoác",
+	"start": "a",
+	"nodes": {
+		"a": {"bg": "street_rain", "music": "rain_night", "ambient": "rain_loop", "fx": "rain_on", "show": {"duc": "normal@left", "kyky": "normal@right"}, "effects": {"add": {"dates": 1}, "set_flags": ["date_bus", "went_busstop"]}, "text": "Hai người tạt vào trạm xe buýt ngay trước cửa Gờ 23 (quán đã đóng) để trú mưa. Mưa nặng hạt hơn. KyKy vừa chạy một đoạn, tóc và vai áo ướt lấm tấm.", "next": "b"},
+		"b": {"show": {"kyky": "worried"}, "speaker": "kyky", "text": "Hắt xì! …Em không sao. Thật đó.", "next": "c"},
+		"c": {"speaker": "duc", "think": true, "show": {"duc": "worried"}, "text": "Cô bé run rồi.",
+			"choices": [
+				{"text": "Cởi áo khoác, khoác lên vai cô", "effects": {"heart": 3, "set_flags": ["gave_jacket"]}, "next": "jacket"},
+				{"text": "Đưa cô chai trà gừng ấm mua ở cửa hàng tiện lợi", "effects": {"heart": 2}, "next": "tea"},
+				{"text": "“Đứng sát vào đây, chỗ này không hắt mưa.”", "effects": {"heart": 1}, "next": "close"}
+			]},
+		"jacket": {"cg": "cg_jacket", "speaker": "duc", "text": "Cầm lấy mà khoác vào. Người toàn nước thế kia, mai mà cảm lạnh rồi rớt môn Tin thì đừng có bắt tôi gánh.", "next": "jacket2"},
+		"jacket2": {"speaker": "kyky", "think": true, "text": "Chiếc áo rộng quá… nhưng vẫn còn rất ấm… và có cả mùi hương của anh ấy nữa…", "next": "jacket3"},
+		"jacket3": {"cg": "none", "show": {"kyky": "love"}, "speaker": "kyky", "text": "Thế còn anh? Anh chỉ còn mỗi cái áo polo thôi đó…", "next": "jacket4"},
+		"jacket4": {"show": {"duc": "smirk"}, "speaker": "duc", "text": "Tôi là đại thần IT. Thân nhiệt tôi chạy bằng caffeine."},
+		"tea": {"show": {"kyky": "happy"}, "text": "KyKy ôm chai trà gừng ấm bằng hai tay, hơi nóng phả lên cặp kính tròn mờ đi.", "next": "tea2"},
+		"tea2": {"speaker": "kyky", "text": "Anh lúc nào cũng chuẩn bị sẵn hết vậy? Hay… anh chuẩn bị riêng cho em?"},
+		"close": {"show": {"kyky": "shy"}, "text": "KyKy nhích lại gần. Vai hai người chạm nhau. Không ai nói gì, chỉ có tiếng mưa gõ lên mái tôn trạm xe.", "next": "close2"},
+		"close2": {"speaker": "duc", "think": true, "text": "…Mưa to thêm chút nữa cũng được."}
+	}
+}

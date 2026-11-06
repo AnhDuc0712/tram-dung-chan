@@ -1,0 +1,8 @@
+{
+	"title": "Tập 2 – Buổi chiều tự do (mở màn)",
+	"start": "a",
+	"nodes": {
+		"a": {"text": "Buổi chiều ở Gờ 23. Trâm, Đức Anh và Thanh Thảo kéo ghế ngồi bàn bên, vừa ăn bánh ngọt vừa “hóng”. KyKy ôm sổ ngồi chỗ cũ.", "next": "b"},
+		"b": {"effects": {"set_flags": ["ep2a_intro_done"]}, "text": "Bạn nói chuyện với ai, nói thế nào — mỗi người đều sẽ nhớ. Khi sẵn sàng, gặp chị M ở quầy."}
+	}
+}

@@ -1,0 +1,22 @@
+{
+	"title": "Tập 2 – Đức Anh (buổi chiều): có “bóc phốt” hay không",
+	"start": "s",
+	"nodes": {
+		"s": {"show": {"duc": "normal@left", "ducanh": "grin@right"}, "next": "s1"},
+		"s1": {"branch": [{"if": {"flags": ["talked_ducanh"]}, "next": "again"}], "default": "a"},
+		"a": {"speaker": "ducanh", "effects": {"set_flags": ["talked_ducanh"]}, "text": "Đức, anh em tốt! Giúp tao ghi điểm với Trâm đi. Mày giỏi vụ đánh dấu chủ quyền thế cơ mà!",
+			"choices": [
+				{"text": "“Mày thử khoe tài sửa máy đi. Con gái thích người khéo tay.” (xúi bậy)", "effects": {"add": {"ducanh": 1}, "set_flags": ["ducanh_toaster"]}, "next": "a1"},
+				{"text": "“Cứ thật lòng là được. Đừng diễn.”", "effects": {"add": {"ducanh": 1, "tram": 1}}, "next": "a2"},
+				{"text": "“Tự lo đi, tao còn đang dạy kèm.”", "effects": {"set_flags": ["ducanh_blurt"]}, "next": "a3"}
+			]},
+		"a1": {"show": {"ducanh": "grin"}, "speaker": "ducanh", "text": "Chuẩn! Quán chị M vừa mua cái máy nướng bánh mới chưa ai lắp. Để anh mày ra tay!", "next": "a1b"},
+		"a1b": {"show": {"duc": "smirk"}, "speaker": "duc", "think": true, "text": "…Mình vừa xúi một thằng tay chân vụng về đi lắp đồ điện. Thôi kệ."},
+		"a2": {"show": {"ducanh": "confused"}, "speaker": "ducanh", "text": "Thật lòng? Kiểu… nói thẳng là tao thấy em ấy ngầu à? Nghe đơn giản thế ai chả làm được.", "next": "a2b"},
+		"a2b": {"speaker": "duc", "text": "Ừ. Thế mà mày vẫn chưa làm được đấy."},
+		"a3": {"show": {"ducanh": "sweat"}, "speaker": "ducanh", "text": "Phũ thế! Được, để tao nói với KyKy là tối qua mày đi bộ ngược đường năm cây số chỉ để che ô cho em ấy!", "next": "a3b"},
+		"a3b": {"hide": ["ducanh"], "show": {"kyky": "surprised@right"}, "speaker": "kyky", "text": "(Nghe thấy hết.) …Năm cây số? Ngược đường? Anh Đức, nhà anh ở đâu cơ?", "next": "a3c"},
+		"a3c": {"show": {"duc": "panic", "kyky": "shy"}, "effects": {"heart": 2}, "text": "Anh Đức muốn độn thổ. KyKy cúi mặt, khoé miệng cong lên không giấu nổi."},
+		"again": {"show": {"ducanh": "grin@right"}, "speaker": "ducanh", "text": "Tao vừa xin được Trâm cái… cái nhìn khinh bỉ. Tiến triển tốt!"}
+	}
+}

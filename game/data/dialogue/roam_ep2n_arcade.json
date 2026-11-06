@@ -1,0 +1,25 @@
+{
+	"title": "Tập 2 – Khu trò chơi: máy gắp thú",
+	"start": "a",
+	"nodes": {
+		"a": {"bg": "arcade", "music": "barista", "ambient": "", "show": {"duc": "normal@left", "kyky": "sparkle@right"}, "effects": {"add": {"dates": 1}, "set_flags": ["date_arcade"]}, "text": "Tầng 2 khu trò chơi rực đèn neon. KyKy dính chặt mắt vào một chiếc máy gắp thú: bên trong có con gấu bông mèo xám tai cụp y hệt Nlong.", "next": "b"},
+		"b": {"speaker": "kyky", "text": "Anh Đức! Gấu bông Nlong kìa!!! Em phải có nó! (Mười phút và tám đồng xu sau…) Hu hu, nó cứ tuột…", "next": "c"},
+		"c": {"speaker": "duc", "think": true, "show": {"duc": "think"}, "text": "Góc gắp lệch. Cần chỉnh sang trái một chút trước khi thả.",
+			"choices": [
+				{"text": "Đứng sau lưng cô, đặt tay lên tay cô trên cần điều khiển", "effects": {"heart": 3, "set_flags": ["claw_hands"]}, "next": "hands"},
+				{"text": "“Tránh ra, để đại thần.” (tự gắp)", "next": "solo"},
+				{"text": "Giải thích bằng vật lý: trọng tâm, ma sát, lực kẹp", "effects": {"brain": 1}, "next": "physics"}
+			]},
+		"hands": {"cg": "cg_claw", "speaker": "duc", "text": "Tôi bảo giữ im tay… Đã bảo là phải nhắm lệch sang trái một chút mà.", "next": "hands2"},
+		"hands2": {"speaker": "kyky", "think": true, "text": "Nhưng… nhưng mà tay anh ấy ấm quá…", "next": "hands3"},
+		"hands3": {"branch": [{"if": {"min": {"heart": 8}}, "next": "win"}], "default": "lose"},
+		"win": {"cg": "none", "sfx": "sparkle", "show": {"kyky": "love"}, "effects": {"set_flags": ["claw_win"]}, "text": "Cái kẹp siết chặt, nhấc con gấu lên… rơi “bịch” vào cửa trả thưởng! KyKy ôm chầm con gấu bông Nlong, nhảy cẫng lên.", "next": "win2"},
+		"win2": {"speaker": "kyky", "text": "Em sẽ đặt tên nó là Nlong Hai! Không, Nlong Junior! Anh Đức là thiên tài!"},
+		"lose": {"cg": "none", "show": {"kyky": "laugh"}, "text": "Con gấu tuột ở giây cuối. Nhưng KyKy chẳng tiếc chút nào — cô còn bận đỏ mặt.", "next": "lose2"},
+		"lose2": {"speaker": "kyky", "text": "Không sao! Lần sau mình gắp tiếp nha… cùng nhau ấy."},
+		"solo": {"show": {"duc": "smirk"}, "text": "Anh Đức gắp đúng một lần. Con gấu Nlong rơi gọn vào cửa trả thưởng. Anh đưa cho cô như đưa một cái bút.", "effects": {"set_flags": ["claw_win"]}, "next": "solo2"},
+		"solo2": {"show": {"kyky": "pout"}, "speaker": "kyky", "effects": {"heart": 1}, "text": "…Giỏi quá đáng ghét. Nhưng mà em cảm ơn. (Ôm khư khư con gấu.)"},
+		"physics": {"show": {"duc": "deadpan"}, "speaker": "duc", "text": "Trọng tâm con gấu lệch về phía đầu, lực kẹp máy này được cài 30%, nên phải kẹp vào cổ, tận dụng ma sát với nhãn mác—", "next": "physics2"},
+		"physics2": {"show": {"kyky": "confused"}, "speaker": "kyky", "text": "…Em gắp được rồi nè. (Con gấu rơi vào cửa trả thưởng trong lúc anh đang giảng.)", "effects": {"set_flags": ["claw_win"]}}
+	}
+}

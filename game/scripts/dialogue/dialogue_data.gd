@@ -6,11 +6,12 @@ const DIALOGUE_DIR := "res://data/dialogue/"
 const ENDINGS_PATH := "res://data/endings.json"
 const CHAR_PATH := "res://data/characters.json"
 const BG_DIR := "res://assets/art/bg/"
+const CG_PATH := "res://data/cgs.json"
 
 const KNOWN_KEYS := [
 	"text", "speaker", "name", "think", "next", "then", "choices", "branch", "default", "effects",
 	"bg", "music", "ambient", "sfx", "voice", "show", "hide", "emote", "anim", "fx", "event",
-	"card", "card_hold", "wait", "timer", "timeout", "note",
+	"card", "card_hold", "wait", "timer", "timeout", "note", "cg",
 ]
 const KNOWN_FX := ["shake", "flash", "rain_on", "rain_off", "umbrella_on", "umbrella_off", "dark", "light", "zoom", "unzoom"]
 const KNOWN_EMOTES := ["", "!", "?", "sweat", "blush", "heart", "sparkle", "gloom", "anger", "zzz", "flowers", "tears", "dots"]
@@ -73,6 +74,8 @@ static func validate(data: Dictionary, endings: Dictionary = {}, chars: Dictiona
 	var start := str(data.get("start", "start"))
 	if not nodes.has(start):
 		errs.append("node bắt đầu '%s' không tồn tại" % start)
+	if nodes.has("end"):
+		errs.append("không được đặt tên node là 'end' (từ khoá kết thúc hội thoại) — đổi tên khác")
 	for key in nodes:
 		var n = nodes[key]
 		if not (n is Dictionary):
@@ -112,6 +115,10 @@ static func validate(data: Dictionary, endings: Dictionary = {}, chars: Dictiona
 			_check_step(str(n["then"]), key, step_check, errs)
 		_check_effects(n.get("effects", {}), endings, key, errs)
 		# sân khấu
+		if n.has("cg") and str(n["cg"]) != "none":
+			var cgs := load_json(CG_PATH)
+			if not cgs.has(str(n["cg"])):
+				errs.append("node '%s': CG '%s' chưa khai báo trong data/cgs.json" % [key, n["cg"]])
 		if n.has("bg"):
 			var bg := str(n["bg"])
 			if bg != "none" and not ResourceLoader.exists(BG_DIR + bg + ".jpg"):

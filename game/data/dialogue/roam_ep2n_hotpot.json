@@ -1,0 +1,18 @@
+{
+	"title": "Tập 2 – Hàng lẩu vỉa hè: tới giờ hẹn",
+	"start": "s",
+	"nodes": {
+		"s": {"branch": [{"if": {"min": {"dates": 1}}, "next": "go"}], "default": "early"},
+		"early": {"show": {"tram": "cross@right"}, "speaker": "tram", "text": "Ơ, tới sớm thế? Bọn tôi còn chưa gọi nồi. Hai người đi dạo đâu đó đi rồi quay lại — hoặc ngồi luôn cũng được.",
+			"choices": [
+				{"text": "Ngồi luôn, ăn lẩu thôi", "then": "vn:ep2_end"},
+				{"text": "Đi dạo thêm với KyKy đã", "next": "later"}
+			]},
+		"later": {"speaker": "tram", "text": "Nhớ: 9 giờ. Nguyên vẹn."},
+		"go": {"sfx": "pop", "text": "Hơi lẩu bốc nghi ngút dưới mái bạt, dây đèn vàng đung đưa trong gió mưa. Hội bạn vẫy tay rối rít.",
+			"choices": [
+				{"text": "Ngồi xuống ăn lẩu (kết thúc buổi tối)", "then": "vn:ep2_end"},
+				{"text": "Còn chút thời gian, đi thêm một vòng", "next": "later"}
+			]}
+	}
+}

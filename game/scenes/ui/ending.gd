@@ -3,6 +3,7 @@ extends Control
 
 const DialogueData := preload("res://scripts/dialogue/dialogue_data.gd")
 const Icon := preload("res://scripts/ui/icon.gd")
+const Steps := preload("res://scripts/story_steps.gd")
 
 
 func _ready() -> void:
@@ -14,8 +15,12 @@ func _ready() -> void:
 	if id != "":
 		GameState.delete_save()
 	var endings := DialogueData.load_json(DialogueData.ENDINGS_PATH)
-	var e: Dictionary = endings.get(id, {"title": "Hết Tập 1", "text": ""})
-	_build(e, endings.size())
+	var e: Dictionary = endings.get(id, {"title": "Hết Tập %d" % GameState.episode, "text": ""})
+	var total := 0
+	for k in endings:
+		if int(endings[k].get("episode", 1)) == GameState.episode:
+			total += 1
+	_build(e, total)
 	if GameState.autoplay:
 		print("[autoplay] KẾT THÚC: ", id, "  heart=", GameState.get_var("heart"), " brain=", GameState.get_var("brain"), " nlong=", GameState.get_var("nlong"))
 		get_tree().create_timer(1.0).timeout.connect(get_tree().quit)
@@ -66,24 +71,32 @@ func _build(e: Dictionary, total: int) -> void:
 		["bulb", "Hiểu bài", GameState.get_var("brain")],
 		["paw", "Thân với Nlong", GameState.get_var("nlong")],
 	]
+	if GameState.episode >= 2:
+		stat_rows.append(["star", "Trâm tin tưởng", GameState.get_var("tram")])
 	for info in stat_rows:
 		var h := HBoxContainer.new()
 		h.add_child(Icon.new(info[0], 40.0))
 		h.add_child(Ui.label("%s: %d" % [info[1], info[2]], 22, Ui.TEXT, Ui.font_bold))
 		stats.add_child(h)
 
-	var got := Ui.label("Đã mở khóa %d / %d kết thúc" % [GameState.unlocked_endings.size(), total], 20, Ui.TEXT_SOFT)
+	var mine := 0
+	var all_endings := DialogueData.load_json(DialogueData.ENDINGS_PATH)
+	for k in GameState.unlocked_endings:
+		if int(all_endings.get(k, {}).get("episode", 1)) == GameState.episode:
+			mine += 1
+	var got := Ui.label("Tập %d: đã mở khóa %d / %d kết thúc" % [GameState.episode, mine, total], 20, Ui.TEXT_SOFT)
 	got.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	v.add_child(got)
 
 	var sep := HSeparator.new()
 	v.add_child(sep)
-	var next := Ui.label("Hết Tập 1 — Mở khóa tính năng Nhắn Tin Điện Thoại cho Tập 2", 24, Color("6b3a2a"), Ui.font_title)
+	var next := Ui.label("Hết Tập %d" % GameState.episode, 24, Color("6b3a2a"), Ui.font_title)
 	next.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	v.add_child(next)
-	var teaser := Ui.label(
-		"Tập 2 (sắp ra mắt): Trâm — cô bạn thân “hộ vệ” — đích thân tới quán để “thẩm vấn” Anh Đức. "
-		+ "Và một anh khóa trên lịch thiệp tên Hải bắt đầu xuất hiện bên cạnh KyKy…", 19, Ui.TEXT)
+	var teaser_text := str(e.get("next", ""))
+	if teaser_text == "" and GameState.episode == 1:
+		teaser_text = "Tập 2: Trâm — cô bạn thân “hộ vệ” — đích thân tới quán để “thẩm vấn” Anh Đức. Và một anh khóa trên lịch thiệp tên Hải bắt đầu xuất hiện bên cạnh KyKy…"
+	var teaser := Ui.label(teaser_text, 19, Ui.TEXT)
 	teaser.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	teaser.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	teaser.custom_minimum_size = Vector2(800, 0)
@@ -93,10 +106,15 @@ func _build(e: Dictionary, total: int) -> void:
 	row.alignment = BoxContainer.ALIGNMENT_CENTER
 	row.add_theme_constant_override("separation", 20)
 	v.add_child(row)
-	var again := Ui.button("Chơi lại (thử kết thúc khác)", 360)
-	again.pressed.connect(func() -> void: Story.new_game())
+	var ep := GameState.episode
+	if Steps.EPISODES.has(ep + 1):
+		var nxt := Ui.button("Sang Tập %d  »" % (ep + 1), 260)
+		nxt.pressed.connect(func() -> void: Story.new_game(ep + 1))
+		row.add_child(nxt)
+	var again := Ui.button("Chơi lại Tập %d" % ep, 260)
+	again.pressed.connect(func() -> void: Story.new_game(ep))
 	row.add_child(again)
-	var home := Ui.button("Về màn hình chính", 300)
+	var home := Ui.button("Màn hình chính", 240)
 	home.pressed.connect(func() -> void:
 		GameState.reset()
 		Story.goto("title", false))

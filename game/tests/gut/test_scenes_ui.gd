@@ -5,12 +5,16 @@ extends GutTest
 ## Story.busy = true để chặn chuyển cảnh (không phá trình chạy test).
 
 const H := preload("res://tests/gut/helpers.gd")
+const CAFE := preload("res://scenes/world/cafe.tscn")
 const SCENES := [
 	"res://scenes/ui/title_screen.tscn",
 	"res://scenes/world/cafe.tscn",
 	"res://scenes/minigames/barista.tscn",
 	"res://scenes/minigames/debug.tscn",
 	"res://scenes/minigames/heartbeat.tscn",
+	"res://scenes/minigames/nlong_rescue.tscn",
+	"res://scenes/minigames/logic_puzzle.tscn",
+	"res://scenes/minigames/dark.tscn",
 	"res://scenes/phone/phone.tscn",
 	"res://scenes/ui/ending.tscn",
 ]
@@ -93,7 +97,7 @@ func test_every_scene_runs() -> void:
 func test_evening_map_runs() -> void:
 	GameState.reset()
 	Story.current_step = "roam:evening"
-	var node: Node = load("res://scenes/world/cafe.tscn").instantiate()
+	var node: Node = CAFE.instantiate()
 	add_child(node)
 	await wait_physics_frames(45)
 	assert_true(GameState.has_flag("is_evening"), "map buổi tối phải bật cờ is_evening")
@@ -101,6 +105,46 @@ func test_evening_map_runs() -> void:
 	await wait_physics_frames(2)
 	_stop_dialogue()
 	Story.current_step = ""
+
+
+func test_ep2_maps_run() -> void:
+	for v in ["ep2_morning", "ep2_afternoon", "ep2_night"]:
+		GameState.start_episode(2, "roam:" + v)
+		Story.current_step = "roam:" + v
+		var node: Node = CAFE.instantiate()
+		add_child(node)
+		await wait_physics_frames(30)
+		assert_gt((node.get("entities") as Array).size(), 3, v + ": bản đồ không có ai để tương tác")
+		if v == "ep2_night":
+			assert_not_null(node.get("_follower"), "phố đêm: KyKy phải đi theo Anh Đức")
+		node.queue_free()
+		await wait_physics_frames(2)
+		_stop_dialogue()
+	Story.current_step = ""
+	GameState.reset()
+
+
+func test_cg_layer_shows_and_unlocks() -> void:
+	GameState.unlocked_cgs.clear()
+	Dialogue._show_cg("cg_claw")
+	await wait_physics_frames(5)
+	assert_true(Dialogue._cg.visible, "CG phải hiện")
+	assert_has(GameState.unlocked_cgs, "cg_claw", "xem CG lần đầu phải mở khoá vào mục Kỷ niệm")
+	Dialogue._show_cg("none")
+	await wait_seconds(0.2)
+	_stop_dialogue()
+	assert_false(Dialogue._cg.visible, "clear_stage phải tắt CG")
+
+
+func test_nlong_corner_tells_thoughts() -> void:
+	GameState.start_episode(2, "phone:ep2_night")
+	GameState.seen_thoughts.clear()
+	Hud.set_visible_hud(true)
+	var t: String = Hud.pet_cat()
+	assert_string_contains(t, "Tâm tư Anh Đức", "chạm Nlong phải kể tâm tư Anh Đức")
+	assert_eq(GameState.get_var("nlong"), 0, "nựng Nlong ở góc không được cộng chỉ số (phá kết thúc)")
+	Hud.set_visible_hud(false)
+	GameState.reset()
 
 
 func test_hud_meters_follow_game_state() -> void:

@@ -1,0 +1,22 @@
+{
+	"title": "Tập 2 – Phân cảnh 4: Cúp điện ở góc kệ sách & khoảnh khắc “gần trong gang tấc”",
+	"start": "a",
+	"nodes": {
+		"a": {"card": "17:30 — Trời chuyển mây âm u", "bg": "library", "music": "rain_night", "ambient": "rain_window", "next": "b"},
+		"b": {"show": {"duc": "normal@left", "kyky": "normal@right"}, "text": "Góc kệ sách sâu phía trong quán: hai dãy kệ gỗ hẹp, mùi giấy cũ và hạt cà phê. KyKy kiễng chân tìm tập tài liệu của chị M.", "next": "c"},
+		"c": {"speaker": "kyky", "show": {"kyky": "happy"}, "text": "Em thấy túi hạt cà phê rồi! Anh lấy giúp em tập tài liệu trên cao kia với—", "next": "d"},
+		"d": {"branch": [{"if": {"flags": ["ducanh_toaster"]}, "next": "d_toast"}], "default": "d_plain"},
+		"d_toast": {"name": "Đức Anh (vọng vào)", "text": "Trâm ơi xem anh lắp máy nướng bánh này! Cắm vào là chạy luôn—", "next": "off"},
+		"d_plain": {"name": "Đức Anh (vọng vào)", "text": "Chị M ơi em thử cái máy nướng bánh mới nhé! Để em khoe tài với— à không, để em giúp chị!", "next": "off"},
+		"off": {"fx": ["dark", "shake"], "sfx": "glitch", "text": "PHỰT!", "next": "off2"},
+		"off2": {"show": {"kyky": "panic"}, "speaker": "kyky", "text": "Á!!!", "next": "light"},
+		"light": {"text": "Toàn bộ quán tối om. Chỉ còn ánh sáng mờ từ màn hình điện thoại Anh Đức vừa bật lên, hắt sáng góc kệ hẹp.", "next": "bump"},
+		"bump": {"sfx": "drop", "text": "“Bộp!” — ngoài kia Nlong vô tình làm rơi một cuốn sách.", "next": "grab"},
+		"grab": {"show": {"kyky": "cry"}, "text": "KyKy theo phản xạ nhắm tịt mắt, lao tới túm chặt vạt áo polo đen của Anh Đức, vùi mặt vào ngực anh, run nhẹ.", "next": "k"},
+		"k": {"speaker": "kyky", "text": "Anh Đức ơi… tối quá… có phải có cái gì vừa rơi không ạ? Em sợ…", "next": "k2"},
+		"k2": {"branch": [{"if": {"flags": ["knows_dark"]}, "next": "know"}], "default": "d1"},
+		"know": {"speaker": "duc", "think": true, "show": {"duc": "worried"}, "text": "Trâm nói đúng. Con bé sợ bóng tối thật. Bình tĩnh. Mình phải bình tĩnh hơn cô ấy.", "effects": {"heart": 1}, "next": "d1"},
+		"d1": {"show": {"duc": "soft"}, "speaker": "duc", "text": "Không có ma đâu. Chỉ có thằng Đức Anh đang phá quán ngoài kia thôi. Đừng sợ, tôi ở ngay đây rồi.", "next": "d2"},
+		"d2": {"text": "Một tay anh cầm điện thoại chiếu sáng. Tay kia chần chừ một nhịp… rồi nhẹ nhàng đặt lên lưng cô, vỗ về.", "then": "mini:dark"}
+	}
+}

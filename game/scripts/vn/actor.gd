@@ -46,7 +46,7 @@ func set_pose(tex: Texture2D, flip: bool, emote_kind: String, face: Vector2) -> 
 
 
 ## Hiện ô phác thảo biểu cảm (ảnh *_x_*.png) cạnh đầu. tex = null để ẩn.
-func set_inset(tex: Texture2D, on_left: bool) -> void:
+func set_inset(tex: Texture2D, on_left: bool, at_x: float = 640.0) -> void:
 	if tex == null:
 		inset.visible = false
 		return
@@ -56,7 +56,16 @@ func set_inset(tex: Texture2D, on_left: bool) -> void:
 	inset.scale = Vector2.ONE * k
 	var hw: float = emote.head_w
 	var head_pos: Vector2 = emote.head
-	inset.position = head_pos + Vector2((-1.0 if on_left else 1.0) * (hw * 0.75 + target_px * 0.5 / _base_scale), -hw * 0.35)
+	var dx := hw * 0.75 + target_px * 0.5 / _base_scale
+	var side := -1.0 if on_left else 1.0
+	# đặt bên kia đầu nếu ô bị tràn khỏi màn hình 1280px (vd nhân vật đứng sát mép phải)
+	var half := target_px * 0.5 + 14.0
+	var cx := at_x + (head_pos.x + side * dx) * scale.x
+	if cx - half < 0.0 or cx + half > 1280.0:
+		side = -side
+		cx = at_x + (head_pos.x + side * dx) * scale.x
+	var shift := clampf(cx, half, 1280.0 - half) - cx  # vẫn tràn (nhân vật quá to) -> kéo vào trong
+	inset.position = head_pos + Vector2(side * dx + shift / scale.x, -hw * 0.35)
 	inset.visible = true
 	inset.modulate.a = 0.0
 	var tw := create_tween()

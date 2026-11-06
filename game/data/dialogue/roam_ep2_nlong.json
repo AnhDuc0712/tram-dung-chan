@@ -1,0 +1,16 @@
+{
+	"title": "Tập 2 – Nựng Nlong (sáng & chiều)",
+	"start": "s",
+	"nodes": {
+		"s": {"branch": [
+			{"if": {"flags": ["ep2_pm", "petted_ep2_pm"]}, "next": "full"},
+			{"if": {"flags": ["ep2_pm"]}, "next": "pm"},
+			{"if": {"flags": ["petted_ep2"]}, "next": "full"}
+		], "default": "am"},
+		"am": {"event": "nlong_pet", "sfx": "mew_purr", "show": {"duc": "soft@left", "nlong": "love@right"}, "speaker": "duc", "text": "Chào buổi sáng, hoàng thượng. Lát nữa có khách quen tới, ngài làm ơn đừng nằm lên laptop của anh nhé.", "next": "am2"},
+		"am2": {"show": {"nlong": "doze"}, "speaker": "nlong", "effects": {"add": {"nlong": 1}, "set_flags": ["petted_ep2"]}, "text": "Meo. (Nghĩa là: “Không hứa.”)"},
+		"pm": {"event": "nlong_pet", "sfx": "purr", "show": {"duc": "soft@left", "nlong": "love@right"}, "text": "Nlong nằm ngửa giữa bàn, mặc kệ cả quán ồn ào. Anh Đức gãi cằm ngài, mắt vẫn liếc về phía bàn của KyKy.", "next": "pm2"},
+		"pm2": {"speaker": "duc", "think": true, "effects": {"add": {"nlong": 1}, "set_flags": ["petted_ep2_pm"]}, "text": "…Mày cũng thấy cái hộp bánh matcha đó chướng mắt đúng không, Nlong?"},
+		"full": {"show": {"nlong": "sleep@center"}, "text": "Hoàng thượng đang ngủ, bụng phập phồng đều đều. Đừng làm phiền ngài."}
+	}
+}

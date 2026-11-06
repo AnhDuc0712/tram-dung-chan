@@ -1,0 +1,17 @@
+{
+	"title": "Tập 2 – Cô bán hoa dạo (NPC môi trường)",
+	"start": "s",
+	"nodes": {
+		"s": {"branch": [{"if": {"flags": ["flowers_done"]}, "next": "again"}], "default": "a"},
+		"a": {"name": "Cô bán hoa", "text": "Hoa cúc hoạ mi đây cháu ơi! Mua cho bạn gái một bó đi, nhìn hai đứa có tướng phu thê lắm!",
+			"choices": [
+				{"text": "Mua một bó cúc hoạ mi tặng KyKy", "effects": {"heart": 2, "set_flags": ["flowers_done", "gave_flowers"]}, "next": "buy"},
+				{"text": "“Bọn cháu… không phải người yêu đâu ạ.”", "effects": {"set_flags": ["flowers_done"]}, "next": "deny"}
+			]},
+		"buy": {"show": {"kyky": "shy@right"}, "speaker": "kyky", "text": "Cúc… hoạ mi ạ? Hôm qua em đếm cánh hoa cúc làm bài… Lần này em không đếm nữa đâu. Em giữ nguyên cả bó.", "next": "buy2"},
+		"buy2": {"name": "Cô bán hoa", "text": "Đấy, cô nói có sai đâu. Tướng phu thê!"},
+		"deny": {"name": "Cô bán hoa", "text": "Ừ, “chưa” phải thôi chứ gì. Cô bán hoa ở đây hai mươi năm rồi, cô biết hết!", "next": "deny2"},
+		"deny2": {"show": {"kyky": "pout@right"}, "speaker": "kyky", "text": "(Lí nhí) …“Không phải” nghe phũ ghê."},
+		"again": {"name": "Cô bán hoa", "text": "Đi chơi vui vẻ nhé hai đứa!"}
+	}
+}

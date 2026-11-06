@@ -18,7 +18,12 @@ Người dùng là người mới làm game: giải thích ngắn gọn bằng *
 - Sinh ảnh biểu cảm từ sprite gốc: `tools\.venv-art\Scripts\python.exe -I tools\art\make_expressions.py [base...]` → `<base>_<biểu cảm>.png`
   + `build\shots\expressions_sheet.png` (xem lại bằng mắt). Toạ độ mắt/miệng/lông mày/gọng kính đo sẵn trong `FACES`.
   Chạy lại cut_sprites thì phải chạy lại script này. Danh sách pose theo nhân vật: `docs/DIALOGUE_FORMAT.md`.
-- Đóng gói `tools\build.ps1` — CHỈ khi người dùng yêu cầu (cần export templates 1.3GB).
+- Đóng gói `tools\build.ps1 [-Web]` (template chỉ tải phần cần: `tools\install_export_templates.ps1` ~110 MB).
+- Deploy web: `tools\deploy_web.ps1 [-Prod]` (Vercel). Bình thường để CI làm: PR → preview, merge `main` → production.
+- **Git/CI:** không commit thẳng `main` — tạo nhánh `fix/...`, `tap-N/...` rồi `gh pr create`. Quy trình: `docs/CICD.md`.
+  Workflow: `.github/workflows/ci.yml` (Linux, `$env:GODOT`), `release.yml` (tag `vX.Y.Z` = `config/version`).
+- Soi bằng mắt cả tập: `Godot --path game -- --autoplay --episode=2 --snap=C:/devgame2D/build/snap --snap-every=40` (ảnh JPG mỗi 40 frame).
+- Điện thoại: thử chế độ cảm ứng bằng `-Extra "--touch"`, màn dọc `-Resolution 422x844` (tools\screenshot.ps1).
 
 ## Kiến trúc
 - Autoload: `GameState` (vars heart/brain/nlong, flags, step, save, meta kết thúc, settings) · `Ui` (theme, font, màu) ·
@@ -29,6 +34,12 @@ Người dùng là người mới làm game: giải thích ngắn gọn bằng *
 - Dữ liệu: `data/dialogue/*.json` (schema `docs/DIALOGUE_FORMAT.md`), `characters.json`, `endings.json`, `roam/cafe.json`, `phone/*.json`, `minigames/*.json`.
 - UI dựng bằng code; các `.tscn` chỉ là node gốc + script.
 
+## Tập 2 (mới)
+- `Steps.EPISODES` (tập → bước đầu), `Story.new_game(ep)`, `GameState.start_episode()` (mang `ep1_last` sang), `bar_max()` theo tập.
+- Bản đồ: `Steps.ROAM_MAPS` biến thể → `data/roam/<map>.json` (cafe, street); dữ liệu bản đồ khai báo intros/objectives/follower/autoplay.
+- Event CG: khóa `cg` trong kịch bản + `data/cgs.json`; ảnh xử lý bằng `tools/art/process_ep2.py`. Tự chơi Tập 2: `-- --autoplay --episode=2`.
+- Mở thẳng bản đồ để chụp: `tools\screenshot.ps1 -Scene cafe -Extra "--variant=ep2_night"`.
+
 ## Quy tắc
 - Mỗi kết thúc / tuyến mới → thêm test route trong `tests/run_tests.gd`. Cập nhật `docs/STORY.md` khi thêm nội dung.
 - Mỗi asset thêm vào `game/assets/` → ghi 1 dòng vào `docs/CREDITS.md`. Không dùng asset không rõ license.
@@ -37,5 +48,7 @@ Người dùng là người mới làm game: giải thích ngắn gọn bằng *
 - Coroutine: muốn `await` thì hàm phải trả về signal/Tween (vd `Story.show_card()` trả Tween → `await tw.finished`).
 - Asset đã import kiểm tra bằng `ResourceLoader.exists()`; `.json` vào bản export nhờ `include_filter="*.json"`.
 - Viewport 1280×720, stretch `canvas_items`, filter linear (tranh vẽ, không phải pixel art), renderer GL Compatibility.
+- Control trong autoload (Dialogue/Hud, lớp cao) luôn hiện mà không phải nút → `mouse_filter = IGNORE`, nếu không sẽ nuốt
+  cú chạm cả màn bên dưới (test `test_input_blockers.gd`).
 - Không dùng emoji / ký tự hiếm (♥ ★ ♪) trong chữ — font web không có; vẽ bằng `scripts/ui/shapes.gd` / `icon.gd`.
 - Không sửa `tools/godot/`, `game/.godot/` (sinh tự động).

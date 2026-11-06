@@ -1,0 +1,15 @@
+{
+	"title": "Tập 2 – Chị M (buổi sáng)",
+	"start": "s",
+	"nodes": {
+		"s": {"branch": [{"if": {"flags": ["talked_m_ep2"]}, "next": "again"}], "default": "first"},
+		"first": {"show": {"m": "normal@right", "duc": "normal@left"}, "speaker": "m", "effects": {"set_flags": ["talked_m_ep2"]}, "text": "Hôm nay thứ Bảy, đông đấy. Hội bạn của em có ghé không?", "next": "f2"},
+		"f2": {"branch": [{"if": {"flags": ["invited_friends"]}, "next": "f_inv"}], "default": "f_no"},
+		"f_inv": {"show": {"duc": "awkward"}, "speaker": "duc", "text": "Em lỡ rủ tụi nó qua quán… để bàn đồ án.", "next": "f_inv2"},
+		"f_inv2": {"show": {"m": "wink"}, "speaker": "m", "text": "Bàn đồ án, ngay hôm có khách VIP. Ừ. Chị sẽ chuẩn bị thêm bánh ngọt và… bỏng ngô.", "next": "tip"},
+		"f_no": {"speaker": "duc", "text": "Không ạ. Hôm nay em chỉ dạy kèm.", "next": "f_no2"},
+		"f_no2": {"show": {"m": "tease"}, "speaker": "m", "text": "“Chỉ” dạy kèm. Chị ghi âm lại câu này để sau này mở cho em nghe.", "next": "tip"},
+		"tip": {"show": {"m": "normal"}, "speaker": "m", "text": "Mẹo của chị nhé: con bé thích ca cao nóng, ghét đắng. Hoàng thượng thì thích được gãi sau tai cụp. Nhớ chưa?", "effects": {"set_flags": ["m_tip_ep2"]}},
+		"again": {"show": {"m": "wink@right"}, "speaker": "m", "text": "Còn đứng đây làm gì? Ra cửa đón khách VIP đi chứ!"}
+	}
+}
