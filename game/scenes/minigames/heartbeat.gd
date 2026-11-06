@@ -68,11 +68,11 @@ func _build() -> void:
 		add_child(s)
 
 	_heart = Icon.new("heart", 150.0)
-	_heart.position = Vector2(265, 150)
+	_heart.position = Vector2(655, 175) if _mode == "dark" else Vector2(265, 150)
 	add_child(_heart)
 
 	var p := PanelContainer.new()
-	p.position = Vector2(80, 360)
+	p.position = Vector2(80, 170 if _mode == "dark" else 360)  # bảng chế độ tối cao hơn -> đặt cao lên để không tràn mép dưới
 	p.custom_minimum_size = Vector2(560, 0)
 	add_child(p)
 	var v := VBoxContainer.new()
@@ -87,7 +87,7 @@ func _build() -> void:
 	_msg.custom_minimum_size = Vector2(520, 0)
 	v.add_child(_msg)
 	_track = Control.new()
-	_track.custom_minimum_size = Vector2(520, 180 if _mode == "dark" else 46)
+	_track.custom_minimum_size = Vector2(520, 150 if _mode == "dark" else 46)
 	_track.draw.connect(_draw_track)
 	v.add_child(_track)
 	_count = Ui.label("", 20, Ui.TEXT_SOFT, Ui.font_bold)

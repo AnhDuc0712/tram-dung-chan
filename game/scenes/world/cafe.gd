@@ -402,7 +402,9 @@ func _process(delta: float) -> void:
 		_prompt.visible = true
 		_prompt.reset_size()
 		var top: Vector2 = (_nearest["node"] as Node2D).position + Vector2(0, -float(_nearest["height"]) - 58.0)
-		_prompt.position = Vector2(clampf(top.x - _prompt.size.x * 0.5, 4, 1276 - _prompt.size.x), maxf(top.y, 4))
+		if top.y < 150.0:  # sát mép trên -> nhãn sẽ đè thanh chỉ số / nhiệm vụ / nút Menu -> đặt xuống dưới chân
+			top.y = maxf((_nearest["node"] as Node2D).position.y + 12.0, 104.0)  # dưới ô nhiệm vụ (cao ~95px)
+		_prompt.position = Vector2(clampf(top.x - _prompt.size.x * 0.5, 4, 1276 - _prompt.size.x), top.y)
 
 
 func _available(e: Dictionary) -> bool:

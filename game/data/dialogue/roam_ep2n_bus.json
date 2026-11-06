@@ -2,7 +2,7 @@
 	"title": "Tập 2 – Trạm xe buýt dưới mưa: chiếc áo khoác",
 	"start": "a",
 	"nodes": {
-		"a": {"bg": "street_rain", "music": "rain_night", "ambient": "rain_loop", "fx": "rain_on", "show": {"duc": "normal@left", "kyky": "normal@right"}, "effects": {"add": {"dates": 1}, "set_flags": ["date_bus", "went_busstop"]}, "text": "Hai người tạt vào trạm xe buýt trú mưa. Mưa nặng hạt hơn. KyKy vừa chạy một đoạn, tóc và vai áo ướt lấm tấm.", "next": "b"},
+		"a": {"bg": "street_rain", "music": "rain_night", "ambient": "rain_loop", "fx": "rain_on", "show": {"duc": "normal@left", "kyky": "normal@right"}, "effects": {"add": {"dates": 1}, "set_flags": ["date_bus", "went_busstop"]}, "text": "Hai người tạt vào trạm xe buýt ngay trước cửa Gờ 23 (quán đã đóng) để trú mưa. Mưa nặng hạt hơn. KyKy vừa chạy một đoạn, tóc và vai áo ướt lấm tấm.", "next": "b"},
 		"b": {"show": {"kyky": "worried"}, "speaker": "kyky", "text": "Hắt xì! …Em không sao. Thật đó.", "next": "c"},
 		"c": {"speaker": "duc", "think": true, "show": {"duc": "worried"}, "text": "Cô bé run rồi.",
 			"choices": [

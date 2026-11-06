@@ -145,3 +145,34 @@ check.ps1 tự chơi trọn cả Tập 1 lẫn Tập 2 → ALL CHECKS PASSED.
 - Cân bằng: kết “Áo Khoác” chỉ 1/250 lượt → đổi điều kiện (khoác áo thật) + ưu tiên trước kết ghen.
 - Bảng thông tin mini-game Nlong che mặt mèo → dời sang phải; Nlong góc màn hình ẩn khi chơi mini-game.
 - Lọc trung vị cửa sổ lớn trên ảnh 2752px quá chậm (>10 phút) → đổi sang lọc Gauss.
+
+## Phiên 8 — 2026-11-06: cài secret Vercel cho CI
+- Người dùng chạy `tools\setup_ci_secrets.ps1` → 3 secret đã có, chạy lại CI của PR #1: phần kiểm tra xanh, **deploy lỗi**
+  `You defined "--token", but its contents are invalid`.
+- Nguyên nhân: token lưu trên GitHub dài **1 ký tự** — Ctrl+V trong ô `Read-Host -AsSecureString` của Windows PowerShell 5.1
+  ghi ký tự điều khiển ^V thay vì dán. (VERCEL_ORG_ID / VERCEL_PROJECT_ID không bị ảnh hưởng: lấy từ file.)
+- Sửa (commit 8879341 trên nhánh tap-2/co-ban): script đọc token từ **clipboard**, kiểm tra `^[A-Za-z0-9_]{16,}$` rồi mới cài,
+  sau đó xoá clipboard; CI thêm bước kiểm tra định dạng token, báo lỗi tiếng Việt kèm độ dài (không in token).
+- Chờ người dùng: copy token trên vercel.com → chạy lại script → báo để chạy lại CI lấy link xem thử → merge PR #1.
+- Người dùng chép token vào `tokenvercel.md` (KHÔNG commit — file untracked) → Claude kiểm tra định dạng (60 ký tự) và cài
+  VERCEL_TOKEN theo yêu cầu. CI chạy lại: deploy OK, bot gắn link xem thử vào PR #1. Link preview trả 302 = Vercel bảo vệ
+  bản xem thử (phải đăng nhập Vercel mới mở được).
+
+## Phiên 9 — 2026-11-06: kiểm thử lại toàn bộ (bản web + điện thoại) và sửa lỗi
+Cách kiểm: check.ps1 6 bước; tự chơi trọn 2 tập có ĐỒ HOẠ thật + chụp mỗi 40 frame (`--snap`) rồi duyệt bằng mắt;
+đóng gói web, cho Chrome headless tự chơi trọn Tập 2 trên bản web; giả lập điện thoại ngang có cảm ứng, chạm từng bước.
+**Lỗi tìm được + đã sửa**
+- NGHIÊM TRỌNG: khung lựa chọn của hộp thoại (lớp 10) luôn "hiện" và nhận chuột → nuốt mọi cú chạm ở giữa màn
+  (290–990 × 196–496): không bấm được Tập 1/Tập 2 trong bảng chọn tập, chỗ chạm giữa bản đồ / mini-game. → mouse_filter IGNORE
+  + test mới `test_input_blockers.gd` (rà mọi lớp phủ của Dialogue/Hud ở 6 màn).
+- Dòng báo thái độ ("Trâm sẽ nhớ…") chồng chữ, khó đọc → mỗi dòng 1 ô nền, tối đa 4 dòng.
+- Ô biểu cảm tràn khỏi mép phải khi nhân vật đứng sát mép → tự đổi bên / kéo vào trong.
+- Ô biểu cảm Trâm vẽ SAI người (tóc nâu, áo hồng) → chỉnh màu tóc đen + áo tím (ảnh gốc giữ ở build/tram_inset_bak).
+- Mini-game ghép lệnh: thanh Hiểu bài che dòng đầu khung code → dời xuống. Mini-game bóng tối: bảng tràn mép dưới → dời lên.
+- Lời nghĩ thầm hiện "((" ở 3 câu → sửa dữ liệu + test chặn.
+- Ngôi sao "Trâm tin tưởng" ở màn kết thúc to gấp đôi, đè chữ (draw_star nhận bán kính).
+- Nhãn "E · Đọc menu" đè ô nhiệm vụ / nút Menu → đặt xuống dưới.
+- Trạm xe buýt dùng nền mặt tiền Gờ 23 → câu dẫn nói rõ trạm ngay trước cửa quán.
+- Màn hình chính vẫn ghi chỉ "Tập 1" → ghi cả Tập 2. Phiên bản 1.2.0.
+**Còn lại (không sửa được ở đây)**: Chrome headless (SwiftShader) in nhiều cảnh báo WebGL "bindBuffer… different target" —
+game vẫn chạy trọn tập; cần thử trên điện thoại thật xem có vệt/thiếu hình không.

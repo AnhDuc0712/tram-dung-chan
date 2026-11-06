@@ -293,6 +293,9 @@ func _build_ui() -> void:
 	_choice_box.size = Vector2(700, 300)
 	_choice_box.alignment = BoxContainer.ALIGNMENT_CENTER
 	_choice_box.add_theme_constant_override("separation", 14)
+	# BẮT BUỘC bỏ qua chuột: khung này luôn "hiện" (dù trống) trên lớp 10 -> nếu nhận chuột sẽ nuốt mọi cú chạm
+	# ở giữa màn hình (nút chọn tập, mini-game, bản đồ...). Nút lựa chọn bên trong vẫn bấm được bình thường.
+	_choice_box.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_root.add_child(_choice_box)
 
 
@@ -494,7 +497,8 @@ func _show_actor(id: String, v) -> void:
 		a.scale = Vector2.ONE * sc
 	a.set_pose(tex, flip, str(pose.get("emote", "")), face)
 	var inset_name := str(pose.get("inset", ""))
-	a.set_inset(Ui.char_tex(inset_name) if inset_name != "" else null, a.position.x < 640.0)
+	var final_x: float = _x_for(id, s["at"]) if s["at"] != "" else a.position.x
+	a.set_inset(Ui.char_tex(inset_name) if inset_name != "" else null, final_x < 640.0, final_x)
 	if s["at"] != "":
 		a.set_meta("slot", s["at"])
 	if is_new:

@@ -15,7 +15,7 @@
 		"grab": {"show": {"kyky": "cry"}, "text": "KyKy theo phản xạ nhắm tịt mắt, lao tới túm chặt vạt áo polo đen của Anh Đức, vùi mặt vào ngực anh, run nhẹ.", "next": "k"},
 		"k": {"speaker": "kyky", "text": "Anh Đức ơi… tối quá… có phải có cái gì vừa rơi không ạ? Em sợ…", "next": "k2"},
 		"k2": {"branch": [{"if": {"flags": ["knows_dark"]}, "next": "know"}], "default": "d1"},
-		"know": {"speaker": "duc", "think": true, "show": {"duc": "worried"}, "text": "(Trâm nói đúng. Con bé sợ bóng tối thật.) Bình tĩnh. Mình phải bình tĩnh hơn cô ấy.", "effects": {"heart": 1}, "next": "d1"},
+		"know": {"speaker": "duc", "think": true, "show": {"duc": "worried"}, "text": "Trâm nói đúng. Con bé sợ bóng tối thật. Bình tĩnh. Mình phải bình tĩnh hơn cô ấy.", "effects": {"heart": 1}, "next": "d1"},
 		"d1": {"show": {"duc": "soft"}, "speaker": "duc", "text": "Không có ma đâu. Chỉ có thằng Đức Anh đang phá quán ngoài kia thôi. Đừng sợ, tôi ở ngay đây rồi.", "next": "d2"},
 		"d2": {"text": "Một tay anh cầm điện thoại chiếu sáng. Tay kia chần chừ một nhịp… rồi nhẹ nhàng đặt lên lưng cô, vỗ về.", "then": "mini:dark"}
 	}

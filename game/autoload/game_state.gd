@@ -36,6 +36,9 @@ var episode := 1
 ## Chế độ tự chơi để kiểm thử (tham số "-- --autoplay"): tự bấm, tự chọn, tự xong mini-game.
 var autoplay := OS.get_cmdline_user_args().has("--autoplay")
 var settings := {"music": 0.8, "sfx": 0.9, "text_speed": 45.0}
+var _snap_dir := ""  # --snap=DIR (chỉ kiểm thử)
+var _snap_every := 45
+var _snap_frame := 0
 
 
 func _ready() -> void:
@@ -46,6 +49,20 @@ func _ready() -> void:
 	reset()
 	load_meta()
 	load_settings()
+	for a in OS.get_cmdline_user_args():
+		if a.begins_with("--snap="):  # kiểm thử bằng mắt: chụp màn hình mỗi N frame vào thư mục
+			_snap_dir = a.substr(7)
+		elif a.begins_with("--snap-every="):
+			_snap_every = maxi(int(a.substr(13)), 1)
+	set_process(_snap_dir != "")
+
+
+func _process(_delta: float) -> void:
+	_snap_frame += 1
+	if _snap_frame % _snap_every == 0:
+		var img := get_viewport().get_texture().get_image()
+		img.resize(640, 360)
+		img.save_jpg("%s/%06d_%s.jpg" % [_snap_dir, _snap_frame, step.replace(":", "-")], 0.8)
 
 
 # ---------------------------------------------------------------- phím bấm

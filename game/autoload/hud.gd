@@ -123,10 +123,23 @@ func refresh() -> void:
 
 
 func toast(text: String, color: Color = Ui.PINK) -> void:
-	var l := Ui.label(text, 24, color, Ui.font_bold)
-	l.add_theme_color_override("font_outline_color", Color.WHITE)
-	l.add_theme_constant_override("outline_size", 8)
+	# mỗi dòng báo nằm trong một ô nền kem riêng -> nhiều dòng cùng lúc vẫn đọc rõ, không đè lên nhau
+	var l := PanelContainer.new()
+	var sb := Ui.box(Color(1.0, 0.98, 0.94, 0.94), color, 12, 2, false)
+	sb.content_margin_top = 4
+	sb.content_margin_bottom = 4
+	sb.content_margin_left = 12
+	sb.content_margin_right = 12
+	l.add_theme_stylebox_override("panel", sb)
+	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var t := Ui.label(text, 20, color, Ui.font_bold)
+	t.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	l.add_child(t)
 	_toast_box.add_child(l)
+	while _toast_box.get_child_count() > 4:  # tối đa 4 dòng
+		var old := _toast_box.get_child(0)
+		_toast_box.remove_child(old)
+		old.queue_free()
 	l.modulate.a = 0.0
 	var tw := create_tween()
 	tw.tween_property(l, "modulate:a", 1.0, 0.2)
@@ -195,7 +208,8 @@ func _build() -> void:
 	_objective.visible = false
 
 	_toast_box = VBoxContainer.new()
-	_toast_box.position = Vector2(20, 150)
+	_toast_box.position = Vector2(20, 156)
+	_toast_box.add_theme_constant_override("separation", 6)
 	_toast_box.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_root.add_child(_toast_box)
 

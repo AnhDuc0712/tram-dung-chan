@@ -17,7 +17,7 @@
 		], "default": "e_nlong"},
 
 		"e_lau": {"cg": "cg_hotpot", "speaker": "duc", "text": "Cận thì lo ngồi im đi, để tôi lau cho. Mắt mũi mờ tịt thế kia gắp trúng Nlong bây giờ.", "next": "e_lau2"},
-		"e_lau2": {"speaker": "kyky", "think": true, "text": "(Ơ… tự dưng lại gần thế này… làm sao mình dám nhìn thẳng đây…)", "next": "e_lau3"},
+		"e_lau2": {"speaker": "kyky", "think": true, "text": "Ơ… tự dưng lại gần thế này… làm sao mình dám nhìn thẳng đây…", "next": "e_lau3"},
 		"e_lau3": {"cg": "none", "show": {"duc": "smirk", "tram": "smile@center"}, "speaker": "duc", "text": "Tiện có mặt đủ bạn thân của hai bên, hôm nay tôi mời. Coi như… ra mắt bạn bè của học trò luôn.", "next": "e_lau4"},
 		"e_lau4": {"speaker": "tram", "text": "Chấp nhận! Nhưng nói trước: anh mà làm con bé khóc là tôi với chị Thanh Thảo đây xử đẹp anh đấy!", "next": "e_lau5"},
 		"e_lau5": {"hide": ["tram"], "show": {"duc": "soft", "kyky": "love"}, "music": "ending", "text": "Dưới gầm bàn, Anh Đức lặng lẽ gắp miếng thịt bò ngon nhất bỏ vào bát KyKy, nói nhỏ chỉ đủ hai người nghe: “Thưởng cho học trò hôm nay đạt điểm 10.”", "effects": {"ending": "ep2_lau"}, "then": "phone:ep2_end"},

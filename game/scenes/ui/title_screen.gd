@@ -76,7 +76,7 @@ func _build() -> void:
 	var sub := Ui.label("Quán Gờ 23 · ghé lại một chút", 24, Color("ffc7d8"), Ui.font_mono)
 	sub.position = Vector2(80, 276)
 	add_child(sub)
-	var ep := Ui.label("Tập 1 · Cú va chạm ở quán cà phê", 24, Color("f3e6d3"), Ui.font_italic)
+	var ep := Ui.label("Tập 1 · Cú va chạm  —  Tập 2 · Cơn bão nhỏ (mới)", 24, Color("f3e6d3"), Ui.font_italic)
 	ep.position = Vector2(80, 310)
 	add_child(ep)
 

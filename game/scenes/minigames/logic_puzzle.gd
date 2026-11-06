@@ -48,8 +48,8 @@ func _build() -> void:
 	# màn hình laptop: đoạn "code" đang ghép
 	var lap := PanelContainer.new()
 	lap.add_theme_stylebox_override("panel", Ui.box(Color("2a2438"), Color("1a1624"), 14, 6))
-	lap.position = Vector2(60, 120)
-	lap.custom_minimum_size = Vector2(560, 330)
+	lap.position = Vector2(60, 165)  # dưới thanh Rung động / Hiểu bài
+	lap.custom_minimum_size = Vector2(560, 310)
 	add_child(lap)
 	_code = RichTextLabel.new()
 	_code.bbcode_enabled = true
@@ -60,13 +60,13 @@ func _build() -> void:
 	lap.add_child(_code)
 	# cảnh chibi chạy dưới mưa
 	_scene = Control.new()
-	_scene.position = Vector2(60, 470)
+	_scene.position = Vector2(60, 500)
 	_scene.size = Vector2(560, 150)
 	_scene.draw.connect(_draw_scene)
 	add_child(_scene)
 	# bảng chọn
 	var p := PanelContainer.new()
-	p.position = Vector2(660, 120)
+	p.position = Vector2(660, 165)
 	p.custom_minimum_size = Vector2(560, 0)
 	add_child(p)
 	var v := VBoxContainer.new()
