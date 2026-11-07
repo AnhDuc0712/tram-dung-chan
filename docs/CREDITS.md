@@ -7,7 +7,7 @@
 | Event CG & bản đồ sân trường Tập 3 (`thiết kế/Event CG  Cutscene/`, `thiết kế/env/`) | Tác giả game (tạo bằng AI theo mô tả riêng) | — | Thuộc tác giả game | `assets/art/cg/{cg_burnt,cg_asleep,cg_expo,cg_sunrise}.jpg`, `assets/art/bg/map_campus.jpg` — xoá dấu Gemini, đổi cỡ bằng `tools/art/process_ep3.py` |
 | Nền quán buổi sáng (`assets/art/bg/cafe_morning.jpg`) | Tác giả game | chỉnh màu từ `bg/cafe_day.jpg` bằng `tools/art/make_morning.py` | Thuộc tác giả game | Tập 2 buổi sáng |
 | Dáng đứng Anh Đức (`chars/duc_stand*.png`) | Tác giả game | ghép lại từ `duc_front.png` bằng `tools/art/make_stand.py` | Thuộc tác giả game | dáng thường không vẫy tay |
-| Sprite Chibi & Biểu cảm mới Tập 3 (`chars/{duc_apron*,kyky_apron*,duc_shirt*,kyky_dress*,hai_flowers*,mom_front*,teacher_front*,prof_front*}`) | Tác giả game & Gemini/agy | ghép và vẽ từ sprite gốc bằng `tools/art/generate_all_sprites_v2.py` + biểu cảm bằng `make_expressions.py` | Thuộc tác giả game | Trang phục mới & nhân vật Tập 3 |
+| Sprite Chibi & Biểu cảm mới Tập 3 (`chars/{duc_apron*,kyky_apron*,duc_shirt*,kyky_dress*,hai_flowers*,mom_front*,teacher_front*,prof_front*}`) | Tác giả game & Gemini (Nano Banana / agy) | Ảnh do Gemini sinh theo bảng thiết kế nhân vật gốc, tách nền & decontaminate viền alpha, biểu cảm bằng make_expressions.py | Thuộc tác giả game | Trang phục mới & nhân vật Tập 3 |
 | Ảnh chờ tải bản web (`assets/art/ui/splash.png`) | Tác giả game | ghép từ `bg/street_rain.jpg` + font Baloo 2/Nunito bằng `tools/art/make_splash.py` | Thuộc tác giả game | màn hình chờ tải |
 | First Light Particles | Yoiyami | https://opengameart.org/node/182244 | CC0 | `music/title.ogg` |
 | Starfield Romance | Yoiyami | https://opengameart.org/node/182246 | CC0 | `music/ending.ogg` |
