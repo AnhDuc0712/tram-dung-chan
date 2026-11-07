@@ -1,0 +1,10 @@
+{
+	"title": "Tập 3 – Phố triển lãm (mở màn đi lại)",
+	"start": "a",
+	"nodes": {
+		"a": {"show": {"duc": "normal@left", "kyky": "shy@right"}, "text": "Đèn lồng vàng treo dọc lối đi, dây đèn nhấp nháy trên những gian hàng sinh viên. Gió đầu mùa se se lạnh. KyKy diện chiếc váy kem, hai tay xoắn vào nhau.", "next": "b"},
+		"b": {"speaker": "kyky", "text": "Em… em hồi hộp quá. Gian của tụi mình ở ngay trước cửa Gờ 23, nhưng em muốn đi dạo trước một chút. Anh đi với em nha?", "next": "c"},
+		"c": {"show": {"duc": "soft"}, "speaker": "duc", "text": "Tôi chưa từng nói “không” với một người cầm ngược bản đồ. Đi thôi. Hôm nay em chọn.", "next": "d"},
+		"d": {"hide": "all", "effects": {"set_flags": ["ep3e_intro_done"]}, "text": "KyKy đi theo bạn. Quanh phố có gian Trạm Dừng Chân của nhóm, bác bán móc khoá, quán trà của Trâm và chị M, anh freelancer… Khi ghé đủ hai nơi, Hải sẽ chờ ở bảng học bổng bên công viên."}
+	}
+}

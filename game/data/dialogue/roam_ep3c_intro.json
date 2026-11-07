@@ -1,0 +1,9 @@
+{
+	"title": "Tập 3 – Sân trường (mở màn đi lại)",
+	"start": "a",
+	"nodes": {
+		"a": {"bg": "none", "show": {"duc": "normal@left", "kyky": "worried@right"}, "speaker": "kyky", "text": "Anh Đức ơi, hôm qua Nlong ngủ ở cạnh em tới sáng… Sáng ra là Junior biến mất. Mà Nlong thì cứ làm mặt “em không biết gì hết”.", "next": "b"},
+		"b": {"show": {"duc": "deadpan"}, "speaker": "duc", "text": "Suy luận cơ bản: nghi phạm số một là con mèo béo, đang ngồi liếm chân kia. Cần thẩm vấn nhân chứng.", "next": "c"},
+		"c": {"hide": "all", "effects": {"set_flags": ["ep3c_intro_done"]}, "text": "Quanh sân trường có vài người đáng hỏi: cậu sinh viên ngồi bãi cỏ, Thầy dưới gốc xà cừ, Trâm ở trạm xe buýt, Thảo ở sân cổng. Bãi xe ở góc dưới bên trái. KyKy đi theo bạn."}
+	}
+}

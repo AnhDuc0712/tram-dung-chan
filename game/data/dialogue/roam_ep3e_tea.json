@@ -1,0 +1,23 @@
+{
+	"title": "Tập 3 – Quán trà gừng của Trâm và chị M",
+	"start": "a",
+	"nodes": {
+		"a": {"branch": [{"if": {"flags": ["expo_tea"]}, "next": "again"}], "default": "first"},
+		"first": {"show": {"tram": "smug@left", "m": "tease@right"}, "effects": {"set_flags": ["expo_tea"], "add": {"expo": 1}}, "text": "Dưới tán đèn lồng, chị M và Trâm đứng sau một chiếc xe đẩy trà gừng, mỗi người một cái tạp dề, mỗi người một nụ cười không đáng tin.", "next": "b"},
+		"b": {"speaker": "tram", "text": "Tôi chỉ trông giúp chị M bán trà thôi. Hoàn toàn tình cờ. Hoàn toàn không có kế hoạch.", "next": "c"},
+		"c": {"speaker": "m", "text": "Trâm nói đúng, hoàn toàn không có kế hoạch. Có hai ghế đá trống cạnh cây xà cừ cuối đường, hoàn toàn tình cờ cũng không có ai ngồi.", "next": "d"},
+		"d": {"show": {"kyky": "shy@farright"}, "speaker": "kyky", "text": "Trâm! Chị M!!!", "next": "e"},
+		"e": {"show": {"tram": "happy"}, "speaker": "tram", "text": "Hai ly trà gừng, cho hai người. Tôi trả. Mười phút thôi, đi dạo dọc con đường đèn lồng. Sau đó mới tới giờ… việc quan trọng.",
+			"choices": [
+				{"text": "Nhận trà, rủ KyKy đi dạo mười phút", "effects": {"heart": 2, "add": {"tram": 1}, "set_flags": ["street_date"]}, "next": "walk"},
+				{"text": "Nhận trà nhưng nói: “Để lúc khác, giờ còn việc.”", "effects": {"add": {"respect": 1}}, "next": "later"}
+			]},
+		"walk": {"hide": ["tram", "m"], "show": {"duc": "soft@left", "kyky": "happy@right"}, "text": "Hai ly trà gừng bốc khói, hai người đi chậm dưới những chiếc đèn lồng. KyKy nhắc lại đủ thứ chuyện nhỏ: Nlong ngủ quên trên bàn phím, hộp bánh cháy, cái nơ tạp dề lệch. Anh Đức ít nói nhưng không bỏ sót chuyện nào.", "next": "walk2"},
+		"walk2": {"speaker": "kyky", "text": "Em nhớ nhiều chuyện lắm. Mà lạ chưa… anh nhớ nhiều hơn em.", "next": "walk3"},
+		"walk3": {"show": {"duc": "blush"}, "speaker": "duc", "text": "Tôi có trí nhớ tốt. Thế thôi.", "next": "walk4"},
+		"walk4": {"show": {"kyky": "laugh"}, "speaker": "kyky", "text": "Dạ, dạ. “Thế thôi”."},
+		"later": {"show": {"tram": "pout"}, "speaker": "tram", "text": "Tiếc. Nhưng tôi tôn trọng người biết ưu tiên. Hơi hơi.", "next": "later2"},
+		"later2": {"show": {"m": "smirk"}, "speaker": "m", "text": "Đức khéo lắm. Hay là cậu ấy không dám?"},
+		"again": {"show": {"tram": "smile", "m": "wink"}, "speaker": "tram", "text": "Còn đứng đây? Ra mà chọn nơi khác. Hoặc ghế đá cuối đường."}
+	}
+}

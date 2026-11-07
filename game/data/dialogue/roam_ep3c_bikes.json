@@ -1,0 +1,18 @@
+{
+	"title": "Tập 3 – Bãi xe: tìm Nlong Junior",
+	"start": "a",
+	"nodes": {
+		"a": {"branch": [{"if": {"flags": ["junior_found"]}, "next": "done"}, {"if": {"flags": ["clue_student"]}, "next": "find"}, {"if": {"flags": ["clue_teacher"]}, "next": "find"}], "default": "shy"},
+		"shy": {"show": {"nlong": "grumpy@center"}, "sfx": "meow", "text": "Nlong ngồi chắn giữa lối đi, mặt đầy vẻ “tôi không biết gì và tôi không định nói”. Khi hai người tới gần, nó đứng dậy, nguầy nguậy bỏ đi.", "next": "shy2"},
+		"shy2": {"hide": ["nlong"], "show": {"duc": "think@left", "kyky": "worried@right"}, "speaker": "duc", "text": "Chưa đủ dữ kiện. Hỏi thêm người trên sân trường rồi quay lại — mèo béo chạy không nhanh.", "next": "shy3"},
+		"shy3": {"speaker": "kyky", "text": "Dạ… (thì thầm với con mèo đã đi xa) Nlong ơi, trả Junior cho chị đi mà."},
+		"find": {"show": {"nlong": "doze@center"}, "text": "Dưới gầm một chiếc xe đạp cũ, Nlong nằm cuộn tròn, bụng áp chặt một vật tròn tròn. Khi bóng hai người phủ xuống, nó hé một mắt.", "next": "find2"},
+		"find2": {"hide": ["nlong"], "show": {"duc": "smirk@left", "kyky": "surprised@right"}, "speaker": "duc", "text": "Bắt được nghi phạm. Phạm tội: tha đồ chơi của người khác đi giấu để dùng làm gối.", "next": "find3"},
+		"find3": {"branch": [{"if": {"flags": ["claw_win"]}, "next": "find_gau"}], "default": "find_key"},
+		"find_gau": {"show": {"kyky": "happy"}, "text": "KyKy chui xuống gầm xe, bế Nlong Junior ra. Con gấu bông dính đầy bụi nhưng tai vẫn cụp đúng kiểu. Nlong thật nhìn cô bằng ánh mắt của một ông chồng bị bắt quả tang.", "next": "find4"},
+		"find_key": {"show": {"kyky": "happy"}, "text": "KyKy chui xuống gầm xe, lôi ra móc khoá mèo xám, hơi trầy nhưng vẫn lành lặn. Nlong nhìn cô như một kẻ bị lấy mất của riêng.", "next": "find4"},
+		"find4": {"speaker": "kyky", "text": "Được rồi, được rồi, Nlong, chị không giận! (Cô ôm cả hai vào lòng.) Anh Đức, anh bế giúp em nó một lát?", "next": "find5"},
+		"find5": {"show": {"duc": "soft"}, "speaker": "duc", "text": "Tại sao lại là tôi? …Thôi được. Lại đây, hoàng thượng. Tôi không bế vì thương. Tôi bế vì cô ấy nhờ.", "effects": {"heart": 1, "add": {"nlong": 1}, "set_flags": ["junior_found"]}},
+		"done": {"show": {"nlong": "sleep@center"}, "text": "Nlong ngủ say như chưa từng làm chuyện gì mờ ám."}
+	}
+}

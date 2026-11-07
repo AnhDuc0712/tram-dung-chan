@@ -124,6 +124,22 @@ func test_ep2_maps_run() -> void:
 	GameState.reset()
 
 
+func test_ep3_maps_run() -> void:
+	for v in ["ep3_campus", "ep3_expo"]:
+		GameState.start_episode(3, "roam:" + v)
+		Story.current_step = "roam:" + v
+		var node: Node = CAFE.instantiate()
+		add_child(node)
+		await wait_physics_frames(30)
+		assert_gt((node.get("entities") as Array).size(), 3, v + ": bản đồ không có ai để tương tác")
+		assert_not_null(node.get("_follower"), v + ": KyKy phải đi theo Anh Đức")
+		node.queue_free()
+		await wait_physics_frames(2)
+		_stop_dialogue()
+	Story.current_step = ""
+	GameState.reset()
+
+
 func test_cg_layer_shows_and_unlocks() -> void:
 	GameState.unlocked_cgs.clear()
 	Dialogue._show_cg("cg_claw")

@@ -17,6 +17,8 @@ const SCENES := {
 	"mini:nlong": "res://scenes/minigames/nlong_rescue.tscn",
 	"mini:logic": "res://scenes/minigames/logic_puzzle.tscn",
 	"mini:dark": "res://scenes/minigames/dark.tscn",
+	"mini:rush": "res://scenes/minigames/rush.tscn",
+	"mini:sync": "res://scenes/minigames/sync.tscn",
 	"phone": "res://scenes/phone/phone.tscn",
 	"ending": "res://scenes/ui/ending.tscn",
 	"title": "res://scenes/ui/title_screen.tscn",
@@ -30,9 +32,11 @@ const MINI_NEXT := {
 	"nlong": "vn:ep2_s1b",
 	"logic": "vn:ep2_s3b",
 	"dark": "vn:ep2_s4b",
+	"rush": "vn:ep3_s2b",
+	"sync": "vn:ep3_s3b",
 }
 
-const PHONE_NEXT := {"ep1": "ending", "ep2_night": "vn:ep2_s1", "ep2_end": "ending"}
+const PHONE_NEXT := {"ep1": "ending", "ep2_night": "vn:ep2_s1", "ep2_end": "ending", "ep3_end": "ending"}
 
 ## Biến thể bản đồ đi lại -> file data/roam/<map>.json
 const ROAM_MAPS := {
@@ -41,13 +45,16 @@ const ROAM_MAPS := {
 	"ep2_morning": "cafe",
 	"ep2_afternoon": "cafe",
 	"ep2_night": "street",
+	"ep3_campus": "campus",
+	"ep3_expo": "street",
 }
-const ROAM_VARIANTS := ["day", "evening", "ep2_morning", "ep2_afternoon", "ep2_night"]
+const ROAM_VARIANTS := ["day", "evening", "ep2_morning", "ep2_afternoon", "ep2_night", "ep3_campus", "ep3_expo"]
 
 ## Tập -> bước đầu tiên + tên hiển thị
 const EPISODES := {
 	1: {"first": "vn:ep1_s1", "title": "Tập 1 · Cú va chạm ở quán cà phê"},
 	2: {"first": "phone:ep2_night", "title": "Tập 2 · Cơn bão nhỏ ở Gờ 23"},
+	3: {"first": "vn:ep3_s1", "title": "Tập 3 · Đồ án chung & lời hứa dưới nắng sớm"},
 }
 
 
@@ -56,6 +63,8 @@ static func roam_map(variant: String) -> String:
 
 
 static func episode_of(step: String) -> int:
+	if arg(step).begins_with("ep3") or step in ["mini:rush", "mini:sync"]:
+		return 3
 	return 2 if arg(step).begins_with("ep2") or step in ["mini:nlong", "mini:logic", "mini:dark"] else 1
 
 
@@ -126,6 +135,21 @@ static func minigame_effects(name: String, result: Dictionary) -> Dictionary:
 			if first >= 3:
 				e3["set_flags"].append("logic_perfect")
 			return e3
+		"rush":
+			# số ly phục vụ đúng (0..6), số ly hoàn hảo (căn đúng lúc rót)
+			var served := int(result.get("served", 0))
+			var perfect := int(result.get("perfect", 0))
+			var e4 := {"heart": 2 if served >= 5 else (1 if served >= 3 else 0), "set_flags": ["mg_rush_done", "rush_good" if served >= 5 else "rush_ok"]}
+			if perfect >= 3:
+				e4["set_flags"].append("rush_perfect")
+			return e4
+		"sync":
+			# số lần nối sai (0..): ít sai -> hiểu nhau hơn
+			var miss := int(result.get("misses", 0))
+			var e5 := {"brain": 2 if miss <= 1 else 1, "set_flags": ["mg_sync_done"]}
+			if miss == 0:
+				e5["set_flags"].append("sync_perfect")
+			return e5
 		"dark":
 			var h := int(result.get("hits", 0))
 			return {"heart": 1 if h >= 2 else 0, "set_flags": ["dark_calm" if h >= 2 else "dark_fail"]}

@@ -93,6 +93,18 @@ func set_dim(dim: bool) -> void:
 	create_tween().tween_property(sprite, "modulate", target, 0.18)
 
 
+## Nảy nhẹ một nhịp khi nhân vật cất lời thoại (theo tài liệu thiết kế note1.md)
+func speak_pulse() -> void:
+	if sprite == null or not is_instance_valid(sprite):
+		return
+	if _bob_tween and _bob_tween.is_valid() and _bob_tween.is_running():
+		return
+	_bob_tween = create_tween()
+	var y0 := sprite.position.y
+	_bob_tween.tween_property(sprite, "position:y", y0 - 6.0, 0.08).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	_bob_tween.tween_property(sprite, "position:y", y0, 0.12).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+
+
 func animate(kind: String) -> void:
 	if _bob_tween:
 		_bob_tween.kill()

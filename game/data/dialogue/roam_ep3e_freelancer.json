@@ -1,0 +1,11 @@
+{
+	"title": "Tập 3 – Anh freelancer cột sống đã ổn",
+	"start": "a",
+	"nodes": {
+		"a": {"show": {"duc": "normal@left", "kyky": "happy@right"}, "effects": {"set_flags": ["expo_free"], "add": {"expo": 1}}, "text": "Ở bàn ngoài hiên Gờ 23, anh freelancer quen mặt ngồi thẳng lưng, tay cầm ly sinh tố, cạnh một chiếc laptop gập lại.", "next": "b"},
+		"b": {"speaker": "ducanh", "name": "Anh freelancer", "text": "Ôi, hai em! Nhờ giao diện đồ án hai em thử nghiệm hôm nọ, web của anh chạy mượt rồi nhé. Cột sống anh cũng tạm ổn. Hôm nay anh khao cả quán!", "next": "c"},
+		"c": {"show": {"duc": "smirk"}, "speaker": "duc", "text": "Anh uống sinh tố thay espresso à? Tiến bộ đấy.", "next": "d"},
+		"d": {"speaker": "ducanh", "name": "Anh freelancer", "text": "Chị M doạ bỏ tên anh khỏi danh sách khách quen nếu anh còn uống espresso lúc ba giờ sáng. Mà này, KyKy, em giỏi thật. Dự án này sẽ có người đặt hàng đấy.", "next": "e"},
+		"e": {"show": {"kyky": "sparkle"}, "speaker": "kyky", "text": "Thật hả anh? …Em chưa từng nghĩ có người sẽ trả tiền cho nét vẽ của em.", "effects": {"brain": 1}}
+	}
+}

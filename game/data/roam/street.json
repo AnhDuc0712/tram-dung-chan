@@ -2,26 +2,42 @@
 	"title": "Phố trước quán Gờ 23 (toạ độ theo assets/art/bg/map_street.jpg, rộng 1280px)",
 	"map": "map_street",
 	"music": {
-		"ep2_night": "evening"
+		"ep2_night": "evening",
+		"ep3_expo": "evening"
 	},
 	"ambient": {
-		"ep2_night": "rain_loop"
+		"ep2_night": "rain_loop",
+		"ep3_expo": ""
 	},
 	"tint": {
 		"ep2_night": [
 			0.62,
 			0.6,
 			0.78
+		],
+		"ep3_expo": [
+			0.74,
+			0.7,
+			0.88
 		]
 	},
 	"intros": {
 		"ep2_night": [
 			"roam_ep2n_intro",
 			"ep2n_intro_done"
+		],
+		"ep3_expo": [
+			"roam_ep3e_intro",
+			"ep3e_intro_done"
 		]
 	},
 	"follower": {
 		"ep2_night": {
+			"sprite": "kyky_wave",
+			"walk": "kyky_wave",
+			"scale": 0.16
+		},
+		"ep3_expo": {
 			"sprite": "kyky_wave",
 			"walk": "kyky_wave",
 			"scale": 0.16
@@ -35,7 +51,8 @@
 						"dates": 2
 					}
 				},
-				"target": "friends", "text": "Đến giờ hẹn ăn lẩu với hội bạn rồi! (Hàng lẩu vỉa hè, góc dưới bên phải)"
+				"target": "friends",
+				"text": "Đến giờ hẹn ăn lẩu với hội bạn rồi! (Hàng lẩu vỉa hè, góc dưới bên phải)"
 			},
 			{
 				"if": {
@@ -47,6 +64,20 @@
 			},
 			{
 				"text": "19:00 — Còn khoảng 2 tiếng trước giờ hẹn ăn lẩu (9 giờ tối). Muốn đưa KyKy đi đâu? (Đi đâu cũng được — mỗi nơi một kỷ niệm khác)"
+			}
+		],
+		"ep3_expo": [
+			{
+				"if": {
+					"min": {
+						"expo": 2
+					}
+				},
+				"target": "hai",
+				"text": "Gần tới giờ rồi. Hải đang đứng chờ cạnh bảng học bổng ở bên trái công viên (nói chuyện với anh ấy khi sẵn sàng)."
+			},
+			{
+				"text": "19:30 - Phố triển lãm lên đèn. Dạo quanh cùng KyKy: gian Trạm Dừng Chân, bác bán móc khoá, quán trà của Trâm và chị M, anh freelancer… (ghé ít nhất hai nơi)"
 			}
 		]
 	},
@@ -132,6 +163,10 @@
 			"ep2_night": [
 				860,
 				312
+			],
+			"ep3_expo": [
+				860,
+				312
 			]
 		}
 	},
@@ -168,6 +203,62 @@
 					1062,
 					676
 				]
+			}
+		},
+		{
+			"id": "tram_tea",
+			"label": "Nói chuyện với Trâm",
+			"dialogue": "roam_ep3e_tea",
+			"sprite": "tram_front",
+			"scale": 0.16,
+			"stand": [
+				330,
+				395
+			],
+			"when": {
+				"ep3_expo": [
+					300,
+					352
+				]
+			}
+		},
+		{
+			"id": "m_tea",
+			"label": "Nói chuyện với Chị M",
+			"dialogue": "roam_ep3e_tea",
+			"sprite": "m_front",
+			"scale": 0.16,
+			"stand": [
+				330,
+				395
+			],
+			"when": {
+				"ep3_expo": [
+					362,
+					354
+				]
+			}
+		},
+		{
+			"id": "hai",
+			"label": "Nói chuyện với Hải",
+			"dialogue": "roam_ep3e_hai",
+			"sprite": "hai_front",
+			"scale": 0.16,
+			"stand": [
+				260,
+				580
+			],
+			"when": {
+				"ep3_expo": [
+					230,
+					545
+				]
+			},
+			"if": {
+				"min": {
+					"expo": 2
+				}
 			}
 		}
 	],
@@ -339,6 +430,69 @@
 			"when": [
 				"ep2_night"
 			]
+		},
+		{
+			"id": "stall",
+			"label": "Gian Trạm Dừng Chân",
+			"dialogue": "roam_ep3e_stall",
+			"marker": [
+				960,
+				250
+			],
+			"stand": [
+				950,
+				300
+			],
+			"when": [
+				"ep3_expo"
+			],
+			"if": {
+				"not_flags": [
+					"expo_stall"
+				]
+			}
+		},
+		{
+			"id": "keychain",
+			"label": "Bác bán móc khoá",
+			"dialogue": "roam_ep3e_keychain",
+			"marker": [
+				1150,
+				560
+			],
+			"stand": [
+				1080,
+				660
+			],
+			"when": [
+				"ep3_expo"
+			],
+			"if": {
+				"not_flags": [
+					"expo_keychain"
+				]
+			}
+		},
+		{
+			"id": "freelancer",
+			"label": "Anh freelancer",
+			"dialogue": "roam_ep3e_freelancer",
+			"marker": [
+				1010,
+				250
+			],
+			"stand": [
+				1030,
+				340
+			],
+			"when": [
+				"ep3_expo"
+			],
+			"if": {
+				"not_flags": [
+					"expo_free"
+				]
+			}
 		}
 	],
 	"autoplay": {
@@ -346,6 +500,12 @@
 			"arcade",
 			"busstop",
 			"friends"
+		],
+		"ep3_expo": [
+			"stall",
+			"keychain",
+			"tram_tea",
+			"hai"
 		]
 	}
 }

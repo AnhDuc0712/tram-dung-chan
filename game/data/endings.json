@@ -73,5 +73,45 @@
 		"text": "Đức Anh ngã ngửa, nồi lẩu đổ, hai người đứng rửa bát phạt. Bọt xà phòng trên chóp mũi — và một tràng cười xoá tan mọi khoảng cách.",
 		"hint": "Kết thúc mặc định. Thử khiến Trâm tin tưởng, hoặc quan tâm KyKy nhiều hơn xem!",
 		"next": "Tập 3: Mở khoá nhánh “Làm thêm cùng nhau tại quán Gờ 23” — dở khóc dở cười."
+	},
+	"ep3_loi_logic": {
+		"episode": 3,
+		"title": "Lỗi Logic Duy Nhất Là Em",
+		"rank": "Kết thúc trọn vẹn",
+		"text": "KyKy nộp hồ sơ và vẫn làm tiếp dự án. Anh Đức không giữ cô, cũng không rời đi. Một bình minh, hai ly cacao, và một lá thư sẽ đến sau ba tuần.",
+		"hint": "Để KyKy tự tìm ra lỗi, tôn trọng lựa chọn của cô, chọn “dù em chọn gì, tôi ở đây” và để KyKy rung động thật nhiều.",
+		"next": "Tập 4: Thư trả lời từ Pháp sẽ đến sau ba tuần. Cả hai chờ. Và Gờ 23 sắp có một vị khách bất ngờ."
+	},
+	"ep3_paris": {
+		"episode": 3,
+		"title": "Hẹn Ước Dưới Bầu Trời Xa",
+		"rank": "Kết thúc buồn-ngọt",
+		"text": "KyKy sắp bay. Anh Đức không hứa bay theo, chỉ hứa mở tin nhắn của cô đầu tiên. Trong hộp thư của anh có một email chưa mở.",
+		"hint": "Nói “Em đi đi, tôi đợi” và tôn trọng cô thật nhiều.",
+		"next": "Tập 4: Sáu tháng là một lời hẹn. Email từ viện nghiên cứu vẫn nằm chưa mở trong hộp thư của Anh Đức."
+	},
+	"ep3_dong_chu_quan": {
+		"episode": 3,
+		"title": "Trạm Dừng Chân Của Riêng Hai Đứa",
+		"rank": "Kết thúc ấm áp",
+		"text": "KyKy ở lại, vì chính cô muốn. Menu mới của Gờ 23 có hai món mang tên cô đặt. Và một phong thư dày từ một hãng cà phê lớn.",
+		"hint": "Nói “Ở lại cũng không phải bỏ cuộc, miễn là em thật sự muốn”.",
+		"next": "Tập 4: Gờ 23 nhận được lời mời mở chi nhánh. Nhận hay không, hai người chưa biết."
+	},
+	"ep3_hoc_cach_tin": {
+		"episode": 3,
+		"title": "Học Cách Tin",
+		"rank": "Kết thúc trưởng thành",
+		"text": "Anh Đức đã nói “đừng đi” và hiểu mình vừa làm gì. KyKy vẫn đồng ý, nhưng với điều kiện: anh phải học cách tin. Còn lá thư của Hải thì vẫn nằm chưa mở.",
+		"hint": "Để cơn ghen và lời “đừng đi” thoát ra khỏi miệng.",
+		"next": "Tập 4: KyKy xin thời gian. Hải gửi thêm một lá thư. Anh Đức phải học cách đứng yên."
+	},
+	"ep3_hoang_thuong": {
+		"episode": 3,
+		"title": "Hoàng Thượng Ban Hôn Lúc Bình Minh",
+		"rank": "Kết thúc hài hước",
+		"text": "Lời tỏ tình bị một chiếc xe rác và một chú mèo phá đám. Nhưng hai người cười tới đau bụng, và “dạ, em duyệt” vẫn đến đúng lúc.",
+		"hint": "Kết thúc mặc định. Thử để KyKy tự quyết định, tôn trọng cô nhiều hơn xem!",
+		"next": "Tập 4: Dấu chân mực của Nlong còn in trên hồ sơ học bổng. Ai sẽ mở nó ra trước?"
 	}
 }

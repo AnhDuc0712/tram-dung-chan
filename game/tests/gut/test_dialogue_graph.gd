@@ -179,7 +179,9 @@ func test_flags_read_are_set_somewhere() -> void:
 	for a in b.get("arts", {}):
 		sets["art_" + str(a)] = true
 	for f in ["drink_made", "drink_weird", "art_none", "debug_done", "debug_perfect", "calm_ok", "calm_fail",
-			"mg_nlong_done", "nlong_perfect", "nlong_tail", "mg_logic_done", "logic_perfect", "dark_calm", "dark_fail"]:
+			"mg_nlong_done", "nlong_perfect", "nlong_tail", "mg_logic_done", "logic_perfect", "dark_calm", "dark_fail",
+			"mg_rush_done", "rush_good", "rush_ok", "rush_perfect", "mg_sync_done", "sync_perfect",
+			"ep2_gau", "ep2_lau", "ep2_ao", "ep2_dua", "ep2_nlong"]:  # ep2_*: GameState.start_episode(3) bật theo ep2_last
 		sets[f] = true
 	var missing: Array = []
 	for f in _all_flags_read():
@@ -217,7 +219,7 @@ func test_minigame_result_flags_cover_scenes() -> void:
 
 
 func test_condition_vars_are_known() -> void:
-	var known := ["heart", "brain", "nlong", "tram", "jealous", "ducanh", "thao", "hai", "dates"]
+	var known := ["heart", "brain", "nlong", "tram", "jealous", "ducanh", "thao", "hai", "dates", "respect", "expo"]
 	var bad: Array = []
 	for id in _dl:
 		_check_vars(_dl[id], known, bad, id)

@@ -1,0 +1,14 @@
+{
+	"title": "Tập 3 – Hải ở bảng học bổng",
+	"start": "a",
+	"nodes": {
+		"a": {"show": {"hai": "normal@center"}, "text": "Hải đứng một mình cạnh bảng thông báo học bổng, tập hồ sơ kẹp dưới cánh tay, bó hoa linh lan đặt trên một chiếc ghế đá.", "next": "b"},
+		"b": {"show": {"duc": "normal@left", "kyky": "worried@right"}, "speaker": "hai", "text": "Đức. KyKy. Anh muốn nói chuyện với Đức một chút, riêng. Không lâu đâu.", "next": "c"},
+		"c": {"show": {"duc": "think"}, "speaker": "duc", "think": true, "text": "Trước khi cô ấy kịp hỏi, anh ta đã đứng đây với một bó hoa và một tập hồ sơ. Hoặc cậu ta là đối thủ. Hoặc là người đàng hoàng hơn tôi nghĩ.",
+			"choices": [
+				{"text": "Gật đầu: “Được, nói đi.”", "then": "vn:ep3_s4"},
+				{"text": "Cười nhẹ: “Để lát nữa, tôi còn dạo thêm với KyKy một chút.”", "next": "later"}
+			]},
+		"later": {"show": {"hai": "smile"}, "speaker": "hai", "text": "Không sao. Anh ở đây tới hết đêm. Cậu thích lúc nào cũng được."}
+	}
+}

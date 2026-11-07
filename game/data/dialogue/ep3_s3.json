@@ -1,0 +1,25 @@
+{
+	"title": "Tập 3 – Cảnh 3: Góc sách chiều tà & lỗi cuối cùng",
+	"start": "start",
+	"nodes": {
+		"start": {"card": "Thứ Bảy, 16:30 — Góc sách Gờ 23", "bg": "cafe_sunset", "music": "study", "ambient": "", "show": {"thao": "worried@farleft", "ducanh": "tired@farright"}, "text": "Hoàng hôn nhuộm đỏ khung cửa kính. Bốn tiếng nữa là triển lãm mở cửa. Trên bàn gỗ lớn chất đầy bản phác thảo, laptop, cốc cà phê nguội… và một chú mèo xám làm chặn giấy.", "next": "a"},
+		"a": {"show": {"kyky": "happy@right", "duc": "normal@left"}, "speaker": "kyky", "text": "Em vẽ xong hết rồi! Icon là Nlong đeo tai nghe, tông navy với vàng kem. Anh Đức cắm vào code đi!", "next": "b"},
+		"b": {"hide": ["thao", "ducanh"], "show": {"duc": "think@left"}, "sfx": "glitch", "fx": "shake", "text": "Anh Đức cắm giao diện vào mã nguồn. Màn hình nháy đỏ.", "next": "b2"},
+		"b2": {"sfx": "bad", "text": "[color=#ff6b6b]Runtime Error: Null Pointer — Heartbeat[/color]", "next": "c"},
+		"c": {"show": {"ducanh": "shock@farright", "thao": "shock@farleft"}, "speaker": "ducanh", "text": "TOANG RỒI ANH EM ƠI! Còn bốn tiếng! Sao code thằng Đức với hình KyKy cứ không chịu nhận nhau thế này!!!", "next": "d"},
+		"d": {"hide": ["ducanh", "thao"], "show": {"kyky": "worried@right", "duc": "normal@left"}, "speaker": "kyky", "text": "Có phải ảnh của em nặng quá không? Hay em không hiểu code nên làm hỏng bài của mọi người rồi… Em xin lỗi…", "next": "e"},
+		"e": {"show": {"duc": "soft"}, "speaker": "duc", "think": true, "text": "Nếu tôi sửa ngay, nhanh hơn năm phút. Nhưng nếu tôi chỉ sửa hộ, cô ấy sẽ cứ tin lỗi là tại mình.",
+			"choices": [
+				{"text": "“Mở log lỗi ra, em đọc xem nó kêu gì.” (để KyKy tự dò)", "effects": {"heart": 1, "brain": 1, "add": {"respect": 2}, "set_flags": ["kyky_fixed_bug"]}, "next": "own"},
+				{"text": "“Để tôi.” (sửa luôn cho nhanh)", "effects": {"heart": 1}, "next": "duc_fix"}
+			]},
+		"own": {"show": {"kyky": "confused"}, "speaker": "kyky", "text": "Em…? Dạ. Nó nói là… “texture quá lớn, bộ nhớ không đủ”? Có phải là cái icon Nlong em vẽ bốn nghìn pixel không…", "next": "own2"},
+		"own2": {"show": {"duc": "smirk"}, "speaker": "duc", "text": "Em vừa đọc log nhanh hơn Đức Anh đọc lời thầy. Xuất lại bản nhỏ đi. Hai nghìn là đủ.", "next": "own3"},
+		"own3": {"show": {"kyky": "sparkle"}, "emote": {"kyky": "sparkle"}, "sfx": "good", "text": "KyKy xuất lại ảnh. Một dòng đỏ biến mất. Cô tròn mắt nhìn màn hình như vừa tự bay lên được.", "next": "own4"},
+		"own4": {"speaker": "kyky", "text": "Em sửa được một lỗi!!! Là em tự tìm ra đó anh!", "next": "rest"},
+		"duc_fix": {"show": {"duc": "deadpan"}, "text": "Anh Đức gõ liền năm phút không ngẩng đầu. Lỗi texture biến mất. Anh chưa kịp giải thích, KyKy đã nhìn màn hình, rồi nhìn xuống tay mình.", "next": "duc_fix2"},
+		"duc_fix2": {"show": {"kyky": "sad"}, "speaker": "kyky", "text": "Cảm ơn anh… Em cứ nghĩ là em làm hỏng. Mà thật ra là em không hiểu gì cả.", "next": "rest"},
+		"rest": {"show": {"duc": "soft"}, "speaker": "duc", "text": "Lỗi còn lại không phải của em. Là hàm kết nối của tôi chưa mở quyền truy cập cho “linh hồn” của ứng dụng. Thiết kế của em hoàn hảo một trăm phần trăm. Nhìn này, tôi chỉ em cách nối.", "next": "go"},
+		"go": {"hide": "all", "text": "Hai chiếc ghế sát cạnh nhau, một màn hình xoay về phía hai người. Trên đó có bốn cặp cần nối giữa giao diện của KyKy và hàm của Anh Đức.", "then": "mini:sync"}
+	}
+}

@@ -1,0 +1,16 @@
+{
+	"title": "Tập 3 – Qua đường về Gờ 23",
+	"start": "a",
+	"nodes": {
+		"a": {"branch": [{"if": {"flags": ["junior_found"]}, "next": "go"}], "default": "ask"},
+		"ask": {"show": {"kyky": "worried@right"}, "speaker": "kyky", "text": "Mình chưa tìm thấy Junior… Hay mình về quán trước, đồ án gấp lắm rồi?",
+			"choices": [
+				{"text": "Về quán luôn (Junior chắc chắn sẽ tự về, Nlong biết đường)", "effects": {"set_flags": ["junior_left"]}, "next": "go_left"},
+				{"text": "Tìm thêm một chút đã", "next": "stay"}
+			]},
+		"stay": {"hide": ["kyky"], "text": "Vẫn còn vài người chưa hỏi. Bãi xe ở góc dưới bên trái."},
+		"go_left": {"speaker": "duc", "text": "Đừng lo. Nếu nó thật sự mất, tôi sẽ vẽ nó lại bằng code.", "next": "go2"},
+		"go2": {"show": {"kyky": "pout"}, "speaker": "kyky", "text": "Anh không phải hoạ sĩ!… Nhưng em tin anh.", "then": "vn:ep3_s2"},
+		"go": {"show": {"kyky": "happy@right", "duc": "normal@left"}, "speaker": "kyky", "text": "Có Junior rồi, em mới yên tâm đi làm. Đi thôi, quán Gờ 23 giờ này chắc chị M cuống cuồng lắm!", "then": "vn:ep3_s2"}
+	}
+}

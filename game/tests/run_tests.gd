@@ -17,7 +17,7 @@ func _init() -> void:
 		"test_phone_data", "test_minigame_data", "test_conditions_and_effects", "test_save_roundtrip",
 		"test_route_secret", "test_route_umbrella", "test_route_wet", "test_route_tutor", "test_route_kind",
 		"test_timeout_choice", "test_ep2_secret", "test_ep2_sweet", "test_ep2_jealous", "test_ep2_jacket",
-		"test_ep2_comedy",
+		"test_ep2_comedy", "test_ep3_logic", "test_ep3_paris", "test_ep3_quan", "test_ep3_tin", "test_ep3_hoang",
 	]
 	for t in tests:
 		var before := failed
@@ -103,7 +103,7 @@ func test_character_assets() -> void:
 
 
 func test_roam_data() -> void:
-	for m in ["cafe", "street"]:
+	for m in ["cafe", "street", "campus"]:
 		_check_roam_map(m)
 
 
@@ -463,4 +463,91 @@ func test_ep2_comedy() -> void:
 	ep2_morning(s, [2, 1], 2, func() -> void: pass, {"pets": 0}, -1)
 	ep2_midday(s, 2, 0, 0, func() -> void: pass, 0, 1)
 	ep2_finish(s, 0, "ep2_nlong")
+	s.free()
+
+
+# ---------------------------------------------------------------- Tập 3
+## Chơi trọn Tập 3 theo cấu hình o: s1, campus (danh sách [id hội thoại, lựa chọn]), exit, tie, rush, s3, sync, expo, s4.
+func ep3_play(s, o: Dictionary) -> void:
+	expect(play("ep3_s1", s, o["s1"]) == "roam:ep3_campus", "s1 -> sân trường")
+	play("roam_ep3c_intro", s)
+	expect(s.has_flag("ep3c_intro_done"), "intro sân trường bật cờ")
+	for st in o["campus"]:
+		play(str(st[0]), s, st[1])
+	expect(play("roam_ep3c_exit", s, o["exit"]) == "vn:ep3_s2", "ra khỏi sân trường -> s2")
+	expect(play("ep3_s2", s, [o["tie"]]) == "mini:rush", "s2 -> rush")
+	expect(run_mini(s, "rush", o["rush"]) == "vn:ep3_s2b", "rush -> s2b")
+	expect(play("ep3_s2b", s) == "vn:ep3_s3", "s2b -> s3")
+	expect(play("ep3_s3", s, [o["s3"]]) == "mini:sync", "s3 -> sync")
+	expect(run_mini(s, "sync", o["sync"]) == "vn:ep3_s3b", "sync -> s3b")
+	expect(play("ep3_s3b", s) == "roam:ep3_expo", "s3b -> phố triển lãm")
+	play("roam_ep3e_intro", s)
+	expect(s.has_flag("ep3e_intro_done"), "intro phố triển lãm bật cờ")
+	for st in o["expo"]:
+		play(str(st[0]), s, st[1])
+	expect(play("roam_ep3e_hai", s, [0]) == "vn:ep3_s4", "Hải -> s4")
+	expect(play("ep3_s4", s, o["s4"]) == "vn:ep3_s5", "s4 -> s5")
+	expect(play("ep3_s5", s) == "phone:ep3_end", "s5 -> điện thoại")
+
+
+func ep3_good(s4: Array) -> Dictionary:
+	return {
+		"s1": [0, 0],
+		"campus": [["roam_ep3c_student", [0]], ["roam_ep3c_teacher", []], ["roam_ep3c_tram", []], ["roam_ep3c_thao", []], ["roam_ep3c_bikes", []]],
+		"exit": [], "tie": 0, "rush": {"served": 6, "perfect": 4}, "s3": 0, "sync": {"misses": 0},
+		"expo": [["roam_ep3e_stall", [0]], ["roam_ep3e_keychain", [0]], ["roam_ep3e_tea", [0]]],
+		"s4": s4,
+	}
+
+
+func ep3_check(s, want: String) -> void:
+	var info := "heart=%d brain=%d respect=%d jealous=%d" % [s.get_var("heart"), s.get_var("brain"), s.get_var("respect"), s.get_var("jealous")]
+	expect(s.ending_id == want, "Tập 3: muốn %s, được %s (%s)" % [want, s.ending_id, info])
+
+
+func test_ep3_logic() -> void:
+	var s = new_state()
+	s.start_episode(3, "vn:ep3_s1")
+	ep3_play(s, ep3_good([0, 2]))
+	expect(s.has_flag("kyky_fixed_bug") and s.has_flag("junior_found") and s.has_flag("kyky_heard"), "cờ tuyến chính Tập 3")
+	ep3_check(s, "ep3_loi_logic")
+	s.free()
+
+
+func test_ep3_paris() -> void:
+	var s = new_state()
+	s.start_episode(3, "vn:ep3_s1")
+	ep3_play(s, ep3_good([0, 0]))
+	expect(s.has_flag("kyky_goes"), "KyKy chọn đi")
+	ep3_check(s, "ep3_paris")
+	s.free()
+
+
+func test_ep3_quan() -> void:
+	var s = new_state()
+	s.start_episode(3, "vn:ep3_s1")
+	ep3_play(s, ep3_good([0, 1]))
+	expect(s.has_flag("kyky_stays"), "KyKy chọn ở lại")
+	ep3_check(s, "ep3_dong_chu_quan")
+	s.free()
+
+
+func test_ep3_tin() -> void:
+	var s = new_state()
+	s.start_episode(3, "vn:ep3_s1")
+	ep3_play(s, ep3_good([2, 3]))  # "tôi muốn cô ấy ở lại" -> mở khoá lựa chọn "Đừng đi"
+	expect(s.has_flag("said_dont_go"), "Đức nói “đừng đi”")
+	ep3_check(s, "ep3_hoc_cach_tin")
+	s.free()
+
+
+func test_ep3_hoang() -> void:
+	var s = new_state()
+	s.start_episode(3, "vn:ep3_s1")
+	ep3_play(s, {
+		"s1": [1, 2], "campus": [], "exit": [0], "tie": 1, "rush": {"served": 2, "perfect": 0}, "s3": 1, "sync": {"misses": 3},
+		"expo": [["roam_ep3e_stall", [1]], ["roam_ep3e_keychain", [1]]], "s4": [1, 2],
+	})
+	expect(s.has_flag("junior_left") and not s.has_flag("kyky_fixed_bug"), "tuyến lười: bỏ Junior, Đức sửa lỗi hộ")
+	ep3_check(s, "ep3_hoang_thuong")
 	s.free()

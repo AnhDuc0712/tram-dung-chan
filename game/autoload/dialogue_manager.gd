@@ -573,8 +573,11 @@ func _show_text(n: Dictionary) -> void:
 	_name_label.add_theme_color_override("font_color", Color(col))
 	var narration := speaker == "" and not n.has("name")
 	for id in _actors:
+		var is_speaker: bool = speaker != "" and id == speaker
 		_actors[id].set_dim(speaker != "" and id != speaker and _actors.has(speaker))
 		(_actors[id] as CanvasItem).visible = not (narration and _in_roam())
+		if is_speaker and not (Input.is_action_pressed("skip") or _skip_on):
+			_actors[id].speak_pulse()
 	var fs := int(round(27.0 * float(GameState.settings.get("text_size", 1.0))))
 	for k in ["normal_font_size", "italics_font_size", "bold_font_size"]:
 		_text.add_theme_font_size_override(k, fs)

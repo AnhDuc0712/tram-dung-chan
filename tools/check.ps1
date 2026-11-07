@@ -1,4 +1,4 @@
-﻿# Harness kiểm tra (chạy sau MỖI thay đổi trong game\):
+# Harness kiểm tra (chạy sau MỖI thay đổi trong game\):
 #   (1) import project & bắt lỗi
 #   (2) gdlint — soi lỗi tĩnh GDScript (gdtoolkit, cấu hình game\gdlintrc)
 #   (3) test dữ liệu + chơi thử tự động 5 kết thúc (game\tests\run_tests.gd)
@@ -96,7 +96,7 @@ if (-not $Quick) {
         exit 1
     }
     Write-Host "== 6/$total Tự chơi trọn từng tập từ màn hình chính (headless) ==" -ForegroundColor Cyan
-    foreach ($ep in 1, 2) {
+    foreach ($ep in 1, 2, 3) {
         $log = & $Godot --headless --path $GameDir --fixed-fps 30 --quit-after 90000 -- --autoplay "--episode=$ep" 2>&1 | Out-String
         $errs = $log -split "`n" | Where-Object { $_ -match $pattern -and $_ -notmatch "still in use at exit|leaked at exit" }
         $endLine = $log -split "`n" | Where-Object { $_ -match "\[autoplay\] K" }

@@ -1,0 +1,20 @@
+{
+	"title": "Tập 3 – Gian Trạm Dừng Chân",
+	"start": "a",
+	"nodes": {
+		"a": {"show": {"duc": "normal@left", "kyky": "sparkle@right"}, "effects": {"set_flags": ["expo_stall"], "add": {"expo": 1}}, "text": "Gian “Trạm Dừng Chân” sáng nhất cả dãy. Màn hình hiển thị icon chú mèo Nlong đeo tai nghe, tông navy với vàng kem. Đám đông xúm quanh, có đứa trẻ cười khúc khích khi chạm vào mèo trên màn hình.", "next": "b"},
+		"b": {"show": {"ducanh": "happy@farright"}, "speaker": "ducanh", "text": "Anh Đức ơi! Có đoàn của Thầy tới rồi! Ai thuyết trình đây?!", "next": "c"},
+		"c": {"hide": ["ducanh"], "show": {"kyky": "panic"}, "speaker": "kyky", "text": "Em… em không thuyết trình đâu, em run lắm!", "next": "d"},
+		"d": {"show": {"duc": "think"}, "speaker": "duc", "think": true, "text": "Cô ấy là người vẽ ra từng nét của nó. Người đó nên kể.",
+			"choices": [
+				{"text": "Đưa micro cho KyKy: “Người vẽ ra nó nên là người kể.” (và đứng ngay cạnh cô)", "effects": {"heart": 1, "add": {"respect": 2}}, "next": "give"},
+				{"text": "Tự thuyết trình, để KyKy đứng cạnh minh hoạ", "effects": {"brain": 1}, "next": "self"}
+			]},
+		"give": {"show": {"kyky": "worried"}, "text": "KyKy nuốt nước bọt, giọng run run bắt đầu kể về chú mèo Nlong, về quán cà phê, về một người cầm ngược bản đồ lạc vào đâu đó và tìm thấy một chỗ dừng chân. Đám đông im phăng phắc, rồi vỗ tay.", "next": "give2"},
+		"give2": {"show": {"duc": "soft"}, "speaker": "ducanh", "name": "Thầy Trưởng khoa", "text": "Điểm tối đa cho nhóm này. Và cô bé thiết kế, em nói rất hay.", "next": "give3"},
+		"give3": {"show": {"kyky": "love"}, "emote": {"kyky": "sparkle"}, "speaker": "kyky", "text": "Em… em nói được thiệt hả anh? …Cảm ơn anh vì đã đứng đó.", "effects": {"add": {"tram": 1}}},
+		"self": {"show": {"duc": "deadpan"}, "text": "Anh Đức trình bày gọn gàng và đủ ý, từ kiến trúc tới xử lý lỗi. KyKy đứng cạnh, minh hoạ giao diện từng nút một. Thầy Trưởng khoa gật gù liên tục.", "next": "self2"},
+		"self2": {"speaker": "ducanh", "name": "Thầy Trưởng khoa", "text": "Kỹ thuật chắc, giao diện mát mắt. Điểm tối đa. Cô bé nên tự tin hơn nhé, em xứng đáng được nhắc tên.", "next": "self3"},
+		"self3": {"show": {"kyky": "shy"}, "speaker": "kyky", "text": "…Dạ. Lần sau em sẽ tự nói, em hứa."}
+	}
+}

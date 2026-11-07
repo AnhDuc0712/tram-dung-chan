@@ -16,6 +16,7 @@ const SAVE_VERSION := 2
 const FIRST_STEP := "vn:ep1_s1"
 const BAR_MAX := {"heart": 18, "brain": 6}  # Tập 1
 const BAR_MAX_EP2 := {"heart": 28, "brain": 6}  # Tập 2 dài hơn, nhiều lựa chọn hơn
+const BAR_MAX_EP3 := {"heart": 30, "brain": 8}  # Tập 3 (đồ án chung, thêm "respect")
 
 var save_path := "user://save.json"  # test đổi sang file khác
 var meta_path := "user://meta.json"
@@ -33,6 +34,8 @@ var unlocked_endings: Array = []
 var unlocked_cgs: Array = []  # Event CG đã xem (mục Kỷ niệm)
 var seen_thoughts: Array = []  # "tâm tư Anh Đức" đã nghe từ Nlong
 var ep1_last := ""  # kết thúc Tập 1 gần nhất -> Tập 2 mở đầu khác nhau
+var ep2_last := ""  # kết thúc Tập 2 gần nhất -> Tập 3 mở đầu khác nhau
+var ep3_last := ""  # kết thúc Tập 3 gần nhất -> Tập 4 (kết mở)
 var episode := 1
 ## Chế độ tự chơi để kiểm thử (tham số "-- --autoplay"): tự bấm, tự chọn, tự xong mini-game.
 var autoplay := OS.get_cmdline_user_args().has("--autoplay")
@@ -103,7 +106,11 @@ func reset() -> void:
 
 ## Độ dài thanh hiển thị của chỉ số theo tập đang chơi.
 func bar_max(key: String) -> int:
-	var t: Dictionary = BAR_MAX_EP2 if episode >= 2 else BAR_MAX
+	var t: Dictionary = BAR_MAX
+	if episode >= 3:
+		t = BAR_MAX_EP3
+	elif episode == 2:
+		t = BAR_MAX_EP2
 	return int(t.get(key, 10))
 
 
@@ -141,6 +148,14 @@ func start_episode(ep: int, first_step: String) -> void:
 			set_flag("ep1_umbrella")
 		elif last == "uot_sung":
 			set_flag("ep1_wet")
+	elif ep == 3:
+		vars = {"heart": 0, "brain": 0, "nlong": 0, "tram": 0, "jealous": 0, "respect": 0, "hai": 0}
+		var last2 := ep2_last if ep2_last != "" else "ep2_lau"  # chưa chơi Tập 2 -> theo mạch chính thức
+		set_flag(last2)
+		if last2 == "ep2_gau":
+			set_flag("claw_win")
+		elif last2 == "ep2_ao":
+			set_flag("gave_jacket")
 
 
 ## Điều kiện (khóa "if"):
@@ -248,6 +263,10 @@ func unlock_ending(id: String) -> void:
 		unlocked_endings.append(id)
 	if episode == 1:
 		ep1_last = id
+	elif episode == 2:
+		ep2_last = id
+	elif episode == 3:
+		ep3_last = id
 	_save_meta()
 
 
@@ -264,7 +283,7 @@ func mark_thought(id: String) -> void:
 
 
 func _save_meta() -> void:
-	_write_json(meta_path, {"endings": unlocked_endings, "cgs": unlocked_cgs, "thoughts": seen_thoughts, "ep1_last": ep1_last})
+	_write_json(meta_path, {"endings": unlocked_endings, "cgs": unlocked_cgs, "thoughts": seen_thoughts, "ep1_last": ep1_last, "ep2_last": ep2_last, "ep3_last": ep3_last})
 
 
 func load_meta() -> void:
@@ -274,6 +293,8 @@ func load_meta() -> void:
 		unlocked_cgs = Array(m.get("cgs", []))
 		seen_thoughts = Array(m.get("thoughts", []))
 		ep1_last = str(m.get("ep1_last", ""))
+		ep2_last = str(m.get("ep2_last", ""))
+		ep3_last = str(m.get("ep3_last", ""))
 
 
 func load_settings() -> void:

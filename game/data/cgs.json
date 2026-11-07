@@ -4,5 +4,9 @@
 	"cg_shelf": {"img": "cg_shelf", "title": "Chưa đầy một gang tay", "episode": 2},
 	"cg_claw": {"img": "cg_claw", "title": "Nhắm lệch sang trái một chút", "episode": 2},
 	"cg_jacket": {"img": "cg_jacket", "title": "Chiếc áo khoác dưới mưa", "episode": 2},
-	"cg_hotpot": {"img": "cg_hotpot", "title": "Nồi lẩu đêm mưa", "episode": 2}
+	"cg_hotpot": {"img": "cg_hotpot", "title": "Nồi lẩu đêm mưa", "episode": 2},
+	"cg_burnt": {"img": "cg_burnt", "title": "Mười điểm tấm lòng", "episode": 3},
+	"cg_asleep": {"img": "cg_asleep", "title": "Lỗi logic lớn nhất đời", "episode": 3},
+	"cg_expo": {"img": "cg_expo", "title": "Đêm triển lãm", "episode": 3},
+	"cg_sunrise": {"img": "cg_sunrise", "title": "Bậc thềm lúc bình minh", "episode": 3}
 }

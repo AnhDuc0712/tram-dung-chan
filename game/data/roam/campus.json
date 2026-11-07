@@ -1,0 +1,38 @@
+{
+	"title": "Tập 3 – Khuôn viên trường (toạ độ theo assets/art/bg/map_campus.jpg, 1280×714)",
+	"map": "map_campus",
+	"music": {"ep3_campus": "roam_day"},
+	"ambient": {"ep3_campus": ""},
+	"intros": {"ep3_campus": ["roam_ep3c_intro", "ep3c_intro_done"]},
+	"follower": {"ep3_campus": {"sprite": "kyky_wave", "walk": "kyky_wave", "scale": 0.16}},
+	"objectives": {
+		"ep3_campus": [
+			{"if": {"flags": ["junior_found"]}, "target": "exit", "text": "Tìm được rồi! Đưa KyKy về Gờ 23 cho kịp ca trưa (đi ra phía lối qua đường)."},
+			{"if": {"flags": ["clue_student", "clue_teacher"]}, "target": "bikes", "text": "Đủ manh mối rồi: Nlong đang ngồi canh gì đó ở bãi xe, góc dưới bên trái."},
+			{"text": "Nlong Junior mất tích! Hỏi quanh sân trường: cậu sinh viên ở bãi cỏ, thầy dưới gốc xà cừ, Trâm ở trạm xe buýt… rồi ra bãi xe."}
+		]
+	},
+	"walk": [
+		[300, 110], [540, 110], [600, 215], [630, 290], [680, 330], [720, 390], [710, 430],
+		[670, 470], [620, 510], [580, 540], [480, 580], [360, 620], [230, 670], [230, 700],
+		[60, 700], [60, 580], [240, 510], [300, 470], [280, 330], [300, 250]
+	],
+	"obstacles": [
+		[425, 335, 40, 40],
+		[300, 455, 230, 90],
+		[440, 120, 60, 40],
+		[535, 175, 60, 40]
+	],
+	"player": {"sprite": "duc_stand", "walk": "duc_walk", "scale": 0.17, "start": {"ep3_campus": [420, 240]}},
+	"npcs": [
+		{"id": "student", "label": "Nói chuyện với cậu sinh viên năm nhất", "dialogue": "roam_ep3c_student", "sprite": "npc_boy", "scale": 0.17, "stand": [350, 410], "when": {"ep3_campus": [320, 390]}},
+		{"id": "tram", "label": "Nói chuyện với Trâm", "dialogue": "roam_ep3c_tram", "sprite": "tram_front", "scale": 0.16, "stand": [600, 505], "when": {"ep3_campus": [570, 520]}},
+		{"id": "thao", "label": "Nói chuyện với Thanh Thảo", "dialogue": "roam_ep3c_thao", "sprite": "thao_front", "scale": 0.16, "stand": [500, 270], "when": {"ep3_campus": [480, 245]}}
+	],
+	"spots": [
+		{"id": "teacher", "label": "Chào Thầy Trưởng khoa", "dialogue": "roam_ep3c_teacher", "marker": [440, 300], "stand": [480, 325], "when": ["ep3_campus"]},
+		{"id": "bikes", "label": "Tìm ở bãi xe", "dialogue": "roam_ep3c_bikes", "marker": [130, 640], "stand": [200, 640], "when": ["ep3_campus"]},
+		{"id": "exit", "label": "Qua đường về Gờ 23", "dialogue": "roam_ep3c_exit", "marker": [650, 360], "stand": [650, 385], "when": ["ep3_campus"]}
+	],
+	"autoplay": {"ep3_campus": ["student", "teacher", "tram", "thao", "bikes", "exit"]}
+}
