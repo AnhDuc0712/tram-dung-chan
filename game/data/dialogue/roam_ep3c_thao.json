@@ -2,12 +2,218 @@
 	"title": "Tập 3 – Thanh Thảo ở sân cổng",
 	"start": "a",
 	"nodes": {
-		"a": {"branch": [{"if": {"flags": ["thao_chat"]}, "next": "again"}], "default": "first"},
-		"first": {"show": {"thao": "worried@center"}, "speaker": "thao", "text": "Tụi mình còn ba ngày. Thuật toán ổn rồi. Nhưng cái giao diện hiện giờ là màu xám trên nền xám. Thầy gọi nó là “nhà tù có chữ”.", "next": "b"},
-		"b": {"show": {"kyky": "worried@right"}, "speaker": "kyky", "text": "Em hứa sẽ vẽ ngay tối nay! Em chỉ… hơi sợ làm hỏng. Em không biết gì về code hết á.", "next": "c"},
-		"c": {"show": {"thao": "smug"}, "speaker": "thao", "text": "Không cần biết code. Cần biết bạn đang muốn người dùng cảm thấy gì. Đó là việc của bạn, không phải của cái máy. Và nếu hỏng, đã có Đức. Anh ấy sửa lỗi cực nhanh khi ai đó lo.", "next": "d"},
-		"d": {"show": {"duc": "blush@left"}, "speaker": "duc", "text": "Thảo. Cô đang nói chuyện của tôi trước mặt tôi.", "next": "e"},
-		"e": {"show": {"thao": "laugh"}, "speaker": "thao", "text": "Tôi đang nói đúng sự thật. Xin lỗi, sự thật khó nghe với đại thần.", "effects": {"heart": 1, "add": {"thao": 1}, "set_flags": ["thao_chat"]}},
-		"again": {"show": {"thao": "normal"}, "speaker": "thao", "text": "Mười hai giờ đêm gửi tôi file ảnh là được. Tôi sẽ không hỏi lý do cậu ngủ muộn."}
+		"a": {
+			"branch": [
+				{
+					"if": {
+						"flags": [
+							"thao_chat"
+						]
+					},
+					"next": "again"
+				}
+			],
+			"default": "first"
+		},
+		"first": {
+			"show": {
+				"thao": "worried@center"
+			},
+			"speaker": "thao",
+			"text": "Tụi mình còn ba ngày. Thuật toán ổn rồi. Nhưng cái giao diện hiện giờ là màu xám trên nền xám. Thầy gọi nó là “nhà tù có chữ”.",
+			"next": "b"
+		},
+		"b": {
+			"show": {
+				"kyky": "worried@right"
+			},
+			"speaker": "kyky",
+			"text": "Em hứa sẽ vẽ ngay tối nay! Em chỉ… hơi sợ làm hỏng. Em không biết gì về code hết á.",
+			"next": "c"
+		},
+		"c": {
+			"show": {
+				"thao": "smug"
+			},
+			"speaker": "thao",
+			"text": "Không cần biết code. Cần biết bạn đang muốn người dùng cảm thấy gì. Đó là việc của bạn, không phải của cái máy. Và nếu hỏng, đã có Đức. Anh ấy sửa lỗi cực nhanh khi ai đó lo.",
+			"next": "d"
+		},
+		"d": {
+			"show": {
+				"duc": "blush@left"
+			},
+			"speaker": "duc",
+			"text": "Thảo. Cô đang nói chuyện của tôi trước mặt tôi.",
+			"next": "e"
+		},
+		"e": {
+			"show": {
+				"thao": "laugh"
+			},
+			"speaker": "thao",
+			"text": "Tôi đang nói đúng sự thật. Xin lỗi, sự thật khó nghe với đại thần.",
+			"effects": {
+				"heart": 1,
+				"add": {
+					"thao": 1
+				},
+				"set_flags": [
+					"thao_chat"
+				]
+			}
+		},
+		"again": {
+			"branch": [
+				{
+					"if": {
+						"flags": [
+							"thao_deep"
+						]
+					},
+					"next": "after"
+				}
+			],
+			"default": "deep1"
+		},
+		"after": {
+			"show": {
+				"thao": "normal"
+			},
+			"speaker": "thao",
+			"text": "Mười hai giờ đêm gửi tôi file ảnh là được. Tôi sẽ không hỏi lý do cậu ngủ muộn."
+		},
+		"deep1": {
+			"show": {
+				"thao": "normal@center",
+				"kyky": "shy@right"
+			},
+			"speaker": "thao",
+			"text": "KyKy, ngồi xuống đây một phút. Tôi thấy cậu cười rất nhiều, nhưng lúc không ai nhìn thì cậu lại siết cuốn sổ như sắp bị đòi lại.",
+			"next": "deep2"
+		},
+		"deep2": {
+			"show": {
+				"kyky": "worried"
+			},
+			"speaker": "kyky",
+			"text": "Dạ… em là dân mỹ thuật lạc vào hội IT. Mọi người nói “API”, “commit”, em gật đầu cho có, rồi tối về lén tra từ điển.",
+			"next": "deep3"
+		},
+		"deep3": {
+			"show": {
+				"thao": "happy"
+			},
+			"speaker": "thao",
+			"text": "Năm nhất tôi cũng thế. Là con gái duy nhất trong phòng lab, tôi cười thật tươi để không ai nghĩ mình không biết. Mãi sau mới hiểu: không biết thì hỏi, người cười đẹp nhất cũng phải hỏi.",
+			"next": "deep4"
+		},
+		"deep4": {
+			"show": {
+				"kyky": "sparkle"
+			},
+			"speaker": "kyky",
+			"text": "Chị Thảo… vậy mà em cứ tưởng chị sinh ra đã biết hết.",
+			"next": "deep5"
+		},
+		"deep5": {
+			"show": {
+				"thao": "smug"
+			},
+			"speaker": "thao",
+			"text": "Tôi sinh ra đã biết đúng một thứ: nói thẳng. Còn lại là thức khuya mà ra. Nét vẽ của cậu thì tôi không thức khuya mà có được, đó là tài năng. Đừng tự hạ nó xuống làm phụ kiện cho code.",
+			"next": "deep6",
+			"effects": {
+				"heart": 1
+			}
+		},
+		"deep6": {
+			"show": {
+				"kyky": "shy"
+			},
+			"speaker": "kyky",
+			"text": "Dạ… em nhớ rồi. À chị Thảo, em muốn hỏi chuyện này. Anh Đức… lúc nào cũng cộc lốc. Có hôm em không biết anh giận hay chỉ đang nghĩ.",
+			"next": "deep7"
+		},
+		"deep7": {
+			"show": {
+				"thao": "laugh"
+			},
+			"speaker": "thao",
+			"text": "Ha! Cậu hỏi đúng người rồi. Dịch giúp cậu nhé. Thấy mặt anh ấy lạnh: đang nghĩ. Anh ấy hỏi “ăn chưa”: lo cho cậu. Anh ấy bảo “để tôi”: sợ cậu mệt. Cứ nhìn vào việc anh ấy làm, đừng nghe câu chữ.",
+			"next": "deep8"
+		},
+		"deep8": {
+			"show": {
+				"kyky": "confused"
+			},
+			"speaker": "kyky",
+			"text": "Vậy còn khi anh ấy nói “tôi không có ý đó”?",
+			"choices": [
+				{
+					"text": "Thảo: “Nghĩa là có ý đó nhưng không biết nói sao.”",
+					"effects": {
+						"heart": 1,
+						"add": {
+							"respect": 1
+						}
+					},
+					"next": "deep9a"
+				},
+				{
+					"text": "Thảo: “Nghĩa là cậu nên hỏi thẳng lại. Anh ấy trả lời thật khi được hỏi thật.”",
+					"effects": {
+						"brain": 1,
+						"add": {
+							"respect": 1
+						}
+					},
+					"next": "deep9b"
+				}
+			]
+		},
+		"deep9a": {
+			"show": {
+				"thao": "smug"
+			},
+			"speaker": "thao",
+			"text": "Nghĩa là có ý đó nhưng không biết nói sao. Với con trai IT, câu khó nhất không phải câu lệnh mà là câu “tôi thích cậu”.",
+			"next": "deep10"
+		},
+		"deep9b": {
+			"show": {
+				"thao": "normal"
+			},
+			"speaker": "thao",
+			"text": "Nghĩa là cậu nên hỏi thẳng lại. Anh ấy trả lời thật khi được hỏi thật. Họ ghét đoán, và ghét cả bị đoán.",
+			"next": "deep10"
+		},
+		"deep10": {
+			"show": {
+				"kyky": "sparkle"
+			},
+			"emote": {
+				"kyky": "sparkle"
+			},
+			"speaker": "kyky",
+			"text": "Em hiểu rồi. Cảm ơn chị Thảo. Em thấy nhẹ hẳn.",
+			"next": "deep11"
+		},
+		"deep11": {
+			"show": {
+				"thao": "happy"
+			},
+			"speaker": "thao",
+			"text": "Đi vẽ đi, nhà thiết kế. À, còn chuyện anh Hải: dù cậu chọn gì, chọn vì mình muốn. Đừng chọn vì người khác thấy hợp.",
+			"effects": {
+				"heart": 1,
+				"add": {
+					"thao": 1
+				},
+				"set_flags": [
+					"thao_deep"
+				]
+			}
+		}
 	}
 }

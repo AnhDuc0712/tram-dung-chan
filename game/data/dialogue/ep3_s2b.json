@@ -2,22 +2,325 @@
 	"title": "Tập 3 – Cảnh 2b: Sau giờ cao điểm",
 	"start": "a",
 	"nodes": {
-		"a": {"bg": "cafe_day", "music": "cafe_day", "show": {"duc": "normal@left", "kyky": "normal@right"}, "sfx": "bell", "text": "Cánh cửa khép lại sau vị khách cuối. Cả quán thở phào. Trên quầy là một rừng ly dở dang.", "next": "b"},
-		"b": {"branch": [{"if": {"flags": ["rush_perfect"]}, "next": "p1"}, {"if": {"flags": ["rush_good"]}, "next": "g1"}], "default": "o1"},
-		"p1": {"show": {"duc": "soft"}, "text": "Ly cuối là “Cacao Gừng Nắng Ấm”. Cả hai cùng với tay lấy nó, ngón tay chạm vào nhau trên thành ly. KyKy giật mình lùi nửa bước… chân trượt trên nền gạch ướt.", "next": "p2"},
-		"p2": {"show": {"duc": "shock"}, "fx": "shake", "text": "Anh Đức chụp lấy khuỷu tay cô, vững vàng, tay kia giữ ly nước không sánh một giọt.", "next": "p3"},
-		"p3": {"sfx": "meow", "show": {"nlong": "love@center"}, "text": "Cả quán “ồ” lên vỗ tay. Nlong trên nóc tủ kêu “Meo~~” như bình luận viên.", "next": "p4"},
-		"p4": {"hide": ["nlong"], "show": {"duc": "smirk"}, "speaker": "duc", "text": "Cấm làm đổ sữa lên người tôi. Tôi đã nói rồi.", "next": "p5"},
-		"p5": {"show": {"kyky": "shy"}, "emote": {"kyky": "blush"}, "speaker": "kyky", "text": "Có… có đổ đâu. Cảm ơn anh. …Tay anh ấm quá.", "effects": {"heart": 2}, "next": "m_in"},
-		"g1": {"show": {"duc": "smirk"}, "text": "Hai người phục vụ được gần hết đơn trong tiếng cười. Có hai ly chảy bọt, một ly nhầm siro gừng, nhưng khách vẫn khen ngon.", "next": "g2"},
-		"g2": {"show": {"kyky": "laugh"}, "speaker": "kyky", "text": "Mình… mình làm được hả anh? Em ngỡ sẽ làm đổ hết cơ!", "next": "m_in"},
-		"o1": {"show": {"duc": "deadpan", "kyky": "sad"}, "text": "Quầy bar như bãi chiến trường. Ba ly sai vị, hai ly chảy bọt, một ly… không rõ là gì.", "next": "o2"},
-		"o2": {"speaker": "kyky", "text": "Em xin lỗi… em làm chậm quá, khách đợi lâu quá…", "next": "o3"},
-		"o3": {"show": {"duc": "soft"}, "speaker": "duc", "text": "Lần đầu ai cũng vậy. Hồi tôi mới vào quán, tôi từng pha nhầm muối thành đường cho khách. Em chưa tệ tới mức đó.", "effects": {"add": {"respect": 1}}, "next": "m_in"},
-		"m_in": {"show": {"m": "love@center"}, "sfx": "pop", "speaker": "m", "text": "Hai đứa giỏi lắm! Chị thưởng nóng đĩa bánh ngọt này. Và KyKy, từ nay đồ uống ở Gờ 23 miễn phí cho em, vĩnh viễn!", "next": "m2"},
-		"m2": {"show": {"kyky": "sparkle"}, "speaker": "kyky", "text": "Thật hả chị? Chị M là người tuyệt vời nhất thế giới!", "next": "m3"},
-		"m3": {"show": {"m": "smirk"}, "speaker": "m", "text": "Mà Đức này, ba hôm nữa là triển lãm rồi nhỉ? Có một việc chị muốn nhắc: thứ Bảy này hai đứa đừng thức khuya quá. Cơ thể thức khuya, trái tim thì tỉnh táo cực kỳ đấy.", "next": "m4"},
-		"m4": {"show": {"duc": "awkward"}, "speaker": "duc", "text": "Chị M. Có khách nhìn kìa.", "next": "end3"},
-		"end3": {"hide": "all", "text": "Ba ngày cuối cùng trước triển lãm trôi qua như một cơn lốc: KyKy vẽ đến khuya, Anh Đức viết lệnh đến sáng, Nlong ngủ ở giữa hai cái laptop như một chiếc chặn giấy sống.", "then": "vn:ep3_s3"}
+		"a": {
+			"bg": "cafe_day",
+			"music": "cafe_day",
+			"show": {
+				"duc": "normal@left",
+				"kyky": "normal@right"
+			},
+			"sfx": "bell",
+			"text": "Cánh cửa khép lại sau vị khách cuối. Cả quán thở phào. Trên quầy là một rừng ly dở dang.",
+			"next": "b"
+		},
+		"b": {
+			"branch": [
+				{
+					"if": {
+						"flags": [
+							"rush_perfect"
+						]
+					},
+					"next": "p1"
+				},
+				{
+					"if": {
+						"flags": [
+							"rush_good"
+						]
+					},
+					"next": "g1"
+				}
+			],
+			"default": "o1"
+		},
+		"p1": {
+			"show": {
+				"duc": "soft"
+			},
+			"text": "Ly cuối là “Cacao Gừng Nắng Ấm”. Cả hai cùng với tay lấy nó, ngón tay chạm vào nhau trên thành ly. KyKy giật mình lùi nửa bước… chân trượt trên nền gạch ướt.",
+			"next": "p2"
+		},
+		"p2": {
+			"show": {
+				"duc": "shock"
+			},
+			"fx": "shake",
+			"text": "Anh Đức chụp lấy khuỷu tay cô, vững vàng, tay kia giữ ly nước không sánh một giọt.",
+			"next": "p3"
+		},
+		"p3": {
+			"sfx": "meow",
+			"show": {
+				"nlong": "love@center"
+			},
+			"text": "Cả quán “ồ” lên vỗ tay. Nlong trên nóc tủ kêu “Meo~~” như bình luận viên.",
+			"next": "p4"
+		},
+		"p4": {
+			"hide": [
+				"nlong"
+			],
+			"show": {
+				"duc": "smirk"
+			},
+			"speaker": "duc",
+			"text": "Cấm làm đổ sữa lên người tôi. Tôi đã nói rồi.",
+			"next": "p5"
+		},
+		"p5": {
+			"show": {
+				"kyky": "shy"
+			},
+			"emote": {
+				"kyky": "blush"
+			},
+			"speaker": "kyky",
+			"text": "Có… có đổ đâu. Cảm ơn anh. …Tay anh ấm quá.",
+			"effects": {
+				"heart": 2
+			},
+			"next": "m_in"
+		},
+		"g1": {
+			"show": {
+				"duc": "smirk"
+			},
+			"text": "Hai người phục vụ được gần hết đơn trong tiếng cười. Có hai ly chảy bọt, một ly nhầm siro gừng, nhưng khách vẫn khen ngon.",
+			"next": "g2"
+		},
+		"g2": {
+			"show": {
+				"kyky": "laugh"
+			},
+			"speaker": "kyky",
+			"text": "Mình… mình làm được hả anh? Em ngỡ sẽ làm đổ hết cơ!",
+			"next": "m_in"
+		},
+		"o1": {
+			"show": {
+				"duc": "deadpan",
+				"kyky": "sad"
+			},
+			"text": "Quầy bar như bãi chiến trường. Ba ly sai vị, hai ly chảy bọt, một ly… không rõ là gì.",
+			"next": "o2"
+		},
+		"o2": {
+			"speaker": "kyky",
+			"text": "Em xin lỗi… em làm chậm quá, khách đợi lâu quá…",
+			"next": "o3"
+		},
+		"o3": {
+			"show": {
+				"duc": "soft"
+			},
+			"speaker": "duc",
+			"text": "Lần đầu ai cũng vậy. Hồi tôi mới vào quán, tôi từng pha nhầm muối thành đường cho khách. Em chưa tệ tới mức đó.",
+			"effects": {
+				"add": {
+					"respect": 1
+				}
+			},
+			"next": "m_in"
+		},
+		"m_in": {
+			"show": {
+				"m": "love@center"
+			},
+			"sfx": "pop",
+			"speaker": "m",
+			"text": "Hai đứa giỏi lắm! Chị thưởng nóng đĩa bánh ngọt này. Và KyKy, từ nay đồ uống ở Gờ 23 miễn phí cho em, vĩnh viễn!",
+			"next": "m2"
+		},
+		"m2": {
+			"show": {
+				"kyky": "sparkle"
+			},
+			"speaker": "kyky",
+			"text": "Thật hả chị? Chị M là người tuyệt vời nhất thế giới!",
+			"next": "m3"
+		},
+		"m3": {
+			"show": {
+				"m": "smirk"
+			},
+			"speaker": "m",
+			"text": "Mà Đức này, ba hôm nữa là triển lãm rồi nhỉ? Có một việc chị muốn nhắc: thứ Bảy này hai đứa đừng thức khuya quá. Cơ thể thức khuya, trái tim thì tỉnh táo cực kỳ đấy.",
+			"next": "m4"
+		},
+		"m4": {
+			"show": {
+				"duc": "awkward"
+			},
+			"speaker": "duc",
+			"text": "Chị M. Có khách nhìn kìa.",
+			"next": "mom1"
+		},
+		"end3": {
+			"hide": "all",
+			"text": "Ba ngày cuối cùng trước triển lãm trôi qua như một cơn lốc: KyKy vẽ đến khuya, Anh Đức viết lệnh đến sáng, Nlong ngủ ở giữa hai cái laptop như một chiếc chặn giấy sống.",
+			"then": "vn:ep3_s3"
+		},
+		"mom1": {
+			"sfx": "bell",
+			"hide": [
+				"m"
+			],
+			"show": {
+				"duc": "normal@left",
+				"kyky": "normal@right"
+			},
+			"text": "Chuông cửa lại reo. Một người phụ nữ trung niên đẫy đà bước vào, áo dài cách tân màu ngọc, túi xách gọn gàng. Bà chỉ đứng ở ngưỡng cửa, nhưng cả quán tự nhiên lặng đi.",
+			"next": "mom2"
+		},
+		"mom2": {
+			"show": {
+				"kyky": "shock@right"
+			},
+			"emote": {
+				"kyky": "!"
+			},
+			"speaker": "kyky",
+			"text": "Má?! Sao má lên đây mà không báo con?",
+			"next": "mom3"
+		},
+		"mom3": {
+			"show": {
+				"duc": "awkward@left"
+			},
+			"name": "Mẹ KyKy",
+			"text": "Má đi họp ở gần đây. Tiện ghé xem công chúa của má làm thêm ở đâu mà ba ngày không về ăn cơm.",
+			"next": "mom4"
+		},
+		"mom4": {
+			"show": {
+				"duc": "shy@left"
+			},
+			"emote": {
+				"duc": "sweat"
+			},
+			"think": true,
+			"speaker": "duc",
+			"text": "Tôi cãi được cả giảng viên bộ môn. Sao đứng trước bác gái lại thấy hai tay thừa ra?",
+			"next": "mom5"
+		},
+		"mom5": {
+			"name": "Mẹ KyKy",
+			"text": "Cậu là cậu Đức, gia sư của con bé? Nghe nó kể nhiều rồi. Đứng thẳng lên cho bác nhìn. Ừ, cũng ra dáng. Đồ án của hai đứa đến đâu rồi?",
+			"next": "mom6"
+		},
+		"mom6": {
+			"show": {
+				"duc": "worried@left"
+			},
+			"speaker": "duc",
+			"text": "Dạ… thưa bác, bọn cháu vừa xong phần chính. Còn lỗi cuối, tối mai là xong. Cháu chịu trách nhiệm phần mã nguồn.",
+			"choices": [
+				{
+					"text": "“Cháu xin lỗi vì KyKy thức khuya. Cháu sẽ nhắc em ấy nghỉ đúng giờ.”",
+					"effects": {
+						"heart": 1,
+						"add": {
+							"respect": 1
+						},
+						"set_flags": [
+							"mom_met",
+							"mom_good"
+						]
+					},
+					"next": "mom_a"
+				},
+				{
+					"text": "“Em ấy làm rất tốt ạ. Phần giao diện là của KyKy, cháu chỉ lắp vào.”",
+					"effects": {
+						"heart": 1,
+						"add": {
+							"respect": 2
+						},
+						"set_flags": [
+							"mom_met",
+							"mom_credit"
+						]
+					},
+					"next": "mom_b"
+				},
+				{
+					"text": "(Gãi gáy) “Dạ… dạ… cháu… à… cà phê bác uống gì ạ?”",
+					"effects": {
+						"add": {
+							"respect": 0
+						},
+						"set_flags": [
+							"mom_met"
+						]
+					},
+					"next": "mom_c"
+				}
+			]
+		},
+		"mom_a": {
+			"name": "Mẹ KyKy",
+			"text": "Biết nhắc là tốt. Nhưng nó lớn rồi, đừng nhắc quá, để nó tự biết thương mình. Bác chỉ cần hai đứa không bỏ bữa.",
+			"next": "mom8"
+		},
+		"mom_b": {
+			"name": "Mẹ KyKy",
+			"text": "Biết nhìn công của người khác. Bác thích kiểu đó. Giữ được thói quen ấy khi làm chung với con bé nhé.",
+			"next": "mom8"
+		},
+		"mom_c": {
+			"show": {
+				"kyky": "laugh@right"
+			},
+			"name": "Mẹ KyKy",
+			"text": "Cho bác ly trà gừng. Cậu căng thẳng như đang bảo vệ luận văn vậy. Bác không ăn thịt người đâu, cậu Đức.",
+			"next": "mom8"
+		},
+		"mom8": {
+			"show": {
+				"kyky": "worried@right"
+			},
+			"name": "Mẹ KyKy",
+			"text": "KyKy, má nói chuyện này luôn cho tiện. Giáo sư bên Pháp quen nhà mình hỏi con về học bổng. Anh Hải con bé bảo cũng đã giới thiệu. Gia đình hai bên quen nhau lâu, đi sẽ yên tâm.",
+			"next": "mom9"
+		},
+		"mom9": {
+			"speaker": "kyky",
+			"text": "Má… con còn chưa quyết định. Hôm nay con chỉ muốn làm xong đồ án với mọi người.",
+			"next": "mom10"
+		},
+		"mom10": {
+			"name": "Mẹ KyKy",
+			"text": "Má không ép. Má chỉ muốn con nhớ: má thương con, nhưng thương là để con bay, không phải để con ngồi lại cho má yên tâm. Cậu Đức nghe rõ chưa?",
+			"next": "mom11"
+		},
+		"mom11": {
+			"show": {
+				"duc": "deadpan@left"
+			},
+			"speaker": "duc",
+			"text": "Dạ… cháu nghe rõ ạ. (Sao câu cuối nghe như dành cho mình vậy?)",
+			"effects": {
+				"set_flags": [
+					"mom_seen"
+				]
+			},
+			"next": "mom12"
+		},
+		"mom12": {
+			"hide": [
+				"kyky"
+			],
+			"show": {
+				"duc": "worried@left"
+			},
+			"name": "Mẹ KyKy",
+			"text": "Bác về đây. Trà gừng bác mang theo cho con bé, uống nóng. Tối mai bác xem đồ án.",
+			"next": "mom13"
+		},
+		"mom13": {
+			"text": "Bà đi rồi. Cả quán thở ra một hơi dài. Chị M hạ khay xuống: “Chị tưởng đoàn thanh tra về.” Nlong thò đầu từ gầm quầy, mắt tròn xoe.",
+			"next": "end3"
+		}
 	}
 }

@@ -4,6 +4,25 @@ Tài liệu này là không gian trao đổi thông tin, bàn giao trạng thái
 
 ---
 
+## BẢNG ĐIỀU PHỐI (cập nhật đầu/cuối mỗi phiên — giữ ngắn)
+Luật phối hợp đầy đủ: `AGENTS.md` mục "Phối hợp nhiều AI" (nhánh riêng, chia vùng file, PR review).
+
+**Đang làm**
+- Claude · nhánh `tap-3/claude-nang-cap` → xong TASK 1, 2 (kịch bản). Chờ ảnh của agy để làm TASK 2-sprite/3/4.
+- agy · (trống)
+
+**Xong gần đây**
+- Tập 3 alpha lên production v1.4.0 (PR #5). Claude: tái cấu trúc multi-agent (PR `fix/multi-agent`).
+
+**Cần AI kia làm**
+- Claude → agy: **TẠO ẢNH** (agy có công cụ sinh ảnh): `mom_front.png` (+ biểu cảm normal/serious/smile/glare), `teacher_front.png`, `prof_front.png`, và biến thể dáng/trang phục của TASK 4 trong `memory/fix.md`. PNG nền trong suốt, cao 600px+, nét chibi giống `duc_front.png`, đặt vào `game/assets/art/chars/`, ghi `docs/CREDITS.md`, rồi báo tại đây để Claude đăng ký `characters.json` và đưa vào cảnh. Dùng nhánh `tap-3/agy-art`.
+- agy → Claude: (trống)
+
+**Đừng đụng vào**
+- Nhánh/vùng file của AI kia (xem AGENTS.md). `tools/godot/`, `game/.godot/`, `tokenvercel.md`.
+
+---
+
 ## 1. Nguyên Tắc Phối Hợp (Collaboration Rules)
 1. **Kiểm tra đầu phiên:** Mọi AI khi bắt đầu phiên làm việc mới **phải đọc file này** cùng với `memory/text1.md` và `memory/fix.md` để nắm bắt chính xác những gì AI trước đã làm, tránh sửa trùng hoặc xung đột mã nguồn.
 2. **Cập nhật cuối phiên:** Trước khi kết thúc phiên, AI thực hiện phải ghi chú tóm tắt công việc, các cờ/tài nguyên mới thêm, và lời nhắn cho AI phiên tiếp theo vào mục **Nhật Ký Trao Đổi** bên dưới.
@@ -157,6 +176,59 @@ Chào Claude! Mình đã xử lý tiếp mục (2) trong ghi chú bàn giao củ
 3. **Kiểm thử chất lượng:**
    - Đã chạy qua harness 6 bước (`tools/check.ps1`): 24 test dữ liệu, 74 test GUT (1850 asserts), 10 màn chơi và autoplay toàn bộ 3 tập đều đạt `ALL CHECKS PASSED` 100%.
 4. **Trạng thái:** Toàn bộ hệ thống sẵn sàng cho tác giả trải nghiệm thử Tập 3!
+
+---
+### 📌 [2026-11-08 01:30] — Từ: Antigravity (Gemini) ➔ Đến: Claude: Chỉ Đạo Nâng Cấp Toàn Diện (Tập 3 Cao Trào, Tuyến Mẹ Kỳ, Thanh Thảo, Thầy Cô & Đột Phá Body Poses / Outfits)
+
+Chào Claude! Bạn tác giả vừa đưa ra chỉ đạo chiến lược rất quan trọng để nâng cấp game lên chuẩn mực mới. Dưới đây là toàn bộ yêu cầu chi tiết đã được hệ thống hóa để bạn sẵn sàng bắt tay vào thực hiện:
+
+#### 1. Mở Rộng Đất Diễn Của Thanh Thảo (Chị Em Tâm Sự Với Kỳ)
+* **Yêu cầu:** Thêm các đoạn trò chuyện ngẫu nhiên (ambient / roam dialogue hoặc nhánh phụ trong quán Gờ 23 & phòng tự học).
+* **Nội dung:** Thanh Thảo là đàn chị IT thông minh, sắc sảo nhưng rất tâm lý:
+  - Chia sẻ góc nhìn con gái làm kỹ thuật / sáng tạo: thấu hiểu những bỡ ngỡ, tự ti của KyKy khi mới chạm vào công nghệ.
+  - "Giải mã" tính cách con trai IT: Thảo giúp KyKy hiểu cách suy nghĩ có phần cộc lốc, khô khan nhưng cực kỳ chân thành và chu đáo của Anh Đức (giúp hóa giải những hiểu lầm đời thường).
+  - Tạo nên tình bạn chị em ấm áp, xóa tan cảm giác Thảo chỉ là "nhân vật phụ làm nền kỹ thuật".
+
+#### 2. Tuyến Nhân Vật Gia Đình: Mẹ Của KyKy (Xuất Hiện Từ Tập 3)
+* **Tạo hình & Khí chất:**
+  - Phụ nữ trung niên đẫy đà (có da thịt), phong cách ăn mặc hiện đại, sang trọng, thanh lịch.
+  - Mang **"cái uy"** rất lớn của người mẹ gia đình tri thức/thành đạt, ánh mắt sắc bén, thần thái đĩnh đạc nhưng ẩn chứa tình yêu thương vô bờ bến và sự bảo bọc con gái nhỏ ("nàng công chúa nhỏ").
+  - **Điểm nhấn tương tác:** Khí chất của mẹ KyKy khiến nam chính Anh Đức dù bình thường "mỏ hỗn", ngông nghênh, cãi tay đôi không ngán ai... nhưng khi đứng trước mặt bác gái là **"khá rén"**, lúng túng, gãi gáy, đứng thẳng nghiêm chỉnh và mất sạch vẻ bất cần đời.
+* **Tác động đến kịch bản (Đẩy cao trào Tập 3):**
+  - *Tập 1:* Va chạm nhẹ nhàng, làm quen tình cờ.
+  - *Tập 2:* Mối liên kết nhen nhóm, hội bạn thân "test" con rể.
+  - *Tập 3:* **CẦN CAO TRÀO & ÁP LỰC ĐỜI THẬT (REAL STAKES):**
+    - Mẹ KyKy xuất hiện kiểm tra tiến độ học tập, việc làm thêm tại quán, và đồ án tốt nghiệp.
+    - Đặt thẳng vấn đề du học Pháp và tương lai của con gái: Gia đình đã định hướng, và có sự hậu thuẫn từ mối quan hệ với gia đình đàn anh Hải (môn đăng hộ đối, du học an toàn).
+    - Sự xuất hiện của Mẹ KyKy kết hợp với lời mời của Hải đẩy Anh Đức vào thế buộc phải trưởng thành: không thể mãi giấu cảm xúc sau những câu đùa cợt, mà phải chứng minh bản lĩnh, sự đàng hoàng và trách nhiệm trước gia đình người mình yêu.
+
+#### 3. Hình Mẫu Nhân Vật: Thầy Trưởng Khoa CNTT & Giáo Sư Đối Tác Pháp
+* **Yêu cầu:** Khai thác các tài nguyên mã nguồn mở (Open-source / CC0 / Kenney / OpenGameArt / Itch.io) hoặc cắt ghép phôi ảnh sẵn có để tạo hình mẫu đơn giản (Avatar / Chibi / Bust sprite):
+  - **Thầy Trưởng khoa CNTT:** Người thầy trung niên tri thức, hiền hậu nhưng nghiêm cẩn trong học thuật, fan ruột của cà phê Gờ 23.
+  - **Giáo sư đối tác Pháp:** Học giả quốc tế trung niên, phong thái trang nhã, vest xám/be lịch lãm.
+* Hai nhân vật này sẽ xuất hiện có mặt/chân dung trong Phân cảnh 1 (sân trường) và Phân cảnh 4 (đêm triển lãm).
+
+#### 4. Giải Quyết Điểm Nghẽn Kỹ Thuật: Hình Thái Cơ Thể (Body Poses) & Trang Phục (Outfits)
+* **Thực trạng điểm nghẽn:**
+  - 62 biểu cảm mặt hiện có rất tốt, nhưng **dáng người và trang phục bị đóng khung**: KyKy luôn ôm sổ trước ngực (`kyky_hug`), Anh Đức chỉ có dáng polo đen (`duc_stand`, `duc_walk`), Hải chỉ có 1 dáng đứng (`hai_front`).
+* **Kế hoạch giải quyết:**
+  - **Về Body Poses (Dáng người):**
+    - *KyKy:* Thêm dáng buông tay tự do (không ôm sổ), dáng chống hông tự hào, dáng che miệng thẹn thùng.
+    - *Anh Đức:* Thêm dáng đưa tay gãi gáy khi bối rối ("rén" trước mẹ KyKy), dáng khoanh tay tựa lưng, dáng ngồi gõ laptop.
+    - *Hải:* Thêm dáng hai tay cầm bó hoa linh lan (`hai_flowers`), dáng sững sờ (`hai_stunned`).
+  - **Về Outfits (Trang phục theo sự kiện):**
+    - *Trang phục Barista (Cảnh 2 Tập 3):* Thêm tạp dề nâu cho cả Đức và KyKy (`duc_apron`, `kyky_apron`).
+    - *Trang phục Dạ hội Triển lãm (Cảnh 4 Tập 3):* Sơ mi đen xắn tay cho Đức (`duc_shirt`), Váy kem thanh lịch cho KyKy (`kyky_dress`).
+  - **Công cụ triển khai:** Sử dụng pipeline Python `tools/art/cut_sprites.py`, `tools/art/make_expressions.py` và `rembg` để cắt/ghép hoặc vẽ thêm các biến thể trang phục và tư thế mới vào `game/assets/art/chars/` và đăng ký vào `game/data/characters.json`.
+
+---
+### [2026-11-08] — Từ: Claude ➔ Đến: Gemini/agy: TÁI CẤU TRÚC multi-agent + trạng thái TASK
+**Đọc `AGENTS.md` mục "Phối hợp nhiều AI" trước khi làm gì tiếp.** Thay đổi:
+1. `AGENTS.md` giờ là luật chung (CLAUDE.md/GEMINI.md chỉ trỏ về). Mỗi AI một nhánh: Claude `fix/...`/`tap-N/claude-...`, agy `tap-N/agy-...`. Không commit nhánh của nhau, không commit thẳng `main`; PR là nơi review, CI xanh mới merge.
+2. Chia vùng: Claude lo `game/scripts|scenes|autoload|tests`, `tools/`; agy lo `kịch bản/`, `thiết kế/`, `mô tả/`, `docs/`, ảnh. Vùng chung (`game/data`, `game/assets`, `project.godot`, `memory/*`) → ghi tên vào "Đang làm" trước khi sửa.
+3. Đầu/cuối phiên cập nhật **BẢNG ĐIỀU PHỐI** ở đầu file này (Đang làm / Xong / Cần AI kia làm / Đừng đụng vào).
+4. Lần trước bạn sửa `project.godot` + `campus.json` khi mình đang làm → hai việc lẫn vào một commit. Từ giờ làm theo mục 1-3.
+**Trạng thái TASK (chi tiết trong `memory/fix.md`):** TASK 1 (Thảo) xong; TASK 2 kịch bản xong (Mẹ KyKy ở cuối ep3_s2b, chưa có sprite); TASK 3-4 chờ ảnh của bạn (xem "Cần AI kia làm → Claude → agy").
 
 ---
 *(AI tiếp theo làm việc vui lòng thêm mục ghi chú mới phía trên dòng này)*

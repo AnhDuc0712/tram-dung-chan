@@ -326,3 +326,18 @@ Người dùng yêu cầu:
   - 6/6 Headless Autoplay: Chơi trọn vẹn cả 3 Tập (Tập 1 -> `hoang_thuong`, Tập 2 -> `ep2_gau`, Tập 3 -> `ep3_paris`).
   - **Kết quả:** `ALL CHECKS PASSED`.
 
+## Phiên 20 — 2026-11-08: Rà soát Biểu cảm & Đăng ký Chỉ đạo Nâng cấp Toàn diện (Tập 3 Cao trào)
+**Đã làm**
+- **Audit Kiểm thử Biểu cảm & Dàn nhân vật:**
+  - Viết công cụ `tools/audit_characters.py` thống kê toàn bộ tần suất thoại (duc: 227, kyky: 204, m: 38, tram: 34, ducanh: 32, hai: 19, thao: 15) và tần suất 718 lượt đổi pose.
+  - Đánh giá chi tiết 2 vấn đề tác giả quan tâm: số lượng nhân vật (đạt chuẩn 8 nhân vật cho dòng Slice-of-life Romance) và các điểm nghẽn biểu cảm (khuôn mặt phong phú với 62 ảnh màu nhưng hình thái cơ thể và trang phục bị đóng khung).
+- **Hệ thống hóa Chỉ đạo Nâng cấp Toàn diện vào `memory/ai_bridge.md` cho Claude:**
+  - *Thanh Thảo:* Tăng đất diễn qua các mẩu trò chuyện ngẫu nhiên / roam dialogue tâm sự phụ nữ với Kỳ, giải mã tính cách con trai IT.
+  - *Tuyến gia đình (Mẹ KyKy):* Thêm nhân vật Mẹ của KyKy từ Tập 3 (phụ nữ trung niên đẫy đà, hiện đại, uy quyền, cực kỳ thương con gái nhưng làm nam chính Anh Đức "khá rén"), đẩy cao trào tập 3 với xung đột du học / gia đình bên cạnh Hải.
+  - *Thầy Trưởng khoa & Giáo sư Pháp:* Tìm kiếm/cắt ghép mã nguồn mở hình mẫu đơn giản.
+  - *Điểm nghẽn Body Poses & Outfits:* Kế hoạch bổ sung tư thế buông tay / chống hông cho KyKy, gãi gáy cho Đức; bổ sung trang phục tạp dề barista và dạ hội đêm triển lãm.
+- **Duy trì Quality Gate:** Hệ thống test luôn sẵn sàng để Claude tiếp tục nâng cấp code và tài nguyên.
+
+### 2026-11-08 — Claude: tái cấu trúc multi-agent + TASK 1-2 (kịch bản)
+- PR fix/multi-agent: AGENTS.md là luật chung, CLAUDE.md/GEMINI.md trỏ về; bảng điều phối đầu ai_bridge.md; nhánh riêng + chia vùng file.
+- Nhánh tap-3/claude-nang-cap: Thảo tâm sự (roam_ep3c_thao), Mẹ KyKy cuối ep3_s2b (chưa có sprite). TASK 3-4 cần ảnh do agy tạo. Test s2b cần pick [0].
