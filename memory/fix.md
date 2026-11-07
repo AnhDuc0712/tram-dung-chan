@@ -172,3 +172,75 @@ Kiểm tra: tools\check.ps1 ALL CHECKS PASSED (66 test GUT, tự chơi trọn T�
   (cg_shelf, ảnh tác giả gửi, đã xoá dấu Gemini) đúng lúc KyKy túm áo Anh Đức; mở khoá trong Kỷ niệm (Ảnh sự kiện giờ có 6 ảnh).
   Lời dẫn sửa cho khớp ảnh (KyKy ngước lên nhìn, hai khuôn mặt cách nhau chưa đầy một gang tay).
 - Còn chờ bạn: đổi tên "Đức Anh" (nếu muốn).
+
+==================================================================================
+KẾ HOẠCH NÂNG CẤP TOÀN DIỆN (TẬP 3 CAO TRÀO, TUYẾN MẸ KỲ, THANH THẢO & BODY POSES / OUTFITS) — 2026-11-08
+==================================================================================
+Ký hiệu: [CHỜ THỰC HIỆN] · [ĐANG LÀM] · [XONG]
+
+---
+### TASK 1: Gia tăng đất diễn cho Thanh Thảo & Hội thoại tâm sự phụ nữ [CHỜ THỰC HIỆN]
+* **Vấn đề cần giải quyết:** Thanh Thảo chỉ có 15 câu thoại qua 3 tập, vai trò bị mờ nhạt, chỉ làm nền kỹ thuật cho nhóm IT.
+* **Nhiệm vụ cụ thể:**
+  1. Thêm các cuộc trò chuyện ngẫu nhiên (ambient / roam dialogue tại Gờ 23 & góc tự học đồ án ở Tập 3).
+  2. Nội dung hội thoại: Thảo là đàn chị IT thông minh, sắc sảo nhưng rất tâm lý:
+     - Chia sẻ kinh nghiệm và áp lực của con gái khi làm việc trong ngành công nghệ / sáng tạo, động viên KyKy tự tin vào nét vẽ của mình.
+     - "Giải mã" tính cách con trai IT: giúp KyKy hiểu cách suy nghĩ cộc lốc, khô khan nhưng chân thành và chu đáo của Anh Đức.
+* **Yêu cầu đầu ra (Output Requirements):**
+  - File hội thoại mới (hoặc mở rộng `data/dialogue/roam_ep3c_thao.json`, `data/dialogue/ep3_s3.json`).
+  - Biểu cảm khuôn mặt của Thảo và KyKy thay đổi sinh động theo mạch tâm sự (`thao_front_smug` → `thao_front_happy`, `kyky_front_shy` → `kyky_front_sparkle`).
+  - Vượt qua kiểm tra liên kết đồ thị hội thoại (`test_dialogue_graph.gd`).
+
+---
+### TASK 2: Thiết kế & Tích hợp Tuyến Nhân Vật "Mẹ của KyKy" để Đẩy Cao Trào Tập 3 [CHỜ THỰC HIỆN]
+* **Vấn đề cần giải quyết:** Tập 1 giới thiệu nhẹ nhàng, Tập 2 nhen nhóm tình cảm; Tập 3 cần có xung đột và áp lực đời thực (Real Stakes) mang tính bước ngoặt.
+* **Mô tả nhân vật Mẹ KyKy:**
+  - Hình tượng: Phụ nữ trung niên đẫy đà (có da thịt), gu ăn mặc hiện đại, sang trọng, thanh lịch.
+  - Thần thái: Mang "cái uy" ngút ngàn của người mẹ gia đình gia giáo, thành đạt; cực kỳ yêu thương, nuông chiều và bảo bọc con gái nhỏ ("nàng công chúa nhỏ").
+  - Tương tác đặc biệt: Khí chất bác gái khiến nam chính Anh Đức dù bình thường "mỏ hỗn" ngông nghênh nhưng khi đứng trước mặt bác gái là **"khá rén"**, lúng túng, gãi gáy, đứng thẳng nghiêm chỉnh và mất sạch vẻ bất cần đời.
+* **Nhiệm vụ cụ thể:**
+  1. Bổ sung định nghĩa nhân vật `mom` vào `game/data/characters.json` (tên hiển thị "Mẹ KyKy", mã màu riêng).
+  2. Tích hợp sự xuất hiện của Mẹ KyKy vào Tập 3:
+     - Xuất hiện bất ngờ ở quán Gờ 23 lúc KyKy phụ việc làm thêm (Cảnh 2), hoặc xuất hiện ở đêm hội triển lãm (Cảnh 4) đi cùng phái đoàn gia đình đàn anh Hải.
+     - Đặt thẳng vấn đề kỳ vọng du học Pháp của gia đình và tương lai của con gái; đối trọng với mối quan hệ quen biết sẵn giữa gia đình Hải và gia đình KyKy (môn đăng hộ đối).
+     - Đẩy Anh Đức vào tình thế bắt buộc phải trưởng thành: đối diện với gia đình người yêu để chứng minh bản lĩnh, sự đàng hoàng và trách nhiệm.
+* **Yêu cầu đầu ra (Output Requirements):**
+  - 1 file asset sprite hoặc avatar chân dung cho Mẹ KyKy trong `game/assets/art/chars/` (sinh bằng AI hoặc cắt ghép mã nguồn mở đạt chuẩn anime).
+  - Entry `mom` trong `characters.json` với các pose cảm xúc (`normal`, `serious`, `smile`, `glare`).
+  - Kịch bản phân cảnh tích hợp mượt mà sự xuất hiện của Mẹ KyKy, tạo cao trào kịch tính mà vẫn giữ được nét dí dỏm, ấm áp.
+  - Autoplay và GUT tests chạy qua 100%.
+
+---
+### TASK 3: Hình mẫu Đồ Họa cho Thầy Trưởng Khoa CNTT & Giáo Sư Đối Tác Pháp [CHỜ THỰC HIỆN]
+* **Vấn đề cần giải quyết:** Thầy Trưởng khoa và Giáo sư Pháp là hai nhân vật có tiếng nói lớn trong học thuật nhưng hiện chỉ xuất hiện qua lời dẫn hoặc marker chữ, chưa có hình mẫu đồ họa.
+* **Mô tả hai nhân vật:**
+  - *Thầy Trưởng khoa CNTT:* Người thầy trung niên tri thức, giản dị, đeo kính cận, nụ cười hiền hậu, fan ruột của cà phê Gờ 23.
+  - *Giáo sư đối tác Pháp:* Học giả quốc tế trung niên, phong thái trang nhã, vest xám/be lịch lãm.
+* **Nhiệm vụ cụ thể:**
+  1. Tìm kiếm trong kho mã nguồn mở (CC0 / OpenGameArt / Kenney / Itch.io) hoặc tạo hình mẫu đơn giản.
+  2. Xử lý nền trong suốt, đưa vào `game/assets/art/chars/` (`teacher_front.png`, `prof_front.png`).
+  3. Đăng ký trong `game/data/characters.json` và ghi nguồn vào `docs/CREDITS.md`.
+* **Yêu cầu đầu ra (Output Requirements):**
+  - 2 file ảnh sprite chuẩn PNG nền trong suốt (chiều cao 600px+).
+  - Xuất hiện hiển thị trên sân khấu hội thoại hoặc trong các điểm tương tác Roam ở Cảnh 1 và Cảnh 4.
+
+---
+### TASK 4: Đột Phá Điểm Nghẽn Hình Thái Cơ Thể (Body Poses) & Trang Phục (Outfits) [CHỜ THỰC HIỆN]
+* **Vấn đề cần giải quyết:** 62 biểu cảm mặt rất phong phú nhưng nhân vật bị đóng khung trong 1 dáng đứng và 1 bộ đồ duy nhất suốt 3 tập (KyKy luôn ôm cuốn sổ trước ngực, Anh Đức chỉ mặc áo polo đen, Hải chỉ đứng thẳng).
+* **Nhiệm vụ cụ thể:**
+  1. **Body Poses mới (Dáng người & Cử chỉ):**
+     - *KyKy:* Dáng buông tay tự do (không ôm sổ), dáng hai tay chống hông tự hào, dáng che miệng cười e thẹn.
+     - *Anh Đức:* Dáng đưa tay gãi gáy khi bối rối ("rén" trước mẹ Kỳ), dáng khoanh tay tựa lưng trêu chọc, dáng ngồi gõ laptop.
+     - *Hải:* Dáng hai tay cầm bó hoa linh lan (`hai_flowers`), dáng sững sờ (`hai_stunned`).
+  2. **Outfits mới (Trang phục theo sự kiện):**
+     - *Trang phục Barista (Cảnh 2 Tập 3):* Sprite đeo tạp dề nâu cho cả Đức (`duc_apron`) và KyKy (`kyky_apron`).
+     - *Trang phục Dạ hội Triển lãm (Cảnh 4 Tập 3):* Sơ mi đen chỉn chu xắn tay cho Đức (`duc_shirt`), Váy kem thanh lịch cho KyKy (`kyky_dress`).
+  3. **Quy trình kỹ thuật:**
+     - Sử dụng pipeline `tools/art/cut_sprites.py` và `tools/art/make_expressions.py` kết hợp rembg để cắt/ghép hoặc inpaint đồng bộ phong cách nét vẽ gốc.
+     - Khai báo pose mới vào `game/data/characters.json`.
+     - Cập nhật các file kịch bản `ep3_s2.json`, `ep3_s2b.json`, `ep3_s4.json` gọi đúng pose trang phục mới.
+* **Yêu cầu đầu ra (Output Requirements):**
+  - Bộ sprite mới đạt chuẩn PNG trong suốt trong `game/assets/art/chars/`.
+  - Không còn tình trạng KyKy ôm sổ khi pha cà phê hoặc đi dự triển lãm.
+  - Chạy `tools/check.ps1` đạt `ALL CHECKS PASSED`, không gãy bất kỳ đường dẫn ảnh hay test giao diện nào.
+
