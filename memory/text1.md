@@ -211,3 +211,118 @@ Nhánh `fix/gop-y-choi-thu`. Chi tiết từng mục + ngày giờ ghi ở cuố
 - Nền: quán buổi sáng mới (`cafe_morning.jpg`), công viên không còn dùng ảnh sân trường nắng; "9 giờ tối" ghi rõ; cảnh mất điện tối hẳn.
 **Vướng mắc**: heredoc trong Bash làm hỏng ký tự `\n` và chữ Việt khi chạy Python inline → viết script ra file rồi chạy.
 Test mới: `test_playtest_fixes.gd`, `test_web_export.gd` (từ phiên 10). check.ps1: ALL CHECKS PASSED (66 test GUT).
+
+## Phiên 12 — 2026-11-07: Cài đặt Harness kiểm tra toàn diện & Chế độ Tự Hành (Autonomous Mode)
+Người dùng yêu cầu: thiết lập chế độ tự hành (không hỏi câu hỏi xác nhận, tự động thực thi và chỉ trả về kết quả), đồng thời cài đặt harness cho repo.
+**Đã làm**
+- Thiết lập quy tắc hoạt động tự hành (Autonomous Mode) trong `GEMINI.md` và `AGENTS.md`: cấm hỏi xác nhận rườm rà, AI chủ động phân tích, tự quyết định kỹ thuật, tự động sửa lỗi và báo cáo kết quả hoàn thiện. Cập nhật `CLAUDE.md`.
+- Cài đặt & cấu hình Harness kiểm tra:
+  - Cập nhật `tools/hooks/post_edit_check.ps1` hỗ trợ cả Claude Code và Antigravity format.
+  - Tạo `.agents/hooks.json` tự động kích hoạt harness sau mỗi lần chỉnh sửa file mã nguồn.
+  - Cài đặt Git hook `.git/hooks/pre-commit` tự động chạy `tools/check.ps1 -Quick` trước mỗi lần commit.
+  - Đồng bộ cấu hình `.claude/settings.json` từ file khuyến nghị.
+  - Tạo script cài đặt trọn gói `tools/install_harness.ps1`.
+- Kiểm thử: `tools/install_harness.ps1` chạy thành công, toàn bộ 6 bước kiểm tra của harness đều PASSED (66 test GUT, 19 test dữ liệu, 10 màn chơi, autoplay trọn 2 tập).
+
+## Phiên 13 — 2026-11-07: Tạo Sổ tay Giao tiếp & Bàn giao gián tiếp giữa các AI (`memory/ai_bridge.md`)
+Người dùng yêu cầu: đọc kỹ thư mục `memory/` và tạo thêm một file `.md` trong đó để làm kênh giao tiếp gián tiếp giữa Antigravity và Claude.
+**Đã làm**
+- Đọc và phân tích toàn bộ `memory/text1.md`, `memory/fix.md`, `memory/mota.md`.
+- Tạo `memory/ai_bridge.md` đóng vai trò là "Sổ tay chuyển giao & phối hợp giữa các AI (Antigravity ↔ Claude)":
+  - Quy định quy trình kiểm tra đầu phiên và cập nhật cuối phiên cho mọi AI.
+  - Tóm tắt snapshot hiện trạng kỹ thuật (v1.3.0, tình trạng harness, kịch bản Tập 1, Tập 2, định hướng Tập 3).
+  - Bản ghi nhật ký trao đổi (Message Board) với thông điệp đầu tiên từ Antigravity gửi Claude về hạ tầng harness, các bài học về sandbox/cache, và hướng dẫn cho phiên tiếp theo.
+- Cập nhật liên kết hướng dẫn tại `CLAUDE.md`, `GEMINI.md`, `AGENTS.md` để cả 2 AI đều tự động đọc và cập nhật file này.
+
+## Phiên 14 — 2026-11-07: Thảo luận với Claude về Định hướng Phát triển & Cải thiện Tiếp theo
+Người dùng yêu cầu: thảo luận với Claude (đang chạy song song) về các hướng phát triển và hoàn thiện tiếp theo cho dự án.
+**Đã làm**
+- Đăng tải thông điệp thảo luận chi tiết lên `memory/ai_bridge.md`:
+  - Định hướng Cốt truyện & Nội dung Tập 3 ("Đồ án chung & Tiếng lòng Gờ 23"): Tận dụng bối cảnh trường học `campus`, ca làm thêm chung ở quán, tình huống cạnh tranh từ nhân vật Hải, 3 ý tưởng mini-game mới (UI/Logic sync, Barista giờ cao điểm, chụp ảnh/tìm Nlong).
+  - Nâng cấp "Game Feel" (Sprite Tweening nảy/rung/xích lại gần, SFX typewriter gõ máy, ambient loop quán & mưa rơi).
+  - Mở rộng tính năng giữ chân (Retention): Sổ tay pha chế và Bộ sưu tập tâm tư Nlong trong menu Kỷ niệm.
+- Cả hai AI sẵn sàng hiệp đồng tác chiến trên cùng mục tiêu.
+
+## Phiên 15 — 2026-11-07: Tổng Kiểm Thử Độc Lập (QA/QC Tester Audit & Xử lý Tối ưu)
+Người dùng yêu cầu: đóng vai trò Senior QA/QC Tester kiểm tra toàn diện, khách quan lại Tập 1 & Tập 2 về logic cốt truyện, UX/UI, nhân vật/bối cảnh (thừa/thiếu ảnh), hiệu năng/hạ tầng vận hành và xử lý trực tiếp các vấn đề phát hiện.
+**Đánh giá & Xử lý**
+- **Trải nghiệm Nhân vật & UX (Sprite Juice):**
+  - Phát hiện: Nhân vật nói chuyện còn hơi "đơ", thiếu nhịp nảy khi bắt đầu câu thoại như tác giả đã mô tả trong `mô tả/note1.md`.
+  - Đã xử lý: Thêm hàm `speak_pulse()` trong `scripts/vn/actor.gd` (nảy nhẹ 6px trong 0.12s) và gọi tự động trong `dialogue_manager.gd` mỗi khi nhân vật bắt đầu thoại.
+- **Thư viện Kỷ niệm (UX Clarity):**
+  - Phát hiện: Mục "Ảnh sự kiện" trong menu Kỷ niệm hiển thị `(0/6)` sau khi người chơi mới kết thúc Tập 1, dễ gây hiểu lầm là game lỗi không lưu ảnh (thực tế 6 CG đều thuộc Tập 2).
+  - Đã xử lý: Đổi tiêu đề rõ ràng thành `"Ảnh sự kiện (Tập 2)"` trong `title_screen.gd`.
+- **Hiệu năng & Tối ưu WebGL (Infrastructure & Performance):**
+  - Phát hiện: `scripts/vn/rain.gd` vẽ 220 đường kẻ và splash không giới hạn mỗi frame gây cảnh báo `bufferSubData` trên WebGL SwiftShader.
+  - Đã xử lý: Tối ưu số giọt mưa trên Web (`drops = mini(drops, 120)`), giới hạn tối đa 16 splash đồng thời. Giảm tải GPU frame-by-frame mà mắt thường vẫn thấy mưa dày đặc.
+- **Kiểm thử xác nhận:** Chạy toàn bộ 6 bước harness kiểm tra (`tools/check.ps1`) -> `ALL CHECKS PASSED` 100%.
+
+## Phiên 16 — 2026-11-07: Biên soạn Hoàn chỉnh Kịch bản Tập 3 & Thiết kế Yêu cầu Hình ảnh Chi tiết
+Người dùng yêu cầu:
+- Đọc note trong `kịch bản/kichban3.md`: Gemini thiết kế kịch bản trước, Claude sẽ đọc và hoàn thiện sau; sau khi làm xong note các yêu cầu hình ảnh vào `thiết kế/yeucauhinhanh.md` chi tiết rõ ràng cho từng mục.
+- Phân tích kỹ các kịch bản trước đó (`kichban1.md`, `kichban2.md`), đảm bảo tiêu chí game nhẹ nhàng, tự do (Roam/Choice freedom), kịch bản chặt chẽ, đặc sắc thú vị và phát triển tốt chiều sâu tâm lý nhân vật.
+
+**Đã làm**
+1. **Thiết kế & Biên soạn Kịch bản Hoàn chỉnh Tập 3 (`kịch bản/kichban3.md`):**
+   - **Tựa đề:** *TẬP 3: Đồ Án Chung, Bước Nhảy Trái Tim & Lời Hứa Dưới Nắng Sớm*.
+   - **Khâu liên kết chặt chẽ với Tập 2:** Kế thừa trọn vẹn 5 kết thúc của Tập 2 (nồi lẩu ra mắt, gấu Nlong avatar, áo khoác cho mượn kèm hộp bánh cháy, cơn ghen với Hải).
+   - **5 Phân cảnh lớn giàu cảm xúc & kịch tính lãng mạn:**
+     - *Phân cảnh 1: Nắng Sân Trường & Dự Án Bất Đắc Dĩ (`campus_day`)*: KyKy trả áo khoác kèm hộp bánh hạnh nhân nướng cháy viền; Hải xuất hiện mời KyKy dự triển lãm và học bổng du học Pháp; nhóm IT của Anh Đức thiếu chuyên gia UI/UX; Anh Đức khẳng định: "Giao diện 'Trạm Dừng Chân' sinh ra là vì em".
+     - *Phân cảnh 2: Ca Làm Thêm Giờ Cao Điểm Tại Gờ 23 (`cafe_day_rush`)*: KyKy làm nhân viên thử việc; Anh Đức vòng tay thắt nơ tạp dề sau lưng cô (Heartbeat Trigger); Mini-game 1: Barista Rush Hour Sync.
+     - *Phân cảnh 3: Phòng Tự Học, Deadline Áp Sát & Lỗi Logic Cuối Cùng (`study_sunset`)*: Xung đột thư viện `Null Pointer Heartbeat`; Mini-game 2: Nối dây đồng bộ UI & Logic code; KyKy ngủ gục trên bàn đồ án, Anh Đức cởi áo đắp cho cô và khẽ vuốt tóc trong nắng hoàng hôn.
+     - *Phân cảnh 4: Đêm Triển Lãm Rực Rỡ & Pha Khẳng Định Chủ Quyền (`exhibition_night`)*: Đồ án đạt giải xuất sắc; Hải tặng hoa linh lan mời ăn tối cùng đoàn giáo sư Pháp; Anh Đức công khai kéo KyKy sát vào mình, công bố kế hoạch visa đôi song hành.
+     - *Phân cảnh 5: Bình Minh Trước Hiên Quán & Lời Tỏ Tình Chính Thức (`cafe_sunrise`)*: Hai người ngồi trên bậc thềm gỗ Gờ 23 lúc 6:00 sáng, mười ngón tay đan chặt trên lưng mèo Nlong; Anh Đức tỏ tình: "Lỗi logic duy nhất trong cuộc đời tôi là không thể nào ngừng thích em được."
+   - **Hệ thống 5 Kết cục phân nhánh:** True Ending ("Lỗi Logic Duy Nhất Là Em"), Sweet Scholarship Ending ("Hẹn Ước Dưới Bầu Trời Paris"), Cozy Barista Ending ("Trạm Dừng Chân Của Riêng Hai Đứa"), Dominant Ending ("Bản Hợp Đồng Trọn Đời"), Comedy Ending ("Hoàng Thượng Ban Hôn Lúc Bình Minh").
+
+2. **Soạn thảo Tài liệu Yêu cầu Thiết kế Hình ảnh Toàn diện (`thiết kế/yeucauhinhanh.md`):**
+   - Quy chuẩn mỹ thuật: 2D Anime/Manga phong cách Shinkai/KyoAni, bảng màu ấm áp, thông số 1920x1080 (16:9), format Lossy WebP/PNG trong suốt.
+   - 5 Bối cảnh môi trường kèm Prompt sinh ảnh AI chi tiết (`campus_day`, `cafe_day_rush`, `study_sunset`, `exhibition_night`, `cafe_sunrise`).
+   - Sprite & Biểu cảm mới: Anh Đức đeo tạp dề & sơ mi đen xắn tay, KyKy đeo tạp dề & váy kem triển lãm, Hải cầm hoa linh lan, Trâm đẩy thuyền, Đức Anh quỳ vái, mèo Nlong sưởi nắng/dính bọt sữa.
+   - 6 Tác phẩm Event CG đỉnh cao (16:9): CG buộc tạp dề sau lưng, CG ngủ gục bên bàn đồ án chiều tà, CG khẳng định chủ quyền đêm triển lãm, CG tỏ tình bình minh (True Ending), CG hộp bánh cháy, CG bọt sữa hoàng thượng ban hôn.
+   - Chi tiết danh mục đạo cụ (Props), icon minigame và bảng phân bổ tài nguyên theo từng phân cảnh.
+
+3. **Đồng bộ Sổ tay AI Bridge & Harness:**
+   - Cập nhật thông điệp chi tiết cho Claude tại `memory/ai_bridge.md`.
+   - Chạy kiểm tra chất lượng `tools/check.ps1 -Quick` đảm bảo toàn bộ hệ thống code hiện hữu luôn đạt `ALL CHECKS PASSED`.
+
+
+
+
+
+
+
+## Phiên Claude (2026-11-07) — Tập 3: hợp nhất kịch bản + nền trạng thái
+- Viết `kịch bản/kichban3_v2.md` (bản dùng để code). Quyết định tác giả: giữ tên "Đức Anh", chấp nhận kết buồn-ngọt + Hải có lý riêng, **Tập 3 không phải tập cuối: mọi kết cục để kết mở, úp mở Tập 4**.
+- `game/autoload/game_state.gd`: thêm `BAR_MAX_EP3`, `ep2_last`, `ep3_last` (lưu trong meta), `start_episode(3)` (mang cờ `ep2_*`, `claw_win`, `gave_jacket`, thêm chỉ số `respect`, `hai`).
+- Thêm `game/tests/gut/test_ep3_state.gd` (6 test). check.ps1: ALL CHECKS PASSED (72 test GUT).
+- CHƯA đăng ký `Steps.EPISODES[3]` (tránh hiện Tập 3 ở menu / làm fuzz test lỗi khi chưa có nội dung). Làm tiếp theo mục 6 của v2: dữ liệu `ep3_*.json`, roam `campus`/`expo`, mini-game `rush`/`sync`, `endings.json`, test route.
+
+
+## Phiên Claude (2026-11-07) — Tập 3 alpha đầu tiên
+- Nội dung: `ep3_s1/s2/s2b/s3/s3b/s4/s5.json`, 7 hội thoại roam sân trường (`roam_ep3c_*`), 6 roam phố triển lãm (`roam_ep3e_*`), `data/roam/campus.json`, biến thể `ep3_expo` trong `street.json`, `phone/ep3_end.json`, 5 kết cục (`endings.json`), 4 CG (`cgs.json`).
+- Mini-game mới: `scenes/minigames/rush.gd` (3 phiếu order, Đức chọn món + KyKy rót vùng xanh) và `sync.gd` (nối 5 cặp UI–hàm, 1 cặp thừa). Hiệu ứng ở `Steps.minigame_effects("rush"|"sync")`.
+- Ảnh: `tools/art/process_ep3.py` → `cg_burnt/asleep/expo/sunrise.jpg`, `map_campus.jpg`. CREDITS đã ghi.
+- Đăng ký `Steps.EPISODES[3]`, `ROAM_MAPS/VARIANTS`, `MINI_NEXT`, `PHONE_NEXT`; ending.gd/hud.gd hiện chỉ số `respect`; title_screen đổi nhãn CG thành "Ảnh sự kiện" (chung cho mọi tập); check.ps1 tự chơi cả Tập 3.
+- Test: 5 route Tập 3 trong `run_tests.gd`, fuzz 250 lượt Tập 3 + `test_ep3_maps_run` + `test_ep3_state` (GUT). Kết quả: **ALL CHECKS PASSED** (24 test dữ liệu, 74 GUT, autoplay 3 tập).
+- Phân bố kết cục Tập 3 (250 người chơi ngẫu nhiên): quán 34% · Paris 25% · hài 22% · logic 12% · học cách tin 8%.
+- Sửa kịch bản v2 khi code: lựa chọn C ở cảnh 4 là `kyky_both` (nộp hồ sơ + tiếp tục dự án) → kết `ep3_loi_logic`; lựa chọn D chỉ hiện khi `jealous` ≥ 2.
+- Còn thiếu / việc sau: nền `exhibition_night`, trang phục mới (tạp dề, váy kem, sơ mi đen), CG riêng cho từng kết cục và CG buộc tạp dề; nhạc mới (`morning_acoustic`... hiện dùng nhạc có sẵn); polygon đi được ở `campus.json` còn lấn nhẹ ra lòng đường (chưa chỉnh); chưa tăng `config/version` và chưa commit/PR.
+
+## Phiên 19 — 2026-11-07: Tinh chỉnh Bản đồ Khuôn viên Trường (Campus Roam) & Nâng cấp Phiên bản 1.4.0
+**Đã làm**
+- **Tinh chỉnh Polygon đi lại `data/roam/campus.json`:**
+  - Soi kỹ qua ảnh chụp debug `--debug-walk` (`build/shots/campus_walk_clear.png` và `campus_walk_refined.png`).
+  - Cắt bỏ phần polygon lấn sang khu nhà dân/xe máy ở mép phải (`X = 1010`), gọt gọn lại bám sát đúng vạch kẻ đường cho người đi bộ (zebra crossing) và mép vỉa hè phía trạm xe buýt.
+  - Loại bỏ đoạn đường cắt chéo qua giữa lòng đường xe chạy, giúp đường đi của nhân vật tự nhiên, logic và đúng luật giao thông hơn khi di chuyển giữa cổng trường, bãi xe và trạm xe buýt.
+- **Nâng cấp phiên bản game (`game/project.godot`):**
+  - Cập nhật `config/version = "1.4.0"`.
+  - Cập nhật mô tả: `config/description = "Tập 1: Cú va chạm · Tập 2: Cơn bão nhỏ · Tập 3: Đồ án chung & lời hứa dưới nắng sớm."`.
+- **Kiểm thử toàn diện 6 bước (`tools/check.ps1`):**
+  - 1/6 Import: OK.
+  - 2/6 gdlint: OK (44 files).
+  - 3/6 Test dữ liệu & Kết thúc: 24 passed, 0 failed.
+  - 4/6 GUT: 13 script, 74 test, 1850 asserts passed 100%.
+  - 5/6 Chạy thử 10 màn: OK.
+  - 6/6 Headless Autoplay: Chơi trọn vẹn cả 3 Tập (Tập 1 -> `hoang_thuong`, Tập 2 -> `ep2_gau`, Tập 3 -> `ep3_paris`).
+  - **Kết quả:** `ALL CHECKS PASSED`.
+

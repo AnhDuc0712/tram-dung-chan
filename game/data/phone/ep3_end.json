@@ -1,0 +1,37 @@
+{
+	"title": "Cuối Tập 3 – Tin nhắn sau bình minh",
+	"threads": [
+		{
+			"title": "KyKy",
+			"subtitle": "đang hoạt động",
+			"members": {"kyky": "kyky_hug"},
+			"messages": [
+				{"from": "kyky", "text": "Em về nhà rồi. Tay em vẫn còn run. Không phải vì lạnh đâu."},
+				{"from": "kyky", "text": "Anh ơi, thư trả lời từ Pháp sẽ có sau ba tuần. Em chụp màn hình lời anh nói hồi sáng, để nhỡ em quên.", "if_ending": ["ep3_loi_logic"]},
+				{"from": "kyky", "text": "Em đang đóng gói vali. Anh nhớ mở tin nhắn của em đầu tiên nha. Em sẽ biết nếu anh không mở. (Đùa đó!)", "if_ending": ["ep3_paris"]},
+				{"from": "kyky", "text": "Em vẽ xong bản nháp menu rồi! Ngày mai anh pha thử Cacao Mắt Cười nha. Em trả bằng… ly miễn phí vĩnh viễn!", "if_ending": ["ep3_dong_chu_quan"]},
+				{"from": "kyky", "text": "Cảm ơn anh vì đã xin lỗi. Em biết nói câu đó khó lắm. Em tin anh sẽ học được.", "if_ending": ["ep3_hoc_cach_tin"]},
+				{"from": "kyky", "image": "nlong", "text": "Nlong vừa làm đổ cả chậu cây nhà em. Em nghi ngờ nó là gián điệp của anh!", "if_ending": ["ep3_hoang_thuong"]},
+				{"from": "kyky", "image": "nlong", "text": "Em treo móc khoá mèo lên túi rồi nè. Còn máy tính bỏ túi của anh treo chưa?", "if": {"flags": ["bought_keychain"]}},
+				{"choices": [
+					{"sticker": "cat_sit", "text": "Ngủ ngon, bạn gái", "reply": [
+						{"from": "kyky", "text": "Anh vừa gọi em là gì!? …Ngủ ngon, bạn trai. Hì."}
+					]},
+					{"sticker": "cat_loaf", "text": "Mai gặp ở quán. 9h.", "reply": [
+						{"from": "kyky", "text": "Dạ! Em mang bánh quy. Lần này em canh lò kỹ, một trăm sáu mươi độ, mười lăm phút!"}
+					]}
+				]}
+			]
+		},
+		{
+			"title": "Hội Đồ Án IT",
+			"subtitle": "5 thành viên",
+			"members": {"tram": "tram_front", "thao": "thao_front", "ducanh": "ducanh_front"},
+			"messages": [
+				{"from": "ducanh", "text": "Điểm đồ án: 10/10!!! Thầy bảo giao diện đẹp nhất khoá. KyKy là thiên tài, em xin vái lần thứ hai!"},
+				{"from": "thao", "text": "Mọi người đừng spam. Đức đang đỏ mặt, tôi đoán thế."},
+				{"from": "tram", "text": "Tôi chốt: mọi chuyện đều nằm trong kế hoạch. Anh Đức, gửi ảnh Nlong để tôi lưu bằng chứng."}
+			]
+		}
+	]
+}

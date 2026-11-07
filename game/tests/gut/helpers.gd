@@ -7,7 +7,7 @@ const Steps := preload("res://scripts/story_steps.gd")
 const GameStateScript := preload("res://autoload/game_state.gd")
 
 const CODE_DIRS := ["res://autoload/", "res://scenes/", "res://scripts/"]
-const ROAM_MAPS := ["cafe", "street"]
+const ROAM_MAPS := ["cafe", "street", "campus"]
 
 
 ## GameState riêng cho test (không đụng file lưu thật của người chơi). Nhớ free()/autofree().

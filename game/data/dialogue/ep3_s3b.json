@@ -1,0 +1,24 @@
+{
+	"title": "Tập 3 – Cảnh 3b: BUILD SUCCESSFUL",
+	"start": "a",
+	"nodes": {
+		"a": {"bg": "cafe_sunset", "music": "study", "show": {"duc": "normal@left", "kyky": "happy@right"}, "sfx": "good", "text": "Sợi dây cuối cùng nối xong. Màn hình laptop vụt sáng, dòng chữ rực rỡ hiện lên:", "next": "b"},
+		"b": {"text": "[b][color=#7be0a8]BUILD SUCCESSFUL! WELCOME TO TRAM DUNG CHAN[/color][/b]", "next": "c"},
+		"c": {"show": {"thao": "happy@farleft", "ducanh": "laugh@farright"}, "speaker": "ducanh", "text": "ĐƯỢC RỒI!!! Hôm nay tao bao cả đội trà sữa! Thảo, đi mua đồ ăn tối, nhanh!", "next": "d"},
+		"d": {"show": {"thao": "smug"}, "speaker": "thao", "text": "Và đi hơi lâu một chút. Hơi lâu hơn cần thiết. Hai người ở lại trông đồ nhé.", "next": "e"},
+		"e": {"hide": ["thao", "ducanh"], "show": {"duc": "awkward@left", "kyky": "worried@right"}, "speaker": "duc", "text": "…Tôi sẽ không hỏi lý do.", "next": "f"},
+		"f": {"hide": "all", "text": "Quán chợt yên tĩnh. Chỉ còn tiếng điều hoà rì rầm và nắng chiều rót vàng lên mặt bàn. KyKy gục xuống cuốn sổ, ba ngày thức đêm cuối cùng cũng thắng cô.", "next": "g"},
+		"g": {"cg": "cg_asleep", "text": "Chỉ trong vài phút, cô đã ngủ say. Cặp kính trượt xuống nằm cạnh trang vở. Nlong gối đầu lên chồng sách, mắt khép lim dim.", "next": "g2"},
+		"g2": {"branch": [{"if": {"flags": ["junior_found"]}, "next": "g_j"}], "default": "g3"},
+		"g_j": {"text": "Nlong Junior, con gấu bông, nằm cạnh cuốn sổ như một vệ sĩ nhỏ canh giấc ngủ.", "next": "g3"},
+		"g3": {"speaker": "duc", "think": true, "text": "Ba ngày liền cô ấy ngủ không quá ba tiếng. Vậy mà vẫn cười khi tôi trêu. Tôi không biết mình đã làm gì để xứng đáng được ngồi ở đây.", "next": "g4"},
+		"g4": {"text": "Anh Đức nhẹ nhàng đặt cặp kính của cô sang một bên, cởi áo khoác đắp lên vai cô, thật chậm để cô không thức giấc.", "effects": {"heart": 1}, "next": "g5"},
+		"g5": {"text": "Trong cơn mơ, KyKy khẽ cựa mình, bàn tay nhỏ vô thức nắm lấy một ngón tay anh, kéo nhẹ vào gần má.", "next": "g6"},
+		"g6": {"speaker": "duc", "think": true, "text": "Tim tôi vừa gặp lỗi. Một lỗi chưa từng gặp. Tôi không rút tay.", "next": "g7"},
+		"g7": {"speaker": "duc", "text": "Lỗi logic lớn nhất trong cuộc đời tôi… chính là không thể nào ngừng thích em được.", "next": "g8"},
+		"g8": {"branch": [{"if": {"min": {"brain": 3}}, "next": "heard"}], "default": "unheard"},
+		"heard": {"effects": {"set_flags": ["kyky_heard"]}, "text": "Hàng mi của KyKy khẽ động. Cô vẫn nhắm mắt, nhưng khoé môi cong lên rất nhẹ. Anh Đức không thấy.", "next": "out"},
+		"unheard": {"text": "KyKy vẫn ngủ say. Chỉ có chú mèo xám hé một mắt, như thể đã nghe hết.", "next": "out"},
+		"out": {"cg": "none", "card": "Thứ Bảy, 19:30 — Phố triển lãm", "hide": "all", "bg": "street_rain", "text": "Hoàng hôn dần tắt. Tối nay, cả một con phố sáng đèn lồng đón triển lãm.", "then": "roam:ep3_expo"}
+	}
+}

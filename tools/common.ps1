@@ -1,4 +1,4 @@
-﻿# Biến dùng chung cho các script trong tools\ — chạy được trên Windows (máy bạn) và Linux (GitHub Actions).
+# Biến dùng chung cho các script trong tools\ — chạy được trên Windows (máy bạn) và Linux (GitHub Actions).
 #   $env:GODOT  : đường dẫn Godot (CI đặt sẵn). Không có thì dùng bản portable trong tools\godot (Windows).
 $ErrorActionPreference = "Stop"
 $Root = Split-Path -Parent $PSScriptRoot
@@ -27,6 +27,11 @@ if ($OnWindows) {
 }
 
 # gdlint (gdtoolkit): venv riêng trên Windows, hoặc có sẵn trong PATH (CI)
+# Đảm bảo cache của gdtoolkit ghi vào TEMP khi sandbox chặn AppData\Local
+if ($env:TEMP) {
+    $env:LOCALAPPDATA = $env:TEMP
+}
+
 $Gdlint = Join-Path $PSScriptRoot ".venv-lint\Scripts\gdlint.exe"
 if (-not (Test-Path $Gdlint)) {
     $cmd = Get-Command gdlint -ErrorAction SilentlyContinue

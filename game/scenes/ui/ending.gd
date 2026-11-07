@@ -73,6 +73,8 @@ func _build(e: Dictionary, total: int) -> void:
 	]
 	if GameState.episode >= 2:
 		stat_rows.append(["star", "Trâm tin tưởng", GameState.get_var("tram")])
+	if GameState.episode >= 3:
+		stat_rows.append(["star", "Tôn trọng", GameState.get_var("respect")])
 	for info in stat_rows:
 		var h := HBoxContainer.new()
 		h.add_child(Icon.new(info[0], 40.0))

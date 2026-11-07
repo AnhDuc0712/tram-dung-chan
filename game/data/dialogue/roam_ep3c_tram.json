@@ -1,0 +1,15 @@
+{
+	"title": "Tập 3 – Trâm ở trạm xe buýt",
+	"start": "a",
+	"nodes": {
+		"a": {"branch": [{"if": {"flags": ["clue_tram"]}, "next": "again"}], "default": "first"},
+		"first": {"show": {"tram": "suspicious@center"}, "speaker": "tram", "text": "Hai người đi cùng nhau nữa rồi. Tôi chỉ nhìn thôi, chưa nói gì.", "next": "b"},
+		"b": {"branch": [{"if": {"flags": ["ep2_lau"]}, "next": "b_lau"}, {"if": {"flags": ["ep2_dua"]}, "next": "b_dua"}], "default": "b_def"},
+		"b_lau": {"show": {"tram": "smile"}, "speaker": "tram", "text": "Bữa lẩu hôm đó tôi tính điểm cho anh mười trên mười, nhớ không? Vậy nên tôi quyết định: tối thứ Bảy tôi sẽ xuất hiện ở triển lãm. Tình cờ. Hoàn toàn tình cờ.", "next": "c"},
+		"b_dua": {"show": {"tram": "cross"}, "speaker": "tram", "text": "Cuốn sổ ghi lịch học kín mít của anh, tôi thấy hết. Tôi sẽ nói một lần: bạn tôi không phải tài sản. Anh biết rồi chứ?", "next": "c"},
+		"b_def": {"show": {"tram": "normal"}, "speaker": "tram", "text": "Tối thứ Bảy có triển lãm. Tôi sẽ có mặt. Với tư cách bạn thân, hay thanh tra, tuỳ anh nghĩ.", "next": "c"},
+		"c": {"show": {"duc": "deadpan@left", "kyky": "confused@right"}, "speaker": "duc", "text": "Cô thấy một con mèo xám béo ngậm gấu bông hay móc khoá nào không?", "next": "d"},
+		"d": {"show": {"tram": "happy"}, "speaker": "tram", "text": "Tôi không bắt mèo. Nhưng nếu tôi là mèo, tôi sẽ giấu đồ ở nơi có xe đạp. Có mùi nắng. Bãi xe ấy.", "effects": {"add": {"tram": 1}, "set_flags": ["clue_tram"]}},
+		"again": {"show": {"tram": "smile"}, "speaker": "tram", "text": "Còn đứng đây làm gì? Đi tìm mèo đi. Tôi trông xe buýt, không trông tình yêu."}
+	}
+}

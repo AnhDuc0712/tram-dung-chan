@@ -9,6 +9,8 @@ var _splash: Array = []
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	if OS.has_feature("web"):
+		drops = mini(drops, 120)
 	_p.resize(drops)
 	for i in drops:
 		_p[i] = Vector3(randf() * 1400.0 - 60.0, randf() * 760.0, randf_range(700.0, 1100.0))
@@ -23,7 +25,7 @@ func _process(delta: float) -> void:
 		d.y += d.z * delta
 		d.x -= d.z * 0.12 * delta
 		if d.y > h:
-			if randf() < 0.35:
+			if randf() < 0.25 and _splash.size() < 16:
 				_splash.append(Vector3(d.x, h - randf() * 160.0, 0.0))
 			d = Vector3(randf() * 1400.0 - 60.0, -20.0, randf_range(700.0, 1100.0))
 		_p[i] = d

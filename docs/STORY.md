@@ -86,6 +86,34 @@ tuỳ lựa chọn. Xem lại ở Kỷ niệm → Ảnh sự kiện.
 ## Nlong ở góc màn hình
 Chạm vào → “tâm tư Anh Đức” (`data/nlong_thoughts.json`, điều kiện theo cờ/tập), không cộng chỉ số.
 
-## Ý tưởng Tập 3 (từ lời hẹn ở mỗi kết cục)
-Phố đi bộ đêm (Trâm đẩy thuyền) · Hải cạnh tranh trực tiếp · làm thêm cùng nhau ở Gờ 23 · KyKy trả áo kèm bánh cháy ·
-Nlong Junior “mất tích”. Ảnh bối cảnh có sẵn chưa dùng: `campus` (sân trường), `map_campus` (có thể cắt từ `thiết kế/env`).
+# Tập 3 — Đồ án chung & lời hứa dưới nắng sớm (bản alpha đầu tiên)
+Nguồn: `kịch bản/kichban3.md` (ý tưởng gốc) hợp nhất thành `kịch bản/kichban3_v2.md` (bản dùng để code). **Tập 3 không phải tập cuối: mọi kết cục để kết mở, nhá hàng Tập 4.**
+Bắt đầu Tập 3 mang theo kết thúc Tập 2 gần nhất (`GameState.ep2_last` → cờ `ep2_gau|lau|ao|dua|nlong`, kèm `claw_win` / `gave_jacket`).
+Đức tôn trọng trước, tuyên bố sau: không có câu “chủ quyền” nào; KyKy tự sửa lỗi và tự chọn chuyện học bổng.
+
+## Chỉ số Tập 3 (thanh Rung động dài 30 — `GameState.BAR_MAX_EP3`, Hiểu bài dài 8)
+`heart` · `brain` (“Đồng điệu” đồ án) · `tram` · `jealous` · `respect` (Đức ủng hộ lựa chọn của KyKy, hiện ở Menu → Quan hệ) · `hai` · `nlong` · phụ: `expo` (số nơi đã ghé ở phố triển lãm; ≥ 2 thì Hải xuất hiện).
+
+## Mạch Tập 3
+| Bước | Nội dung | File |
+|---|---|---|
+| `vn:ep3_s1` | Thứ Ba, sân trường: trả áo/bánh cháy (CG `cg_burnt`), Hải mời đứng tên chung, Thảo + Đức Anh xin vẽ UI đồ án | `ep3_s1.json` |
+| `roam:ep3_campus` | **Tự do (bản đồ `map_campus`):** nhiệm vụ “Nlong Junior mất tích” — cậu sinh viên (`clue_student`), Thầy (`clue_teacher`), Trâm, Thảo → bãi xe (`junior_found`) | `data/roam/campus.json`, `roam_ep3c_*.json` |
+| `vn:ep3_s2` → `mini:rush` → `vn:ep3_s2b` | Thứ Năm, giờ cao điểm Gờ 23; buộc tạp dề (tự thắt `respect` hay nhờ Đức `heart`); mini-game 3 phiếu order (Đức chọn món, KyKy rót đúng vùng xanh) | `ep3_s2/s2b.json`, `rush.gd` |
+| `vn:ep3_s3` → `mini:sync` → `vn:ep3_s3b` | Thứ Bảy chiều tà: lỗi `Null Pointer — Heartbeat`, **KyKy tự dò log** (`kyky_fixed_bug`) hoặc Đức sửa hộ; nối 5 cặp UI-hàm (1 cặp thừa); KyKy ngủ gục (CG `cg_asleep`), `kyky_heard` nếu Đồng điệu ≥ 3 | `ep3_s3/s3b.json`, `sync.gd` |
+| `roam:ep3_expo` | **Tự do (phố `map_street`, biến thể mới):** gian Trạm Dừng Chân (đưa micro cho KyKy `respect`), bác móc khoá (`bought_keychain`), quán trà Trâm + M (`street_date`), anh freelancer → Hải ở bảng học bổng | `data/roam/street.json`, `roam_ep3e_*.json` |
+| `vn:ep3_s4` | Hải kể lý do riêng, đưa hoa chúc mừng (CG `cg_expo`); KyKy tâm sự; Đức nói: **A** “em đi, tôi đợi” (`kyky_goes`), **B** “ở lại cũng không phải bỏ cuộc” (`kyky_stays`), **C** “dù em chọn gì tôi ở đây” (`kyky_both`), **D** “đừng đi” (chỉ hiện khi `jealous` ≥ 2, `said_dont_go`) | `ep3_s4.json` |
+| `vn:ep3_s5` → `phone:ep3_end` → `ending` | Chủ nhật 6:00, hiên Gờ 23 (CG `cg_sunrise`), tỏ tình + kết cục | `ep3_s5.json`, `data/phone/ep3_end.json` |
+
+## Kết thúc Tập 3 (node `result` của `ep3_s5.json`, xét theo thứ tự)
+1. `ep3_loi_logic` — **Lỗi Logic Duy Nhất Là Em**: `kyky_both` + heart ≥ 14 + respect ≥ 4 + brain ≥ 3 + jealous < 5
+2. `ep3_hoc_cach_tin` — **Học Cách Tin**: `said_dont_go` hoặc jealous ≥ 5
+3. `ep3_paris` — **Hẹn Ước Dưới Bầu Trời Xa** (buồn-ngọt): `kyky_goes` + heart ≥ 8
+4. `ep3_dong_chu_quan` — **Trạm Dừng Chân Của Riêng Hai Đứa**: `kyky_stays` + heart ≥ 7
+5. `ep3_hoang_thuong` — **Hoàng Thượng Ban Hôn Lúc Bình Minh**: mặc định
+Phân bố khi 250 “người chơi ngẫu nhiên” chơi (GUT): quán ~34% · Paris ~25% · hài ~22% · logic ~12% · học cách tin ~8%.
+Mỗi kết cục có `next` nhá hàng Tập 4 trong `endings.json` (`GameState.ep3_last` để Tập 4 đọc).
+
+## Event CG Tập 3 (`data/cgs.json`)
+`cg_burnt` (sân trường), `cg_asleep` (chiều tà), `cg_expo` (đêm triển lãm), `cg_sunrise` (bình minh, dùng cho mọi kết cục). Ảnh gốc xử lý bằng `tools/art/process_ep3.py`.
+Chưa có (còn lại trong `thiết kế/yeucauhinhanh.md`): CG buộc tạp dề, CG riêng cho từng kết cục, nền `exhibition_night`, trang phục mới (tạp dề, váy kem, sơ mi đen) — hiện dùng sprite polo có sẵn và nền cũ.

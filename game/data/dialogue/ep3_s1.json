@@ -1,0 +1,73 @@
+{
+	"title": "Tập 3 – Cảnh 1: Nắng sân trường & dự án bất đắc dĩ",
+	"start": "start",
+	"nodes": {
+		"start": {"card": "Thứ Ba, 8:30 — Sân trường", "bg": "campus", "music": "roam_day", "ambient": "", "show": {"duc": "normal@left"}, "text": "Tám rưỡi sáng. Nắng xuyên qua kẽ lá xà cừ, lá vàng rơi lả tả xuống lối đi. Anh Đức tựa lan can dưới gốc cây, vừa lướt điện thoại vừa… chờ một người. Anh sẽ không bao giờ thừa nhận điều đó.", "next": "v"},
+		"v": {"branch": [
+				{"if": {"flags": ["gave_jacket"]}, "next": "v_ao"},
+				{"if": {"flags": ["claw_win"]}, "next": "v_gau"},
+				{"if": {"flags": ["ep2_dua"]}, "next": "v_dua"},
+				{"if": {"flags": ["ep2_nlong"]}, "next": "v_nlong"}
+			], "default": "v_lau"},
+		"v_ao": {"speaker": "duc", "think": true, "show": {"duc": "think"}, "text": "“Giặt rồi trả. Thứ Bảy tuần sau.” Hôm nay mới thứ Ba. Cô ấy chưa bao giờ giữ nổi một lời hứa quá ba ngày.", "next": "kyky_in"},
+		"v_gau": {"speaker": "duc", "think": true, "show": {"duc": "think"}, "text": "Từ hôm gắp được con gấu, cô ấy đi đâu cũng khoe nó. Nlong thật nhìn bản sao bằng ánh mắt rất không hài lòng.", "next": "kyky_in"},
+		"v_dua": {"speaker": "duc", "think": true, "show": {"duc": "think"}, "text": "Cuốn sổ ghi lịch học tối vẫn nằm trong balo. Còn lời mời của “đàn anh khoá trên” thì chưa ai trả lời. Tôi không nhớ. Tôi không hề nhớ.", "next": "kyky_in"},
+		"v_nlong": {"speaker": "duc", "think": true, "show": {"duc": "deadpan"}, "text": "Sau vụ nồi lẩu, Nlong cho rằng mình được phép đi theo KyKy tới bất cứ đâu. Kể cả giảng đường. Chị M đã bỏ cuộc cấm nó.", "next": "kyky_in"},
+		"v_lau": {"speaker": "duc", "think": true, "show": {"duc": "think"}, "text": "Bữa lẩu hôm đó, Trâm nhắn đúng một tin: “Đạt. Vòng sau khó hơn.” Tôi vẫn chưa biết vòng sau là vòng gì.", "next": "kyky_in"},
+
+		"kyky_in": {"hide": "all", "text": "Ở đầu lối đi, KyKy xuất hiện với chiếc túi chéo quen thuộc, tay xách túi giấy, tay ôm hộp thiếc, bước rón rén như đặc vụ. Phía sau cô, một cục xám tròn lạch bạch đi theo — Nlong, tự ý đi học.", "next": "hu"},
+		"hu": {"show": {"duc": "normal@left"}, "text": "KyKy nhón chân định “hù” từ phía sau. Chưa kịp chạm vai, Anh Đức đã cất giọng bình thản, không thèm quay đầu.", "next": "hu2"},
+		"hu2": {"show": {"duc": "smirk"}, "speaker": "duc", "text": "Mùi hoa cúc dại cách năm mét là biết rồi, công chúa. Đi đứng lạch bạch như vịt thế mà cũng đòi dọa đại thần à?", "next": "hu3"},
+		"hu3": {"show": {"kyky": "shock@right"}, "speaker": "kyky", "text": "Anh có mắt sau gáy hả!? Người ta có lòng mang đồ qua cho anh nè!", "next": "hu4"},
+		"hu4": {"show": {"kyky": "pout"}, "speaker": "kyky", "text": "Ơ mà… hỏng hết cả bất ngờ rồi.", "next": "give"},
+		"give": {"cg": "cg_burnt", "sfx": "pop", "text": "Anh Đức nhận túi giấy. Bên trên là hộp thiếc đựng bánh quy hạnh nhân, viền bánh ngả sang màu nâu… cháy. Rất cháy.", "next": "give_b"},
+		"give_b": {"branch": [{"if": {"flags": ["gave_jacket"]}, "next": "give_ao"}], "default": "give_c"},
+		"give_ao": {"speaker": "kyky", "text": "Áo khoác của anh em giặt rồi, gấp rồi, còn xịt nước xả thơm nữa! Nằm dưới đáy túi đó. Em… em không dám giữ thêm đâu.", "next": "give_c"},
+		"give_c": {"speaker": "duc", "show": {"duc": "curious"}, "text": "Gì đây? Hối lộ để hôm nay tôi chấm nhẹ tay hả? Nhìn màu bánh thế này… em nướng bằng lửa rồng à?", "next": "give_d"},
+		"give_d": {"show": {"kyky": "hmph"}, "speaker": "kyky", "text": "Anh không ăn thì trả đây! Em dậy từ sáu giờ canh lò đó, chỉ hơi quá lửa một tí xíu thôi mà…",
+			"choices": [
+				{"text": "Mở nắp, ăn ngay một cái (“Trừ một điểm cháy viền, cộng mười điểm tấm lòng.”)", "effects": {"heart": 3, "add": {"tram": 1}, "set_flags": ["burnt_cake_eaten"]}, "next": "c_eat"},
+				{"text": "Trêu rồi cất vào balo (“Để dành làm vũ khí phòng thân. Cấm cho Đức Anh miếng nào.”)", "effects": {"heart": 2, "add": {"jealous": 1}}, "next": "c_tease"},
+				{"text": "Chỉ cách chỉnh lò: một trăm sáu mươi độ, mười lăm phút, dùng công thức", "effects": {"brain": 1, "set_flags": ["better_cake"]}, "next": "c_lesson"}
+			]},
+		"c_eat": {"cg": "none", "show": {"duc": "soft"}, "text": "Anh Đức nhón một chiếc bỏ vào miệng. Giòn rụm. Cháy ở rìa, thơm bơ hạnh nhân ở giữa. Anh nhai rất chậm, như đang chấm bài thi quan trọng nhất đời.", "next": "c_eat2"},
+		"c_eat2": {"speaker": "duc", "text": "Cháy thành than tôi cũng ăn hết. Cơ mà… ngon hơn tôi tưởng. Trừ một điểm cháy viền, cộng mười điểm tấm lòng.", "next": "c_eat3"},
+		"c_eat3": {"show": {"kyky": "love"}, "emote": {"kyky": "sparkle"}, "speaker": "kyky", "text": "Thiệt hả anh? Thiệt hả!? …Em sẽ nướng lại, lần sau không cháy nữa, em hứa!", "next": "hai_in"},
+		"c_tease": {"cg": "none", "show": {"duc": "smirk"}, "text": "Anh Đức đóng nắp hộp cái “cạch” rồi nhét thẳng vào balo, kéo khoá lại như cất vật chứng.", "next": "c_tease2"},
+		"c_tease2": {"speaker": "duc", "text": "Để dành làm vũ khí phòng thân lúc fix bug đêm. Mà cấm cho Đức Anh miếng nào. Của tôi.", "next": "c_tease3"},
+		"c_tease3": {"show": {"kyky": "shy"}, "emote": {"kyky": "blush"}, "speaker": "kyky", "text": "Anh… anh nói “của tôi” là sao hả…", "next": "hai_in"},
+		"c_lesson": {"cg": "none", "show": {"duc": "deadpan"}, "speaker": "duc", "text": "Lần sau chỉnh lò một trăm sáu mươi độ, mười lăm phút. Dùng công thức, đừng nướng bánh bằng cảm tính.", "next": "c_lesson2"},
+		"c_lesson2": {"show": {"kyky": "pout"}, "speaker": "kyky", "text": "Em nướng bằng TÌNH CẢM! …Mà thôi, một trăm sáu mươi độ. Em ghi nè.", "next": "c_lesson3"},
+		"c_lesson3": {"show": {"duc": "smirk"}, "speaker": "duc", "text": "(Vừa nói vừa lén ăn một cái. Ngon thật. Nhưng tôi sẽ không nói.)", "next": "hai_in"},
+
+		"hai_in": {"show": {"duc": "normal@left", "kyky": "normal@right"}, "sfx": "doorbell", "text": "Có tiếng bước chân đều đều. Một người đàn ông sơ mi trắng gọn gàng tiến tới, kẹp tập hồ sơ dán logo Ban tổ chức Triển lãm Thiết kế Sinh viên.", "next": "hai1"},
+		"hai1": {"show": {"hai": "happy@center"}, "speaker": "hai", "text": "Chào KyKy! May quá, anh tìm em nãy giờ. Tối thứ Bảy này là triển lãm, trường mình có hai suất gửi tác phẩm đi vòng quốc tế, kèm học bổng trao đổi bên Pháp. Hồ sơ hạn chót là Chủ nhật.", "next": "hai2"},
+		"hai2": {"speaker": "hai", "text": "Hôm anh xem bức tranh của em ở triển lãm trước, anh đã nghĩ: nếu có ai xứng đáng thì là em. Anh muốn mời em đứng tên chung với anh một dự án đồ hoạ tương tác. Em không cần trả lời ngay.", "next": "hai3"},
+		"hai3": {"show": {"kyky": "confused"}, "emote": {"kyky": "?"}, "speaker": "kyky", "text": "Dạ? Em… em á? Em đâu có…", "next": "team"},
+		"team": {"show": {"thao": "worried@farleft", "ducanh": "tired@farright"}, "sfx": "whoosh", "text": "Chưa kịp trả lời, hai bóng người từ giảng đường chạy ùa ra, thở không ra hơi: Thanh Thảo và Đức Anh.", "next": "team1"},
+		"team1": {"speaker": "thao", "text": "Đức ơi! Thầy duyệt thuật toán đồ án “Trạm Dừng Chân” rồi, nhưng thầy chê giao diện thô như bảng cửu chương! Thầy bảo nếu không có người thiết kế lại toàn bộ UI thì không cho mang đi triển lãm!", "next": "team2"},
+		"team2": {"show": {"ducanh": "worried"}, "speaker": "ducanh", "text": "KyKy ơi!!! Tao thấy nét chibi mày vẽ trong vở rồi, mày là thiên tài! Về đội tụi tao đi, tao vái mày ba vái!", "next": "team3"},
+		"team3": {"hide": ["thao", "ducanh"], "show": {"kyky": "worried"}, "text": "Hai lời mời cùng đặt lên bàn cân: một bên là đàn anh lịch lãm cầm vé du học, một bên là nhóm đồ án của Anh Đức đang đứng bên bờ vực. KyKy quay sang nhìn Anh Đức.", "next": "duc_say"},
+		"duc_say": {"show": {"duc": "soft"}, "speaker": "duc", "think": true, "text": "Nếu tôi nói “về đội tôi”, cô ấy sẽ về. Chỉ vì tôi nói. Còn nếu cô ấy cần đi thì sao?",
+			"choices": [
+				{"text": "“Dự án cần em. Nhưng đi đâu là chuyện của em. Tôi không ép.”", "effects": {"heart": 2, "add": {"respect": 2}}, "next": "t_a"},
+				{"text": "“Về đội tôi, hồ sơ năng lực của em sẽ rất mạnh. Em tự chọn.”", "effects": {"brain": 1, "add": {"respect": 1}}, "next": "t_b"},
+				{"text": "Im lặng nhìn cô. Để Trâm… à, Trâm đâu rồi nhỉ? (đẩy cho hội bạn)", "effects": {"add": {"tram": 1, "respect": -1}}, "next": "t_c"}
+			]},
+		"t_a": {"speaker": "duc", "text": "Dự án cần em, thế thôi. Còn đi đâu, làm gì là tương lai của em. Tôi không ép. Em chọn đi.", "next": "t_a2"},
+		"t_a2": {"show": {"kyky": "shy"}, "emote": {"kyky": "heart"}, "speaker": "kyky", "text": "…Anh nói như vậy, em lại càng muốn về đội anh hơn đó.", "next": "decide"},
+		"t_b": {"speaker": "duc", "text": "Về đội tôi, em có điểm A đồ án và một hồ sơ năng lực đủ sức cạnh tranh. Nhưng em tự chọn, đừng chọn vì tôi.", "next": "t_b2"},
+		"t_b2": {"show": {"kyky": "surprised"}, "speaker": "kyky", "text": "Em thấy… anh vừa khen em thật lòng. Em ghi nhận!", "next": "decide"},
+		"t_c": {"show": {"kyky": "confused"}, "text": "Anh Đức im lặng, hơi quá lâu. KyKy chớp mắt chờ một câu gì đó. Không có câu nào cả.", "next": "t_c2"},
+		"t_c2": {"show": {"tram": "smug@left"}, "sfx": "pop", "speaker": "tram", "text": "Cô ấy nhận kèo. Nhóm mình đủ người. Hết giờ cãi nhau.", "next": "t_c3"},
+		"t_c3": {"hide": ["tram"], "show": {"kyky": "hmph"}, "speaker": "kyky", "text": "Hai người bàn xong chưa? …Nhưng mà, anh Đức, lần sau nói một câu đi chứ.", "next": "decide"},
+		"decide": {"effects": {"set_flags": ["kyky_joined_team", "hai_invited"]}, "branch": [{"if": {"min": {"respect": 2}}, "next": "hai_ok"}], "default": "hai_plain"},
+		"hai_ok": {"show": {"hai": "smile@center"}, "speaker": "hai", "text": "Không sao. Em chọn nhóm cậu ấy, anh hiểu — vì cậu ấy hỏi em muốn gì, không phải bảo em phải làm gì. Nhưng hồ sơ học bổng vẫn mở tới Chủ nhật. Em cứ nghĩ.", "next": "hai_end"},
+		"hai_plain": {"show": {"hai": "normal@center"}, "speaker": "hai", "text": "Anh hiểu, đồ án gấp mà. Hồ sơ học bổng vẫn mở tới Chủ nhật, em cứ nghĩ cho kỹ nhé.", "next": "hai_end"},
+		"hai_end": {"hide": ["hai"], "show": {"kyky": "normal"}, "speaker": "kyky", "text": "Nghĩ cho kỹ… dạ. Mà giờ, anh Đức, em đi vòng sân trường tìm Nlong Junior trước đã. Nó mất đâu từ sáng rồi!", "next": "lost"},
+		"lost": {"branch": [{"if": {"flags": ["claw_win"]}, "next": "lost_gau"}], "default": "lost_key"},
+		"lost_gau": {"show": {"kyky": "worried"}, "speaker": "kyky", "text": "Em để Nlong Junior, con gấu bông ấy, trong giỏ xe… sáng ra thì giỏ trống trơn. Anh giúp em tìm với!", "next": "lost_end"},
+		"lost_key": {"show": {"kyky": "worried"}, "speaker": "kyky", "text": "Cái móc khoá mèo Nlong Trâm tặng em ấy, em treo trên túi mà giờ mất tiêu rồi. Anh giúp em tìm với!", "next": "lost_end"},
+		"lost_end": {"show": {"duc": "smirk"}, "speaker": "duc", "text": "Công chúa, tôi chấm đồ án chứ có phải thám tử đâu. …Đi, đi. Bắt đầu từ bãi xe.", "effects": {"set_flags": ["junior_missing"]}, "then": "roam:ep3_campus"}
+	}
+}

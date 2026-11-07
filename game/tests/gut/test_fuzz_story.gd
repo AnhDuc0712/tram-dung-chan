@@ -50,8 +50,8 @@ func _random_mini(game: String, rng: RandomNumberGenerator) -> Dictionary:
 			return {"hits": rng.randi_range(0, 3)}
 		"nlong":
 			return {"pets": rng.randi_range(0, 3), "treat": rng.randf() < 0.6, "tail": rng.randf() < 0.3}
-		"logic":
-			return {"first_try": rng.randi_range(0, 3)}
+		"logic", "rush", "sync":  # mỗi mini-game chỉ đọc khoá của mình: cho chung một bộ số
+			return {"first_try": rng.randi_range(0, 3), "served": rng.randi_range(0, 6), "perfect": rng.randi_range(0, 4), "misses": rng.randi_range(0, 5)}
 	return {}
 
 
@@ -158,7 +158,11 @@ func _check_episode(ep: int, min_endings: int) -> void:
 	gut.p("Tập %d — chỉ số cao nhất từng đạt: %s" % [ep, maxv])
 	assert_eq(fails.slice(0, 10), [], "%d lượt chơi bị kẹt hoặc sai" % fails.size())
 	assert_gte(counts.size(), min_endings, "người chơi ngẫu nhiên chỉ gặp %d kết thúc ở tập %d" % [counts.size(), ep])
-	var bar: Dictionary = H.GameStateScript.BAR_MAX_EP2 if ep >= 2 else H.GameStateScript.BAR_MAX
+	var bar: Dictionary = H.GameStateScript.BAR_MAX
+	if ep >= 3:
+		bar = H.GameStateScript.BAR_MAX_EP3
+	elif ep == 2:
+		bar = H.GameStateScript.BAR_MAX_EP2
 	assert_lte(int(maxv.get("heart", 0)), int(bar["heart"]), "Rung động vượt quá thanh hiển thị của tập %d" % ep)
 	assert_lte(int(maxv.get("brain", 0)), int(bar["brain"]), "Hiểu bài vượt quá thanh hiển thị của tập %d" % ep)
 
@@ -169,6 +173,10 @@ func test_episode1_random_players() -> void:
 
 func test_episode2_random_players() -> void:
 	_check_episode(2, 4)
+
+
+func test_episode3_random_players() -> void:
+	_check_episode(3, 4)
 
 
 func test_every_roam_entity_is_used() -> void:

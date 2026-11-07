@@ -1,0 +1,23 @@
+{
+	"title": "Tập 3 – Cảnh 2b: Sau giờ cao điểm",
+	"start": "a",
+	"nodes": {
+		"a": {"bg": "cafe_day", "music": "cafe_day", "show": {"duc": "normal@left", "kyky": "normal@right"}, "sfx": "bell", "text": "Cánh cửa khép lại sau vị khách cuối. Cả quán thở phào. Trên quầy là một rừng ly dở dang.", "next": "b"},
+		"b": {"branch": [{"if": {"flags": ["rush_perfect"]}, "next": "p1"}, {"if": {"flags": ["rush_good"]}, "next": "g1"}], "default": "o1"},
+		"p1": {"show": {"duc": "soft"}, "text": "Ly cuối là “Cacao Gừng Nắng Ấm”. Cả hai cùng với tay lấy nó, ngón tay chạm vào nhau trên thành ly. KyKy giật mình lùi nửa bước… chân trượt trên nền gạch ướt.", "next": "p2"},
+		"p2": {"show": {"duc": "shock"}, "fx": "shake", "text": "Anh Đức chụp lấy khuỷu tay cô, vững vàng, tay kia giữ ly nước không sánh một giọt.", "next": "p3"},
+		"p3": {"sfx": "meow", "show": {"nlong": "love@center"}, "text": "Cả quán “ồ” lên vỗ tay. Nlong trên nóc tủ kêu “Meo~~” như bình luận viên.", "next": "p4"},
+		"p4": {"hide": ["nlong"], "show": {"duc": "smirk"}, "speaker": "duc", "text": "Cấm làm đổ sữa lên người tôi. Tôi đã nói rồi.", "next": "p5"},
+		"p5": {"show": {"kyky": "shy"}, "emote": {"kyky": "blush"}, "speaker": "kyky", "text": "Có… có đổ đâu. Cảm ơn anh. …Tay anh ấm quá.", "effects": {"heart": 2}, "next": "m_in"},
+		"g1": {"show": {"duc": "smirk"}, "text": "Hai người phục vụ được gần hết đơn trong tiếng cười. Có hai ly chảy bọt, một ly nhầm siro gừng, nhưng khách vẫn khen ngon.", "next": "g2"},
+		"g2": {"show": {"kyky": "laugh"}, "speaker": "kyky", "text": "Mình… mình làm được hả anh? Em ngỡ sẽ làm đổ hết cơ!", "next": "m_in"},
+		"o1": {"show": {"duc": "deadpan", "kyky": "sad"}, "text": "Quầy bar như bãi chiến trường. Ba ly sai vị, hai ly chảy bọt, một ly… không rõ là gì.", "next": "o2"},
+		"o2": {"speaker": "kyky", "text": "Em xin lỗi… em làm chậm quá, khách đợi lâu quá…", "next": "o3"},
+		"o3": {"show": {"duc": "soft"}, "speaker": "duc", "text": "Lần đầu ai cũng vậy. Hồi tôi mới vào quán, tôi từng pha nhầm muối thành đường cho khách. Em chưa tệ tới mức đó.", "effects": {"add": {"respect": 1}}, "next": "m_in"},
+		"m_in": {"show": {"m": "love@center"}, "sfx": "pop", "speaker": "m", "text": "Hai đứa giỏi lắm! Chị thưởng nóng đĩa bánh ngọt này. Và KyKy, từ nay đồ uống ở Gờ 23 miễn phí cho em, vĩnh viễn!", "next": "m2"},
+		"m2": {"show": {"kyky": "sparkle"}, "speaker": "kyky", "text": "Thật hả chị? Chị M là người tuyệt vời nhất thế giới!", "next": "m3"},
+		"m3": {"show": {"m": "smirk"}, "speaker": "m", "text": "Mà Đức này, ba hôm nữa là triển lãm rồi nhỉ? Có một việc chị muốn nhắc: thứ Bảy này hai đứa đừng thức khuya quá. Cơ thể thức khuya, trái tim thì tỉnh táo cực kỳ đấy.", "next": "m4"},
+		"m4": {"show": {"duc": "awkward"}, "speaker": "duc", "text": "Chị M. Có khách nhìn kìa.", "next": "end3"},
+		"end3": {"hide": "all", "text": "Ba ngày cuối cùng trước triển lãm trôi qua như một cơn lốc: KyKy vẽ đến khuya, Anh Đức viết lệnh đến sáng, Nlong ngủ ở giữa hai cái laptop như một chiếc chặn giấy sống.", "then": "vn:ep3_s3"}
+	}
+}

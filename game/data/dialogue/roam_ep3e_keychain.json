@@ -1,0 +1,19 @@
+{
+	"title": "Tập 3 – Bác bán móc khoá",
+	"start": "a",
+	"nodes": {
+		"a": {"show": {"duc": "normal@left", "kyky": "surprised@right"}, "effects": {"set_flags": ["expo_keychain"], "add": {"expo": 1}}, "text": "Một gian nhỏ bán móc khoá handmade: mèo béo, máy tính bỏ túi, bút chì tí hon. Bác bán hàng tươi cười.", "next": "b"},
+		"b": {"speaker": "ducanh", "name": "Bác bán hàng", "text": "Hai đứa mua cặp móc khoá này đi, nhìn vừa xứng đôi vừa thông minh!", "next": "c"},
+		"c": {"show": {"kyky": "shy"}, "emote": {"kyky": "blush"}, "speaker": "kyky", "text": "Bác ơi, tụi con không phải…!", "next": "d"},
+		"d": {"show": {"duc": "smirk"}, "speaker": "duc", "think": true, "text": "Một con mèo béo và một cái máy tính bỏ túi. Đúng gu tôi tới mức đáng sợ.",
+			"choices": [
+				{"text": "Mua cặp móc khoá (đưa cho KyKy một chiếc mèo, giữ chiếc máy tính)", "effects": {"heart": 2, "set_flags": ["bought_keychain"]}, "next": "buy"},
+				{"text": "Cười trừ rồi đi tiếp", "next": "pass"}
+			]},
+		"buy": {"show": {"duc": "deadpan"}, "text": "Anh Đức lấy ví, trả tiền không nói một câu. Anh đưa chiếc mèo béo cho KyKy, giữ lại chiếc máy tính bỏ túi, cứ như vừa hoàn tất một giao dịch kỹ thuật.", "next": "buy2"},
+		"buy2": {"show": {"kyky": "love"}, "speaker": "kyky", "text": "Anh… anh mua tặng em thiệt hả? Em treo lên túi liền! Còn anh nhớ treo chiếc kia lên balo nha!", "next": "buy3"},
+		"buy3": {"show": {"duc": "blush"}, "speaker": "duc", "text": "Ừ. …Tôi sẽ treo. Ở chỗ không ai thấy.", "next": "buy4"},
+		"buy4": {"speaker": "ducanh", "name": "Bác bán hàng", "text": "Chỗ không ai thấy là chỗ ai cũng thấy đó cháu!"},
+		"pass": {"show": {"kyky": "normal"}, "speaker": "ducanh", "name": "Bác bán hàng", "text": "Lần sau nhé! Cặp mèo với máy tính bỏ túi không bao giờ hết hàng đâu!"}
+	}
+}

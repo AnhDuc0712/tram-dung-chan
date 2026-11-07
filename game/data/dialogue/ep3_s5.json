@@ -1,0 +1,62 @@
+{
+	"title": "Tập 3 – Cảnh 5: Bình minh trước hiên Gờ 23",
+	"start": "start",
+	"nodes": {
+		"start": {"card": "Chủ nhật, 6:00 — Hiên Gờ 23", "bg": "cafe_morning", "music": "roam_day", "ambient": "", "text": "Sương sớm còn đọng trên lá. Đường vắng, vỉa hè ướt, mùi cà phê rang mới thoảng ra từ cửa quán. Anh Đức ngồi trên bậc thềm gỗ với hai ly cacao bốc khói, chờ.", "next": "a"},
+		"a": {"show": {"duc": "normal@left"}, "text": "KyKy tới, vẫn mặc chiếc áo khoác của anh khoác ngoài, Nlong ôm trước ngực ngủ say. Cô ngồi xuống bên cạnh, chừa một khoảng nhỏ vừa vặn.", "next": "a2"},
+		"a2": {"show": {"kyky": "normal@right"}, "text": "Cô nhìn con phố vắng một lúc, tay vuốt lưng mèo.", "next": "a3"},
+		"a3": {"branch": [{"if": {"flags": ["kyky_goes"]}, "next": "s_go"}, {"if": {"flags": ["kyky_stays"]}, "next": "s_stay"}, {"if": {"flags": ["kyky_both"]}, "next": "s_both"}, {"if": {"flags": ["said_dont_go"]}, "next": "s_dont"}], "default": "s_both"},
+		"s_go": {"speaker": "kyky", "text": "Em nộp hồ sơ rồi. Năm giờ rưỡi sáng. Tay em run, bấm nút gửi mà tưởng bấm nhầm nút nổ.", "next": "cacao"},
+		"s_stay": {"speaker": "kyky", "text": "Em không nộp hồ sơ. Em nghĩ cả đêm… em muốn làm “Trạm Dừng Chân” thật sự, không chỉ là một đồ án. Đó là lựa chọn của em, không phải vì ai hết.", "next": "cacao"},
+		"s_both": {"speaker": "kyky", "text": "Em nộp rồi, anh ạ. Và em vẫn muốn làm tiếp dự án. Em sẽ quyết sau khi có thư. Em nghĩ… có thể không phải chọn một trong hai ngay hôm nay.", "next": "cacao"},
+		"s_dont": {"show": {"kyky": "shy"}, "speaker": "kyky", "text": "Chuyện hồ sơ… để em tự nói với anh sau. Hôm nay em muốn nghe anh nói. Chuyện khác.", "next": "cacao"},
+		"cacao": {"show": {"duc": "soft"}, "text": "Anh Đức đưa cho cô ly cacao. Trên mặt bọt sữa vẽ một trái tim nguyên vẹn, cạnh một con mèo méo mó (anh vẽ).", "next": "cacao2"},
+		"cacao2": {"show": {"kyky": "happy"}, "speaker": "kyky", "text": "Anh Đức này… mới hôm nào em cầm ngược bản đồ lao vào quán, làm rơi sổ, bị anh mắng ngốc nghếch. Giờ tụi mình đã làm xong một đồ án cùng nhau.", "next": "c1"},
+		"c1": {"show": {"duc": "soft"}, "speaker": "duc", "text": "Tôi chưa bao giờ mắng em ngốc thật cả. Người ngốc thật sự… là tôi.", "next": "c2"},
+		"c2": {"show": {"kyky": "surprised"}, "speaker": "kyky", "text": "Dạ? Đại thần IT mà cũng có lúc ngốc á?", "next": "c3"},
+		"c3": {"show": {"duc": "normal"}, "speaker": "duc", "text": "Ừ. Tôi viết hàng vạn dòng lệnh không sai một dấu chấm phẩy. Nhưng đứng trước em, câu chữ nào cũng lộn xộn. Tôi che ô nghiêng về phía em tới ướt vai. Tôi ngồi trông quán mỗi sáng thứ Bảy chỉ để đợi một người cầm ngược bản đồ bước vào.", "next": "c4"},
+		"c4": {"branch": [{"if": {"flags": ["said_dont_go"]}, "next": "c_sorry"}, {"if": {"flags": ["kyky_heard"]}, "next": "c_heard"}], "default": "c5"},
+		"c_sorry": {"show": {"duc": "sad"}, "speaker": "duc", "text": "Và tối qua, tôi nói “đừng đi”. Tôi xin lỗi. Tôi muốn em ở lại, nhưng tôi không có quyền giữ em. Tôi đang học cách… không giữ.", "next": "c5"},
+		"c_heard": {"show": {"kyky": "shy"}, "emote": {"kyky": "heart"}, "speaker": "kyky", "text": "Anh Đức… hôm qua lúc em ngủ gục, có một câu anh nói khẽ. Em nghe được. Em giả vờ ngủ tiếp vì sợ nếu mở mắt, anh sẽ không bao giờ nói lại.", "next": "c_heard2"},
+		"c_heard2": {"show": {"duc": "panic"}, "emote": {"duc": "!"}, "speaker": "duc", "text": "…Em nghe hết?! Vậy là… tôi nói cho một người đang ngủ giả!", "next": "c5"},
+		"c5": {"cg": "cg_sunrise", "text": "Anh Đức đặt ly xuống, xoay hẳn người về phía cô. Anh nắm bàn tay nhỏ của KyKy đang đặt trên lưng mèo, mười ngón đan vào nhau.", "next": "c6"},
+		"c6": {"speaker": "duc", "text": "KyKy, tôi thích em. Không phải với tư cách gia sư, cũng không phải trưởng nhóm đồ án. Mà là người muốn che ô cho em, dù em đi tới đâu. Em có đồng ý làm bạn gái tôi không?", "next": "result"},
+		"result": {"branch": [
+				{"if": {"flags": ["kyky_both"], "min": {"heart": 14, "respect": 4, "brain": 3}, "below": {"jealous": 5}}, "next": "e_logic"},
+				{"if": {"flags": ["said_dont_go"]}, "next": "e_tin"},
+				{"if": {"min": {"jealous": 5}}, "next": "e_tin"},
+				{"if": {"flags": ["kyky_goes"], "min": {"heart": 8}}, "next": "e_paris"},
+				{"if": {"flags": ["kyky_stays"], "min": {"heart": 7}}, "next": "e_quan"}
+			], "default": "e_nlong"},
+
+		"e_logic": {"show": {"kyky": "love"}, "emote": {"kyky": "tears"}, "speaker": "kyky", "text": "Dạ… em đồng ý! Em đồng ý, anh Đức! (Cô vùi mặt vào vai anh, Nlong kêu “Ngoao~~” khó chịu vì bị ép giữa hai người.)", "next": "e_logic2"},
+		"e_logic2": {"hide": "all", "show": {"m": "love@left", "tram": "happy@center", "ducanh": "happy@right"}, "sfx": "sparkle", "text": "Cửa quán bật mở. Chị M, Trâm, Đức Anh và Thảo đồng loạt tung pháo hoa giấy mini. Chắc họ đã nấp sau cánh cửa từ lúc nào không biết.", "next": "e_logic3"},
+		"e_logic3": {"speaker": "tram", "text": "Thuyền cập bến rồi bà con ơi! (Rồi quay sang) Anh Đức. Vòng cuối cùng: đậu.", "next": "e_logic4"},
+		"e_logic4": {"hide": "all", "show": {"duc": "happy@left", "kyky": "happy@right"}, "speaker": "duc", "text": "Dù thư từ Pháp nói gì, em đi hay ở, tôi vẫn đứng chỗ này. Với hai ly cacao.", "next": "e_logic5"},
+		"e_logic5": {"music": "ending", "text": "“Trong hàng triệu dòng code của vũ trụ, gặp được em là cú bug ngọt ngào nhất mà tôi nguyện không bao giờ vá lại.” — Một lá thư trả lời sẽ đến sau ba tuần. Cả hai chưa biết trong đó viết gì.", "effects": {"ending": "ep3_loi_logic"}, "then": "phone:ep3_end"},
+
+		"e_tin": {"show": {"kyky": "normal"}, "speaker": "kyky", "text": "Anh Đức… em thích anh. Rất nhiều. Nhưng em cần anh hiểu: nếu anh giữ em quá chặt, em sẽ không thở được. Em muốn bên cạnh anh vì em chọn, không phải vì em bị giữ.", "next": "e_tin2"},
+		"e_tin2": {"show": {"duc": "worried"}, "speaker": "duc", "text": "Tôi biết. Hôm qua tôi mới biết. Tôi sẽ học. Chậm cũng được, nếu em cho tôi thời gian.", "next": "e_tin3"},
+		"e_tin3": {"show": {"kyky": "smug"}, "speaker": "kyky", "text": "Em đồng ý làm bạn gái anh. Với điều kiện: tên em phải được ghi trên đồ án là tác giả, em tự ghi, không phải anh ghi hộ. Được không?", "next": "e_tin4"},
+		"e_tin4": {"show": {"duc": "laugh"}, "speaker": "duc", "text": "Được. Nếu em tự ghi, tôi sẽ ký bên dưới.", "next": "e_tin5"},
+		"e_tin5": {"music": "ending", "text": "Một lá thư mời nữa từ Hải được gửi tới hộp thư của KyKy sáng hôm đó. Cô chưa mở. Anh Đức nhìn thấy dòng thông báo, và lần đầu tiên trong đời, anh… không hỏi.", "effects": {"ending": "ep3_hoc_cach_tin"}, "then": "phone:ep3_end"},
+
+		"e_paris": {"show": {"kyky": "love"}, "speaker": "kyky", "text": "Em đồng ý. Nhưng em sắp đi, anh biết mà. Sáu tháng… hoặc lâu hơn. Anh đừng hứa gì, em không muốn anh hứa vì thương hại em.", "next": "e_paris2"},
+		"e_paris2": {"show": {"duc": "soft"}, "speaker": "duc", "text": "Tôi không hứa bay sang. Tôi hứa một việc thôi: tin nhắn nào của em, tôi sẽ mở đầu tiên. Dù đang ở đâu, múi giờ nào.", "next": "e_paris3"},
+		"e_paris3": {"text": "Anh Đức trao cho cô chiếc thẻ nhớ chứa toàn bộ mã nguồn “Trạm Dừng Chân”. KyKy nắm chặt nó, rồi nắm chặt tay anh.", "next": "e_paris4"},
+		"e_paris4": {"music": "ending", "text": "Trong hộp thư của Anh Đức có một email từ viện nghiên cứu công nghệ ở thành phố ấy, đã nằm đó từ tuần trước. Anh chưa mở. Chưa.", "effects": {"ending": "ep3_paris"}, "then": "phone:ep3_end"},
+
+		"e_quan": {"show": {"kyky": "happy"}, "speaker": "kyky", "text": "Em đồng ý! Và… em quyết định ở lại, anh Đức. Em muốn biến “Trạm Dừng Chân” thành thứ thật. Menu mới của Gờ 23, em vẽ. Công thức, anh pha.", "next": "e_quan2"},
+		"e_quan2": {"show": {"duc": "smirk"}, "speaker": "duc", "text": "Tên món đầu tiên?", "next": "e_quan3"},
+		"e_quan3": {"show": {"kyky": "sparkle"}, "speaker": "kyky", "text": "“Cacao Mắt Cười” và “Trà Gừng Chữa Lành”!", "next": "e_quan4"},
+		"e_quan4": {"show": {"m": "smirk@center"}, "sfx": "bell", "text": "Cửa quán mở. Chị M chìa ra một phong thư dày. Một hãng cà phê lớn muốn mở chi nhánh ở thành phố khác, và họ hỏi: “Ai thiết kế logo của Gờ 23?”", "next": "e_quan5"},
+		"e_quan5": {"music": "ending", "text": "KyKy và Anh Đức nhìn nhau. Rồi nhìn phong thư. Rồi nhìn Nlong, con mèo béo ngủ tiếp, như thể nó đã biết hết.", "effects": {"ending": "ep3_dong_chu_quan"}, "then": "phone:ep3_end"},
+
+		"e_nlong": {"show": {"kyky": "shy"}, "speaker": "kyky", "text": "Em… em…", "next": "e_nlong2"},
+		"e_nlong2": {"show": {"nlong": "shock@center"}, "sfx": "meow", "fx": "shake", "text": "Đúng lúc đó, một chiếc xe rác ầm ầm đi ngang. Nlong giật bắn mình, nhảy vọt, làm đổ nguyên ly cacao lên áo KyKy và hất văng hộp bánh của Anh Đức.", "next": "e_nlong3"},
+		"e_nlong3": {"hide": ["nlong"], "show": {"duc": "panic", "kyky": "panic"}, "text": "Cả hai cuống cuồng lấy khăn lau cho nhau, bọt sữa và vụn bánh dính tùm lum lên mặt. Nhìn điệu bộ lem luốc của đối phương, họ bật cười ngặt nghẽo.", "next": "e_nlong4"},
+		"e_nlong4": {"show": {"duc": "laugh"}, "speaker": "duc", "text": "Thôi bỏ đi, không văn vở nữa. Làm bạn gái tôi nhé, để ngày nào tôi cũng giặt áo đền cho em!", "next": "e_nlong5"},
+		"e_nlong5": {"show": {"kyky": "laugh"}, "speaker": "kyky", "text": "Dạ, em duyệt!", "next": "e_nlong6"},
+		"e_nlong6": {"music": "ending", "text": "Nlong ngồi giữa hai người, liếm mép đắc thắng. Dưới chân nó, một tờ hồ sơ học bổng nằm trên bậc thềm, in đúng một dấu chân mực. Ai sẽ mở nó ra trước?", "effects": {"ending": "ep3_hoang_thuong"}, "then": "phone:ep3_end"}
+	}
+}

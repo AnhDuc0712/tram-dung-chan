@@ -1,0 +1,27 @@
+{
+	"title": "Tập 3 – Cảnh 2: Giờ cao điểm ở Gờ 23",
+	"start": "start",
+	"nodes": {
+		"start": {"card": "Thứ Năm, 11:30 — Gờ 23", "bg": "cafe_day", "music": "cafe_day", "ambient": "", "show": {"m": "busy@center"}, "text": "Giữa trưa, Gờ 23 chật kín khách văn phòng lẫn sinh viên. Máy xay cà phê gầm gừ liên tục, Nlong lim dim trên bậu cửa sổ như chẳng liên quan gì tới nhân loại.", "next": "a"},
+		"a": {"speaker": "m", "text": "Đức ơi, cứu chị! Bạn ca phụ ốm đột xuất, mười lăm order cùng lúc, mình em pha không xuể đâu!", "next": "b"},
+		"b": {"show": {"m": "worried@right", "duc": "deadpan@left"}, "speaker": "duc", "text": "Mười lăm ly. Một mình. Được. Tôi đã từng sống sót qua một mùa thi.", "next": "c"},
+		"c": {"hide": ["m"], "show": {"kyky": "happy@right", "duc": "normal@left"}, "speaker": "kyky", "text": "Để em phụ anh Đức cho ạ! Em biết bấm máy ép, với trang trí bọt sữa nữa! (Hồi Tập một anh đã dạy em… hình con rùa.)", "next": "d"},
+		"d": {"show": {"duc": "smirk"}, "speaker": "duc", "text": "Đứng yên đó. Chưa có tạp dề thì chưa được bước vào quầy.", "next": "e"},
+		"e": {"show": {"kyky": "panic"}, "text": "KyKy lon ton lấy chiếc tạp dề nâu của quán. Nó dài quá đầu gối, hai sợi dây quấn thành một mớ rối nùi sau lưng. Cô xoay một vòng… rồi xoay thêm một vòng, như chú mèo đuổi đuôi.", "next": "f"},
+		"f": {"show": {"duc": "soft"}, "speaker": "duc", "think": true, "text": "Cô ấy đang cố tự buộc. Tôi có thể làm giúp trong ba giây. Nhưng cô ấy có muốn không?",
+			"choices": [
+				{"text": "Đưa hai đầu dây cho cô: “Tự thắt đi, tôi đợi.”", "effects": {"heart": 1, "add": {"respect": 1}}, "next": "tie_self"},
+				{"text": "Bảo cô quay lưng lại, buộc nơ giúp (nói rất nhẹ, rất nhanh)", "effects": {"heart": 2}, "next": "tie_duc"}
+			]},
+		"tie_self": {"show": {"duc": "deadpan"}, "speaker": "duc", "text": "Dây ở đây, kéo về phía trước, rồi vòng lại. Tôi không đụng vào. Em tự làm được.", "next": "tie_self2"},
+		"tie_self2": {"show": {"kyky": "sparkle"}, "emote": {"kyky": "sparkle"}, "text": "Sau hai lần thử, KyKy thắt được một chiếc nơ… hơi lệch, nhưng chắc chắn. Cô giơ hai tay lên như vừa nộp xong đồ án.", "next": "tie_self3"},
+		"tie_self3": {"show": {"kyky": "happy"}, "speaker": "kyky", "text": "Em làm được!!! Anh Đức, anh thấy không? Nơ đẹp chưa!", "next": "ready"},
+		"tie_duc": {"show": {"kyky": "shy"}, "text": "KyKy cứng đờ người khi Anh Đức bước ra sau. Hai ngón tay anh kéo hai đầu dây, thắt một chiếc nơ gọn ghẽ, không chạm vào cô lấy một lần — chỉ có hơi thở anh khẽ lướt qua tóc.", "next": "tie_duc2"},
+		"tie_duc2": {"speaker": "duc", "text": "Vụng về thế này mà đòi làm phụ bếp của đại thần à? Đứng cạnh tôi, làm theo hiệu lệnh, cấm làm đổ sữa.", "next": "tie_duc3"},
+		"tie_duc3": {"speaker": "kyky", "emote": {"kyky": "blush"}, "text": "R-rõ ạ!", "next": "ready"},
+		"ready": {"show": {"kyky": "normal", "duc": "normal"}, "sfx": "bell", "text": "Chuông cửa reo liên hồi, khách xếp hàng dài. Anh Đức xắn tay áo, KyKy siết chặt hai nắm tay.", "next": "ready2"},
+		"ready2": {"branch": [{"if": {"flags": ["ep2_nlong"]}, "next": "ready_n"}], "default": "go"},
+		"ready_n": {"show": {"nlong": "grumpy@center"}, "sfx": "meow", "text": "Nlong nhảy xuống bậu cửa, đứng chắn ngay chân quầy như giám sát viên.", "next": "go"},
+		"go": {"hide": "all", "speaker": "duc", "text": "Ba phiếu cùng lúc. Tôi pha, em rót và trang trí. Đừng hoảng, nhìn phiếu rồi làm.", "then": "mini:rush"}
+	}
+}

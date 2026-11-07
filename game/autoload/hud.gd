@@ -505,6 +505,8 @@ func relations_text() -> String:
 	if GameState.episode >= 2:
 		lines.append("Trâm — tin tưởng %d" % GameState.get_var("tram"))
 		lines.append("Anh Đức — ghen ngầm %d" % GameState.get_var("jealous"))
+	if GameState.episode >= 3:
+		lines.append("Anh Đức — tôn trọng lựa chọn của KyKy %d" % GameState.get_var("respect"))
 	lines.append("Nlong — thân thiết %d" % GameState.get_var("nlong"))
 	return "\n".join(lines)
 

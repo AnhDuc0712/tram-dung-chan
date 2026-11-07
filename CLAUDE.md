@@ -2,10 +2,14 @@
 
 Game 2D tình cảm: visual novel + đi lại tự do (quán cà phê Gờ 23) + mini-game. Single-player, chia sẻ cho nhóm nhỏ (<10 người).
 Người dùng là người mới làm game: giải thích ngắn gọn bằng **tiếng Việt**, chữ trong game cũng tiếng Việt.
+**Chế độ Tự Hành (Autonomous Mode):** Người dùng yêu cầu không hỏi các câu hỏi xác nhận giữa chừng. AI tự động thực hiện từ đầu đến cuối, tự chạy kiểm tra, tự sửa lỗi và chỉ báo cáo kết quả cuối cùng.
 Ý tưởng gốc của tác giả: `kịch bản/`, `mô tả/`, ảnh `thiết kế/` — đọc trước khi viết nội dung mới.
-**Nhật ký phiên làm việc:** ghi việc đã làm + lỗi/vướng mắc vào `memory/text1.md` (người dùng yêu cầu).
+**Nhật ký & Trao đổi giữa các AI:**
+- Ghi việc đã làm + lỗi/vướng mắc vào `memory/text1.md`.
+- Đọc và ghi chú bàn giao ca làm việc cho AI tiếp theo tại `memory/ai_bridge.md`.
 
 ## Lệnh (PowerShell, từ thư mục gốc)
+- Cài đặt / kích hoạt toàn bộ Harness: `powershell -ExecutionPolicy Bypass -File tools\install_harness.ps1`
 - Kiểm tra (BẮT BUỘC sau mỗi thay đổi trong `game/`): `powershell -ExecutionPolicy Bypass -File tools\check.ps1`
   6 bước: import · gdlint · test dữ liệu + 5 kết thúc · **GUT** (`game/tests/gut/`) · chạy từng màn · tự chơi trọn Tập 1.
   `-Quick` chỉ chạy 3 bước đầu. Chạy riêng GUT: `tools\godot\Godot_v4.7.2-stable_win64_console.exe --headless --path game -s res://addons/gut/gut_cmdln.gd -gdir=res://tests/gut -gexit`
@@ -42,6 +46,11 @@ Người dùng là người mới làm game: giải thích ngắn gọn bằng *
 - Bản đồ: `Steps.ROAM_MAPS` biến thể → `data/roam/<map>.json` (cafe, street); dữ liệu bản đồ khai báo intros/objectives/follower/autoplay.
 - Event CG: khóa `cg` trong kịch bản + `data/cgs.json`; ảnh xử lý bằng `tools/art/process_ep2.py`. Tự chơi Tập 2: `-- --autoplay --episode=2`.
 - Mở thẳng bản đồ để chụp: `tools\screenshot.ps1 -Scene cafe -Extra "--variant=ep2_night"`.
+
+## Tập 3 (alpha)
+- `GameState.start_episode(3)` mang `ep2_last` (kết thúc Tập 2) sang; `BAR_MAX_EP3`; chỉ số `respect`, `hai`, `expo`; `ep3_last` lưu trong meta (kết mở → Tập 4).
+- Bản đồ: `campus.json` (biến thể `ep3_campus`, ảnh `map_campus`) và `street.json` có thêm biến thể `ep3_expo`. Mini-game mới: `rush.gd`, `sync.gd`.
+- Đặc tả: `kịch bản/kichban3_v2.md`; mạch & kết cục: `docs/STORY.md`. Ảnh xử lý bằng `tools/art/process_ep3.py`. Tự chơi: `-- --autoplay --episode=3`.
 
 ## Quy tắc
 - Mỗi kết thúc / tuyến mới → thêm test route trong `tests/run_tests.gd`. Cập nhật `docs/STORY.md` khi thêm nội dung.

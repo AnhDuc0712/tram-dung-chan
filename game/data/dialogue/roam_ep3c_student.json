@@ -1,0 +1,22 @@
+{
+	"title": "Tập 3 – Cậu sinh viên năm nhất chạy deadline",
+	"start": "a",
+	"nodes": {
+		"a": {"branch": [{"if": {"flags": ["clue_student"]}, "next": "again"}], "default": "first"},
+		"first": {"show": {"duc": "normal@left", "kyky": "normal@right"}, "text": "Một cậu sinh viên năm nhất ngồi bệt trên bãi cỏ, laptop dán đầy sticker anime, tay cầm ổ bánh mì cắn dở, mắt đỏ hoe.", "next": "b"},
+		"b": {"speaker": "ducanh", "name": "Cậu sinh viên", "text": "Giá mà ai đó chỉ em cái vòng lặp for này… em xin cúng một tháng trà sữa. Nó cứ chạy thiếu một lần!", "next": "c"},
+		"c": {"show": {"kyky": "laugh"}, "speaker": "kyky", "text": "Phụt— Em nhớ Tập một em cũng y hệt vậy. Cầm ngược cả bản đồ lẫn vòng lặp!", "next": "d"},
+		"d": {"show": {"duc": "think"}, "speaker": "duc", "think": true, "text": "range(1, 10) chạy tới chín. Cậu ta cần mười. Một câu là xong.",
+			"choices": [
+				{"text": "Chỉ đúng chỗ: “range(1, 11) — cận trên không tính.”", "effects": {"brain": 1, "heart": 1, "set_flags": ["student_helped"]}, "next": "help"},
+				{"text": "Nhìn sơ rồi bỏ đi: “Tự đọc tài liệu đi.”", "next": "skip"}
+			]},
+		"help": {"speaker": "duc", "text": "Cận trên không được tính. Sửa thành mười một. Sau đó nhớ ăn nốt cái bánh mì.", "next": "help2"},
+		"help2": {"speaker": "ducanh", "name": "Cậu sinh viên", "text": "Chạy rồi!!! Anh là thần! À mà… nãy em thấy một con mèo xám béo ngậm cái gì tròn tròn chạy về phía bãi xe, ngay góc dưới kia. Có phải mèo của chị này không?", "next": "help3"},
+		"help3": {"show": {"kyky": "sparkle"}, "speaker": "kyky", "text": "Chính nó! Cảm ơn bạn nha! (Quay sang) Anh Đức, anh vừa cứu một đời sinh viên đó.", "effects": {"set_flags": ["clue_student"]}},
+		"skip": {"show": {"duc": "deadpan"}, "speaker": "duc", "text": "Tự đọc tài liệu đi.", "next": "skip2"},
+		"skip2": {"show": {"kyky": "pout"}, "speaker": "kyky", "text": "Anh Đức! Người ta còn đang khóc kìa. Một câu thôi mà. (Cô tự cúi xuống chỉ cho cậu ấy.)", "next": "skip3"},
+		"skip3": {"speaker": "ducanh", "name": "Cậu sinh viên", "text": "Cảm ơn chị! Em thấy một con mèo xám béo ngậm cái gì tròn tròn chạy về phía bãi xe, góc dưới kia ạ.", "effects": {"set_flags": ["clue_student"]}},
+		"again": {"speaker": "ducanh", "name": "Cậu sinh viên", "text": "Vòng lặp chạy đủ mười lần rồi! Mèo xám thì em chỉ thấy hướng bãi xe thôi ạ."}
+	}
+}
