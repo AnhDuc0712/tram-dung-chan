@@ -1,0 +1,16 @@
+{
+  "harness-check": {
+    "PostToolUse": [
+      {
+        "matcher": "write_file|edit_file",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File ..\\tools\\hooks\\post_edit_check.ps1",
+            "timeout": 180
+          }
+        ]
+      }
+    ]
+  }
+}
