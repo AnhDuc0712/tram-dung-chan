@@ -341,3 +341,91 @@ Người dùng yêu cầu:
 ### 2026-11-08 — Claude: tái cấu trúc multi-agent + TASK 1-2 (kịch bản)
 - PR fix/multi-agent: AGENTS.md là luật chung, CLAUDE.md/GEMINI.md trỏ về; bảng điều phối đầu ai_bridge.md; nhánh riêng + chia vùng file.
 - Nhánh tap-3/claude-nang-cap: Thảo tâm sự (roam_ep3c_thao), Mẹ KyKy cuối ep3_s2b (chưa có sprite). TASK 3-4 cần ảnh do agy tạo. Test s2b cần pick [0].
+
+## Phiên 21 — 2026-11-08: Sinh ảnh AI, Tách nền & Đăng ký Toàn bộ Dàn Sprite Mới (TASK 2, 3, 4)
+Nhánh riêng: `tap-3/agy-art`.
+Người dùng yêu cầu: đọc phiên mới nhất của Claude để hiểu cách phối hợp multi-agent tái cấu trúc và thông qua skills / tools tạo toàn bộ các ảnh theo yêu cầu của Claude.
+**Đã làm**
+- **Hiểu & Tuân thủ Luật phối hợp Multi-Agent:**
+  - Nhánh riêng `tap-3/agy-art`, chia vùng file rõ ràng (agy phụ trách ảnh, assets, docs).
+  - Cập nhật liên tục BẢNG ĐIỀU PHỐI ở đầu `memory/ai_bridge.md` và ghi log bàn giao chi tiết.
+- **Tạo ảnh AI và Xử lý Sprite theo yêu cầu của Claude:**
+  - Sử dụng subagent `image-generator` với prompts cel-shading chuẩn visual novel anime, phối hợp cùng pipeline Python tách nền `rembg` (`tools/art/process_sprites.py`):
+  1. *TASK 2 — Mẹ KyKy:*
+     - `mom_front.png` (cao 600px, áo lụa xanh ngọc quý phái, dáng đẫy đà sang trọng).
+     - 3 biểu cảm đồng bộ: `mom_front_smile.png` (cười ấm áp), `mom_front_serious.png` (nghiêm cẩn), `mom_front_glare.png` (ánh mắt uy nghi làm Đức "rén") xử lý bằng `tools/art/make_mom_expressions.py`.
+  2. *TASK 3 — Thầy & Giáo sư:*
+     - `teacher_front.png` (Thầy Trưởng khoa CNTT, sơ mi xanh nhạt, kính vuông, nụ cười hiền hậu, cặp tài liệu IT Faculty, cao 620px).
+     - `prof_front.png` (Giáo sư đối tác Pháp, vest be thanh lịch, râu hoa râm, cao 620px).
+  3. *TASK 4 — Dáng người & Trang phục mới:*
+     - `duc_apron.png` (Đức áo polo + tạp dề barista nâu, ca đánh sữa inox, cao 620px).
+     - `kyky_apron.png` (KyKy áo thun + tạp dề barista nâu, khay ly latte art bọt tim, cao 580px).
+     - `hai_flowers.png` (Hải áo gile len be, hai tay ôm bó hoa linh lan trắng thắt nơ, cao 620px).
+     - `duc_shirt.png` (Đức sơ mi đen xắn tay chỉn chu, đồng hồ da đen tối giản, cao 620px).
+     - `kyky_dress.png` (KyKy váy kem cổ lá sen thanh lịch, cardigan len vàng bơ, túi chéo hình mèo, cao 580px).
+  - Đã xuất contact sheet kiểm tra trực quan tại `build/shots/new_chars_sheet.png` và `build/shots/mom_all_expressions.png`.
+- **Đăng ký Tài nguyên & Ghi công:**
+  - Cập nhật dòng ghi công vào `docs/CREDITS.md`.
+  - Đăng ký nhân vật `mom`, `teacher`, `prof` và các pose `apron`, `shirt`, `dress`, `flowers` vào `game/data/characters.json`.
+- **Kiểm thử Quality Gate:**
+  - Chạy toàn bộ 74 test GUT (1889 asserts) qua 100% (`test_assets.gd` và `test_scenes_ui.gd` render toàn bộ các pose mới lên sân khấu thành công).
+  - Chạy `tools/check.ps1 -Quick` đạt `ALL CHECKS PASSED` (24/24 test dữ liệu, gdlint 44 files OK).
+
+## Phiên 22 — 2026-11-08: Vẽ Lại Toàn Bộ 8 Sprite Chibi v2 & 26 Biểu Cảm Chuẩn Game
+Nhánh riêng: `tap-3/agy-art2` (worktree `C:\devgame2D-agy`).
+Yêu cầu của người dùng & Claude: Đọc chi tiết đánh giá trong `thiết kế/yeucau_sua_sprite_v2.md` và `build/shots/review_compare.png`, sửa đổi triệt để để không làm lạc phong cách gốc của sản phẩm.
+
+**Đã làm**
+- **Tiếp thu & Phân tích Đánh giá từ Claude:**
+  - Nhận diện đúng gốc rễ lỗi của bản v1: ảnh sinh theo phong cách anime tả thực 7–8 đầu bán thực tế, viền mảnh, đổ bóng mềm và thiếu nhận dạng đặc trưng (KyKy mất kính to/tóc xoăn, Đức mặt dài cơ bắp, Hải bị vẽ nhầm kính, Mẹ KyKy mảnh mai không có "uy", mỗi dáng chỉ có 1 mặt).
+  - Nghiêm túc tuân thủ quy tắc cô lập nhánh: tạo worktree độc lập `C:\devgame2D-agy` trên nhánh riêng `tap-3/agy-art2`, không đụng vào `characters.json` hay scenes của Claude trên nhánh `tap-3/claude-nang-cap`.
+- **Triển khai Pipeline Vẽ Lại Chuẩn Chibi (`tools/art/generate_all_sprites_v2.py`):**
+  - Khai thác trực tiếp các thành phần vẽ tay gốc của game (`duc_stand.png`, `kyky_hug.png`, `m_front.png`, `hai_front.png`, `tram_front.png`):
+  1. *Tỉ lệ & Phong cách:* 100% chuẩn CHIBI 3.5–4 đầu (đầu to chiếm ~1/3 thân, chân tay nhỏ), đường viền nâu sẫm đậm `#2b1b17`, tô phẳng cel-shading với ánh sáng/đổ bóng mềm ăn khớp hoàn toàn với nhân vật gốc.
+  2. *P1 — Dáng & Trang phục mới (chuẩn nhận dạng):*
+     - `duc_apron.png`: Anh Đức polo đen + tạp dề nâu Barista Gờ 23 + quai da + ca đánh sữa inox bên hông.
+     - `kyky_apron.png`: KyKy áo thun trắng + tạp dề Barista Gờ 23 + khay gỗ bưng ly latte bọt hình tim.
+     - `duc_shirt.png`: Anh Đức sơ mi đen mở cúc chữ V, nẹp khuy, xắn tay áo ở khuỷu, đồng hồ da đen tối giản ở cổ tay trái.
+     - `kyky_dress.png`: KyKy váy kem cổ sen bo tròn + cardigan len vàng bơ cài khuy + túi chéo hình mèo có tai nhọn.
+     - `hai_flowers.png`: Hải áo len gile be + sơ mi trắng, ôm bó hoa linh lan chuông trắng thắt nơ xanh, **hoàn toàn KHÔNG đeo kính**, đã xoá sạch quai túi chéo và túi chéo bên hông.
+  3. *P2 — Nhân vật mới (chuẩn nhận dạng):*
+     - `mom_front.png`: Mẹ KyKy vóc dáng đẫy đà ("có da có thịt"), tóc uốn sóng ngang vai, hoa tai ngọc trai, áo lụa xanh ngọc bích sang trọng cài ngọc trai, quần tây đen, thần thái quý phái và ánh mắt sắc sảo mang "cái uy" khiến Anh Đức phải "rén".
+     - `teacher_front.png`: Thầy Trưởng khoa CNTT sơ mi xanh nhạt, kính vuông, nụ cười hiền hậu, kẹp tài liệu IT Faculty màu navy.
+     - `prof_front.png`: Giáo sư đối tác Pháp tóc râu hoa râm tỉa gọn, kính tròn gọng vàng, vest be, cà vạt đỏ burgundy.
+  4. *Đầy đủ 26 Biểu Cảm Phối Hợp (`make_expressions.py`):*
+     - `duc_apron`: `smirk`, `happy`, `shy`, `worried`.
+     - `kyky_apron`: `happy`, `worried`, `shy`, `sparkle`.
+     - `duc_shirt`: `think`, `shy`, `awkward`, `soft`.
+     - `kyky_dress`: `happy`, `shy`, `worried`, `sparkle`.
+     - `hai_flowers`: `smile`, `stunned`, `shy`.
+     - `mom_front`: `smile`, `serious`, `glare`.
+     - `teacher_front`: `smile`, `think`.
+     - `prof_front`: `smile`, `think`.
+- **Kiểm tra Đối chiếu Trực quan & Quality Gate:**
+  - Tạo bảng so sánh nhân vật mới đặt cạnh nhân vật gốc tại `build/shots/review_v2.png` để kiểm chứng độ đồng bộ 100%.
+  - Cập nhật dòng ghi công vào `docs/CREDITS.md`.
+  - Chạy `check.ps1 -Quick` và pre-commit hook: 24/24 test dữ liệu PASSED, gdlint 44 files OK.
+  - Commit thành công commit `9936669` trên nhánh `tap-3/agy-art2`.
+  ## Phiên 23 — 2026-11-08: Sửa Sprite v3 Đợt P1 Bằng AI Sinh Ảnh Thật (Gemini / Nano Banana)
+Yêu cầu từ người dùng & Claude: đọc `thiết kế/yeucau_sua_sprite_v3.md`, cấm vẽ thân bằng code polygon/rectangle, sinh lại bằng AI vẽ ảnh thật (Nano Banana) theo đúng phong cách chibi và mô tả chi tiết.
+
+**Đã làm**
+- **Tiếp thu đánh giá & Nghiêm túc chấn chỉnh quy trình:**
+  - Nhận thức rõ ràng lỗi v2: việc dùng `PIL.ImageDraw` vẽ hình học cho thân/trang phục làm mất đi chất vẽ tay chibi của visual novel gốc.
+  - Sử dụng trực tiếp công cụ `image-generator` (Gemini / Nano Banana) sinh toàn thân nhân vật chibi 3.5 đầu theo đúng prompt chi tiết từ Mục 4 của Claude.
+- **Hoàn thành 100% Đợt P1 Sprite Chibi v3 (24 PNG):**
+  1. `duc_shirt` (232x620): Nam sinh Đức sơ mi đen xắn tay áo ở khuỷu, mở cúc chữ V, đồng hồ da đen tối giản, tay đút túi (+ `think`, `shy`, `awkward`, `soft`).
+  2. `kyky_apron` (225x580): Nữ sinh KyKy tóc xoăn đuôi ngựa thấp lệch phải, kính tròn to đen, áo trắng + tạp dề nâu Barista, khay gỗ ly latte bọt tim (+ `happy`, `worried`, `shy`, `sparkle`).
+  3. `kyky_dress` (206x580): KyKy váy kem cổ sen bo tròn, cardigan len vàng bơ, túi chéo hình mèo tai nhọn, giày sneaker trắng (+ `happy`, `shy`, `worried`, `sparkle`).
+  4. `hai_flowers` (194x620): Nam sinh Hải tóc rẽ ngôi lãng tử, **hoàn toàn KHÔNG kính**, vest len be, hai tay ôm bó linh lan chuông thắt nơ xanh (+ `smile`, `stunned`, `shy`).
+  5. `duc_apron`: Giữ nguyên 5 file đạt chuẩn theo xác nhận của Claude (`normal`, `smirk`, `happy`, `shy`, `worried`).
+- **Pipeline xử lý ảnh chuẩn mực:**
+  - Tách nền bằng border flood-fill + decontaminate viền màu (không viền trắng, viền mượt không răng cưa).
+  - Căn đáy (y_max chân chạm đáy ảnh, padding = 0), căn giữa ngang.
+  - Sinh 15 biểu cảm bằng Laplace inpainting của `make_expressions.py` từ toạ độ mắt/miệng đo chính xác (silhouette 100% không nhảy).
+- **Kiểm tra trực quan & Quality Gate:**
+  - Xuất ảnh so sánh toàn thân xếp cạnh nhân vật gốc tại `build/shots/review_v3.png`.
+  - Xuất bảng lưới đối chiếu 20 biểu cảm tại `build/shots/review_v3_expressions.png`.
+  - Cập nhật thông tin ghi công tại `docs/CREDITS.md`.
+  - Đã commit `9ed7558` trên nhánh `tap-3/agy-art2` (đã cập nhật vào PR #8). Pre-commit hook chạy 24/24 test dữ liệu + gdlint 44 files ALL CHECKS PASSED.
+- **Báo cáo tình trạng P2:** Model `gemini-3.1-flash-image` tạm hết quota sau khi sinh xong 4 ảnh P1, sẽ thực hiện sinh tiếp P2 ngay khi reset quota (~2h20m nữa).

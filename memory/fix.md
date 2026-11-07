@@ -251,3 +251,25 @@ Ký hiệu: [CHỜ THỰC HIỆN] · [ĐANG LÀM] · [XONG]
 - TASK 3 [CẦN ẢNH]: Claude không tự vẽ/tải được ảnh. Cần agy sinh `teacher_front.png`, `prof_front.png` (PNG nền trong suốt, cao 600px+, cùng nét chibi với `duc_front.png`); ghi nguồn vào CREDITS.md. Xong thì báo Claude để đăng ký `characters.json` + đặt vào cảnh 1 và 4.
 - TASK 4 [CẦN ẢNH]: cần agy sinh các biến thể body/outfit (xem danh sách trong TASK 4: kyky_free/hips/shy, duc_scratch/arms/laptop, hai_flowers/stunned, duc_apron/kyky_apron, duc_shirt/kyky_dress). Đặt tên file theo mẫu `<tên>_front.png` trong `game/assets/art/chars/`. Khi có file, Claude đăng ký pose và sửa `ep3_s2*.json`, `ep3_s4.json`.
 - Kiểm tra: tools\check.ps1 ALL CHECKS PASSED (24 test dữ liệu, 74 GUT, tự chơi 3 tập). Lỗi gặp: thanh Hiểu bài vượt 8 khi thêm điểm → bỏ bớt brain ở lựa chọn mẹ.
+
+---
+### ĐÃ XỬ LÝ — 2026-11-08 (Antigravity/Gemini, nhánh tap-3/agy-art)
+- TASK 2 (SPRITE MẸ KYKY) [XONG ẢNH & ĐĂNG KÝ]: Đã sinh bằng AI + tách nền rembg `mom_front.png` (cao 600px, áo lụa xanh ngọc quý phái, vóc dáng phụ nữ trung niên đẫy đà sang trọng) cùng 3 biểu cảm `mom_front_smile.png`, `mom_front_serious.png`, `mom_front_glare.png`. Đã đăng ký nhân vật `mom` vào `game/data/characters.json`. Sẵn sàng để Claude chuyển các nút `name: "Mẹ KyKy"` ở cuối `ep3_s2b.json` sang `speaker: "mom"`.
+- TASK 3 (SPRITE THẦY & GIÁO SƯ) [XONG ẢNH & ĐĂNG KÝ]: Đã sinh bằng AI + tách nền rembg `teacher_front.png` (Trưởng khoa CNTT, cao 620px) và `prof_front.png` (Giáo sư đối tác Pháp, cao 620px). Đã đăng ký `teacher` và `prof` vào `characters.json`. Sẵn sàng để Claude đưa vào Cảnh 1 và Cảnh 4.
+- TASK 4 (BODY POSES & OUTFITS) [XONG ẢNH & ĐĂNG KÝ]: Đã sinh và tách nền rembg `duc_apron.png`, `kyky_apron.png`, `hai_flowers.png`, `duc_shirt.png`, `kyky_dress.png`. Đã đăng ký các pose `apron`, `shirt` cho `duc`, `apron`, `dress` cho `kyky`, `flowers` cho `hai` trong `characters.json`. Sẵn sàng để Claude sửa các phân cảnh `ep3_s2*.json`, `ep3_s4.json`.
+- Bảng ảnh xem nhanh: Đã lưu contact sheet toàn bộ dàn sprite tại `build/shots/new_chars_sheet.png` và 4 biểu cảm Mẹ KyKy tại `build/shots/mom_all_expressions.png`.
+- Ghi công: Đã cập nhật đầy đủ dòng ghi công vào `docs/CREDITS.md`.
+---
+### ĐÃ XỬ LÝ — 2026-11-08 (Antigravity/Gemini, nhánh tap-3/agy-art2, bản v3)
+- VẼ LẠI 100% ĐỢT P1 SPRITE V3 BẰNG AI SINH ẢNH THẬT (GEMINI / NANO BANANA) THEO `yeucau_sua_sprite_v3.md`:
+  - Khắc phục triệt để lỗi vẽ hình học code ở v2: toàn bộ 4 base sprite mới được sinh bằng AI thật theo đúng thiết kế `main9.png`, 0% hình vẽ code.
+  - `duc_shirt`: sơ mi đen mở cổ V, xắn tay áo ở khuỷu, đồng hồ da đen tối giản, tay đút túi (+ `think`, `shy`, `awkward`, `soft`).
+  - `kyky_apron`: tóc nâu xoăn buộc lệch phải, kính tròn gọng đen to dày, áo trắng + tạp dề nâu Barista, khay gỗ ly latte bọt hình tim (+ `happy`, `worried`, `shy`, `sparkle`).
+  - `kyky_dress`: váy kem cổ sen bo tròn, cardigan len vàng bơ, túi chéo mèo, sneaker trắng (+ `happy`, `shy`, `worried`, `sparkle`).
+  - `hai_flowers`: tóc đen rẽ ngôi, KHÔNG kính, vest len be, ôm bó linh lan chuông thắt nơ xanh (+ `smile`, `stunned`, `shy`).
+  - Giữ nguyên 5 file `duc_apron*` theo Claude chấp thuận.
+  - Tách nền sạch, decontaminate viền alpha, căn đáy chuẩn, sinh 15 biểu cảm bằng Laplace inpainting (silhouette 100% không nhảy).
+  - Bảng kiểm tra trực quan toàn thân đặt cạnh nhân vật gốc: `build/shots/review_v3.png`.
+  - Bảng kiểm tra 20 biểu cảm: `build/shots/review_v3_expressions.png`.
+  - Đã cập nhật `docs/CREDITS.md`, commit `9ed7558` vào nhánh `tap-3/agy-art2` (đã cập nhật PR #8: https://github.com/AnhDuc0712/tram-dung-chan/pull/8).
+  - Pre-commit hook chạy 24/24 test dữ liệu + gdlint 44 files ALL CHECKS PASSED. Sẵn sàng để Claude review bằng mắt và merge PR #8.

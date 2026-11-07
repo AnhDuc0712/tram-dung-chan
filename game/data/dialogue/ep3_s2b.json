@@ -7,7 +7,7 @@
 			"music": "cafe_day",
 			"show": {
 				"duc": "normal@left",
-				"kyky": "normal@right"
+				"kyky": "apron@right"
 			},
 			"sfx": "bell",
 			"text": "Cánh cửa khép lại sau vị khách cuối. Cả quán thở phào. Trên quầy là một rừng ly dở dang.",
@@ -70,7 +70,7 @@
 		},
 		"p5": {
 			"show": {
-				"kyky": "shy"
+				"kyky": "apron_shy"
 			},
 			"emote": {
 				"kyky": "blush"
@@ -91,7 +91,7 @@
 		},
 		"g2": {
 			"show": {
-				"kyky": "laugh"
+				"kyky": "apron_happy"
 			},
 			"speaker": "kyky",
 			"text": "Mình… mình làm được hả anh? Em ngỡ sẽ làm đổ hết cơ!",
@@ -100,7 +100,7 @@
 		"o1": {
 			"show": {
 				"duc": "deadpan",
-				"kyky": "sad"
+				"kyky": "apron_sad"
 			},
 			"text": "Quầy bar như bãi chiến trường. Ba ly sai vị, hai ly chảy bọt, một ly… không rõ là gì.",
 			"next": "o2"
@@ -134,7 +134,7 @@
 		},
 		"m2": {
 			"show": {
-				"kyky": "sparkle"
+				"kyky": "apron_sparkle"
 			},
 			"speaker": "kyky",
 			"text": "Thật hả chị? Chị M là người tuyệt vời nhất thế giới!",
@@ -168,14 +168,14 @@
 			],
 			"show": {
 				"duc": "normal@left",
-				"kyky": "normal@right"
+				"kyky": "apron@right"
 			},
 			"text": "Chuông cửa lại reo. Một người phụ nữ trung niên đẫy đà bước vào, áo dài cách tân màu ngọc, túi xách gọn gàng. Bà chỉ đứng ở ngưỡng cửa, nhưng cả quán tự nhiên lặng đi.",
 			"next": "mom2"
 		},
 		"mom2": {
 			"show": {
-				"kyky": "shock@right"
+				"kyky": "apron_panic@right"
 			},
 			"emote": {
 				"kyky": "!"
@@ -270,7 +270,7 @@
 		},
 		"mom_c": {
 			"show": {
-				"kyky": "laugh@right"
+				"kyky": "apron_happy@right"
 			},
 			"name": "Mẹ KyKy",
 			"text": "Cho bác ly trà gừng. Cậu căng thẳng như đang bảo vệ luận văn vậy. Bác không ăn thịt người đâu, cậu Đức.",
@@ -278,7 +278,7 @@
 		},
 		"mom8": {
 			"show": {
-				"kyky": "worried@right"
+				"kyky": "apron_sweat@right"
 			},
 			"name": "Mẹ KyKy",
 			"text": "KyKy, má nói chuyện này luôn cho tiện. Giáo sư bên Pháp quen nhà mình hỏi con về học bổng. Anh Hải con bé bảo cũng đã giới thiệu. Gia đình hai bên quen nhau lâu, đi sẽ yên tâm.",

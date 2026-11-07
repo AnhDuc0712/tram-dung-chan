@@ -169,6 +169,56 @@
 			"love": {
 				"img": "kyky_hug_love",
 				"emote": "heart"
+			},
+			"apron": {
+				"img": "kyky_apron"
+			},
+			"apron_happy": {
+				"img": "kyky_apron_happy"
+			},
+			"apron_sparkle": {
+				"img": "kyky_apron_sparkle"
+			},
+			"apron_shy": {
+				"img": "kyky_apron",
+				"emote": "blush"
+			},
+			"apron_panic": {
+				"img": "kyky_apron",
+				"emote": "!"
+			},
+			"apron_sweat": {
+				"img": "kyky_apron",
+				"emote": "sweat"
+			},
+			"apron_sad": {
+				"img": "kyky_apron",
+				"emote": "tears"
+			},
+			"dress": {
+				"img": "kyky_dress"
+			},
+			"dress_happy": {
+				"img": "kyky_dress_happy"
+			},
+			"dress_sparkle": {
+				"img": "kyky_dress_sparkle"
+			},
+			"dress_shy": {
+				"img": "kyky_dress",
+				"emote": "blush"
+			},
+			"dress_sweat": {
+				"img": "kyky_dress",
+				"emote": "sweat"
+			},
+			"dress_sad": {
+				"img": "kyky_dress",
+				"emote": "tears"
+			},
+			"dress_surprised": {
+				"img": "kyky_dress",
+				"emote": "!"
 			}
 		}
 	},
