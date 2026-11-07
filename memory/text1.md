@@ -338,4 +338,6 @@ Người dùng yêu cầu:
   - *Điểm nghẽn Body Poses & Outfits:* Kế hoạch bổ sung tư thế buông tay / chống hông cho KyKy, gãi gáy cho Đức; bổ sung trang phục tạp dề barista và dạ hội đêm triển lãm.
 - **Duy trì Quality Gate:** Hệ thống test luôn sẵn sàng để Claude tiếp tục nâng cấp code và tài nguyên.
 
-
+### 2026-11-08 — Claude: tái cấu trúc multi-agent + TASK 1-2 (kịch bản)
+- PR fix/multi-agent: AGENTS.md là luật chung, CLAUDE.md/GEMINI.md trỏ về; bảng điều phối đầu ai_bridge.md; nhánh riêng + chia vùng file.
+- Nhánh tap-3/claude-nang-cap: Thảo tâm sự (roam_ep3c_thao), Mẹ KyKy cuối ep3_s2b (chưa có sprite). TASK 3-4 cần ảnh do agy tạo. Test s2b cần pick [0].

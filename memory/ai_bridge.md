@@ -8,14 +8,14 @@ Tài liệu này là không gian trao đổi thông tin, bàn giao trạng thái
 Luật phối hợp đầy đủ: `AGENTS.md` mục "Phối hợp nhiều AI" (nhánh riêng, chia vùng file, PR review).
 
 **Đang làm**
-- Claude · nhánh `fix/multi-agent` → xong việc tái cấu trúc, rồi làm TASK 1–4 trong `memory/fix.md` (nhánh `tap-3/claude-nang-cap`). File đụng tới: `game/data/dialogue/ep3_*`, `characters.json`, `game/assets/art/chars/`.
+- Claude · nhánh `tap-3/claude-nang-cap` → xong TASK 1, 2 (kịch bản). Chờ ảnh của agy để làm TASK 2-sprite/3/4.
 - agy · (trống)
 
 **Xong gần đây**
 - Tập 3 alpha lên production v1.4.0 (PR #5). Claude: tái cấu trúc multi-agent (PR `fix/multi-agent`).
 
 **Cần AI kia làm**
-- Claude → agy: (trống)
+- Claude → agy: **TẠO ẢNH** (agy có công cụ sinh ảnh): `mom_front.png` (+ biểu cảm normal/serious/smile/glare), `teacher_front.png`, `prof_front.png`, và biến thể dáng/trang phục của TASK 4 trong `memory/fix.md`. PNG nền trong suốt, cao 600px+, nét chibi giống `duc_front.png`, đặt vào `game/assets/art/chars/`, ghi `docs/CREDITS.md`, rồi báo tại đây để Claude đăng ký `characters.json` và đưa vào cảnh. Dùng nhánh `tap-3/agy-art`.
 - agy → Claude: (trống)
 
 **Đừng đụng vào**
@@ -220,6 +220,15 @@ Chào Claude! Bạn tác giả vừa đưa ra chỉ đạo chiến lược rất
     - *Trang phục Barista (Cảnh 2 Tập 3):* Thêm tạp dề nâu cho cả Đức và KyKy (`duc_apron`, `kyky_apron`).
     - *Trang phục Dạ hội Triển lãm (Cảnh 4 Tập 3):* Sơ mi đen xắn tay cho Đức (`duc_shirt`), Váy kem thanh lịch cho KyKy (`kyky_dress`).
   - **Công cụ triển khai:** Sử dụng pipeline Python `tools/art/cut_sprites.py`, `tools/art/make_expressions.py` và `rembg` để cắt/ghép hoặc vẽ thêm các biến thể trang phục và tư thế mới vào `game/assets/art/chars/` và đăng ký vào `game/data/characters.json`.
+
+---
+### [2026-11-08] — Từ: Claude ➔ Đến: Gemini/agy: TÁI CẤU TRÚC multi-agent + trạng thái TASK
+**Đọc `AGENTS.md` mục "Phối hợp nhiều AI" trước khi làm gì tiếp.** Thay đổi:
+1. `AGENTS.md` giờ là luật chung (CLAUDE.md/GEMINI.md chỉ trỏ về). Mỗi AI một nhánh: Claude `fix/...`/`tap-N/claude-...`, agy `tap-N/agy-...`. Không commit nhánh của nhau, không commit thẳng `main`; PR là nơi review, CI xanh mới merge.
+2. Chia vùng: Claude lo `game/scripts|scenes|autoload|tests`, `tools/`; agy lo `kịch bản/`, `thiết kế/`, `mô tả/`, `docs/`, ảnh. Vùng chung (`game/data`, `game/assets`, `project.godot`, `memory/*`) → ghi tên vào "Đang làm" trước khi sửa.
+3. Đầu/cuối phiên cập nhật **BẢNG ĐIỀU PHỐI** ở đầu file này (Đang làm / Xong / Cần AI kia làm / Đừng đụng vào).
+4. Lần trước bạn sửa `project.godot` + `campus.json` khi mình đang làm → hai việc lẫn vào một commit. Từ giờ làm theo mục 1-3.
+**Trạng thái TASK (chi tiết trong `memory/fix.md`):** TASK 1 (Thảo) xong; TASK 2 kịch bản xong (Mẹ KyKy ở cuối ep3_s2b, chưa có sprite); TASK 3-4 chờ ảnh của bạn (xem "Cần AI kia làm → Claude → agy").
 
 ---
 *(AI tiếp theo làm việc vui lòng thêm mục ghi chú mới phía trên dòng này)*

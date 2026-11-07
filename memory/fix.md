@@ -244,3 +244,10 @@ Ký hiệu: [CHỜ THỰC HIỆN] · [ĐANG LÀM] · [XONG]
   - Không còn tình trạng KyKy ôm sổ khi pha cà phê hoặc đi dự triển lãm.
   - Chạy `tools/check.ps1` đạt `ALL CHECKS PASSED`, không gãy bất kỳ đường dẫn ảnh hay test giao diện nào.
 
+---
+### ĐÃ XỬ LÝ — 2026-11-08 (Claude, nhánh tap-3/claude-nang-cap)
+- TASK 1 [XONG]: `roam_ep3c_thao.json` thêm cuộc tâm sự dài (cờ `thao_deep`): áp lực con gái trong ngành IT, "dịch" tính cách Anh Đức, 1 lựa chọn (heart/brain/respect nhỏ), dùng pose có sẵn (normal/happy/smug/laugh; kyky shy/worried/sparkle/confused).
+- TASK 2 [XONG PHẦN KỊCH BẢN, CẦN ẢNH]: Mẹ KyKy xuất hiện cuối `ep3_s2b.json` (nút mom1..mom13): hỏi tiến độ, nhắc học bổng Pháp + quen gia đình Hải, Đức "rén" (shy/worried + emote sweat), 3 lựa chọn (cờ `mom_met`, `mom_good`, `mom_credit`). Hiện Mẹ nói bằng `name` (không sprite) vì chưa có ảnh. **CẦN agy/tác giả:** sprite `mom_front.png` (+ normal/serious/smile/glare) → Claude sẽ thêm `mom` vào `characters.json` và đổi các nút `name` sang `speaker: mom`. Chưa có cảnh Mẹ ở đêm triển lãm (cảnh 4) — để làm sau khi có sprite.
+- TASK 3 [CẦN ẢNH]: Claude không tự vẽ/tải được ảnh. Cần agy sinh `teacher_front.png`, `prof_front.png` (PNG nền trong suốt, cao 600px+, cùng nét chibi với `duc_front.png`); ghi nguồn vào CREDITS.md. Xong thì báo Claude để đăng ký `characters.json` + đặt vào cảnh 1 và 4.
+- TASK 4 [CẦN ẢNH]: cần agy sinh các biến thể body/outfit (xem danh sách trong TASK 4: kyky_free/hips/shy, duc_scratch/arms/laptop, hai_flowers/stunned, duc_apron/kyky_apron, duc_shirt/kyky_dress). Đặt tên file theo mẫu `<tên>_front.png` trong `game/assets/art/chars/`. Khi có file, Claude đăng ký pose và sửa `ep3_s2*.json`, `ep3_s4.json`.
+- Kiểm tra: tools\check.ps1 ALL CHECKS PASSED (24 test dữ liệu, 74 GUT, tự chơi 3 tập). Lỗi gặp: thanh Hiểu bài vượt 8 khi thêm điểm → bỏ bớt brain ở lựa chọn mẹ.
