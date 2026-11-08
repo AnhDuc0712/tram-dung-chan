@@ -8,8 +8,8 @@
 			"music": "evening",
 			"ambient": "",
 			"show": {
-				"duc": "normal@left",
-				"hai": "normal@right"
+				"duc": "shirt@left",
+				"hai": "flowers@right"
 			},
 			"text": "Hai người đàn ông đứng cạnh bảng thông báo học bổng, giữa tiếng nhạc nhẹ vọng từ các gian hàng. KyKy đã được Trâm kéo đi lấy nước, vừa đủ xa để không nghe thấy.",
 			"next": "a"
@@ -21,7 +21,7 @@
 		},
 		"b": {
 			"show": {
-				"hai": "worried"
+				"hai": "flowers_shy"
 			},
 			"speaker": "hai",
 			"text": "Anh không đòi KyKy. Anh chỉ không muốn bất kỳ ai làm cô ấy lỡ chuyến bay của mình, kể cả vì “nể” anh hay vì “nể” cậu.",
@@ -29,7 +29,7 @@
 		},
 		"c": {
 			"show": {
-				"duc": "think"
+				"duc": "shirt_think"
 			},
 			"speaker": "duc",
 			"think": true,
@@ -70,8 +70,8 @@
 		},
 		"c_a": {
 			"show": {
-				"hai": "smile",
-				"duc": "normal"
+				"hai": "flowers_smile",
+				"duc": "shirt"
 			},
 			"speaker": "hai",
 			"text": "Vậy thì đủ rồi. Nếu cậu nói được câu đó với cô ấy, anh yên tâm.",
@@ -79,8 +79,8 @@
 		},
 		"c_b": {
 			"show": {
-				"hai": "smile",
-				"duc": "normal"
+				"hai": "flowers_smile",
+				"duc": "shirt"
 			},
 			"speaker": "hai",
 			"text": "Đúng. Cậu nói điều anh mất hai năm mới nghĩ ra.",
@@ -88,8 +88,8 @@
 		},
 		"c_c": {
 			"show": {
-				"hai": "normal",
-				"duc": "awkward"
+				"hai": "flowers",
+				"duc": "shirt_awkward"
 			},
 			"speaker": "hai",
 			"text": "Cảm ơn cậu đã thành thật. Ít người dám thừa nhận. Nhưng cậu biết đấy, “muốn cô ấy ở lại” và “giữ cô ấy lại” là hai chuyện khác nhau.",
@@ -102,7 +102,7 @@
 		},
 		"gift2": {
 			"show": {
-				"duc": "surprised"
+				"duc": "shirt_shock"
 			},
 			"speaker": "duc",
 			"text": "…Anh đúng là người khó ghét nhất mà tôi từng gặp.",
@@ -110,7 +110,7 @@
 		},
 		"gift3": {
 			"show": {
-				"hai": "happy"
+				"hai": "flowers_smile"
 			},
 			"speaker": "hai",
 			"text": "Anh sẽ coi đó là lời khen.",
@@ -143,7 +143,7 @@
 				"hai"
 			],
 			"show": {
-				"duc": "normal@left",
+				"duc": "shirt@left",
 				"kyky": "dress_sweat@right"
 			},
 			"text": "Hải đặt bó hoa vào tay KyKy, gật đầu chào Anh Đức, rồi biến mất vào đám đông dưới những chiếc đèn lồng.",
@@ -163,7 +163,7 @@
 		},
 		"b2": {
 			"show": {
-				"duc": "soft"
+				"duc": "shirt_soft"
 			},
 			"speaker": "duc",
 			"think": true,
@@ -253,7 +253,7 @@
 		"d_d": {
 			"show": {
 				"kyky": "dress_sad",
-				"duc": "panic"
+				"duc": "shirt_shock"
 			},
 			"text": "Lời vừa ra khỏi miệng, Anh Đức muốn rút lại. KyKy ngẩng lên, mắt mở to, rồi nhìn xuống bó hoa. Cô không giận. Cô chỉ im lặng.",
 			"next": "d_d2"
@@ -265,7 +265,7 @@
 		},
 		"d_d3": {
 			"show": {
-				"duc": "sad"
+				"duc": "shirt_think"
 			},
 			"speaker": "duc",
 			"think": true,

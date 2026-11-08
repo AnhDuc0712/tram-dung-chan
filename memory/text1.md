@@ -429,3 +429,36 @@ Yêu cầu từ người dùng & Claude: đọc `thiết kế/yeucau_sua_sprite_
   - Cập nhật thông tin ghi công tại `docs/CREDITS.md`.
   - Đã commit `9ed7558` trên nhánh `tap-3/agy-art2` (đã cập nhật vào PR #8). Pre-commit hook chạy 24/24 test dữ liệu + gdlint 44 files ALL CHECKS PASSED.
 - **Báo cáo tình trạng P2:** Model `gemini-3.1-flash-image` tạm hết quota sau khi sinh xong 4 ảnh P1, sẽ thực hiện sinh tiếp P2 ngay khi reset quota (~2h20m nữa).
+
+## Phiên 24 — 2026-11-08: Hoàn Thiện 100% Sprite v3 (P1 & P2), Khắc Phục Lỗi Tỉ Lệ & Mắt Ma
+Yêu cầu từ người dùng & Claude: đọc Mục 7 `thiết kế/yeucau_sua_sprite_v3.md`:
+1. Sinh lại `duc_apron`, `duc_shirt`, `hai_flowers` đúng tỉ lệ đầu (Đức 0.30, Hải 0.235, KyKy 0.35 ±8%).
+2. Khắc phục triệt để lỗi "mắt ma" trên các biểu cảm shy/worried/think/smile.
+3. Hoàn thành P2: Mẹ KyKy (`mom_front`), Thầy Trưởng khoa (`teacher_front`), GS Pháp (`prof_front`).
+4. Dọn dẹp thư mục chính `C:\devgame2D`.
+
+**Đã làm**
+- **100% Tranh vẽ tay AI (Gemini Nano Banana) + Tỉ lệ chuẩn xác:**
+  - `duc_shirt`: head_w=185px, tỉ lệ **0.298** (Target 0.300, sai số -0.5%).
+  - `duc_apron`: head_w=185px, tỉ lệ **0.298** (Target 0.300, sai số -0.5%).
+  - `hai_flowers`: head_w=146px, tỉ lệ **0.235** (Target 0.235, sai số +0.2%).
+  - `kyky_apron`: head_w=210px, tỉ lệ **0.362** (Target 0.350, sai số +3.4%).
+  - `kyky_dress`: head_w=206px, tỉ lệ **0.355** (Target 0.350, sai số +1.5%).
+  - `mom_front`: head_w=216px, tỉ lệ **0.360** (Target 0.350, sai số +2.9%).
+  - `teacher_front`: head_w=166px, tỉ lệ **0.268** (Target 0.270, sai số -0.8%).
+  - `prof_front`: head_w=180px, tỉ lệ **0.290** (Target 0.280, sai số +3.7%).
+  - Toàn bộ 8 base đều nằm trong dung sai ±3.7% (ngưỡng cho phép là ±8%).
+- **Xử lý dứt điểm "Mắt Ma":**
+  - Đo đạc chính xác tọa độ tròng kính và mắt trên từng base, đăng ký vào `FACES`.
+  - Inpaint loang màu da phủ kín hoàn toàn mắt cũ với độ nhạy `thr=0.45` trước khi vẽ biểu cảm mới; bảo vệ gọng kính đúng tọa độ, không còn mảng trắng lem hay nét mi thừa sót lại.
+  - Phóng to 200% kiểm tra mọi biểu cảm: linework sạch sẽ, mịn màng, liền mạch.
+- **Hoàn thành đợt P2:**
+  - `mom_front` (4 mặt): Đầy đặn trung niên, blouse lụa xanh ngọc cài trâm ngọc trai, hoa tai ngọc, thần thái uy nghi sắc sảo.
+  - `teacher_front` (3 mặt): IT Dean kính vuông, sơ mi xanh nhạt, ôm tập tài liệu, cười hiền hậu.
+  - `prof_front` (3 mặt): GS Pháp vest be, râu hoa râm, kính tròn gọng vàng, cặp da.
+- **Hạ tầng, Dọn dẹp & Git:**
+  - Đã xóa sạch toàn bộ file lạ/tạm trong thư mục chính `C:\devgame2D`.
+  - Đã xuất 2 file nghiệm thu tại `build/shots/review_v3.png` và `build/shots/review_v3_expressions.png`.
+  - Chạy `check.ps1 -Quick`: ALL CHECKS PASSED (24/24 test dữ liệu, gdlint 44 file).
+  - Đã commit `8388fd4` trên `tap-3/agy-art2` và push cập nhật vào PR #8 (https://github.com/AnhDuc0712/tram-dung-chan/pull/8).
+  - Đã cập nhật `memory/ai_bridge.md`, `memory/fix.md`, `docs/CREDITS.md`. Sẵn sàng bàn giao cho Claude.

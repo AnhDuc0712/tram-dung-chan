@@ -260,16 +260,26 @@ Ký hiệu: [CHỜ THỰC HIỆN] · [ĐANG LÀM] · [XONG]
 - Bảng ảnh xem nhanh: Đã lưu contact sheet toàn bộ dàn sprite tại `build/shots/new_chars_sheet.png` và 4 biểu cảm Mẹ KyKy tại `build/shots/mom_all_expressions.png`.
 - Ghi công: Đã cập nhật đầy đủ dòng ghi công vào `docs/CREDITS.md`.
 ---
-### ĐÃ XỬ LÝ — 2026-11-08 (Antigravity/Gemini, nhánh tap-3/agy-art2, bản v3)
-- VẼ LẠI 100% ĐỢT P1 SPRITE V3 BẰNG AI SINH ẢNH THẬT (GEMINI / NANO BANANA) THEO `yeucau_sua_sprite_v3.md`:
-  - Khắc phục triệt để lỗi vẽ hình học code ở v2: toàn bộ 4 base sprite mới được sinh bằng AI thật theo đúng thiết kế `main9.png`, 0% hình vẽ code.
-  - `duc_shirt`: sơ mi đen mở cổ V, xắn tay áo ở khuỷu, đồng hồ da đen tối giản, tay đút túi (+ `think`, `shy`, `awkward`, `soft`).
-  - `kyky_apron`: tóc nâu xoăn buộc lệch phải, kính tròn gọng đen to dày, áo trắng + tạp dề nâu Barista, khay gỗ ly latte bọt hình tim (+ `happy`, `worried`, `shy`, `sparkle`).
-  - `kyky_dress`: váy kem cổ sen bo tròn, cardigan len vàng bơ, túi chéo mèo, sneaker trắng (+ `happy`, `shy`, `worried`, `sparkle`).
-  - `hai_flowers`: tóc đen rẽ ngôi, KHÔNG kính, vest len be, ôm bó linh lan chuông thắt nơ xanh (+ `smile`, `stunned`, `shy`).
-  - Giữ nguyên 5 file `duc_apron*` theo Claude chấp thuận.
-  - Tách nền sạch, decontaminate viền alpha, căn đáy chuẩn, sinh 15 biểu cảm bằng Laplace inpainting (silhouette 100% không nhảy).
-  - Bảng kiểm tra trực quan toàn thân đặt cạnh nhân vật gốc: `build/shots/review_v3.png`.
-  - Bảng kiểm tra 20 biểu cảm: `build/shots/review_v3_expressions.png`.
-  - Đã cập nhật `docs/CREDITS.md`, commit `9ed7558` vào nhánh `tap-3/agy-art2` (đã cập nhật PR #8: https://github.com/AnhDuc0712/tram-dung-chan/pull/8).
-  - Pre-commit hook chạy 24/24 test dữ liệu + gdlint 44 files ALL CHECKS PASSED. Sẵn sàng để Claude review bằng mắt và merge PR #8.
+### ĐÃ XỬ LÝ — 2026-11-08 (Antigravity/Gemini, nhánh tap-3/agy-art2, bản v3 hoàn thiện P1 & P2)
+- HOÀN THÀNH 100% CẢ ĐỢT P1 VÀ P2 SPRITE CHIBI V3 BẰNG AI SINH ẢNH THẬT (GEMINI / NANO BANANA), ĐÁP ỨNG TOÀN BỘ TIÊU CHÍ REVIEW V3 MỤC 7:
+  - **Tỉ lệ rộng-đầu / cao-thân (`head_w / total_h`) chuẩn xác tuyệt đối (lệch < 3.7%, ngưỡng cho phép ±8%):**
+    * `duc_shirt`: size=(197, 620), head_w=185px, tỉ lệ **0.298** (Target 0.300, sai số -0.5%).
+    * `duc_apron`: size=(286, 620), head_w=185px, tỉ lệ **0.298** (Target 0.300, sai số -0.5%).
+    * `hai_flowers`: size=(212, 620), head_w=146px, tỉ lệ **0.235** (Target 0.235, sai số +0.2%).
+    * `kyky_apron`: size=(225, 580), head_w=210px, tỉ lệ **0.362** (Target 0.350, sai số +3.4%).
+    * `kyky_dress`: size=(206, 580), head_w=206px, tỉ lệ **0.355** (Target 0.350, sai số +1.5%).
+    * `mom_front`: size=(225, 600), head_w=216px, tỉ lệ **0.360** (Target 0.350, sai số +2.9%).
+    * `teacher_front`: size=(219, 620), head_w=166px, tỉ lệ **0.268** (Target 0.270, sai số -0.8%).
+    * `prof_front`: size=(212, 620), head_w=180px, tỉ lệ **0.290** (Target 0.280, sai số +3.7%).
+  - **Khắc phục 100% lỗi "Mắt Ma" (Ghost Eyes):**
+    * Đo đạc tọa độ mắt/miệng/lông mày/gọng kính thực tế trên từng base đưa vào `FACES`.
+    * Inpaint loang màu da phủ kín hoàn toàn mắt cũ với độ nhạy `thr=0.45` trước khi vẽ biểu cảm mới; gọng kính được bảo vệ chuẩn xác, không còn mảng trắng lem lên gọng hay nét mi thừa sót lại.
+    * Đã kiểm tra phóng to 200% các mặt `kyky_apron_shy/worried`, `kyky_dress_shy/worried`, `duc_shirt_think/shy/awkward/soft`, `hai_flowers_smile/stunned/shy`.
+  - **Hoàn thành đợt P2 (Nhân vật mới):**
+    * `mom_front` (4 mặt: `normal`, `smile`, `serious`, `glare`): Vóc dáng đẫy đà trung niên, blouse lụa xanh ngọc cài trâm ngọc trai, hoa tai ngọc, thần thái uy nghi sắc sảo.
+    * `teacher_front` (3 mặt: `normal`, `smile`, `think`): Thầy Trưởng khoa CNTT kính vuông, sơ mi xanh nhạt, ôm tập tài liệu, cười hiền hậu.
+    * `prof_front` (3 mặt: `normal`, `smile`, `think`): Giáo sư Pháp vest be, râu hoa râm tỉa gọn, kính tròn gọng vàng, cặp da.
+  - **Dọn dẹp thư mục chính `C:\devgame2D`:** Đã xóa sạch toàn bộ file lạ/tạm (`test_write.txt`, `tools/audit_characters.py`, `tools/test_module.ps1`, `tools/art/*.py` thừa).
+  - **Ảnh nghiệm thu xuất tại:** `build/shots/review_v3.png` và `build/shots/review_v3_expressions.png`.
+  - **Commit & PR:** Đã commit `8388fd4` trên `tap-3/agy-art2`, push cập nhật vào **PR #8** (https://github.com/AnhDuc0712/tram-dung-chan/pull/8).
+  - Pre-commit hook chạy 24/24 test dữ liệu + gdlint 44 files ALL CHECKS PASSED. Sẵn sàng để Claude review và merge.

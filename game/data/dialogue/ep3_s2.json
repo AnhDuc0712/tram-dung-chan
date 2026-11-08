@@ -21,7 +21,7 @@
 		"b": {
 			"show": {
 				"m": "worried@right",
-				"duc": "deadpan@left"
+				"duc": "apron@left"
 			},
 			"speaker": "duc",
 			"text": "Mười lăm ly. Một mình. Được. Tôi đã từng sống sót qua một mùa thi.",
@@ -33,7 +33,7 @@
 			],
 			"show": {
 				"kyky": "apron_happy@right",
-				"duc": "normal@left"
+				"duc": "apron@left"
 			},
 			"speaker": "kyky",
 			"text": "Để em phụ anh Đức cho ạ! Em biết bấm máy ép, với trang trí bọt sữa nữa! (Hồi Tập một anh đã dạy em… hình con rùa.)",
@@ -41,7 +41,7 @@
 		},
 		"d": {
 			"show": {
-				"duc": "smirk"
+				"duc": "apron_smirk"
 			},
 			"speaker": "duc",
 			"text": "Đứng yên đó. Chưa có tạp dề thì chưa được bước vào quầy.",
@@ -56,7 +56,7 @@
 		},
 		"f": {
 			"show": {
-				"duc": "soft"
+				"duc": "apron_happy"
 			},
 			"speaker": "duc",
 			"think": true,
@@ -83,7 +83,7 @@
 		},
 		"tie_self": {
 			"show": {
-				"duc": "deadpan"
+				"duc": "apron"
 			},
 			"speaker": "duc",
 			"text": "Dây ở đây, kéo về phía trước, rồi vòng lại. Tôi không đụng vào. Em tự làm được.",
@@ -130,7 +130,7 @@
 		"ready": {
 			"show": {
 				"kyky": "apron",
-				"duc": "normal"
+				"duc": "apron"
 			},
 			"sfx": "bell",
 			"text": "Chuông cửa reo liên hồi, khách xếp hàng dài. Anh Đức xắn tay áo, KyKy siết chặt hai nắm tay.",
