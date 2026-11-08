@@ -84,6 +84,51 @@
 			},
 			"deadpan": {
 				"img": "duc_stand_think"
+			},
+			"apron": {
+				"img": "duc_apron"
+			},
+			"apron_smirk": {
+				"img": "duc_apron_smirk"
+			},
+			"apron_happy": {
+				"img": "duc_apron_smirk"
+			},
+			"apron_shy": {
+				"img": "duc_apron_shy"
+			},
+			"apron_worried": {
+				"img": "duc_apron_worried"
+			},
+			"shirt": {
+				"img": "duc_shirt"
+			},
+			"shirt_soft": {
+				"img": "duc_shirt_soft"
+			},
+			"shirt_think": {
+				"img": "duc_shirt",
+				"emote": "dots"
+			},
+			"shirt_shy": {
+				"img": "duc_shirt",
+				"emote": "blush"
+			},
+			"shirt_awkward": {
+				"img": "duc_shirt",
+				"emote": "sweat"
+			},
+			"apron_awkward": {
+				"img": "duc_apron",
+				"emote": "sweat"
+			},
+			"apron_shock": {
+				"img": "duc_apron",
+				"emote": "!"
+			},
+			"shirt_shock": {
+				"img": "duc_shirt",
+				"emote": "!"
 			}
 		}
 	},
@@ -169,6 +214,62 @@
 			"love": {
 				"img": "kyky_hug_love",
 				"emote": "heart"
+			},
+			"apron": {
+				"img": "kyky_apron"
+			},
+			"apron_happy": {
+				"img": "kyky_apron_happy"
+			},
+			"apron_sparkle": {
+				"img": "kyky_apron_sparkle"
+			},
+			"apron_shy": {
+				"img": "kyky_apron",
+				"emote": "blush"
+			},
+			"apron_panic": {
+				"img": "kyky_apron",
+				"emote": "!"
+			},
+			"apron_sweat": {
+				"img": "kyky_apron",
+				"emote": "sweat"
+			},
+			"apron_sad": {
+				"img": "kyky_apron",
+				"emote": "tears"
+			},
+			"dress": {
+				"img": "kyky_dress"
+			},
+			"dress_happy": {
+				"img": "kyky_dress_happy"
+			},
+			"dress_sparkle": {
+				"img": "kyky_dress_sparkle"
+			},
+			"dress_shy": {
+				"img": "kyky_dress",
+				"emote": "blush"
+			},
+			"dress_sweat": {
+				"img": "kyky_dress",
+				"emote": "sweat"
+			},
+			"dress_sad": {
+				"img": "kyky_dress",
+				"emote": "tears"
+			},
+			"dress_surprised": {
+				"img": "kyky_dress",
+				"emote": "!"
+			},
+			"apron_worried": {
+				"img": "kyky_apron_worried"
+			},
+			"dress_worried": {
+				"img": "kyky_dress_worried"
 			}
 		}
 	},
@@ -438,6 +539,79 @@
 			"blush": {
 				"img": "hai_front_shy",
 				"emote": "sweat"
+			},
+			"flowers": {
+				"img": "hai_flowers"
+			},
+			"flowers_smile": {
+				"img": "hai_flowers_smile"
+			},
+			"flowers_shy": {
+				"img": "hai_flowers_shy"
+			},
+			"flowers_stunned": {
+				"img": "hai_flowers",
+				"emote": "!"
+			}
+		}
+	},
+	"mom": {
+		"name": "Mẹ KyKy",
+		"color": "#2e7d6b",
+		"face": [
+			0.5,
+			0.17
+		],
+		"poses": {
+			"normal": {
+				"img": "mom_front"
+			},
+			"smile": {
+				"img": "mom_front_smile"
+			},
+			"serious": {
+				"img": "mom_front_serious"
+			},
+			"glare": {
+				"img": "mom_front_glare"
+			}
+		}
+	},
+	"teacher": {
+		"name": "Thầy Trưởng khoa",
+		"color": "#4a6fa5",
+		"face": [
+			0.5,
+			0.17
+		],
+		"poses": {
+			"normal": {
+				"img": "teacher_front"
+			},
+			"smile": {
+				"img": "teacher_front_smile"
+			},
+			"think": {
+				"img": "teacher_front_think"
+			}
+		}
+	},
+	"prof": {
+		"name": "Giáo sư",
+		"color": "#8a7a5a",
+		"face": [
+			0.5,
+			0.17
+		],
+		"poses": {
+			"normal": {
+				"img": "prof_front"
+			},
+			"smile": {
+				"img": "prof_front_smile"
+			},
+			"think": {
+				"img": "prof_front_think"
 			}
 		}
 	}

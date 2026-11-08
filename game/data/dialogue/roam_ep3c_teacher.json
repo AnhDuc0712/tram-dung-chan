@@ -2,13 +2,78 @@
 	"title": "Tập 3 – Thầy Trưởng khoa dưới gốc xà cừ",
 	"start": "a",
 	"nodes": {
-		"a": {"branch": [{"if": {"flags": ["clue_teacher"]}, "next": "again"}], "default": "first"},
-		"first": {"show": {"duc": "normal@left", "kyky": "shy@right"}, "text": "Thầy Trưởng khoa CNTT đứng dưới gốc xà cừ, tay cầm giáo trình, tay cầm cốc cà phê có in logo Gờ 23.", "next": "b"},
-		"b": {"speaker": "ducanh", "name": "Thầy Trưởng khoa", "text": "Nhóm thằng Đức làm đồ án năm nay cứng tay đấy. Nhưng nghe bảo tìm đâu ra được cô bé thiết kế giao diện nhìn mát mắt hẳn, không còn cục mịch như mấy dòng lệnh của nó nữa!", "next": "c"},
-		"c": {"show": {"kyky": "shock"}, "speaker": "kyky", "text": "Dạ?! Dạ… em chào thầy ạ! Em chưa làm gì hết ạ!", "next": "d"},
-		"d": {"show": {"duc": "smirk"}, "speaker": "duc", "text": "Thầy nhận xét kỹ ghê. Mà thầy có thấy một con mèo xám béo đi ngang đây không ạ?", "next": "e"},
-		"e": {"speaker": "ducanh", "name": "Thầy Trưởng khoa", "text": "Mèo hả? Có. Nó vừa ngồi canh cái gì đó ở khu gửi xe, cứ như bảo vệ ca đêm. Tôi nghĩ nó thuộc về một quán cà phê nào đó… vì nó nhìn tôi rất khinh.", "next": "f"},
-		"f": {"show": {"kyky": "happy"}, "speaker": "kyky", "text": "Là Nlong rồi! Cảm ơn thầy!", "effects": {"set_flags": ["clue_teacher"], "heart": 1}},
-		"again": {"speaker": "ducanh", "name": "Thầy Trưởng khoa", "text": "Chúc hai em tìm được thứ đã mất. Và chúc đồ án qua môn."}
+		"a": {
+			"branch": [
+				{
+					"if": {
+						"flags": [
+							"clue_teacher"
+						]
+					},
+					"next": "again"
+				}
+			],
+			"default": "first"
+		},
+		"first": {
+			"show": {
+				"duc": "normal@left",
+				"kyky": "shy@right"
+			},
+			"text": "Thầy Trưởng khoa CNTT đứng dưới gốc xà cừ, tay cầm giáo trình, tay cầm cốc cà phê có in logo Gờ 23.",
+			"next": "b"
+		},
+		"b": {
+			"show": {
+				"teacher": "normal@center"
+			},
+			"speaker": "teacher",
+			"text": "Nhóm thằng Đức làm đồ án năm nay cứng tay đấy. Nhưng nghe bảo tìm đâu ra được cô bé thiết kế giao diện nhìn mát mắt hẳn, không còn cục mịch như mấy dòng lệnh của nó nữa!",
+			"next": "c"
+		},
+		"c": {
+			"show": {
+				"kyky": "shock"
+			},
+			"speaker": "kyky",
+			"text": "Dạ?! Dạ… em chào thầy ạ! Em chưa làm gì hết ạ!",
+			"next": "d"
+		},
+		"d": {
+			"show": {
+				"duc": "smirk"
+			},
+			"speaker": "duc",
+			"text": "Thầy nhận xét kỹ ghê. Mà thầy có thấy một con mèo xám béo đi ngang đây không ạ?",
+			"next": "e"
+		},
+		"e": {
+			"show": {
+				"teacher": "normal@center"
+			},
+			"speaker": "teacher",
+			"text": "Mèo hả? Có. Nó vừa ngồi canh cái gì đó ở khu gửi xe, cứ như bảo vệ ca đêm. Tôi nghĩ nó thuộc về một quán cà phê nào đó… vì nó nhìn tôi rất khinh.",
+			"next": "f"
+		},
+		"f": {
+			"show": {
+				"kyky": "happy"
+			},
+			"speaker": "kyky",
+			"text": "Là Nlong rồi! Cảm ơn thầy!",
+			"effects": {
+				"set_flags": [
+					"clue_teacher"
+				],
+				"heart": 1
+			}
+		},
+		"again": {
+			"show": {
+				"teacher": "normal@center"
+			},
+			"speaker": "teacher",
+			"text": "Chúc hai em tìm được thứ đã mất. Và chúc đồ án qua môn."
+		}
 	}
 }

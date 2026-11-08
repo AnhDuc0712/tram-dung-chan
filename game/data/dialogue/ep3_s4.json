@@ -2,41 +2,280 @@
 	"title": "Tập 3 – Cảnh 4: Hải, Đức và quyết định của KyKy",
 	"start": "start",
 	"nodes": {
-		"start": {"card": "20:00 — Cuối phố triển lãm", "bg": "street_rain", "music": "evening", "ambient": "", "show": {"duc": "normal@left", "hai": "normal@right"}, "text": "Hai người đàn ông đứng cạnh bảng thông báo học bổng, giữa tiếng nhạc nhẹ vọng từ các gian hàng. KyKy đã được Trâm kéo đi lấy nước, vừa đủ xa để không nghe thấy.", "next": "a"},
-		"a": {"speaker": "hai", "text": "Anh sẽ nói thẳng, vì hồi trước anh đã không nói. Năm hai, anh có một cơ hội học bổng. Cùng lúc, anh thích một người. Anh nghĩ: để mình xong chuyện học bổng rồi mới hỏi cô ấy. Khi anh xong, cô ấy đã đi trước anh một chuyến bay.", "next": "b"},
-		"b": {"show": {"hai": "worried"}, "speaker": "hai", "text": "Anh không đòi KyKy. Anh chỉ không muốn bất kỳ ai làm cô ấy lỡ chuyến bay của mình, kể cả vì “nể” anh hay vì “nể” cậu.", "next": "c"},
-		"c": {"show": {"duc": "think"}, "speaker": "duc", "think": true, "text": "Anh ta đang nói điều tôi vẫn không dám nghĩ tới. Hồ sơ hạn chót là Chủ nhật. Chính tôi cũng biết mình sợ gì.",
+		"start": {
+			"card": "20:00 — Cuối phố triển lãm",
+			"bg": "street_rain",
+			"music": "evening",
+			"ambient": "",
+			"show": {
+				"duc": "shirt@left",
+				"hai": "flowers@right"
+			},
+			"text": "Hai người đàn ông đứng cạnh bảng thông báo học bổng, giữa tiếng nhạc nhẹ vọng từ các gian hàng. KyKy đã được Trâm kéo đi lấy nước, vừa đủ xa để không nghe thấy.",
+			"next": "a"
+		},
+		"a": {
+			"speaker": "hai",
+			"text": "Anh sẽ nói thẳng, vì hồi trước anh đã không nói. Năm hai, anh có một cơ hội học bổng. Cùng lúc, anh thích một người. Anh nghĩ: để mình xong chuyện học bổng rồi mới hỏi cô ấy. Khi anh xong, cô ấy đã đi trước anh một chuyến bay.",
+			"next": "b"
+		},
+		"b": {
+			"show": {
+				"hai": "flowers_shy"
+			},
+			"speaker": "hai",
+			"text": "Anh không đòi KyKy. Anh chỉ không muốn bất kỳ ai làm cô ấy lỡ chuyến bay của mình, kể cả vì “nể” anh hay vì “nể” cậu.",
+			"next": "c"
+		},
+		"c": {
+			"show": {
+				"duc": "shirt_think"
+			},
+			"speaker": "duc",
+			"think": true,
+			"text": "Anh ta đang nói điều tôi vẫn không dám nghĩ tới. Hồ sơ hạn chót là Chủ nhật. Chính tôi cũng biết mình sợ gì.",
 			"choices": [
-				{"text": "“Tôi không giữ cô ấy. Tôi chỉ muốn là người cô ấy tìm khi quay đầu lại.”", "effects": {"add": {"respect": 1, "hai": 1}}, "next": "c_a"},
-				{"text": "“Học bổng đó là của cô ấy. Không phải của anh, cũng không phải của tôi.”", "effects": {"brain": 0, "add": {"respect": 1}}, "next": "c_b"},
-				{"text": "“Nói thật là… tôi muốn cô ấy ở lại. Anh biết không?”", "effects": {"add": {"jealous": 2, "respect": -1, "hai": -1}}, "next": "c_c"}
-			]},
-		"c_a": {"show": {"hai": "smile", "duc": "normal"}, "speaker": "hai", "text": "Vậy thì đủ rồi. Nếu cậu nói được câu đó với cô ấy, anh yên tâm.", "next": "gift"},
-		"c_b": {"show": {"hai": "smile", "duc": "normal"}, "speaker": "hai", "text": "Đúng. Cậu nói điều anh mất hai năm mới nghĩ ra.", "next": "gift"},
-		"c_c": {"show": {"hai": "normal", "duc": "awkward"}, "speaker": "hai", "text": "Cảm ơn cậu đã thành thật. Ít người dám thừa nhận. Nhưng cậu biết đấy, “muốn cô ấy ở lại” và “giữ cô ấy lại” là hai chuyện khác nhau.", "next": "gift"},
-		"gift": {"speaker": "hai", "text": "Bó linh lan này không phải để tỏ tình. Anh định tặng cô ấy để chúc mừng tác phẩm. Nhưng cậu muốn đưa giúp không? Cậu mới là người ở cạnh cô ấy mỗi ngày.", "next": "gift2"},
-		"gift2": {"show": {"duc": "surprised"}, "speaker": "duc", "text": "…Anh đúng là người khó ghét nhất mà tôi từng gặp.", "next": "gift3"},
-		"gift3": {"show": {"hai": "happy"}, "speaker": "hai", "text": "Anh sẽ coi đó là lời khen.", "next": "kyky_in"},
-		"kyky_in": {"cg": "cg_expo", "sfx": "pop", "text": "KyKy quay lại, trên tay là hai ly nước. Cô khựng người khi thấy hai người họ đứng cạnh nhau, rồi bàn tay anh Đức nhẹ nhàng đặt lên vai cô, vừa đủ để cô biết anh ở đây, không hơn.", "next": "k1"},
-		"k1": {"speaker": "hai", "text": "Chúc mừng KyKy. Giáo sư đối tác người Pháp của anh vừa xem gian trưng bày của em và rất thích. Thầy muốn mời em ăn tối vào tối mai để nói về học bổng. Nhưng quyết định hoàn toàn là của em.", "next": "k2"},
-		"k2": {"speaker": "kyky", "text": "Dạ… Em cảm ơn anh Hải. Em… em xin được suy nghĩ ạ. Em muốn tự nghĩ.", "next": "k3"},
-		"k3": {"speaker": "hai", "text": "Đương nhiên. Hạn chót là sáng mai. Nếu em cần một lá thư giới thiệu, anh viết sẵn rồi.", "next": "k4"},
-		"k4": {"cg": "none", "hide": ["hai"], "show": {"duc": "normal@left", "kyky": "worried@right"}, "text": "Hải đặt bó hoa vào tay KyKy, gật đầu chào Anh Đức, rồi biến mất vào đám đông dưới những chiếc đèn lồng.", "next": "bench"},
-		"bench": {"text": "Hai người ngồi xuống ghế đá cuối phố. Một lúc lâu, KyKy chỉ nhìn bó hoa.", "next": "b1"},
-		"b1": {"show": {"kyky": "sad"}, "speaker": "kyky", "text": "Em sợ lắm anh Đức. Em sợ đi xa. Em sợ mình không đủ giỏi. Em sợ rời khỏi Gờ 23, khỏi Nlong, khỏi… anh. Mà em cũng sợ nếu không đi, sau này em sẽ nghĩ mãi về chuyến đi đó.", "next": "b2"},
-		"b2": {"show": {"duc": "soft"}, "speaker": "duc", "think": true, "text": "Lúc này mọi câu tôi nói đều có thể trở thành chiếc xích hoặc đôi cánh. Phải chọn thật kỹ.",
+				{
+					"text": "“Tôi không giữ cô ấy. Tôi chỉ muốn là người cô ấy tìm khi quay đầu lại.”",
+					"effects": {
+						"add": {
+							"respect": 1,
+							"hai": 1
+						}
+					},
+					"next": "c_a"
+				},
+				{
+					"text": "“Học bổng đó là của cô ấy. Không phải của anh, cũng không phải của tôi.”",
+					"effects": {
+						"brain": 0,
+						"add": {
+							"respect": 1
+						}
+					},
+					"next": "c_b"
+				},
+				{
+					"text": "“Nói thật là… tôi muốn cô ấy ở lại. Anh biết không?”",
+					"effects": {
+						"add": {
+							"jealous": 2,
+							"respect": -1,
+							"hai": -1
+						}
+					},
+					"next": "c_c"
+				}
+			]
+		},
+		"c_a": {
+			"show": {
+				"hai": "flowers_smile",
+				"duc": "shirt"
+			},
+			"speaker": "hai",
+			"text": "Vậy thì đủ rồi. Nếu cậu nói được câu đó với cô ấy, anh yên tâm.",
+			"next": "gift"
+		},
+		"c_b": {
+			"show": {
+				"hai": "flowers_smile",
+				"duc": "shirt"
+			},
+			"speaker": "hai",
+			"text": "Đúng. Cậu nói điều anh mất hai năm mới nghĩ ra.",
+			"next": "gift"
+		},
+		"c_c": {
+			"show": {
+				"hai": "flowers",
+				"duc": "shirt_awkward"
+			},
+			"speaker": "hai",
+			"text": "Cảm ơn cậu đã thành thật. Ít người dám thừa nhận. Nhưng cậu biết đấy, “muốn cô ấy ở lại” và “giữ cô ấy lại” là hai chuyện khác nhau.",
+			"next": "gift"
+		},
+		"gift": {
+			"speaker": "hai",
+			"text": "Bó linh lan này không phải để tỏ tình. Anh định tặng cô ấy để chúc mừng tác phẩm. Nhưng cậu muốn đưa giúp không? Cậu mới là người ở cạnh cô ấy mỗi ngày.",
+			"next": "gift2"
+		},
+		"gift2": {
+			"show": {
+				"duc": "shirt_shock"
+			},
+			"speaker": "duc",
+			"text": "…Anh đúng là người khó ghét nhất mà tôi từng gặp.",
+			"next": "gift3"
+		},
+		"gift3": {
+			"show": {
+				"hai": "flowers_smile"
+			},
+			"speaker": "hai",
+			"text": "Anh sẽ coi đó là lời khen.",
+			"next": "kyky_in"
+		},
+		"kyky_in": {
+			"cg": "cg_expo",
+			"sfx": "pop",
+			"text": "KyKy quay lại, trên tay là hai ly nước. Cô khựng người khi thấy hai người họ đứng cạnh nhau, rồi bàn tay anh Đức nhẹ nhàng đặt lên vai cô, vừa đủ để cô biết anh ở đây, không hơn.",
+			"next": "k1"
+		},
+		"k1": {
+			"speaker": "hai",
+			"text": "Chúc mừng KyKy. Giáo sư đối tác người Pháp của anh vừa xem gian trưng bày của em và rất thích. Thầy muốn mời em ăn tối vào tối mai để nói về học bổng. Nhưng quyết định hoàn toàn là của em.",
+			"next": "k2"
+		},
+		"k2": {
+			"speaker": "kyky",
+			"text": "Dạ… Em cảm ơn anh Hải. Em… em xin được suy nghĩ ạ. Em muốn tự nghĩ.",
+			"next": "k3"
+		},
+		"k3": {
+			"speaker": "hai",
+			"text": "Đương nhiên. Hạn chót là sáng mai. Nếu em cần một lá thư giới thiệu, anh viết sẵn rồi.",
+			"next": "k4"
+		},
+		"k4": {
+			"cg": "none",
+			"hide": [
+				"hai"
+			],
+			"show": {
+				"duc": "shirt@left",
+				"kyky": "dress_sweat@right"
+			},
+			"text": "Hải đặt bó hoa vào tay KyKy, gật đầu chào Anh Đức, rồi biến mất vào đám đông dưới những chiếc đèn lồng.",
+			"next": "bench"
+		},
+		"bench": {
+			"text": "Hai người ngồi xuống ghế đá cuối phố. Một lúc lâu, KyKy chỉ nhìn bó hoa.",
+			"next": "b1"
+		},
+		"b1": {
+			"show": {
+				"kyky": "dress_sad"
+			},
+			"speaker": "kyky",
+			"text": "Em sợ lắm anh Đức. Em sợ đi xa. Em sợ mình không đủ giỏi. Em sợ rời khỏi Gờ 23, khỏi Nlong, khỏi… anh. Mà em cũng sợ nếu không đi, sau này em sẽ nghĩ mãi về chuyến đi đó.",
+			"next": "b2"
+		},
+		"b2": {
+			"show": {
+				"duc": "shirt_soft"
+			},
+			"speaker": "duc",
+			"think": true,
+			"text": "Lúc này mọi câu tôi nói đều có thể trở thành chiếc xích hoặc đôi cánh. Phải chọn thật kỹ.",
 			"choices": [
-				{"text": "“Em đi đi. Tôi đợi. Không bắt em phải hứa gì cả.”", "effects": {"add": {"respect": 3}, "set_flags": ["kyky_goes"]}, "next": "d_a"},
-				{"text": "“Ở lại cũng không phải bỏ cuộc, miễn là em thật sự muốn.”", "effects": {"add": {"respect": 3}, "set_flags": ["kyky_stays"]}, "next": "d_b"},
-				{"text": "“Tôi cũng không biết. Nhưng dù em chọn gì, tôi ở đây.”", "effects": {"heart": 3, "set_flags": ["kyky_both"]}, "next": "d_c"},
-				{"text": "“Đừng đi.” (Nói ra rồi mới biết mình vừa nói gì.)", "if": {"min": {"jealous": 2}}, "effects": {"add": {"jealous": 3, "respect": -3}, "set_flags": ["said_dont_go"]}, "next": "d_d"}
-			]},
-		"d_a": {"show": {"kyky": "surprised"}, "speaker": "kyky", "text": "…Anh nói “đợi” mà không bắt em hứa à? Em thích câu đó. Em sẽ nghĩ… có thể em sẽ đi.", "next": "after"},
-		"d_b": {"show": {"kyky": "normal"}, "speaker": "kyky", "text": "Em chưa nghĩ tới việc ở lại cũng là một lựa chọn… không phải cái cớ. Em cảm ơn anh. Em hình như đã biết mình muốn gì.", "next": "after"},
-		"d_c": {"show": {"kyky": "shy"}, "emote": {"kyky": "heart"}, "speaker": "kyky", "text": "Anh cũng không biết hả? …Thì ra “đại thần” cũng có lúc không biết. Vậy hay là… mình thử cả hai? Em nộp hồ sơ. Em vẫn làm dự án. Quyết định sau khi có kết quả.", "next": "after"},
-		"d_d": {"show": {"kyky": "sad", "duc": "panic"}, "text": "Lời vừa ra khỏi miệng, Anh Đức muốn rút lại. KyKy ngẩng lên, mắt mở to, rồi nhìn xuống bó hoa. Cô không giận. Cô chỉ im lặng.", "next": "d_d2"},
-		"d_d2": {"speaker": "kyky", "text": "Em… cần thời gian một chút. Anh nói thật lòng, em biết. Nhưng em cần được tự chọn, không phải bị giữ lại.", "next": "d_d3"},
-		"d_d3": {"show": {"duc": "sad"}, "speaker": "duc", "think": true, "text": "Hải nói đúng. “Muốn cô ấy ở lại” và “giữ cô ấy lại” là hai chuyện khác nhau. Tôi vừa làm chuyện thứ hai.", "next": "after"},
-		"after": {"hide": "all", "text": "Họ ngồi thêm một lúc, không nói gì nữa. Rồi KyKy đứng dậy: “Mai sớm em nộp hồ sơ. Anh… sáng mai ra hiên quán chờ em được không? Em muốn nói với anh một chuyện, ở nơi mình gặp nhau lần đầu.”", "then": "vn:ep3_s5"}
+				{
+					"text": "“Em đi đi. Tôi đợi. Không bắt em phải hứa gì cả.”",
+					"effects": {
+						"add": {
+							"respect": 3
+						},
+						"set_flags": [
+							"kyky_goes"
+						]
+					},
+					"next": "d_a"
+				},
+				{
+					"text": "“Ở lại cũng không phải bỏ cuộc, miễn là em thật sự muốn.”",
+					"effects": {
+						"add": {
+							"respect": 3
+						},
+						"set_flags": [
+							"kyky_stays"
+						]
+					},
+					"next": "d_b"
+				},
+				{
+					"text": "“Tôi cũng không biết. Nhưng dù em chọn gì, tôi ở đây.”",
+					"effects": {
+						"heart": 3,
+						"set_flags": [
+							"kyky_both"
+						]
+					},
+					"next": "d_c"
+				},
+				{
+					"text": "“Đừng đi.” (Nói ra rồi mới biết mình vừa nói gì.)",
+					"if": {
+						"min": {
+							"jealous": 2
+						}
+					},
+					"effects": {
+						"add": {
+							"jealous": 3,
+							"respect": -3
+						},
+						"set_flags": [
+							"said_dont_go"
+						]
+					},
+					"next": "d_d"
+				}
+			]
+		},
+		"d_a": {
+			"show": {
+				"kyky": "dress_surprised"
+			},
+			"speaker": "kyky",
+			"text": "…Anh nói “đợi” mà không bắt em hứa à? Em thích câu đó. Em sẽ nghĩ… có thể em sẽ đi.",
+			"next": "after"
+		},
+		"d_b": {
+			"show": {
+				"kyky": "dress"
+			},
+			"speaker": "kyky",
+			"text": "Em chưa nghĩ tới việc ở lại cũng là một lựa chọn… không phải cái cớ. Em cảm ơn anh. Em hình như đã biết mình muốn gì.",
+			"next": "after"
+		},
+		"d_c": {
+			"show": {
+				"kyky": "dress_shy"
+			},
+			"emote": {
+				"kyky": "heart"
+			},
+			"speaker": "kyky",
+			"text": "Anh cũng không biết hả? …Thì ra “đại thần” cũng có lúc không biết. Vậy hay là… mình thử cả hai? Em nộp hồ sơ. Em vẫn làm dự án. Quyết định sau khi có kết quả.",
+			"next": "after"
+		},
+		"d_d": {
+			"show": {
+				"kyky": "dress_sad",
+				"duc": "shirt_shock"
+			},
+			"text": "Lời vừa ra khỏi miệng, Anh Đức muốn rút lại. KyKy ngẩng lên, mắt mở to, rồi nhìn xuống bó hoa. Cô không giận. Cô chỉ im lặng.",
+			"next": "d_d2"
+		},
+		"d_d2": {
+			"speaker": "kyky",
+			"text": "Em… cần thời gian một chút. Anh nói thật lòng, em biết. Nhưng em cần được tự chọn, không phải bị giữ lại.",
+			"next": "d_d3"
+		},
+		"d_d3": {
+			"show": {
+				"duc": "shirt_think"
+			},
+			"speaker": "duc",
+			"think": true,
+			"text": "Hải nói đúng. “Muốn cô ấy ở lại” và “giữ cô ấy lại” là hai chuyện khác nhau. Tôi vừa làm chuyện thứ hai.",
+			"next": "after"
+		},
+		"after": {
+			"hide": "all",
+			"text": "Họ ngồi thêm một lúc, không nói gì nữa. Rồi KyKy đứng dậy: “Mai sớm em nộp hồ sơ. Anh… sáng mai ra hiên quán chờ em được không? Em muốn nói với anh một chuyện, ở nơi mình gặp nhau lần đầu.”",
+			"then": "vn:ep3_s5"
+		}
 	}
 }

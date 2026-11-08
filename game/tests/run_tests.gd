@@ -477,7 +477,7 @@ func ep3_play(s, o: Dictionary) -> void:
 	expect(play("roam_ep3c_exit", s, o["exit"]) == "vn:ep3_s2", "ra khỏi sân trường -> s2")
 	expect(play("ep3_s2", s, [o["tie"]]) == "mini:rush", "s2 -> rush")
 	expect(run_mini(s, "rush", o["rush"]) == "vn:ep3_s2b", "rush -> s2b")
-	expect(play("ep3_s2b", s) == "vn:ep3_s3", "s2b -> s3")
+	expect(play("ep3_s2b", s, [0]) == "vn:ep3_s3", "s2b -> s3")
 	expect(play("ep3_s3", s, [o["s3"]]) == "mini:sync", "s3 -> sync")
 	expect(run_mini(s, "sync", o["sync"]) == "vn:ep3_s3b", "sync -> s3b")
 	expect(play("ep3_s3b", s) == "roam:ep3_expo", "s3b -> phố triển lãm")
